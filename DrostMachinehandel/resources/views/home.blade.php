@@ -18,12 +18,22 @@
   position: absolute;
   width: 100%;
 }
+
+.grid-temp-cols-card {
+  grid-template-columns: repeat(auto-fit, 280px);
+}
+
+@media (min-width: 768px) { 
+  .grid-temp-cols-card {
+    grid-template-columns: repeat(auto-fit, 330px);
+  }
+}
 </style>
 
 @section('content')
 
 <div class="relative">
-  <div class="absolute top-52 md:top-60 md:left-20 z-10">
+  <div class="absolute top-[9rem] left-1 md:top-40 lg:top-60 md:left-20 z-10">
     <div style="background-color: rgba(26, 26, 26, 0.7);" class="relative rounded-3xl relative h-screen p-7 h-fit w-[350px] sm:w-[550px]">
       <h1 class="text-xl sm:text-3xl font-bold">Drost Machinehandel uw specialist in gebruikt transportmaterieel!</h1>
       <hr class="w-full h-[4px] bg-primary border-none mt-1 mb-3">
@@ -51,58 +61,19 @@
   
 
   <div class="w-full h-fit md:h-40 bg-primary flex items-center justify-center" id="scroll-to-here">
-    <div class="flex flex-col flex-wrap items-center justify-center sm:flex-row lg:gap-10">
+    <div class="flex flex-col flex-wrap items-center justify-center sm:flex-row gap-1 lg:gap-10 md:py-0 py-4">
       <div class="text-3xl font-bold hidden sm:block">Heftrucks, palletwagens, stapelaars en ander transportmaterieel!</div>
-      <div class="text-3xl font-bold block sm:hidden">Bekijk ons assortiment!</div>
-      <button class="w-32 border-[3px] border-primary bg-white text-primary font-bold px-24 py-2 rounded-lg flex gap-5 items-center justify-center text-2xl">Voorraad <i class="fas fa-chevron-right"></i></button>
+      <div class="text-2xl font-bold block sm:hidden">Bekijk ons assortiment!</div>
+      <button class="w-32 border-[3px] border-primary bg-white text-primary font-bold px-20 md:px-24 py-2 rounded-lg flex gap-5 items-center justify-center text-xl md:text-2xl">Voorraad <i class="fas fa-chevron-right"></i></button>
     </div>
   </div>
 
   <div class="my-10 flex flex-col gap-5">
     <div class="text-center font-bold text-3xl">De meest recent toegevoegde machines</div>
     <div>
-      <div class="grow grid auto-rows-auto gap-10 align-items-start justify-center mt-5" style="grid-template-columns: repeat(auto-fit, 330px);">
+      <div class="grow grid auto-rows-auto gap-10 align-items-start justify-center mt-5 grid-temp-cols-card">
 
-        <div class="bg-white text-black w-[330px] rounded-xl">
-          <div>
-              <img src="{{ asset('/img/test-afbeelding.jpg') }}" class="mr-3 rounded-t-xl" alt="test afbeelding" />
-          </div>
-          
-          <div class="p-3">
-              <h1 class="font-bold text-xl mb-2">RX50 15 heftruck electrische triple sidesift</h1>
-              <p class="text-lg">€ 8250,-</p>
-      
-              <button class="drop-shadow-[1px_2px_5px_rgba(0,0,0,0.75)] w-32 mt-5 border-[3px] border-primary bg-primary text-white font-bold whitespace-nowrap px-20 py-1 rounded-lg flex gap-5 items-center justify-center text-lg"><span>Meer info</span> <i class="fas fa-chevron-right"></i></button>
-          </div>
-        </div>
-
-        <div class="bg-white text-black w-[330px] rounded-xl">
-          <div>
-              <img src="{{ asset('/img/test-afbeelding.jpg') }}" class="mr-3 rounded-t-xl" alt="test afbeelding" />
-          </div>
-          
-          <div class="p-3">
-              <h1 class="font-bold text-xl mb-2">RX50 15 heftruck electrische triple sidesift</h1>
-              <p class="text-lg">€ 8250,-</p>
-      
-              <button class="drop-shadow-[1px_2px_5px_rgba(0,0,0,0.75)] w-32 mt-5 border-[3px] border-primary bg-primary text-white font-bold whitespace-nowrap px-20 py-1 rounded-lg flex gap-5 items-center justify-center text-lg"><span>Meer info</span> <i class="fas fa-chevron-right"></i></button>
-          </div>
-        </div>
-
-        <div class="bg-white text-black w-[330px] rounded-xl">
-          <div>
-              <img src="{{ asset('/img/test-afbeelding.jpg') }}" class="mr-3 rounded-t-xl" alt="test afbeelding" />
-          </div>
-          
-          <div class="p-3">
-              <h1 class="font-bold text-xl mb-2">RX50 15 heftruck electrische triple sidesift</h1>
-              <p class="text-lg">€ 8250,-</p>
-      
-              <button class="drop-shadow-[1px_2px_5px_rgba(0,0,0,0.75)] w-32 mt-5 border-[3px] border-primary bg-primary text-white font-bold whitespace-nowrap px-20 py-1 rounded-lg flex gap-5 items-center justify-center text-lg"><span>Meer info</span> <i class="fas fa-chevron-right"></i></button>
-          </div>
-        </div>
-
-        <div class="bg-white text-black w-[330px] rounded-xl">
+        <div class="bg-white text-black w-72 md:w-[330px] rounded-xl">
           <div>
               <img src="{{ asset('/img/test-afbeelding.jpg') }}" class="mr-3 rounded-t-xl" alt="test afbeelding" />
           </div>
