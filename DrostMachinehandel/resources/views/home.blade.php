@@ -53,7 +53,7 @@
     <div class="absolute bottom-6 text-secondary text-6xl animate-bounce-slow z-10"><i class="fas fa-chevron-down"></i></div>
   </div>
   
-  <video style="z-index: -1" class="opacity-50 w-screen h-screen object-cover" muted loop playsinline>
+  <video style="z-index: -1" class="opacity-50 w-screen h-screen object-cover" autoplay muted loop playsinline>
     <source src="{{ asset('/vid/backgroundVideo.mp4') }}"  type="video/mp4">
   </video>
   

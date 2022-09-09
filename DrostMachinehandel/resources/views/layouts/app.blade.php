@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" />
         <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
 
+        @vite(['resources/scss/main.scss'])
         {{-- Tailwind CSS --}}
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
@@ -37,7 +38,15 @@
               }
             }
           </script>
-        
+      
+      <script type="text/javascript">
+        (function(){h=document.getElementsByTagName('head')[0];s=document.createElement('script');
+        s.type='text/javascript';s.src="https://www.voorraadmodule.nl/js/svm.js?t="+Date.now();s.onload=function(){
+        svm.saveUrlGetData({key: 'svm_canvas_width', value:document.getElementById('svm-canvas').clientWidth});
+        vm=svm.create('4033','https://www.voorraadmodule.nl/',false, {'carousel': false, 'carouselOptions': {'direction': false, 'amount': false}, 'quick_search': false}, 'default');
+        vm.init();};h.appendChild(s);})();
+        </script>
+      
     </head>
     <style>
       * {

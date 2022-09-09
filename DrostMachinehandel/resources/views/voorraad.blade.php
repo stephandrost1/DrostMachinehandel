@@ -17,14 +17,13 @@
   </div>
 
   <div class="flex gap-5">
-    <div>
+    {{-- <div>
       <h1 class="text-2xl font-bold mb-2"><i class="fas fa-sliders-h"></i> Filters</h1>
 
       <button class="w-32 border-[3px] border-primary bg-transparent text-primary font-bold px-16 py-1 rounded-lg flex gap-5 items-center justify-center"><span>Toepassen</span> <i class="fas fa-chevron-right"></i></button>
     </div>
 
-    <div class="grow grid auto-rows-auto gap-10 align-items-start justify-start mt-5" style="grid-template-columns: repeat(auto-fit, 280px);">
-
+    <div class="grow grid auto-rows-auto gap-10 align-items-start justify-start mt-5" style="grid-template-columns: repeat(auto-fit, 280px);"> 
         <div class="bg-white text-black w-72 rounded-xl">
             <div>
                 <img src="{{ asset('/img/test-afbeelding.jpg') }}" class="mr-3 rounded-t-xl" alt="test afbeelding" />
@@ -142,8 +141,9 @@
             </div>
           </div>
     
-      </div>
-  </div>
+      </div> --}}
+      <div id="svm-canvas"></div>
+    </div>
 
 </div>
 
