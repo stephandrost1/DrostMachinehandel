@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" />
         <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
 
-        @vite(['resources/scss/main.scss'])
+        @vite(['resources/scss/main.scss', 'resources/js/app.js'])
         {{-- Tailwind CSS --}}
         <script src="https://cdn.tailwindcss.com"></script>
         <script>

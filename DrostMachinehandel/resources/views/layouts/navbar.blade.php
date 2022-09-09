@@ -26,11 +26,13 @@
 
 <div class="z-20 homepage-video-style">
     {{-- Orange header --}}
-    <div class="flex items-center justify-center gap-28 bg-primary h-10 w-full text-white font-extrabold text-xl">
-        <div class="flex items-center gap-2"><i class="fas fa-concierge-bell"></i> Service aan verkochte machines</div>
-        <div class="flex items-center gap-2"><i class="fas fa-sort-amount-up"></i> Grote voorraad</div>
-        <div class="flex items-center gap-2"><i class="fas fa-dolly"></i> Transport naar locatie</div>
-        <div class="flex items-center gap-2"><i class="fas fa-exchange-alt"></i> Inruil mogelijk</div>
+    <div class="swiper swiper-container-element">
+      <div class="swiper-wrapper h-10 w-full text-white font-extrabold text-xl">
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit flex items-center gap-2"><i class="fas fa-concierge-bell"></i> Service aan verkochte machines</div></div>
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit flex items-center gap-2"><i class="fas fa-sort-amount-up"></i> Grote voorraad</div></div>
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit flex items-center gap-2"><i class="fas fa-dolly"></i> Transport naar locatie</div></div>
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit flex items-center gap-2"><i class="fas fa-exchange-alt"></i> Inruil mogelijk</div></div>
+      </div>
     </div>
 
     {{-- Desktop / Tablet Navbar --}}
