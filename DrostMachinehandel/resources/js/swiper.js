@@ -12,11 +12,21 @@ const swiperOptions = {
     },
     loop: false,
     speed: 1000,
-    centeredSlides: true,
     effect: 'fade',
     fadeEffect: {
         crossFade: true
     },
+    breakpoints: {
+        480: {
+            slidesPerView: 1,
+        },
+        640: {
+            slidesPerView: 2,
+        },
+        976: {
+            slidesPerView: 3,
+        }
+    }
 }
 
 let swiper = new Swiper('.swiper-container-element', swiperOptions);
