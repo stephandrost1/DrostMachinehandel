@@ -61,10 +61,10 @@
                   </li>
                 </ul>
             </div>
-            <div class="text-lg xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">Home</div>
-            <div class="text-lg xl:text-2xl font-bold @if(Request::is('voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">Voorraad</div>
-            <div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">Leasen</div>
-            <div class="text-lg xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">Contact</div>
+            <a href={{ route("home") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">Home</div></a>
+            <a href={{ route("voorraad") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">Voorraad</div></a>
+            <a href={{ route("leasen") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">Leasen</div></a>
+            <a href={{ route("contact") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">Contact</div></a>
         </div>
       </div>
     </nav>
@@ -72,14 +72,45 @@
     {{-- Mobile Navbar --}}
     <nav id="navbar" style="background-color: rgba(0, 0, 0, 0.6);" class="block md:hidden py-5 z-50">
       <div class="flex flex-wrap justify-between justify-content-end items-center mx-5">
-        <a href="https://drostmachinehandel.com/" class="flex items-center">
+        <a href="https://drostmachinehandel.com/" class="nav-logo 
+         flex items-center">
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
         </a>
 
-          <div class="">
-            <i id="hamburger-icon" class="fas fa-bars text-3xl"></i>
+        <div class="hamburger-icon-wrapper">
+          <div class="hamburger-wrapper">
+            <div class="line line-1"></div>
+            <div class="line line-2"></div>
+            <div class="line line-3"></div>
+          </div>
+        </div>
+        <div id="navbar-expanded-mobile" class="navbar-expanded">
+          <div class="menu-list">
+            <ul>
+              <li>
+                <a href={{ route("home") }}>
+                  <div class="text-lg xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">Home</div>
+                </a>
+              </li>
+              <li>
+                <a href={{ route("voorraad") }}>
+                  <div class="text-lg xl:text-2xl font-bold @if(Request::is('voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">Voorraad</div>
+                </a>
+              </li>
+              <li>
+                <a href={{ route("leasen") }}>
+                  <div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">Leasen</div>
+                </a>
+              </li>
+              <li>
+                <a href={{ route("contact") }}>
+                  <div class="text-lg xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">Contact</div>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </nav>
+    </nav> 
 
 </div>
