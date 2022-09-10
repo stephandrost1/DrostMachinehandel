@@ -26,7 +26,7 @@
 
 <div class="z-20 homepage-video-style">
     {{-- Orange header --}}
-    <div class="swiper swiper-container-element">
+    <div class="swiper h-fit swiper-container-element">
       <div class="swiper-wrapper h-10 w-full text-white font-extrabold text-xl">
         <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit flex items-center gap-2"><i class="fas fa-concierge-bell"></i> Service aan verkochte machines</div></div>
         <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit flex items-center gap-2"><i class="fas fa-sort-amount-up"></i> Grote voorraad</div></div>

@@ -34,7 +34,7 @@
 
 <div class="relative">
   <div class="absolute top-[9rem] left-1 md:top-40 lg:top-60 md:left-20 z-10">
-    <div style="background-color: rgba(26, 26, 26, 0.7);" class="relative rounded-3xl relative h-screen p-7 h-fit w-[350px] sm:w-[550px]">
+    <div style="background-color: rgba(26, 26, 26, 0.7);" class="relative rounded-3xl relative h-screen p-7 h-min w-[350px] sm:w-[550px]">
       <h1 class="text-xl sm:text-3xl font-bold">Drost Machinehandel uw specialist in gebruikt transportmaterieel!</h1>
       <hr class="w-full h-[4px] bg-primary border-none mt-1 mb-3">
       <p class="text-base sm:text-lg w-11/12">Wij verlenen ook service aan verkochte machinies. <br> De machines worden voor de verkoop grondig nagekeken en rijklaar gemaakt! <br> Desgewenst inruil va uw gebruikte machine, maar ook transport naar de gewenste locatie.</p>
@@ -48,7 +48,7 @@
     <div class="flex items-center gap-4 mb-2"><i class="fas fa-envelope text-2xl"></i> <span class="text-xl">info@drostmachinehandel.com</span></div>
     <div class="flex items-center gap-4"><i class="fas fa-phone-alt text-2xl"></i> <span class="text-xl">+31 0(6) 498 275 16</span></div>
   </div>
-  <div class="flex flex-col items-center justify-center cursor-pointer">
+  <div id="homepage-arrow-down" class="flex flex-col items-center justify-center cursor-pointer">
     <div class="absolute bottom-0 text-primary text-6xl animate-bounce-slow z-10"><i class="fas fa-chevron-down"></i></div>
     <div class="absolute bottom-6 text-secondary text-6xl animate-bounce-slow z-10"><i class="fas fa-chevron-down"></i></div>
   </div>
