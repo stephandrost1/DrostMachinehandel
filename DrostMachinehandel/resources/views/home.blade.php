@@ -4,12 +4,12 @@
 <div class="relative">
   <div class="absolute top-[9rem] left-1 md:top-40 lg:top-60 md:left-20 z-10">
     <div style="background-color: rgba(26, 26, 26, 0.7);" class="relative rounded-3xl relative h-screen p-7 h-min w-[350px] sm:w-[550px]">
-      <h1 class="text-xl sm:text-3xl font-bold">Drost Machinehandel uw specialist in gebruikt transportmaterieel!</h1>
+      <h1 class="text-xl sm:text-3xl font-bold">{{ __('content/homepage.title') }} - {{ App::currentLocale() }}</h1>
       <hr class="w-full h-[4px] bg-primary border-none mt-1 mb-3">
-      <p class="text-base sm:text-lg w-11/12">Wij verlenen ook service aan verkochte machinies. <br> De machines worden voor de verkoop grondig nagekeken en rijklaar gemaakt! <br> Desgewenst inruil va uw gebruikte machine, maar ook transport naar de gewenste locatie.</p>
+      <p class="text-base sm:text-lg w-11/12">{{ __('content/homepage.subtitle') }}</p>
       <div class="flex gap-10 mt-3">
-        <button class="w-32 border-[3px] border-primary bg-transparent text-primary font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl"><span>Leasen</span> <i class="fas fa-chevron-right"></i></button>
-        <button class="w-32 border-[3px] border-primary bg-primary text-white font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl">Voorraad <i class="fas fa-chevron-right"></i></button>
+        <button class="w-32 border-[3px] border-primary bg-transparent text-primary font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl"><span>{{ __('content/homepage.leasen') }}</span> <i class="fas fa-chevron-right"></i></button>
+        <button class="w-32 border-[3px] border-primary bg-primary text-white font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl">{{ __('content/homepage.voorraad') }}<i class="fas fa-chevron-right"></i></button>
       </div>
     </div>
   </div>
@@ -31,14 +31,14 @@
 
   <div class="w-full h-fit md:h-40 bg-primary flex items-center justify-center" id="scroll-to-here">
     <div class="flex flex-col flex-wrap items-center justify-center sm:flex-row gap-1 lg:gap-10 md:py-0 py-4">
-      <div class="text-3xl font-bold hidden sm:block">Heftrucks, palletwagens, stapelaars en ander transportmaterieel!</div>
-      <div class="text-2xl font-bold block sm:hidden">Bekijk ons assortiment!</div>
-      <button class="w-32 border-[3px] border-primary bg-white text-primary font-bold px-20 md:px-24 py-2 rounded-lg flex gap-5 items-center justify-center text-xl md:text-2xl">Voorraad <i class="fas fa-chevron-right"></i></button>
+      <div class="text-3xl font-bold hidden sm:block">{{ __('content/homepage.quote') }}</div>
+      <div class="text-2xl font-bold block sm:hidden">{{ __('content/homepage.quote-link') }}</div>
+      <button class="w-32 border-[3px] border-primary bg-white text-primary font-bold px-20 md:px-24 py-2 rounded-lg flex gap-5 items-center justify-center mt-3 text-xl md:text-2xl">{{ __('content/homepage.voorraad') }}<i class="fas fa-chevron-right"></i></button>
     </div>
   </div>
 
   <div class="my-10 flex flex-col gap-5">
-    <div class="text-center font-bold text-3xl">De meest recent toegevoegde machines</div>
+    <div class="text-center font-bold text-3xl">{{ __('content/homepage.recently-added-title') }}</div>
     <div>
       <div class="grow grid auto-rows-auto gap-10 align-items-start justify-center mt-5 grid-temp-cols-card">
 

@@ -18,20 +18,26 @@
 
           <div class="flex gap-10 xl:gap-20 language-selector">
             <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="flex items-center justify-center gap-2" type="button">
-              <img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> 
+              <img onclick="{{ App::setLocale("nl") }}" class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> 
               <i class="fas fa-chevron-down text-2xl"></i>
             </button>
             <!-- Dropdown menu -->
             <div id="dropdown" class="hidden z-10 w-fit px-2 py-1 bg-secondary lang-dropdown">
                 <ul class="py-1 text-sm text-gray-700 flex flex-col gap-3 items-center justify-center" aria-labelledby="dropdownDefault">
-                  <li class="flex items-center gap-2 text-white text-lg font-bold">
-                    <img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> EN
+                  <li onclick="{{ App::setLocale("en") }}" class="flex items-center gap-2 text-white text-lg font-bold">
+                    <a href="{{ route('locale.setting', 'en') }}">
+                      <img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> EN
+                    </a>
                   </li>
                   <li class="flex items-center gap-2 text-white text-lg font-bold">
-                    <img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> FR
+                    <a href="{{ route('locale.setting', 'fr') }}">
+                      <img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> FR
+                    </a>
                   </li>
                   <li class="flex items-center gap-2 text-white text-lg font-bold">
-                    <img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> DE
+                    <a href="{{ route('locale.setting', 'de') }}">
+                      <img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> DE
+                    </a>
                   </li>
                 </ul>
             </div>
