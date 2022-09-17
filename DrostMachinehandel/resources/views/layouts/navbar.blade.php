@@ -1,37 +1,11 @@
-<style>
-    #language-dropdown-menu {
-        margin-top: 15px !important;
-    }
-
-    .lang-dropdown:after,
-    .lang-dropdown:before {
-    bottom: 100%;
-    border: solid transparent;
-    content: "";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    }
-
-    .lang-dropdown:after {
-    border-color: rgba(255, 255, 255, 0);
-    border-bottom-color: #707070;
-    border-width: 19px;
-    right: 0;
-    margin-top: 5px
-    }
-
-</style>
-
 <div class="z-20 homepage-video-style">
     {{-- Orange header --}}
     <div class="swiper h-fit swiper-container-element">
       <div class="swiper-wrapper h-10 w-full text-white font-extrabold text-xl">
-        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit flex items-center gap-2"><i class="fas fa-concierge-bell"></i> Service aan verkochte machines</div></div>
-        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit flex items-center gap-2"><i class="fas fa-sort-amount-up"></i> Grote voorraad</div></div>
-        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit flex items-center gap-2"><i class="fas fa-dolly"></i> Transport naar locatie</div></div>
-        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit flex items-center gap-2"><i class="fas fa-exchange-alt"></i> Inruil mogelijk</div></div>
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-concierge-bell"></i> Service aan verkochte machines</div></div>
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-sort-amount-up"></i> Grote voorraad</div></div>
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-dolly"></i> Transport naar locatie</div></div>
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-exchange-alt"></i> Inruil mogelijk</div></div>
       </div>
     </div>
 
@@ -42,7 +16,7 @@
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
         </a>
 
-          <div class="flex gap-10 xl:gap-20">
+          <div class="flex gap-10 xl:gap-20 language-selector">
             <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="flex items-center justify-center gap-2" type="button">
               <img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> 
               <i class="fas fa-chevron-down text-2xl"></i>
@@ -112,5 +86,4 @@
         </div>
       </div>
     </nav> 
-
 </div>

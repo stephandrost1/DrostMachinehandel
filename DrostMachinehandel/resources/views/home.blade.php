@@ -1,35 +1,4 @@
 @extends('layouts.app')
- 
-@section('title', 'Home')
- 
-@section('sidebar')
-    @parent
-@endsection
- 
-<style>
-  .header {
-  position: relative;
-  height: 100vh;
-  text-align: center;
-  justify-content: center;
-}
-
-.homepage-video-style {
-  position: absolute;
-  width: 100%;
-}
-
-.grid-temp-cols-card {
-  grid-template-columns: repeat(auto-fit, 280px);
-}
-
-@media (min-width: 768px) { 
-  .grid-temp-cols-card {
-    grid-template-columns: repeat(auto-fit, 330px);
-  }
-}
-</style>
-
 @section('content')
 
 <div class="relative">

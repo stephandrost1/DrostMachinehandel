@@ -1,11 +1,4 @@
 @extends('layouts.app')
- 
-@section('title', 'Contact')
- 
-@section('sidebar')
-    @parent
-@endsection
-
 @section('content')
 
 <hr class="w-full h-3 bg-primary border-none">

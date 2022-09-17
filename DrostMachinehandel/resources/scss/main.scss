@@ -1,1 +1,6 @@
-@import "./voorraad.scss", "./swiper.scss", "./navbar.scss";
+//TAILWIND REQUIRED
+@import "./base.scss";
+
+@import "./pages/home.scss", "./pages/voorraad.scss";
+
+@import "./components/navbar.scss", "./components/swiper.scss";
