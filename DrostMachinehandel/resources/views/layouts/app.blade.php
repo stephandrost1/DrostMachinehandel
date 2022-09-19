@@ -13,12 +13,12 @@
 
         @vite(['resources/scss/main.scss', 'resources/js/app.js', 'node_modules/flowbite/dist/flowbite.js'])
       
-      <script type="text/javascript">
-        (function(){h=document.getElementsByTagName('head')[0];s=document.createElement('script');
-        s.type='text/javascript';s.src="https://www.voorraadmodule.nl/js/svm.js?t="+Date.now();s.onload=function(){
-        svm.saveUrlGetData({key: 'svm_canvas_width', value:document.getElementById('svm-canvas').clientWidth});
-        vm=svm.create('4033','https://www.voorraadmodule.nl/',false, {'carousel': false, 'carouselOptions': {'direction': false, 'amount': false}, 'quick_search': false}, 'default');
-        vm.init();};h.appendChild(s);})();
+        <script type="text/javascript">
+            (function(){h=document.getElementsByTagName('head')[0];s=document.createElement('script');
+            s.type='text/javascript';s.src="https://www.voorraadmodule.nl/js/svm.js?t="+Date.now();s.onload=function(){
+            svm.saveUrlGetData({key: 'svm_canvas_width', value:document.getElementById('svm-canvas').clientWidth});
+            vm=svm.create('4033','https://www.voorraadmodule.nl/',false, {'carousel': false, 'carouselOptions': {'direction': false, 'amount': false}, 'quick_search': false}, 'default');
+            vm.init();};h.appendChild(s);})();
         </script>
     </head>
     <body class="bg-black text-white flex flex-col min-h-screen page-{{ Route::currentRouteName() }}">
