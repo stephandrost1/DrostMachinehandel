@@ -3,13 +3,13 @@
 // lang/en/content/homepage.php
 
 return [
-    'title' => 'Drost Machinehandel uw specialist in gebruikt transportmaterieel!',
-    'subtitle' => 'Wij verlenen ook service aan verkochte machinies.
-                   De machines worden voor de verkoop grondig nagekeken en rijklaar gemaakt!
-                   Desgewenst inruil va uw gebruikte machine, maar ook transport naar de gewenste locatie.',
-    'voorraad' => 'Voorraad',
-    'leasen' => 'Leasen',
-    'quote' => 'Heftrucks, palletwagens, stapelaars en ander transportmaterieel!',
-    'quote-link' => 'Bekijk ons assortiment!',
-    'recently-added-title' => 'De meest recent toegevoegde machines'
+    'title' => 'Drost Machinehandel your specialist in used transport equipment!',
+    'subtitle' => 'We also provide service to sold machines.
+                   The machines are thoroughly checked before sale and made roadworthy!
+                   If desired, trade-in of your used machine, but also transport to the desired location.',
+    'voorraad' => 'Stock',
+    'leasen' => 'Lease',
+    'quote' => 'Forklifts, pallet trucks, stackers and other transport equipment!',
+    'quote-link' => 'View our range!',
+    'recently-added-title' => 'The most recently added machines'
 ];

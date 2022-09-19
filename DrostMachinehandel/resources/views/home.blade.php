@@ -3,7 +3,7 @@
 
 <div class="relative">
   <div class="absolute top-[9rem] left-1 md:top-40 lg:top-60 md:left-20 z-10">
-    <div style="background-color: rgba(26, 26, 26, 0.7);" class="relative rounded-3xl relative h-screen p-7 h-min w-[350px] sm:w-[550px]">
+    <div style="background-color: rgba(26, 26, 26, 0.7);" class="relative rounded-3xl p-7 h-min w-[350px] sm:w-[550px]">
       <h1 class="text-xl sm:text-3xl font-bold">{{ __('content/homepage.title') }} - {{ App::currentLocale() }}</h1>
       <hr class="w-full h-[4px] bg-primary border-none mt-1 mb-3">
       <p class="text-base sm:text-lg w-11/12">{{ __('content/homepage.subtitle') }}</p>
