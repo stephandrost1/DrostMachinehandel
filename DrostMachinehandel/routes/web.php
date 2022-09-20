@@ -22,6 +22,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/voorraad', [VoorraadController::class, 'index'])->name('voorraad');
 
+Route::get('/api/voorraad', [VoorraadApiController::class, 'index'])->name('voorraadApi');
+
 Route::get('/leasen', [LeasenController::class, 'index'])->name('leasen');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');

@@ -135,6 +135,7 @@
           </div>
     
       </div> --}}
+      <div class="stock text-white" id="stock-items"></div>
       <div id="svm-canvas"></div>
     </div>
 

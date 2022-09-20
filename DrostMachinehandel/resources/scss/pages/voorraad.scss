@@ -1,0 +1,29 @@
+.page-voorraad {
+    #svm-canvas {
+        width: 100%;
+
+        #pageContent {
+            #stockContainer {
+                #stock {
+                    #resultsTable {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 2rem;
+
+                        .vehicleCard {
+                            flex: 1 0 calc(100% / 3 - 2rem / 1.5);
+
+                            .thumbnailWrapper {
+                                img {
+                                    width: 100%;
+                                    aspect-ratio: 4/3;
+                                    object-fit: cover;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
