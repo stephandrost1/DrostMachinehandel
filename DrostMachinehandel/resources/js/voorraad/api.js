@@ -20,46 +20,95 @@ const fetchVehicles = () => {
         const vehicleImages = generateImagesArray(vehicle.querySelector('a.vehicleImage').querySelectorAll('source'));
         const vehicleTitle = vehicle.querySelector('div.mmt').querySelector('a.toTop')
         const vehiclePrice = vehicle.querySelector('span.price_with_currency').innerHTML;
+        const vehiclePriceSubText = vehicle.querySelector('span.price_btw').innerHTML;
+        const vehicleActions = vehicle.querySelectorAll('.detailsButton');
+        const vehicleDescription = vehicle.querySelector('div.specs').innerHTML;
 
-        return { images: vehicleImages, title: vehicleTitle.innerHTML, urlToVehicle: vehicleTitle.href, price: vehiclePrice }
+        return {
+            images: vehicleImages,
+            title: vehicleTitle.innerHTML,
+            urlToVehicle: vehicleTitle.href,
+            price: vehiclePrice,
+            priceSubText: vehiclePriceSubText,
+            description: vehicleDescription,
+            actions: {
+                contact: {
+                    text: vehicleActions[1].innerHTML,
+                    action: vehicleActions[1].href
+                },
+                details: {
+                    text: vehicleActions[0].innerHTML,
+                    action: vehicleActions[0].href
+                }
+            },
+        }
     })
 }
 
 const generateVehicleCard = (vehicle) => {
-    const card = document.createElement("div")
-    card.classList = "vehicleCard bg-white text-black rounded-xl";
-
+    const card = document.createElement("div");
+    card.classList = "vehicle-card"
     const thumbnailWrapper = document.createElement("div");
-    thumbnailWrapper.classList = "thumbnailWrapper"
-
+    thumbnailWrapper.classList = "thumbnail-wrapper"
     const thumbnail = document.createElement("img");
-    thumbnail.src = vehicle.images[0].src;
-    thumbnailWrapper.appendChild(thumbnail)
+    thumbnail.src = getVehicleImage(vehicle.images).src;
+    thumbnail.classList = "vehicle-thumbnail";
+    thumbnailWrapper.appendChild(thumbnail);
+    card.appendChild(thumbnailWrapper);
 
-    const cardBody = document.createElement('div');
-    cardBody.classList = "py-3";
+    const cardBody = document.createElement("div");
+    cardBody.classList = "card-body"
+    const vehicleTitle = document.createElement("h1");
+    vehicleTitle.classList = "vehicle-title";
+    vehicleTitle.innerHTML = vehicle.title;
+    cardBody.appendChild(vehicleTitle);
 
-    const cardTitle = document.createElement("h1");
-    cardTitle.classList = "font-bold text-lg mb-2";
-    cardTitle.innerHTML = vehicle.title
-    cardBody.appendChild(cardTitle)
+    const cardLinks = document.createElement("div");
+    cardLinks.classList = "card-links"
 
-    const cardPrice = document.createElement("p");
-    cardPrice.innerHTML = vehicle.price
-    cardBody.appendChild(cardPrice)
+    const contactLink = document.createElement("a");
+    contactLink.classList = "contact-link"
+    contactLink.href = vehicle.actions.contact.action;
+    contactLink.innerHTML = vehicle.actions.contact.text;
 
-    const detailsButton = document.createElement("button");
-    detailsButton.classList = "mt-4 border-[3px] border-primary bg-primary text-white font-bold px-5 py-1 rounded-lg flex gap-5 items-center justify-center"
+    const detailsLink = document.createElement("a");
+    detailsLink.classList = "details-link"
+    detailsLink.href = vehicle.urlToVehicle;
+    detailsLink.innerHTML = vehicle.actions.details.text;
+    cardLinks.appendChild(contactLink);
+    cardLinks.appendChild(detailsLink);
+    cardBody.appendChild(cardLinks);
 
-    const detailsButtonIcon = document.createElement("i");
-    detailsButtonIcon.classList = "fas fa-chevron-right";
-    detailsButton.appendChild(detailsButtonIcon)
-    cardBody.appendChild(detailsButton)
+    const description = document.createElement("div");
+    description.classList = "vehicle-description"
+    description.innerHTML = vehicle.description;
+    cardBody.appendChild(description);
 
-    card.append(thumbnailWrapper);
+    const vehiclePriceWrapper = document.createElement("div");
+    vehiclePriceWrapper.classList = "vehicle-price-wrapper";
+    const vehiclePrice = document.createElement("span");
+    vehiclePrice.classList = "vehicle-price";
+    vehiclePrice.innerHTML = vehicle.price;
+
+
+    const vehiclePriceText = document.createElement("span");
+    vehiclePriceText.classList = "vehicle-price-sub-text"
+    vehiclePriceText.innerHTML = vehicle.priceSubText;
+    vehiclePriceWrapper.appendChild(vehiclePrice);
+    vehiclePriceWrapper.appendChild(vehiclePriceText);
+    cardBody.appendChild(vehiclePriceWrapper);
+
     card.appendChild(cardBody);
 
     return card;
+}
+
+const getVehicleImage = (images) => {
+    return _.filter(images, (image, key) => {
+        if ((parseInt(window.innerWidth) < parseInt(image.maxWidth) && (parseInt(key) + 1) !== images.length) || (parseInt(window.innerWidth) > parseInt(image.maxWidth) && (parseInt(key) + 1) === images.length)) {
+            return image;
+        }
+    })[0];
 }
 
 const _handleCanvasListener = (targetNode) => {

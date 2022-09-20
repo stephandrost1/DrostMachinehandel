@@ -24,6 +24,7 @@
         </script>
     </head>
     <body class="bg-black text-white flex flex-col min-h-screen page-{{ Route::currentRouteName() }}">
+    {{-- <body class="text-white flex flex-col min-h-screen page-{{ Route::currentRouteName() }}"> --}}
 
         {{-- Navbar --}}
         @include('layouts.navbar')

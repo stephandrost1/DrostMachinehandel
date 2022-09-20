@@ -697,14 +697,14 @@ video {
   height: 4px;
 }
 
-.h-screen {
-  height: 100vh;
-}
-
 .h-min {
   height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .h-fit {
@@ -1041,6 +1041,11 @@ video {
   padding-right: 4rem;
 }
 
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
@@ -1049,11 +1054,6 @@ video {
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
-}
-
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
 }
 
 .px-2 {
@@ -1109,10 +1109,6 @@ video {
   font-weight: 700;
 }
 
-.font-medium {
-  font-weight: 500;
-}
-
 .font-\[800\] {
   font-weight: 800;
 }
@@ -1156,6 +1152,10 @@ video {
 
 .drop-shadow-\[1px_2px_5px_rgba\(0\2c 0\2c 0\2c 0\.75\)\] {
   --tw-drop-shadow: drop-shadow(1px 2px 5px rgba(0,0,0,0.75));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
