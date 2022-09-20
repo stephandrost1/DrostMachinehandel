@@ -6,8 +6,8 @@
 <div class="px-5 md:px-20 py-7">
   
   <div class="mb-5">
-    <h1 class="font-bold text-3xl">Contact</h1>
-    <p>Hier informatie over contact opnemen...</p>
+    <h1 class="font-bold text-3xl">{{ __('content/contact.title') }}</h1>
+    <p>{{ __('content/contact.subtext') }}</p>
   </div>
   
 
@@ -18,7 +18,7 @@
     </div>
     <div class="min-w-fit grow order-1 lg:order-2">
       <div>
-        <h1 class="text-2xl font-bold">Contactgegevens</h1>
+        <h1 class="text-2xl font-bold">{{ __('content/contact.subtitle 1') }}</h1>
         <hr class="w-full h-[4px] bg-primary border-none">
         <div class="flex flex-col gap-2 ml-3 font-bold mt-1">
           <div><i class="fas fa-envelope"></i> info@drostmachinehandel.com</div>
@@ -27,14 +27,14 @@
         </div>
       </div>
       <div class="mt-5">
-        <h1 class="text-2xl font-bold">Openingstijden</h1>
+        <h1 class="text-2xl font-bold">{{ __('content/contact.subtitle 2') }}</h1>
         <hr class="w-full h-[4px] bg-primary border-none">
-        <div class="flex justify-between py-1 px-3"><span>Maandag</span><span>09:00-17:00</span></div>
-        <div class="flex justify-between py-1 px-3 bg-secondary"><span>Dinsdag</span><span>09:00-17:00</span></div>
-        <div class="flex justify-between py-1 px-3"><span>Woensdag</span><span>09:00-17:00</span></div>
-        <div class="flex justify-between py-1 px-3 bg-secondary"><span>Donderdag</span><span>09:00-17:00</span></div>
-        <div class="flex justify-between py-1 px-3"><span>Vrijdag</span><span>09:00-17:00</span></div>
-        <div class="flex justify-between py-1 px-3 bg-secondary"><span>Zaterdag & zondag</span><span>Gesloten</span></div>
+        <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.day 1') }}</span><span>09:00-17:00</span></div>
+        <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.day 2') }}</span><span>09:00-17:00</span></div>
+        <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.day 3') }}</span><span>09:00-17:00</span></div>
+        <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.day 4') }}</span><span>09:00-17:00</span></div>
+        <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.day 5') }}</span><span>09:00-17:00</span></div>
+        <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.day 6 & 7') }}</span><span>{{ __('content/contact.closed') }}</span></div>
       </div>
 
     </div>
