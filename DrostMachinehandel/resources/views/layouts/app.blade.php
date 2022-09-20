@@ -23,7 +23,9 @@
     </head>
     <body class="bg-black text-white flex flex-col min-h-screen page-{{ Route::currentRouteName() }}">
         {{-- Navbar --}}
-        @include('layouts.navbar')
+        @include('layouts.navbar', [
+            "currentLang" => App::getLocale()
+        ])
  
         {{-- Page content --}}
         <div class="flex-1">
@@ -31,6 +33,8 @@
         </div>
 
         {{-- Footer --}}
-        @include('layouts.footer')
+        @include('layouts.footer', [
+            "currentLang" => App::getLocale()
+        ])
     </body>
 </html>
