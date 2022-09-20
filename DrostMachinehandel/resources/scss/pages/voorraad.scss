@@ -1,0 +1,52 @@
+.page-voorraad {
+    #svm-canvas {
+        width: 100%;
+
+        #pageContent {
+            #stockContainer {
+                #stock {
+                    .navigation {
+                        .languageFlagsContainer {
+                            display: none;
+                        }   
+                    }
+
+                    #resultsTable {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 2rem;
+
+                        .vehicle-card {
+                            flex: 0 1 calc(100% / 3 - 2rem / 1.5);
+
+                            .thumbnail-wrapper {
+                                img {
+                                    width: 100%;
+                                    aspect-ratio: 4/3;
+                                    object-fit: cover;
+                                }
+                            }
+                            
+                            .card-body {
+                                .card-links {
+                                    display: flex;
+                                    justify-content: space-around;
+                                }
+
+                                .vehicle-description {
+                                    text-align: center;
+                                }
+
+                                .vehicle-price-wrapper {
+                                    text-align: end;
+                                    display: flex;
+                                    flex-direction: column;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

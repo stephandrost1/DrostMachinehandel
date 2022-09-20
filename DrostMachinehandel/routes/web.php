@@ -22,19 +22,12 @@ Route::middleware(['locale'])->group((function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    // Route::get('/test', function () {
-    //     // dd(App::getLocale());
-    //     dd(session()->get('locale'));
-    // })->name('home');
-
     Route::get('/voorraad', [VoorraadController::class, 'index'])->name('voorraad');
 
     Route::get('/leasen', [LeasenController::class, 'index'])->name('leasen');
 
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 }));
-
-
 
 Route::get('set-locale/{locale}', function ($locale) {
     App::setLocale($locale);
