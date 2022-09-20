@@ -3,6 +3,8 @@
         width: 100%;
 
         #pageContent {
+            height: auto !important;
+
             #stockContainer {
                 #stock {
                     .navigation {
@@ -18,29 +20,72 @@
 
                         .vehicle-card {
                             flex: 0 1 calc(100% / 3 - 2rem / 1.5);
+                            background-color: white;
+                            border-radius: 15px;
+                            -webkit-border-radius: 15px;
+                            -moz-border-radius: 15px;
+                            -ms-border-radius: 15px;
+                            -o-border-radius: 15px;
 
                             .thumbnail-wrapper {
                                 img {
                                     width: 100%;
                                     aspect-ratio: 4/3;
                                     object-fit: cover;
+                                    border-top-left-radius: 15px;
+                                    border-top-right-radius: 15px;
                                 }
                             }
                             
                             .card-body {
+                                padding: 20px;
+
+                                .vehicle-title {
+                                    font-family: candara !important;
+                                    font-size: 17px;
+                                    text-align: center;
+                                }
+
                                 .card-links {
                                     display: flex;
                                     justify-content: space-around;
+                                    margin-top: 15px;
+                                    font-size: 16px;
+
+                                    .contact-link {
+                                        font-family: candara !important;
+                                        font-weight: 700;
+                                        border: 2px solid black;
+                                        padding: 5px 15px 5px 15px;
+                                        text-decoration: none;
+                                    }
+
+                                    .details-link {
+                                        font-family: candara !important;
+                                        font-weight: 700;
+                                        border: 2px solid black;
+                                        padding: 5px 15px 5px 15px;
+                                        text-decoration: none;
+                                    }
                                 }
+
+                                
 
                                 .vehicle-description {
                                     text-align: center;
+                                    margin-top: 15px;
                                 }
 
                                 .vehicle-price-wrapper {
                                     text-align: end;
                                     display: flex;
                                     flex-direction: column;
+                                    margin-top: 25px;
+
+                                    .vehicle-price {
+                                        font-size: 22px;
+                                        font-weight: bold;
+                                    }
                                 }
                             }
                         }
