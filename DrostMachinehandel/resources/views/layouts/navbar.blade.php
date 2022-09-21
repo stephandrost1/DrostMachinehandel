@@ -59,8 +59,6 @@
                 </ul>
             </div>
 
-            <span class="text-2xl">Curr: {{ $currentLang }}</span>
-
             <a href={{ route("home") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.nav link 1') }}</div></a>
             <a href={{ route("voorraad") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.nav link 2') }}</div></a>
             <a href={{ route("leasen") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.nav link 3') }}</div></a>

@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 const canvas = document.querySelector('#svm-canvas');
 var initted = false;
+var filtersListener = false;
 
 const generateImagesArray = (sources) => {
     return _.map(sources, (source) => {
@@ -58,7 +59,7 @@ const generateVehicleCard = (vehicle) => {
 
     const cardBody = document.createElement("div");
     cardBody.classList = "card-body"
-    const vehicleTitle = document.createElement("h1");
+    const vehicleTitle = document.createElement("a");
     vehicleTitle.classList = "vehicle-title";
     vehicleTitle.innerHTML = vehicle.title;
     cardBody.appendChild(vehicleTitle);
@@ -116,8 +117,10 @@ const _handleCanvasListener = (targetNode) => {
     const callback = (mutationsList, observer) => {
         for (let mutation of mutationsList) {
             if (mutation.type === 'childList') {
+                console.log("init");
                 if (!initted) {
                     initNewContent(targetNode);
+                    _handleFiltersListener();
                     initted = true;
                 }
             }
@@ -138,6 +141,18 @@ const initNewContent = (canvas) => {
     _.forEach(vehicles, (vehicle) => {
         stockResults.appendChild(generateVehicleCard(vehicle));
     });
+}
+
+const _handleFiltersListener = () => {
+    const filtersAdd = document.querySelectorAll(".refineAdd");
+    const filtersRemove = document.querySelectorAll(".refineRemove");
+
+    _.forEach([...filtersAdd, ...filtersRemove], (filter) => {
+        filter.addEventListener("click", () => {
+            console.log("click")
+            initted = false;
+        })
+    })
 }
 
 _handleCanvasListener(canvas);
