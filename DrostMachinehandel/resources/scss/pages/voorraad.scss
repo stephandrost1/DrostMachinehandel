@@ -25,6 +25,8 @@
         }
 
         #pageContent {
+            height: auto !important;
+
             #stockContainer {
                 #stock {
                     .navigation {
@@ -109,6 +111,8 @@
                                         }
                                     }
                                 }
+
+                                
 
                                 .vehicle-description {
                                     text-align: center;
