@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { fetchVehicles, generateVehicleCard } from "../helpers/vehicleCard";
 
 const canvas = document.querySelector("#svm-canvas");
 var initted = false;
@@ -20,18 +21,19 @@ const _handleCanvasListener = (targetNode) => {
     observer.observe(targetNode, config);
 }
 
-const initNewContent = (canvas) => {
-    const vehiclesWrapper = canvas.querySelector("form#whf_form #pageContainer #pageContent #stockContainer #stock #resultsTable")
-    const vehicles = vehiclesWrapper.querySelectorAll(".vehicleTile")
+const initNewContent = () => {
+    const vehicles = fetchVehicles().splice(0, 5);
+    const recentlyAddedWrapper = document.querySelector("#recently-added-machines");
 
-    const filteredVehicles = _.sortBy([...vehicles], (vehicle) => {
-        return vehicle.id
-    })
-    console.log(filteredVehicles);
-    console.log(filteredVehicles[33]);
-    console.log(filteredVehicles[1]);
+    if (!recentlyAddedWrapper) {
+        return;
+    }
+
+    _.forEach(vehicles, (vehicle) => {
+        recentlyAddedWrapper.append(generateVehicleCard(vehicle));
+    });
 }
+
 if (canvas && document.body.classList.contains("page-home")) {
-    console.log("canvas");
     _handleCanvasListener(canvas);
 }

@@ -1,7 +1,7 @@
 import _, { filter } from 'lodash';
+import { generateVehicleCard } from '../helpers/vehicleCard';
 
 const canvas = document.querySelector('#svm-canvas');
-const detail_page = "/voorraad/machine"
 var initted = false;
 
 const generateImagesArray = (sources) => {
@@ -46,85 +46,15 @@ const fetchVehicles = () => {
     })
 }
 
-const generateVehicleCard = (vehicle) => {
-    const card = document.createElement("div");
-    card.classList = "vehicle-card"
-    const thumbnailWrapper = document.createElement("div");
-    thumbnailWrapper.classList = "thumbnail-wrapper"
-    const thumbnail = document.createElement("img");
-    thumbnail.src = getVehicleImage(vehicle.images).src;
-    thumbnail.classList = "vehicle-thumbnail";
-    thumbnailWrapper.appendChild(thumbnail);
-    card.appendChild(thumbnailWrapper);
-
-    const cardBody = document.createElement("div");
-    cardBody.classList = "card-body"
-    const vehicleTitle = document.createElement("a");
-    vehicleTitle.classList = "vehicle-title";
-    vehicleTitle.innerHTML = getVehicleTitle(vehicle.title);
-    cardBody.appendChild(vehicleTitle);
-
-    const cardLinks = document.createElement("div");
-    cardLinks.classList = "card-links"
-
-    const contactLink = document.createElement("a");
-    contactLink.classList = "contact-link"
-    contactLink.href = vehicle.actions.contact.action;
-    contactLink.innerHTML = vehicle.actions.contact.text;
-
-    const detailsLink = document.createElement("a");
-    detailsLink.classList = "details-link"
-    detailsLink.href = detail_page + vehicle.actions.details.action;
-    detailsLink.innerHTML = vehicle.actions.details.text;
-    cardLinks.appendChild(contactLink);
-    cardLinks.appendChild(detailsLink);
-    cardBody.appendChild(cardLinks);
-
-    const description = document.createElement("div");
-    description.classList = "vehicle-description"
-    description.innerHTML = vehicle.description;
-    cardBody.appendChild(description);
-
-    const vehiclePriceWrapper = document.createElement("div");
-    vehiclePriceWrapper.classList = "vehicle-price-wrapper";
-    const vehiclePrice = document.createElement("span");
-    vehiclePrice.classList = "vehicle-price";
-    vehiclePrice.innerHTML = vehicle.price;
-
-    const vehiclePriceText = document.createElement("span");
-    vehiclePriceText.classList = "vehicle-price-sub-text"
-    vehiclePriceText.innerHTML = vehicle.priceSubText;
-    vehiclePriceWrapper.appendChild(vehiclePrice);
-    vehiclePriceWrapper.appendChild(vehiclePriceText);
-    cardBody.appendChild(vehiclePriceWrapper);
-
-    card.appendChild(cardBody);
-
-    return card;
-}
-
-const getVehicleTitle = (title) => {
-    return title.length > 50 ? title.slice(0, 47) + '...' : title;
-}
-
-const getVehicleImage = (images) => {
-    return _.filter(images, (image, key) => {
-        if ((parseInt(window.innerWidth) < parseInt(image.maxWidth) && (parseInt(key) + 1) !== images.length) || (parseInt(window.innerWidth) > parseInt(image.maxWidth) && (parseInt(key) + 1) === images.length)) {
-            return image;
-        }
-    })[0];
-}
-
 const _handleCanvasListener = (targetNode) => {
     const config = { childList: true, subtree: true };
     const callback = (mutationsList, observer) => {
         for (let mutation of mutationsList) {
-            if (mutation.type === 'childList') {
-                if (!initted) {
-                    initNewContent(targetNode);
-                    _handleFiltersListener();
-                    initted = true;
-                }
+            if (mutation.type === 'childList' && (mutation.target.id === "svm-canvas" || mutation.target.id === "resultsTable") && !initted) {
+                initNewContent(targetNode);
+                _handleFiltersListener();
+                _handlePagerListener();
+                initted = true;
             }
         }
     };
@@ -168,6 +98,16 @@ const _handleFiltersListener = () => {
             initted = false;
         })
     })
+}
+
+const _handlePagerListener = () => {
+    const pagers = document.querySelectorAll("#svm-canvas #pageContent #stock .navigation .pager a.page");
+
+    _.forEach([...pagers], (pager) => {
+        pager.addEventListener("click", () => {
+            initted = false;
+        })
+    });
 }
 
 if (canvas && document.body.classList.contains("page-voorraad")) {
