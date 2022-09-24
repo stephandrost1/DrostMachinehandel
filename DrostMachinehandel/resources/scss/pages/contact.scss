@@ -1,0 +1,126 @@
+.page-contact {
+    .content-wrapper {
+        display: flex;
+        height: 100%;
+        padding: 4rem 0 4rem 0;
+
+        .col-left {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+
+            .form-wrapper {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                padding: 3rem 0;
+
+                .header {
+                    .title {
+                        font-size: 3rem;
+                        color: $color-main;
+                        font-weight: bold;
+                    }
+
+                    .subtitle {
+                        font-size: 1.75rem;
+                        padding-bottom: 2rem;
+                    }
+                }
+
+                .form {
+                    .form-group {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 1.5rem;
+
+                    }
+
+                    .form-item {
+                        display: flex;
+                        width: 100%;
+                        flex-direction: column;
+                        margin-bottom: 1rem;
+
+                        label {
+                            font-weight: bold;
+                            color: $color-main;
+                            font-size: 1rem;
+                            padding-bottom: 0.25rem;
+                        }
+
+                        button, input, textarea {
+                            border-radius: 5px;
+                            color: $color-black !important;
+                            border: 2px solid $color-main;
+                        }
+
+                        button {
+                            padding: 0.75rem 2.5rem;
+                            background-color: $color-main;
+                            transition: $transition-sm;
+                            width: fit-content;
+                            margin-left: auto;
+
+                            &:hover {
+                                background-color: $color-main-light;
+                            }
+                        }
+                    }
+                }
+
+                .contact-send-status {
+                    a {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        .col-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 50%;
+            height: 100%;
+
+            .col-content-wrapper {
+                width: 80%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                gap: 2rem;
+
+                .location {
+                    display: flex;
+                    width: 100%;
+                    
+                    iframe {
+                        width: 100%;
+                    }
+                }
+
+                .office-hours {
+                    display: flex;
+                    width: 100%;
+    
+                    .hours-wrapper {
+                        display: flex;
+                        flex-direction: row-reverse;
+                        width: 100%;
+                        gap: 5rem;
+
+                        .hours,
+                        .contact-details {
+                            width: 50%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

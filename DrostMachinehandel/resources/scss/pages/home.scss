@@ -1,0 +1,28 @@
+.page-home {
+    .header {
+        position: relative;
+        height: 100vh;
+        text-align: center;
+        justify-content: center;
+    }
+      
+    .homepage-video-style {
+        position: absolute;
+        width: 100%;
+    }
+      
+    .grid-temp-cols-card {
+        grid-template-columns: repeat(auto-fit, 280px);
+
+        @media (min-width: 768px) { 
+              grid-template-columns: repeat(auto-fit, 330px);
+        }
+    }
+
+    .recent-items {
+        .svm-canvas-hidden {
+            display: none !important;
+        }
+    }
+}
+

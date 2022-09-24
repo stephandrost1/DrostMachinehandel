@@ -1,0 +1,38 @@
+//TAILWIND REQUIRED
+@import "./base.scss";
+
+//VARIABLES
+@import "./base/variables.scss";
+
+@import "./pages/home.scss", "./pages/voorraad.scss", "./pages/detail.scss", "./pages/contact.scss";
+
+@import "./components/navbar.scss", "./components/swiper.scss", "./components/footer.scss";
+
+#dropdown {
+    margin-top: 5px !important;
+    margin-left: 0.5px !important;
+    border-radius: 10px 0px 10px 10px;
+    -webkit-border-radius: 10px 0px 10px 10px;
+    -moz-border-radius: 10px 0px 10px 10px;
+    -ms-border-radius: 10px 0px 10px 10px;
+    -o-border-radius: 10px 0px 10px 10px;
+}
+
+.lang-dropdown:after,
+.lang-dropdown:before {
+bottom: 100%;
+border: solid transparent;
+content: "";
+height: 0;
+width: 0;
+position: absolute;
+pointer-events: none;
+}
+
+.lang-dropdown:after {
+border-color: rgba(255, 255, 255, 0);
+border-bottom-color: #707070;
+border-width: 19px;
+right: 0;
+margin-top: 5px
+}
