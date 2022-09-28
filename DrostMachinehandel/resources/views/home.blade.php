@@ -39,9 +39,7 @@
 
   <div class="my-10 recent-items flex flex-col gap-5">
     <div class="text-center font-bold text-3xl">{{ __('content/homepage.recently-added-title') }}</div>
-    <div id="recently-added-machines">
-      <div class="grow grid auto-rows-auto gap-10 align-items-start justify-center mt-5 grid-temp-cols-card">
-      </div>
+    <div id="recently-added-machines" class="grow grid auto-rows-auto gap-10 align-items-start justify-center mt-5 grid-temp-cols-card">
     </div>
     <div id="svm-canvas" class="svm-canvas-hidden"></div>
   </div>

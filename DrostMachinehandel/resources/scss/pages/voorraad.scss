@@ -1,14 +1,14 @@
 .page-voorraad, .page-machineDetail {
     #svm-canvas {
-        width: 100%;
+        width: 100% !important;
 
         #pageSidebar {
             .refineAdd label,
             .svm-label {
-                color: $color-white;
+                color: $color-white !important;
 
                 .svg-inline--fa {
-                    margin-left: 0.5rem;
+                    margin-left: 0.5rem !important;
                 }
             }
 
@@ -35,18 +35,18 @@
                         }
 
                         .languageFlagsContainer {
-                            display: none;
+                            display: none !important;
                         }   
 
                         .actions {
-                            display: none;
+                            display: none !important;
                         }
                     }
 
                     #resultsTable {
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 2rem;
+                        display: flex !important;
+                        flex-wrap: wrap !important;
+                        gap: 2rem !important;
                     }
                 }
             }
