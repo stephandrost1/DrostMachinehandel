@@ -12,6 +12,21 @@
                 }
             }
 
+            #refine {
+                #svmRefineMobileHeader {
+                    span {
+                        color: $color-white !important;
+                        font-size: 20px !important;
+                        font-weight: bold !important;
+                    }
+
+                    a#svmFilterClose {
+                        color: $color-white;
+                        margin-top: 1rem !important;
+                    }
+                }
+            }
+
             .refineAdd label {
                 &:before {
                     top: 6px !important;

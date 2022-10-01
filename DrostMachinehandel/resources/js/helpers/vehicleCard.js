@@ -24,11 +24,15 @@ const generateVehicleCard = (vehicle) => {
     card.appendChild(thumbnailWrapper);
 
     const cardBody = document.createElement("div");
+    const cardBodyCol1 = document.createElement("div");
+    cardBodyCol1.classList = "vehicle-description-content"
+    const cardBodyCol2 = document.createElement("div");
+    cardBodyCol2.classList = "vehicle-price-content"
     cardBody.classList = "card-body"
     const vehicleTitle = document.createElement("a");
     vehicleTitle.classList = "vehicle-title";
     vehicleTitle.innerHTML = getVehicleTitle(vehicle.title);
-    cardBody.appendChild(vehicleTitle);
+    cardBodyCol1.appendChild(vehicleTitle);
 
     const cardLinks = document.createElement("div");
     cardLinks.classList = "card-links"
@@ -44,12 +48,12 @@ const generateVehicleCard = (vehicle) => {
     detailsLink.innerHTML = vehicle.actions.details.text;
     cardLinks.appendChild(contactLink);
     cardLinks.appendChild(detailsLink);
-    cardBody.appendChild(cardLinks);
+    cardBodyCol1.appendChild(cardLinks);
 
     const description = document.createElement("div");
     description.classList = "vehicle-description"
     description.innerHTML = vehicle.description;
-    cardBody.appendChild(description);
+    cardBodyCol1.appendChild(description);
 
     const vehiclePriceWrapper = document.createElement("div");
     vehiclePriceWrapper.classList = "vehicle-price-wrapper";
@@ -62,9 +66,19 @@ const generateVehicleCard = (vehicle) => {
     vehiclePriceText.innerHTML = vehicle.priceSubText;
     vehiclePriceWrapper.appendChild(vehiclePrice);
     vehiclePriceWrapper.appendChild(vehiclePriceText);
-    cardBody.appendChild(vehiclePriceWrapper);
+    cardBodyCol2.appendChild(vehiclePriceWrapper);
 
+    cardBody.appendChild(cardBodyCol1)
+    cardBody.appendChild(cardBodyCol2)
     card.appendChild(cardBody);
+
+    card.addEventListener("click", (event) => {
+        if (event.target.classList == "contact-link") {
+            return;
+        };
+
+        window.location.href = detail_page + vehicle.actions.details.action;
+    })
 
     return card;
 }
