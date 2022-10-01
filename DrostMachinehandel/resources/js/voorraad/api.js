@@ -99,15 +99,17 @@ const _handleRemoveAllFiltersButtonListener = () => {
 
     filtersRemoveAll.addEventListener("click", () => {
         initted = false;
-        console.log("click remove all filters")
     })
 }
 
 const _handleSortFiltersListener = () => {
-    const selectorOptions = document.querySelector("#svm-canvas .navigation #sort_results");
+    const selectorOptions = document.querySelectorAll("#svm-canvas .navigation #sort_resultsSelectBoxItOptions li.selectboxit-option");
 
-    selectorOptions.addEventListener("change", () => {
-        initted = false;
+    _.forEach([...selectorOptions], (option) => {
+        option.addEventListener("click", () => {
+            console.log("click");
+            initted = false;
+        })
     })
 }
 
