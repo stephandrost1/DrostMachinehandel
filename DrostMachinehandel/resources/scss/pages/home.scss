@@ -18,6 +18,12 @@
             }
 
             .content-buttons-wrapper {
+                justify-content: space-between;
+                @media screen and (min-width: 768px) {
+                    justify-content: unset;
+                    gap: 2rem;
+                }
+
                 button.cta-button {
                     margin-top: 1rem;
                 }
