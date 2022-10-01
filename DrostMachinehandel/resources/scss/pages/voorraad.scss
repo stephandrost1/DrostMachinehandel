@@ -53,6 +53,12 @@
                         display: flex !important;
                         flex-wrap: wrap !important;
                         gap: 2rem !important;
+                        justify-content: center !important;
+
+                        .vehicle-card {
+                            flex: none !important;
+                            max-width: 325px !important;
+                        }
                     }
                 }
             }
