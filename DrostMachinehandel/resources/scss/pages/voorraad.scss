@@ -47,6 +47,11 @@
                         .actions {
                             display: none !important;
                         }
+
+                        #svmFilterOpen {
+                            background-color: $color-white !important;
+                            color: $color-black !important;
+                        }
                     }
 
                     #resultsTable {
