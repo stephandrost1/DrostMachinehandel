@@ -142,8 +142,24 @@
             }
 
             .page {
+                display: flex;
+                align-items: center;
                 color: white !important;
-                border: 2px solid $color-main !important;
+                justify-content: center;
+                border-radius: .7rem;
+                background-color: transparent;
+                cursor: pointer;
+                font-weight: bold !important;
+                margin: .5rem;
+                width: 2.5rem;
+                height: 2.5rem;
+                border: solid 2px $color-main;
+                font-size: 2.2rem;
+            }
+
+            .last {
+                margin: auto;
+                text-align: center;
             }
         }
     }
