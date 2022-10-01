@@ -13,7 +13,7 @@
       @if (!isset($statusCode)) 
         <form class="form" action="contact" method="POST">
           @csrf
-          <div class="form-group">
+          {{-- <div class="form-group">
             <div class="form-item">
               <label for="firstname">{{ __('/content/contact.firstname') }} *</label>
               <input required type="text" name="firstname" placeholder="{{ __('/content/contact.firstname-placeholder') }}">
@@ -22,7 +22,7 @@
               <label for="lastname">{{ __('/content/contact.lastname') }} *</label>
               <input required type="text" name="lastname" placeholder="{{ __('/content/contact.lastname-placeholder') }}">
             </div>
-          </div>
+          </div> --}}
     
           <div class="form-item">
             <label for="email">{{ __('/content/contact.email') }} *</label>
