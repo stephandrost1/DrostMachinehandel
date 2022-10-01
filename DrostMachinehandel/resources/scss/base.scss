@@ -966,6 +966,21 @@ input[type="range"]::-ms-fill-lower {
   margin-right: 1.25rem;
 }
 
+.mx-6 {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.mx-7 {
+  margin-left: 1.75rem;
+  margin-right: 1.75rem;
+}
+
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -986,16 +1001,16 @@ input[type="range"]::-ms-fill-lower {
   margin-bottom: 0.5rem;
 }
 
-.mt-5 {
-  margin-top: 1.25rem;
-}
-
 .mb-5 {
   margin-bottom: 1.25rem;
 }
 
 .mt-4 {
   margin-top: 1rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
 }
 
 .mr-3 {
@@ -1012,10 +1027,6 @@ input[type="range"]::-ms-fill-lower {
 
 .inline-flex {
   display: inline-flex;
-}
-
-.grid {
-  display: grid;
 }
 
 .hidden {
@@ -1112,10 +1123,6 @@ input[type="range"]::-ms-fill-lower {
   flex: 1 1 0%;
 }
 
-.grow {
-  flex-grow: 1;
-}
-
 .grow-0 {
   flex-grow: 0;
 }
@@ -1159,10 +1166,6 @@ input[type="range"]::-ms-fill-lower {
 
 .resize {
   resize: both;
-}
-
-.auto-rows-auto {
-  grid-auto-rows: auto;
 }
 
 .flex-col {
@@ -1346,11 +1349,6 @@ input[type="range"]::-ms-fill-lower {
   padding-right: 6rem;
 }
 
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
@@ -1385,14 +1383,14 @@ input[type="range"]::-ms-fill-lower {
   line-height: 1;
 }
 
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .text-5xl {
@@ -1502,14 +1500,6 @@ input[type="range"]::-ms-fill-lower {
 }
 
 @media (min-width: 640px) {
-  .sm\:block {
-    display: block;
-  }
-
-  .sm\:hidden {
-    display: none;
-  }
-
   .sm\:w-\[550px\] {
     width: 550px;
   }
@@ -1587,9 +1577,19 @@ input[type="range"]::-ms-fill-lower {
     padding-right: 4rem;
   }
 
+  .md\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
+  }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 }
 
@@ -1608,6 +1608,16 @@ input[type="range"]::-ms-fill-lower {
 
   .lg\:w-4\/12 {
     width: 33.333333%;
+  }
+
+  .lg\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .lg\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 }
 

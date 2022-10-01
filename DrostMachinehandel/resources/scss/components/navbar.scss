@@ -57,6 +57,26 @@
         &.open {
             transform: translateY(0);
         }
+
+        .menu-list {
+            ul {
+                li {
+                    a {
+                        div.navbar-item {
+                            font-size: 2rem;
+                            margin-top: 2rem;
+                            margin-left: 1rem;
+                            font-weight: bold;
+                            border-bottom: 2px solid $color-gray;
+
+                            &.active {
+                                border-bottom: 2px solid $color-main;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .language-selector {

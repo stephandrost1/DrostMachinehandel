@@ -6,6 +6,31 @@
         justify-content: center;
     }
       
+    .content-block-homepage {
+        top: calc(128px + 5vw);
+        left: 5vw;
+
+        .content-block-homepage-inner {
+            width: calc(100% - 5vw);
+
+            @media screen and (min-width: 768px) {
+                width: 50%;
+            }
+
+            .content-buttons-wrapper {
+                justify-content: space-between;
+                @media screen and (min-width: 768px) {
+                    justify-content: unset;
+                    gap: 2rem;
+                }
+
+                button.cta-button {
+                    margin-top: 1rem;
+                }
+            }
+        }   
+    }
+
     .homepage-video-style {
         position: absolute;
         width: 100%;
@@ -23,6 +48,16 @@
         #svm-canvas,
         .svm-canvas-hidden {
             display: none !important;
+        }
+
+        #recently-added-machines {
+            padding: 0 32px;
+
+            .swiper-wrapper {
+                .vehicle-card {
+                    flex: none !important;
+                }
+            }
         }
     }
 }

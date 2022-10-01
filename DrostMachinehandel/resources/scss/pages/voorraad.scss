@@ -32,6 +32,12 @@
                     .navigation {
                         .sort {
                             color: $color-white !important;
+
+                            #sort_results {
+                                option {
+                                    color: $color-black !important;
+                                }
+                            }
                         }
 
                         .languageFlagsContainer {

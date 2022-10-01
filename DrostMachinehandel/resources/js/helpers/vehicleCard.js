@@ -14,7 +14,7 @@ const getVehicleImage = (images) => {
 
 const generateVehicleCard = (vehicle) => {
     const card = document.createElement("div");
-    card.classList = "vehicle-card"
+    card.classList = "vehicle-card swiper-slide";
     const thumbnailWrapper = document.createElement("div");
     thumbnailWrapper.classList = "thumbnail-wrapper"
     const thumbnail = document.createElement("img");

@@ -1,6 +1,6 @@
 <footer class="footer">
     <hr class="w-full h-2 bg-primary border-none">
-    <div class="footer-content flex flex-wrap justify-between px-8 py-5 items-center">
+    <div class="footer-content flex flex-wrap justify-between md:px-8 py-5 items-center">
         <div class="content-wrapper">
             <div class="col-1">
                 <div class="col-header">

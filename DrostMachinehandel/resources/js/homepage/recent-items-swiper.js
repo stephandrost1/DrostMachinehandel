@@ -4,18 +4,20 @@ import 'swiper/css';
 
 Swiper.use(Autoplay);
 
-let showUspSlider = window.matchMedia('(max-width: 1280px)').matches;
+let showUspSlider = window.matchMedia('(max-width: 1045px)').matches;
+
 const swiperOptions = {
     autoplay: {
         delay: 3500,
         disableOnInteraction: false,
     },
-    loop: false,
+    loop: true,
     speed: 1000,
     effect: 'fade',
     fadeEffect: {
         crossFade: true
     },
+    spaceBetween: 32,
     breakpoints: {
         480: {
             slidesPerView: 1,
@@ -25,11 +27,18 @@ const swiperOptions = {
         },
         976: {
             slidesPerView: 3,
+        },
+        1100: {
+            slidesPerView: 4,
+        },
+        1200: {
+            slidesPerView: 5,
         }
     }
 }
 
-let swiper = new Swiper('.swiper-container-element', swiperOptions);
+
+let swiper = new Swiper('.swiper-recent-items', swiperOptions);
 
 window.addEventListener('resize', function (event) {
     showUspSlider = window.matchMedia('(max-width: 1045px)').matches;
