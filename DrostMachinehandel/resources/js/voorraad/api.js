@@ -1,4 +1,4 @@
-import _, { filter } from 'lodash';
+import _, { filter, first } from 'lodash';
 import { fetchVehicles, generateVehicleCard } from '../helpers/vehicleCard';
 
 const canvas = document.querySelector('#svm-canvas');
@@ -36,6 +36,9 @@ const initNewContent = (canvas) => {
 
     const nextIcon = document.querySelector("#svm-canvas #stockContainer .navigation .pager .next");
     const lastIcon = document.querySelector("#svm-canvas #stockContainer .navigation .pager .last");
+    const prevIcon = document.querySelector("#svm-canvas #stockContainer .navigation .pager .previous");
+    const firstIcon = document.querySelector("#svm-canvas #stockContainer .navigation .pager .first");
+
 
     const newNextIcon = document.createElement("i")
     newNextIcon.classList = "fas fa-angle-right"
@@ -43,11 +46,27 @@ const initNewContent = (canvas) => {
     const newLastIcon = document.createElement("i")
     newLastIcon.classList = "fas fa-angle-double-right"
 
-    nextIcon.replaceChildren([]);
-    nextIcon.appendChild(newNextIcon)
+    const newPreviousIcon = document.createElement("i")
+    newPreviousIcon.classList = "fas fa-angle-left"
 
-    lastIcon.replaceChildren([]);
-    lastIcon.appendChild(newLastIcon)
+    const newFirstIcon = document.createElement("i")
+    newFirstIcon.classList = "fas fa-angle-double-left"
+
+    if (nextIcon) {
+        nextIcon.replaceChildren(newNextIcon);
+    }
+
+    if (lastIcon) {
+        lastIcon.replaceChildren(newLastIcon);
+    }
+
+    if (prevIcon) {
+        prevIcon.replaceChildren(newPreviousIcon);
+    }
+
+    if (firstIcon) {
+        firstIcon.replaceChildren(newFirstIcon);
+    }
 
     stockResults.replaceChildren([]);
 
@@ -94,6 +113,8 @@ const _handleSortFiltersListener = () => {
 
 const _handlePagerListener = () => {
     const pagers = document.querySelectorAll("#svm-canvas #pageContent #stock .navigation .pager a.page");
+
+    console.log("pager on click")
 
     _.forEach([...pagers], (pager) => {
         pager.addEventListener("click", () => {
