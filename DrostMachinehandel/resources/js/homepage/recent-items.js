@@ -23,11 +23,13 @@ const _handleCanvasListener = (targetNode) => {
 
 const initNewContent = () => {
     const vehicles = fetchVehicles().splice(0, 5);
-    const recentlyAddedWrapper = document.querySelector("#recently-added-machines");
+    const recentlyAddedWrapper = document.querySelector("#recently-added-items");
 
     if (!recentlyAddedWrapper) {
         return;
     }
+
+    recentlyAddedWrapper.replaceChildren([]);
 
     _.forEach(vehicles, (vehicle) => {
         recentlyAddedWrapper.append(generateVehicleCard(vehicle));

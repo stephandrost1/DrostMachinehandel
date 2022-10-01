@@ -16,7 +16,7 @@
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
         </a>
 
-          <div class="flex gap-10 xl:gap-20 language-selector">
+        <div class="flex gap-10 xl:gap-20 language-selector">
             <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="flex items-center justify-center gap-2" type="button">
               @if ($currentLang == 'nl')<img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> @endif
               @if ($currentLang == 'en')<img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> @endif
@@ -69,7 +69,7 @@
 
     {{-- Mobile Navbar --}}
     <nav id="navbar" style="background-color: rgba(0, 0, 0, 0.6);" class="block md:hidden py-5 z-50">
-      <div class="flex flex-wrap justify-between justify-content-end items-center mx-5">
+      <div class="flex flex-wrap justify-between justify-content-end items-center mx-8">
         <a href="https://drostmachinehandel.com/" class="nav-logo 
          flex items-center">
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
@@ -87,22 +87,22 @@
             <ul>
               <li>
                 <a href={{ route("home") }}>
-                  <div class="text-lg xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">Home</div>
+                  <div class="navbar-item @if(Request::is('/')) active @endif">Home</div>
                 </a>
               </li>
               <li>
                 <a href={{ route("voorraad") }}>
-                  <div class="text-lg xl:text-2xl font-bold @if(Request::is('voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">Voorraad</div>
+                  <div class="navbar-item @if(Request::is('voorraad')) active @endif">Voorraad</div>
                 </a>
               </li>
               <li>
                 <a href={{ route("leasen") }}>
-                  <div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">Leasen</div>
+                  <div class="navbar-item @if(Request::is('leasen')) active @endif">Leasen</div>
                 </a>
               </li>
               <li>
                 <a href={{ route("contact") }}>
-                  <div class="text-lg xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">Contact</div>
+                  <div class="navbar-item @if(Request::is('contact')) active @endif">Contact</div>
                 </a>
               </li>
             </ul>

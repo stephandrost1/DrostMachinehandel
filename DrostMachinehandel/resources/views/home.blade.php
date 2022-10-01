@@ -2,14 +2,14 @@
 @section('content')
 
 <div class="relative">
-  <div class="absolute top-[9rem] left-1 md:top-40 lg:top-60 md:left-20 z-10">
-    <div style="background-color: rgba(26, 26, 26, 0.7);" class="relative rounded-3xl p-7 h-min w-[350px] sm:w-[550px]">
+  <div class="content-block-homepage absolute z-10">
+    <div style="background-color: rgba(26, 26, 26, 0.7);" class="relative rounded-3xl content-block-homepage-inner p-7">
       <h1 class="text-xl sm:text-3xl font-bold">{{ __('content/homepage.title') }}</h1>
       <hr class="w-full h-[4px] bg-primary border-none mt-1 mb-3">
       <p class="text-base sm:text-lg w-11/12">{{ __('content/homepage.subtitle') }}</p>
-      <div class="flex gap-10 mt-3">
-        <button class="w-32 border-[3px] border-primary bg-transparent text-primary font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl"><span>{{ __('content/homepage.leasen') }}</span> <i class="fas fa-chevron-right"></i></button>
-        <button class="w-32 border-[3px] border-primary bg-primary text-white font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl">{{ __('content/homepage.voorraad') }}<i class="fas fa-chevron-right"></i></button>
+      <div class="flex justify-between flex-wrap content-buttons-wrapper mt-3">
+        <button class="cta-button w-32 border-[3px] border-primary bg-transparent text-primary font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl"><span>{{ __('content/homepage.leasen') }}</span> <i class="fas fa-chevron-right"></i></button>
+        <button class="cta-button w-32 border-[3px] border-primary bg-primary text-white font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl">{{ __('content/homepage.voorraad') }}<i class="fas fa-chevron-right"></i></button>
       </div>
     </div>
   </div>
@@ -31,15 +31,16 @@
 
   <div class="w-full h-fit md:h-40 bg-primary flex items-center justify-center" id="scroll-to-here">
     <div class="flex flex-col items-center justify-center gap-1 md:py-0 py-3">
-      <div class="text-3xl font-bold hidden sm:block">{{ __('content/homepage.quote') }}</div>
-      <div class="text-2xl font-bold block sm:hidden">{{ __('content/homepage.quote-link') }}</div>
-      <button class="w-fit border-[3px] border-primary bg-white text-primary font-bold px-12 md:px-16 py-2 rounded-lg flex gap-5 items-center justify-center mt-3 text-xl md:text-2xl">{{ __('content/homepage.quote-link') }}<i class="fas fa-chevron-right"></i></button>
+      <div class="text-xl md:text-2xl lg:text-3xl  font-bold block text-center">{{ __('content/homepage.quote') }}</div>
+      <button class="w-fit border-[3px] border-primary bg-white text-primary font-bold px-12 md:px-16 py-2 rounded-lg flex gap-5 items-center justify-center mt-3 text-lg md:text-xl lg:text-2xl">{{ __('content/homepage.quote-link') }}<i class="fas fa-chevron-right"></i></button>
     </div>
   </div>
 
   <div class="my-10 recent-items flex flex-col gap-5">
     <div class="text-center font-bold text-3xl">{{ __('content/homepage.recently-added-title') }}</div>
-    <div id="recently-added-machines" class="grow grid auto-rows-auto gap-10 align-items-start justify-center mt-5 grid-temp-cols-card">
+    <div id="recently-added-machines" class="swiper swiper-recent-items w-full">
+      <div class="swiper-wrapper" id="recently-added-items">
+      </div>
     </div>
     <div id="svm-canvas" class="svm-canvas-hidden"></div>
   </div>
