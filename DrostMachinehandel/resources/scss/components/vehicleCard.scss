@@ -2,6 +2,7 @@
     flex: 0 1 calc(100% / 3 - 2rem / 1.5) !important;
     background-color: white !important;
     overflow: hidden !important;
+    height: auto !important;
 
     &:hover {
         .thumbnail-wrapper {
