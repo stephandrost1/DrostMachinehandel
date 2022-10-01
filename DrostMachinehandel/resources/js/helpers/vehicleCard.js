@@ -72,6 +72,14 @@ const generateVehicleCard = (vehicle) => {
     cardBody.appendChild(cardBodyCol2)
     card.appendChild(cardBody);
 
+    card.addEventListener("click", (event) => {
+        if (event.target.classList == "contact-link") {
+            return;
+        };
+
+        window.location.href = detail_page + vehicle.actions.details.action;
+    })
+
     return card;
 }
 

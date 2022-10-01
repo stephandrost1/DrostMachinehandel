@@ -13,6 +13,21 @@
                 }
             }
 
+            #refine {
+                #svmRefineMobileHeader {
+                    span {
+                        color: $color-white !important;
+                        font-size: 20px !important;
+                        font-weight: bold !important;
+                    }
+
+                    a#svmFilterClose {
+                        color: $color-white;
+                        margin-top: 1rem !important;
+                    }
+                }
+            }
+
             .removeAll {
                 border: none !important;
             }
@@ -101,6 +116,11 @@
                         .actions {
                             display: none !important;
                         }
+
+                        #svmFilterOpen {
+                            background-color: $color-white !important;
+                            color: $color-black !important;
+                        }
                     }
 
                     #resultsTable {
@@ -115,6 +135,15 @@
                         }
                     }
                 }
+            }
+
+            #navigation {
+                background-color: purple !important;
+            }
+
+            .page {
+                color: white !important;
+                border: 2px solid $color-main !important;
             }
         }
     }

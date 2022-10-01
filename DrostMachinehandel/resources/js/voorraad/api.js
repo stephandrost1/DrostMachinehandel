@@ -12,6 +12,8 @@ const _handleCanvasListener = (targetNode) => {
                 initNewContent(targetNode);
                 _handleFiltersListener();
                 _handlePagerListener();
+                _handleSortFiltersListener();
+                _handleRemoveAllFiltersButtonListener();
                 initted = true;
             }
         }
@@ -22,16 +24,12 @@ const _handleCanvasListener = (targetNode) => {
 }
 
 const initNewContent = (canvas) => {
-    const form = canvas.querySelector('form.whsearch-form');
-
-    if (!form) {
-        return;
-    }
-
-    const stockResults = form.querySelector('div#resultsTable');
+    const stockResults = canvas.querySelector('div#resultsTable');
 
     if (!stockResults) {
-        return;
+        setTimeout((canvas) => {
+            initNewContent(canvas);
+        }, 100)
     }
 
     const vehicles = fetchVehicles();
@@ -55,6 +53,27 @@ const _handleFiltersListener = () => {
         filter.addEventListener("click", () => {
             initted = false;
         })
+    })
+}
+
+const _handleRemoveAllFiltersButtonListener = () => {
+    const filtersRemoveAll = document.querySelector("#refineActiveFilters .refineActiveFilter .removeAll");
+
+    if (!filtersRemoveAll) {
+        return;
+    }
+
+    filtersRemoveAll.addEventListener("click", () => {
+        initted = false;
+        console.log("click remove all filters")
+    })
+}
+
+const _handleSortFiltersListener = () => {
+    const selectorOptions = document.querySelector("#svm-canvas .navigation #sort_results");
+
+    selectorOptions.addEventListener("change", () => {
+        initted = false;
     })
 }
 
