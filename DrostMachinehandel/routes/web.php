@@ -26,7 +26,7 @@ Route::middleware(['locale'])->group((function () {
 
     Route::get('/voorraad/machine', [VoorraadController::class, 'detail'])->name('machineDetail');
 
-    Route::get('/leasen', [LeasenController::class, 'index'])->name('leasen');
+    // Route::get('/leasen', [LeasenController::class, 'index'])->name('leasen');
 
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 

@@ -7,4 +7,5 @@ return [
     'Voorraad' => 'Voorraad',
     'Leasen' => 'Leasen',
     'Contact' => 'Contact',
+    'MachineDetail' => 'Machine Details'
 ];

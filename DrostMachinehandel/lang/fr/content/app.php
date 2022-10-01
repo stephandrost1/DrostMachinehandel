@@ -7,4 +7,5 @@ return [
     'Voorraad' => 'Stock',
     'Leasen' => 'Louer',
     'Contact' => 'Contact',
+    'MachineDetail' => `Détails de l'appareil`
 ];
