@@ -34,6 +34,21 @@ const initNewContent = (canvas) => {
 
     const vehicles = fetchVehicles();
 
+    const nextIcon = document.querySelector("#svm-canvas #stockContainer .navigation .pager .next");
+    const lastIcon = document.querySelector("#svm-canvas #stockContainer .navigation .pager .last");
+
+    const newNextIcon = document.createElement("i")
+    newNextIcon.classList = "fas fa-angle-right"
+
+    const newLastIcon = document.createElement("i")
+    newLastIcon.classList = "fas fa-angle-double-right"
+
+    nextIcon.replaceChildren([]);
+    nextIcon.appendChild(newNextIcon)
+
+    lastIcon.replaceChildren([]);
+    lastIcon.appendChild(newLastIcon)
+
     stockResults.replaceChildren([]);
 
     _.forEach(vehicles, (vehicle) => {
