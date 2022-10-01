@@ -1,6 +1,26 @@
 .page-machineDetail {
     & * {
-        color: $color-white !important;
+        &:not(svg) {
+            color: $color-white !important;
+        }
+    }
+
+    .page-back-button {
+        margin: 1rem 0 1rem 1.25rem;
+        padding-bottom: 0.25rem;
+        border-bottom: 2px solid $color-main;
+        width: fit-content;
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            .back-arrow {
+                color: $color-main !important;
+            }
+        }
     }
 
     #svm-canvas {
@@ -52,6 +72,13 @@
                                 opacity: 0.55;
                             }
                         }
+                    }
+                }
+
+                #hcontact {
+                    #button_telephone {
+                        background-color: $color-main;
+                        padding: 0.75rem 1rem;
                     }
                 }
             }
