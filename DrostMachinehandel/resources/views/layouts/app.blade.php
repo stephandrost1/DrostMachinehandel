@@ -12,7 +12,12 @@
         {{-- Fontawesome --}}
         <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
 
-        @vite(['resources/scss/main.scss', 'resources/js/app.js', 'node_modules/flowbite/dist/flowbite.js'])
+        {{-- Flowbite --}}
+        <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+        <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+
+        {{-- Required custom scss and js --}}
+        @vite(['resources/scss/main.scss', 'resources/js/app.js'])
       
         <script type="text/javascript">
             (function(){h=document.getElementsByTagName('head')[0];s=document.createElement('script');

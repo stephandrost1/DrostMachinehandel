@@ -14,6 +14,7 @@ const _handleCanvasListener = (targetNode) => {
                 _handlePagerListener();
                 _handleSortFiltersListener();
                 _handleRemoveAllFiltersButtonListener();
+                _handlePriceFilterListener();
                 initted = true;
             }
         }
@@ -91,14 +92,16 @@ const _handleFiltersListener = () => {
 }
 
 const _handleRemoveAllFiltersButtonListener = () => {
-    const filtersRemoveAll = document.querySelector("#refineActiveFilters .refineActiveFilter .removeAll");
+    const filtersRemoveAll = document.querySelectorAll("#refineActiveFilters .refineActiveFilter");
 
-    if (!filtersRemoveAll) {
+    if (_.isEmpty(filtersRemoveAll)) {
         return;
     }
 
-    filtersRemoveAll.addEventListener("click", () => {
-        initted = false;
+    _.forEach([...filtersRemoveAll], (filter) => {
+        filter.addEventListener("click", () => {
+            initted = false;
+        })
     })
 }
 
@@ -116,13 +119,22 @@ const _handleSortFiltersListener = () => {
 const _handlePagerListener = () => {
     const pagers = document.querySelectorAll("#svm-canvas #pageContent #stock .navigation .pager a.page");
 
-    console.log("pager on click")
-
     _.forEach([...pagers], (pager) => {
         pager.addEventListener("click", () => {
             initted = false;
         })
     });
+}
+
+const _handlePriceFilterListener = () => {
+    const priceMin = document.querySelectorAll("#svm-canvas #refine .svmRefineOption .field-min");
+    const priceMax = document.querySelectorAll("#svm-canvas #refine .svmRefineOption .field-max");
+
+    _.forEach([...priceMin, ...priceMax], (filter) => {
+        filter.addEventListener("click", (filter) => {
+            initted = false;
+        })
+    })
 }
 
 if (canvas && document.body.classList.contains("page-voorraad")) {

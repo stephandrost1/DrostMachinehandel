@@ -1,4 +1,5 @@
 const detail_page = "/voorraad/machine";
+const timesRun = 0;
 
 const getVehicleTitle = (title) => {
     return title.length > 50 ? title.slice(0, 47) + '...' : title;
