@@ -31,9 +31,55 @@ const _reformatSpecs = () => {
     })
 }
 
+const _addContactButtons = () => {
+    const wrapper = document.querySelector("#hcontact-block");
+
+    console.log(wrapper);
+
+    if (!wrapper) {
+        return;
+    }
+
+    const buttonsText = {
+        "buy": {
+            "en": "Buy",
+            "fr": "Acheter",
+            "de": "Kaufen",
+            "nl": "Kopen",
+        },
+        "rent": {
+            "en": "Rent",
+            "fr": "Location",
+            "de": "Miete",
+            "nl": "Huren",
+        }
+    }
+
+    const buttonsWrapper = document.createElement("div");
+    buttonsWrapper.classList = "contact-buttons-wrapper flex justify-between";
+    const buyButton = document.createElement("a");
+    const rentButton = document.createElement("a");
+    const language = document.querySelector('meta[name="current-lang"]').content
+
+    const vehicleUrl = window.location.search.split("/");
+    const vehicleId = vehicleUrl[vehicleUrl.indexOf("details") + 1]
+
+    buyButton.classList = "buy-button";
+    buyButton.innerHTML = buttonsText["buy"][language] ?? "Kopen";
+    buyButton.href = `javascript:showContactMePopin(${vehicleId})`;
+    rentButton.classList = "rent-button"
+    rentButton.innerHTML = buttonsText["rent"][language] ?? "Huren";
+    rentButton.href = `javascript:showContactMePopin(${vehicleId})`;
+
+    buttonsWrapper.appendChild(buyButton);
+    buttonsWrapper.appendChild(rentButton);
+    wrapper.appendChild(buttonsWrapper);
+}
+
 const _handleDetailPageFormatter = () => {
     _formatMachineTitle();
     _reformatSpecs();
+    _addContactButtons();
 }
 
 const _handleCanvasListener = (targetNode) => {

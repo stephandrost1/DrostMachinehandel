@@ -1,17 +1,16 @@
 .vehicle-card {
-    flex: 0 1 calc(100% / 3 - 2rem / 1.5) !important;
+    flex: 0 1 calc(100% / 2 - 2rem / 1.5) !important;
     background-color: white !important;
     overflow: hidden !important;
     height: auto !important;
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
     align-items: stretch !important;
     cursor: pointer !important;
-    border-radius: 10px !important;
-    -webkit-border-radius: 10px !important;
-    -moz-border-radius: 10px !important;
-    -ms-border-radius: 10px !important;
-    -o-border-radius: 10px !important;
+
+    @media screen and (max-width: 578px) {
+        flex-direction: column !important;
+    }
 
     &:hover {
         .thumbnail-wrapper {
@@ -29,21 +28,31 @@
 
     .thumbnail-wrapper {
         overflow: hidden !important;
+        width: 50%;
+
+        @media screen and (max-width: 578px) {
+            width: 100%;
+        }
 
         img {
+            height: 100%;
             width: 100% !important;
-            aspect-ratio: 4/3 !important;
             object-fit: cover !important;
             transition: $transition-sm !important;
         }
     }
     
     .card-body {
+        width: 50%;
         padding: 1rem !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: space-between !important;
         flex-grow: 1 !important;
+
+        @media screen and (max-width: 578px) {
+            width: 100%;
+        } 
 
         .vehicle-title {
             font-weight: bolder !important;
@@ -58,7 +67,7 @@
         }
         
         .card-links {
-            display: flex !important;
+            display: none !important;
             justify-content: space-around !important;
             padding: 1rem 0 1.5rem 0 !important;
 
@@ -88,15 +97,25 @@
             text-align: center !important;
             padding-bottom: 1.5rem !important;
 
-            .desc_spec {
-                font-weight: bold !important;
-                color: $color-black !important;
-            }
+            .description-list {
+                padding: 1rem;
 
-            .separator {
-                color: $color-main !important;
-                width: 3px !important;
-                font-weight: bold !important;
+                .description-item {
+                    font-size: large;
+                    font-weight: bold;
+                    padding-bottom: 0.125rem;
+                    text-align: left;
+                    color: $color-black;
+
+                    &:before {
+                        content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+                        color: $color-main; /* Change the color */
+                        font-weight: bold; /* If you want it to be bold */
+                        display: inline-block; /* Needed to add space between the bullet and the text */
+                        width: 1em; /* Also needed for space (tweak if needed) */
+                        margin-left: -1em; /* Also needed for space (tweak if needed) */
+                    }
+                }
             }
         }
 

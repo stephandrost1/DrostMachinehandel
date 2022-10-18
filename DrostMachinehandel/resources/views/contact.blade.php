@@ -34,7 +34,7 @@
           </div>
           <div class="form-item">
             <label for="message">{{ __('/content/contact.message') }} *</label>
-            <textarea required name="message"></textarea>
+            <textarea rows="6" required name="message"></textarea>
           </div>
           <div class="form-item">
             <button type="submit">{{ __('/content/contact.send-button') }}</button>

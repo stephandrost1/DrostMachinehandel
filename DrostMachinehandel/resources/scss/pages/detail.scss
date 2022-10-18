@@ -75,7 +75,35 @@
                     }
                 }
 
+                .contact-buttons-wrapper {
+                    display: flex !important;
+                    gap: 1rem !important;
+
+                    @media screen and (min-width: 1121px) {
+                        padding: 0 40px !important;
+                    }
+
+                    .buy-button, .rent-button {
+                        background-color: $color-main !important;
+                        text-align: center !important;
+                        text-decoration: none !important;
+                        border-radius: 5px !important;
+                        font-weight: bold !important;
+                        font-size: large !important;
+                        width: 50% !important;
+                        padding-top: 7.5px !important;
+                        padding-bottom: 7.5px !important;
+                        transition: 0.3s !important;
+
+                        &:hover {
+                            background-color: $color-main-light !important;
+                        }
+                    }
+                }
+
                 #hcontact {
+                    display: none !important;
+
                     #button_telephone {
                         background-color: $color-main;
                         padding: 0.75rem 1rem;
@@ -117,6 +145,42 @@
             #detailsContainer {
                 #svm-block-specifications-block {
                     display: none;
+                }
+            }
+        }
+    }
+
+    .tingle-modal {
+        .tingle-modal-box {
+            .popinPage  {
+                h3, h4, .intro-block .intro {
+                    color: $color-black !important;
+                }
+
+                .clientData {
+                    input,select, option {
+                        color: #B9AAB1 !important;
+                    }
+                }
+            }
+
+            .tingle-modal-box__footer {
+                button {
+                    &:first-child {
+                        color: $color-black !important;
+
+                        &:hover {
+                            color: $color-white !important;
+                        }
+                    }
+
+                    &:last-child {
+                        color: $color-white !important;
+
+                        &:hover {
+                            color: $color-black !important;
+                        }
+                    }
                 }
             }
         }

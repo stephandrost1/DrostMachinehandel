@@ -132,6 +132,10 @@
             #pageContent {
                 height: auto !important;
 
+                @media screen and (max-width: 360px) {
+                    padding-top: 0 !important;
+                }
+
                 #stockContainer {
                     #stock {
                         .navigation {
@@ -167,15 +171,11 @@
     
                         #resultsTable {
                             display: grid;
-                            grid-template-columns: auto auto auto;
+                            grid-template-columns: auto auto;
                             grid-gap: 2rem;
 
-                            @media screen and (max-width: 586px) {
+                            @media screen and (max-width: 1400px) {
                                 grid-template-columns: auto;                                
-                            }
-                            
-                            @media screen and (min-width: 586px) and (max-width: 1300px) {
-                                grid-template-columns:  auto auto;
                             }
 
                             .vehicle-card {
@@ -217,6 +217,12 @@
 }
 
 .page-voorraad {
+    .voorraad-wrapper {
+        @media screen and (max-width: 360px) {
+            padding-top: 0 !important;
+        }
+    }
+
     #svm-canvas {
         @media screen and (min-width: 949px) {
             #pageContainer {

@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 const detail_page = "/voorraad/machine";
 const timesRun = 0;
 
@@ -52,8 +54,18 @@ const generateVehicleCard = (vehicle) => {
     cardBodyCol1.appendChild(cardLinks);
 
     const description = document.createElement("div");
+    const descriptionList = document.createElement("ul");
+    descriptionList.classList = "description-list";
+
+    _.forEach(vehicle.description, (descriptionItem) => {
+        const listItem = document.createElement("li");
+        listItem.classList = "description-item";
+        listItem.innerHTML = descriptionItem.innerHTML;
+        descriptionList.append(listItem);
+    });
+
+    description.append(descriptionList);
     description.classList = "vehicle-description"
-    description.innerHTML = vehicle.description;
     cardBodyCol1.appendChild(description);
 
     const vehiclePriceWrapper = document.createElement("div");
@@ -103,7 +115,7 @@ const fetchVehicles = () => {
         const vehiclePrice = vehicle.querySelector('span.price_with_currency').innerHTML;
         const vehiclePriceSubText = vehicle.querySelector('span.price_btw').innerHTML;
         const vehicleActions = vehicle.querySelectorAll('.detailsButton');
-        const vehicleDescription = vehicle.querySelector('div.specs').innerHTML;
+        const vehicleDescription = vehicle.querySelector('div.specs').querySelectorAll(".desc_spec");
 
         return {
             images: vehicleImages,
