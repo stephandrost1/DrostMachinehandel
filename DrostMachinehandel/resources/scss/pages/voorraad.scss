@@ -3,7 +3,9 @@
         width: 100% !important;
         max-width: 1500px !important;
         font-family: candara !important;
-
+        .selectboxit-container * {
+            z-index: 19 !important;
+        }
         #pageContainer {
             #pageSidebar {
                 .refineAdd label,

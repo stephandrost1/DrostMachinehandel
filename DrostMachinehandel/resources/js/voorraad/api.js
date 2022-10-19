@@ -110,7 +110,6 @@ const _handleSortFiltersListener = () => {
 
     _.forEach([...selectorOptions], (option) => {
         option.addEventListener("click", () => {
-            console.log("click");
             initted = false;
         })
     })

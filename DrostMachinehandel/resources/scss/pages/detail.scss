@@ -100,6 +100,34 @@
                         }
                     }
                 }
+                
+                .share-buttons-wrapper {
+                    padding-top: 2rem;
+
+                    @media screen and (min-width: 1121px) {
+                        padding: 2rem 40px 0 40px !important;
+                    }
+
+                    .share-header {
+                        font-size: 1.5rem;
+                        line-height: 2rem;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .share-body {
+                        display: flex;
+                        gap: 1rem;
+
+                        .whatsapp-link-wrapper .whatsapp-link, .mail-link-wrapper .mail-link {
+                            display: flex;
+                            gap: 0.4rem;
+                            align-items: center;
+                            justify-content: center;
+                            text-decoration: none;
+                            font-size: 1rem;
+                        }
+                    }
+                }
 
                 #hcontact {
                     display: none !important;

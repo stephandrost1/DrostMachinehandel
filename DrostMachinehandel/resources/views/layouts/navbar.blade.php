@@ -72,10 +72,10 @@
       <div class="flex flex-wrap justify-between justify-content-end items-center mx-8">
         <a href="https://drostmachinehandel.com/" class="nav-logo 
          flex items-center">
-            <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
+            <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16 navbar-logo" alt="logo" />
         </a>
 
-        <div class="flex gap-10 items-center">
+        <div class="flex gap-5 sm:gap-10 items-center">
           <div>
             <button id="dropdownMobileButton" data-dropdown-toggle="dropdownMobile" class="flex items-center justify-center gap-2" type="button">
               @if ($currentLang == 'nl')<img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> @endif

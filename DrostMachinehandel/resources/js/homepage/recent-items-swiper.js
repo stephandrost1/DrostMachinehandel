@@ -38,14 +38,14 @@ const swiperOptions = {
 }
 
 
-let swiper = new Swiper('.swiper-recent-items', swiperOptions);
+// let swiper = new Swiper('.swiper-recent-items', swiperOptions);
 
-window.addEventListener('resize', function (event) {
-    showUspSlider = window.matchMedia('(max-width: 1045px)').matches;
+// window.addEventListener('resize', function (event) {
+//     showUspSlider = window.matchMedia('(max-width: 1045px)').matches;
 
-    if (showUspSlider) {
-        swiper.enable();
-    } else {
-        swiper.disable();
-    }
-}, true);
+//     if (showUspSlider) {
+//         swiper.enable();
+//     } else {
+//         swiper.disable();
+//     }
+// }, true);
