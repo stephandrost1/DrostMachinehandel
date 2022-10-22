@@ -19,6 +19,9 @@ const swiperOptions = {
     },
     spaceBetween: 32,
     breakpoints: {
+        400: {
+            slidesPerView: 1
+        },
         520: {
             slidesPerView: 1,
         },
@@ -37,6 +40,7 @@ const swiperOptions = {
     }
 }
 
+//create a div in javascript?
 
 // let swiper = new Swiper('.swiper-recent-items', swiperOptions);
 

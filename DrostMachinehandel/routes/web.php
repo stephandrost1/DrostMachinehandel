@@ -4,6 +4,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VoorraadController;
 use App\Http\Controllers\LeasenController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VerhuurController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +33,8 @@ Route::middleware(['locale'])->group((function () {
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
     Route::post('/contact', [ContactController::class, 'submitRequest'])->name('contact');
+
+    Route::get('/verhuur', [VerhuurController::class, 'index'])->name('verhuur');
 }));
 
 Route::get('set-locale/{locale}', function ($locale) {
