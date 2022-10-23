@@ -1,11 +1,8 @@
 .vehicle-card {
-    flex: 0 1 calc(100% / 2 - 2rem / 1.5) !important;
     background-color: white !important;
-    overflow: hidden !important;
     height: auto !important;
     display: flex !important;
     flex-direction: row !important;
-    align-items: stretch !important;
     cursor: pointer !important;
 
     @media screen and (max-width: 578px) {

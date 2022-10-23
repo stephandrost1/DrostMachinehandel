@@ -51,13 +51,10 @@
         }
 
         #recently-added-machines {
-            padding: 0 128px;
+            padding: 0 1rem;
 
-            .swiper-wrapper {
-                .vehicle-card {
-                    flex: none !important;
-                    height: auto !important;
-                }
+            @media screen and (max-width: 578px) {
+                padding: 0 1rem;
             }
         }
     }

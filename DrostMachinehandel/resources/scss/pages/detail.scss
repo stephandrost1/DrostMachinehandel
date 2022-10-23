@@ -112,6 +112,11 @@
                         font-size: 1.5rem;
                         line-height: 2rem;
                         margin-bottom: 0.5rem;
+
+                        @media screen and (max-width: 768px) {
+                            margin-bottom: 0 !important;
+                            padding-bottom: 0 !important;
+                        }
                     }
 
                     .share-body {

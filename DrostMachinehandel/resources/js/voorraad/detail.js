@@ -83,9 +83,9 @@ const _addShareButtons = () => {
 
     const shareTranslations = {
         "en": "Share this page:",
-        "fr": "Partager cette page",
-        "de": "Teile diese Seite",
-        "nl": "Deel deze pagina",
+        "fr": "Partager cette page:",
+        "de": "Teile diese Seite:",
+        "nl": "Deel deze pagina:",
     }
 
     const language = document.querySelector('meta[name="current-lang"]').content;
