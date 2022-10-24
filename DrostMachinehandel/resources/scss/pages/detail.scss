@@ -27,6 +27,12 @@
         max-width: 1800px !important;
 
         #pageContent {
+            #detailsContainer {
+                .photoHolderLinks {
+                    display: none !important;
+                }
+            }
+
             #hcontact-block {
                 .mainSpecsBlock {
                     padding-bottom: 1rem !important;
@@ -163,15 +169,25 @@
 
                     .share-body {
                         display: flex;
-                        gap: 1rem;
+                        gap: 1.5rem;
+                        padding-top: 0.75rem !important;
 
                         .whatsapp-link-wrapper .whatsapp-link, .mail-link-wrapper .mail-link {
                             display: flex;
-                            gap: 0.4rem;
+                            gap: 0.5rem;
                             align-items: center;
                             justify-content: center;
                             text-decoration: none;
                             font-size: 1rem;
+
+                            svg {
+                                width: 20px;
+                                height: 20px;
+
+                                path {
+                                    color: $color-main !important;
+                                }
+                            }
                         }
                     }
                 }
