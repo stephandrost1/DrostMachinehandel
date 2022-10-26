@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VoorraadController;
 use App\Http\Controllers\LeasenController;
@@ -7,7 +8,6 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VerhuurController;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +35,8 @@ Route::middleware(['locale'])->group((function () {
     Route::post('/contact', [ContactController::class, 'submitRequest'])->name('contact');
 
     Route::get('/verhuur', [VerhuurController::class, 'index'])->name('verhuur');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 }));
 
 Route::get('set-locale/{locale}', function ($locale) {
@@ -42,3 +44,5 @@ Route::get('set-locale/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return redirect()->back();
 })->name('locale.setting');
+
+require __DIR__ . '/auth.php';

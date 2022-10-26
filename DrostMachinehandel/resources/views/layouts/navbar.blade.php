@@ -2,10 +2,10 @@
     {{-- Orange header --}}
     <div class="swiper h-fit swiper-container-element">
       <div class="swiper-wrapper h-10 w-full text-white font-extrabold text-xl">
-        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-concierge-bell"></i> {{ __('content/navbar.orange header 1') }}</div></div>
-        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-sort-amount-up"></i> {{ __('content/navbar.orange header 2') }}</div></div>
-        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-dolly"></i> {{ __('content/navbar.orange header 3') }}</div></div>
-        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-exchange-alt"></i> {{ __('content/navbar.orange header 4') }}</div></div>
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-concierge-bell"></i> {{ __('content/navbar.machine-service') }}</div></div>
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-sort-amount-up"></i> {{ __('content/navbar.available-stock') }}</div></div>
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-dolly"></i> {{ __('content/navbar.transport') }}</div></div>
+        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-exchange-alt"></i> {{ __('content/navbar.trade-in') }}</div></div>
       </div>
     </div>
 
@@ -59,10 +59,12 @@
                 </ul>
             </div>
 
-            <a href={{ route("home") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.nav link 1') }}</div></a>
-            <a href={{ route("voorraad") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.nav link 2') }}</div></a>
-            {{-- <a href={{ route("leasen") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.nav link 3') }}</div></a> --}}
-            <a href={{ route("contact") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.nav link 4') }}</div></a>
+            <a href={{ route("home") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.home') }}</div></a>
+            <a href={{ route("voorraad") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.stock') }}</div></a>
+            <a href={{ route("verhuur") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('verhuur')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.rent') }}</div></a>
+            {{-- <a href={{ route("leasen") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.lease') }}</div></a> --}}
+            <a href={{ route("contact") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.contact') }}</div></a>
+            <a href={{ route("dashboard") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('dashboard')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.login') }}</div></a>
         </div>
       </div>
     </nav>
@@ -135,22 +137,32 @@
             <ul>
               <li>
                 <a href={{ route("home") }}>
-                  <div class="navbar-item @if(Request::is('/')) active @endif">Home</div>
+                  <div class="navbar-item @if(Request::is('/')) active @endif">{{ __('content/navbar.home') }}</div>
                 </a>
               </li>
               <li>
                 <a href={{ route("voorraad") }}>
-                  <div class="navbar-item @if(Request::is('voorraad')) active @endif">Voorraad</div>
+                  <div class="navbar-item @if(Request::is('voorraad')) active @endif">{{ __('content/navbar.stock') }}</div>
+                </a>
+              </li>
+              <li>
+                <a href={{ route("verhuur") }}>
+                  <div class="navbar-item @if(Request::is('verhuur')) active @endif">{{ __('content/navbar.rent') }}</div>
                 </a>
               </li>
               {{-- <li>
                 <a href={{ route("leasen") }}>
-                  <div class="navbar-item @if(Request::is('leasen')) active @endif">Leasen</div>
+                  <div class="navbar-item @if(Request::is('leasen')) active @endif">{{ __('content/navbar.lease') }}</div>
                 </a>
               </li> --}}
               <li>
                 <a href={{ route("contact") }}>
-                  <div class="navbar-item @if(Request::is('contact')) active @endif">Contact</div>
+                  <div class="navbar-item @if(Request::is('contact')) active @endif">{{ __('content/navbar.contact') }}</div>
+                </a>
+              </li>
+              <li>
+                <a href={{ route("dashboard") }}>
+                  <div class="navbar-item @if(Request::is('dashboard')) active @endif">{{ __('content/navbar.login') }}</div>
                 </a>
               </li>
             </ul>
