@@ -10,7 +10,7 @@ class VerhuurController extends Controller
 {
     public function index()
     {
-        $machines = Vehicle::all();
+        $machines = Vehicle::with(["images", "details"])->get();
 
         $filters = RentFilter::with("getFilterOptions")->get();
 

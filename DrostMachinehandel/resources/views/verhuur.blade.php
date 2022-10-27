@@ -15,7 +15,9 @@
             </select>
         </div>
     @endforeach
-      
+        <div class="bg-white m-8 p-3">
+            <span class="text-black">{{ $machines }}</span>
+        </div>
     </div>
 </div>
 
