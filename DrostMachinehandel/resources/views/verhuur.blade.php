@@ -9,7 +9,7 @@
         <div class="bg-white m-8 p-3">
             <label class="text-black">{{ $value["filter_name"] }}</label>
             <select>
-                @foreach($value["getFilterOptions"] as $key => $value1)
+                @foreach($value["options"] as $key => $value1)
                     <option class="text-black">{{ $value1["name"] }}</option>
                 @endforeach
             </select>

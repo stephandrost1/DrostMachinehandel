@@ -12,7 +12,7 @@ class RentFilter extends Model
 
     protected $table = 'rent_filters';
 
-    public function getFilterOptions()
+    public function options()
     {
         return $this->hasMany(RentFiltersOption::class, "filter_id");
     }

@@ -12,7 +12,7 @@ class VerhuurController extends Controller
     {
         $machines = Vehicle::with(["images", "details"])->get();
 
-        $filters = RentFilter::with("getFilterOptions")->get();
+        $filters = RentFilter::with("options")->get();
 
         return view("verhuur", [
             "machines" => $machines,
