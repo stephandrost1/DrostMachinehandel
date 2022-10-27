@@ -1819,12 +1819,12 @@ select {
   line-height: 1.75rem;
 }
 
-.leading-tight {
-  line-height: 1.25;
-}
-
 .leading-normal {
   line-height: 1.5;
+}
+
+.leading-tight {
+  line-height: 1.25;
 }
 
 .tracking-wider {
@@ -2454,6 +2454,10 @@ select {
 
   .md\:h-screen {
     height: 100vh;
+  }
+
+  .md\:h-12 {
+    height: 3rem;
   }
 
   .md\:w-1\/3 {

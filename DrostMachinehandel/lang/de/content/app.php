@@ -7,5 +7,6 @@ return [
     'Voorraad' => 'Lager',
     'Leasen' => 'Mieten',
     'Contact' => 'Kontakt',
+    'Dashboard' => 'Armaturenbrett',
     'MachineDetail' => 'Maschinendetails'
 ];
