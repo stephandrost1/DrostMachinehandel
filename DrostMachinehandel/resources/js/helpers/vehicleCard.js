@@ -9,7 +9,7 @@ const getVehicleTitle = (title) => {
 
 const getVehicleImage = (images) => {
     return _.filter(images, (image, key) => {
-        if (parseInt(window.innerWidth) < parseInt(image.maxWidth)) {
+        if (parseInt(window.innerWidth) < parseInt(image.maxWidth) || (parseInt(window.innerWidth) > parseInt(image.maxWidth) && parseInt(key) + 1 == parseInt(images.length))) {
             return image;
         }
     })[0];
