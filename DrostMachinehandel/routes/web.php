@@ -39,6 +39,13 @@ Route::middleware(['locale'])->group((function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 }));
 
+Route::prefix('/dashboard')->group(function () {
+    Route::get('/tasks', [DashboardController::class, "tasks"])->name("dashboard-tasks");
+    Route::get('/messages', [DashboardController::class, "messages"])->name("dashboard-messages");
+    Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");
+    Route::get('/payments', [DashboardController::class, "payments"])->name("dashboard-payments");
+});
+
 Route::get('set-locale/{locale}', function ($locale) {
     App::setLocale($locale);
     session()->put('locale', $locale);
