@@ -9,10 +9,11 @@ const getVehicleTitle = (title) => {
 
 const getVehicleImage = (images) => {
     return _.filter(images, (image, key) => {
-        if ((parseInt(window.innerWidth) < parseInt(image.maxWidth) && (parseInt(key) + 1) !== images.length) || (parseInt(window.innerWidth) > parseInt(image.maxWidth) && (parseInt(key) + 1) === images.length)) {
+        if (parseInt(window.innerWidth) < parseInt(image.maxWidth)) {
             return image;
         }
     })[0];
+
 }
 
 const generateVehicleCard = (vehicle) => {

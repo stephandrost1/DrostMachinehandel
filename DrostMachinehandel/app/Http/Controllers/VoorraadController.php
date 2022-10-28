@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\VehicleView;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Route;
 
 class VoorraadController extends Controller
 {
@@ -29,7 +27,9 @@ class VoorraadController extends Controller
         $vehicleName = $currentUrlObject[array_search("details", $currentUrlObject) + 2];
 
         if (!empty($vehicleId) && !empty($vehicleName)) {
-            if (!empty(session("vehicle_" . $vehicleId)) && time() - session("vehicle_" . $vehicleId) > 10) {
+            if (empty(session("vehicle_" . $vehicleId))) {
+                $this->updateVehicleViews($vehicleId, $vehicleName);
+            } else if (time() - session("vehicle_" . $vehicleId) > 10) {
                 $this->updateVehicleViews($vehicleId, $vehicleName);
             }
 
