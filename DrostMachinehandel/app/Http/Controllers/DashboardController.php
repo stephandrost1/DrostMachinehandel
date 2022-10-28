@@ -23,11 +23,23 @@ class DashboardController extends Controller
 
     public function analytics()
     {
+
         return view("dashboard/analytics");
     }
 
     public function payments()
     {
         return view("dashboard/payments");
+    }
+
+    public function settings()
+    {
+        return view("dashboard/settings");
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+        return redirect('/dashboard');
     }
 }

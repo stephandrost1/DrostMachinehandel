@@ -8,5 +8,10 @@ return [
     'Leasen' => 'Lease',
     'Contact' => 'Contact',
     'Dashboard' => 'Dashboard',
-    'MachineDetail' => 'Machine Details'
+    'MachineDetail' => 'Machine Details',
+    'Dashboard-payments' => 'Payments',
+    'Dashboard-tasks' => 'Tasks',
+    'Dashboard-messages' => 'Messages',
+    'Dashboard-analytics' => 'Analytics',
+    'Dashboard-settings' => 'Settings'
 ];
