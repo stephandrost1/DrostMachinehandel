@@ -13,7 +13,6 @@ const getVehicleImage = (images) => {
             return image;
         }
     })[0];
-
 }
 
 const generateVehicleCard = (vehicle) => {

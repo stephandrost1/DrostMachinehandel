@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,9 +12,13 @@ class DashboardController extends Controller
         return redirect()->route("dashboard-analytics");
     }
 
-    public function tasks()
+    public function verhuur()
     {
-        return view("dashboard/tasks");
+        $rentVehicles = Vehicle::all();
+
+        return view("dashboard/verhuur", [
+            "machines" => $rentVehicles
+        ]);
     }
 
     public function messages()

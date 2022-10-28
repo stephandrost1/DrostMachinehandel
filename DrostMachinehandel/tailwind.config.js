@@ -17,6 +17,15 @@ module.exports = {
             },
             colors: {
                 primary: '#E56D01',
+                "primary-100": '#fef0e3',
+                "primary-200": '#fee1c7',
+                "primary-300": '#fed2ab',
+                "primary-400": '#fec48f',
+                "primary-500": '#feb573',
+                "primary-600": '#fea657',
+                "primary-700": '#fe973b',
+                "primary-800": '#fe891f',
+                "primary-900": '#fd7a04',
                 secondary: '#707070',
             },
             animation: {

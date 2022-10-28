@@ -40,7 +40,7 @@ Route::middleware(['locale'])->group((function () {
 
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name("dashboard");
-    Route::get('/tasks', [DashboardController::class, "tasks"])->name("dashboard-tasks");
+    Route::get('/verhuur', [DashboardController::class, "verhuur"])->name("dashboard-verhuur");
     Route::get('/messages', [DashboardController::class, "messages"])->name("dashboard-messages");
     Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");
     Route::get('/payments', [DashboardController::class, "payments"])->name("dashboard-payments");

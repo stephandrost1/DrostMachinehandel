@@ -42,4 +42,7 @@ function generateVehicleViewsChart(data) {
     });
 }
 
-fetchVehicleViews();
+
+if (document.body.classList.contains("page-dashboard-analytics")) {
+    fetchVehicleViews();
+}
