@@ -32,6 +32,11 @@
                         </div>
                         <!--/Metric Card-->
                     </div>
+                      <div class="w-full md:w-1/2 xl:w-2/3 p-6">
+                        <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
+                            <div id="selected-vehicle-data"></div>
+                        </div>
+                    </div>
                 </div>
     </div>
 </section>

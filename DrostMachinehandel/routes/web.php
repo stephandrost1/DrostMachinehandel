@@ -46,8 +46,11 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     Route::get('/payments', [DashboardController::class, "payments"])->name("dashboard-payments");
     Route::get('/settings', [DashboardController::class, "settings"])->name("dashboard-settings");
     Route::get('/logout', [DashboardController::class, "logout"])->name("dashboard-logout");
+});
 
+Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::get("/vehicleViews", [DashboardApiController::class, "vehicleViews"]);
+    Route::get("/vehicle/{id}", [VerhuurController::class, "getVehicleById"]);
 });
 
 Route::get('set-locale/{locale}', function ($locale) {

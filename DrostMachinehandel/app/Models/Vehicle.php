@@ -18,4 +18,9 @@ class Vehicle extends Model
     {
         return $this->hasMany(RentVehicleDetail::class, "vehicle_id");
     }
+
+    public function tags()
+    {
+        return $this->hasMany(RentVehicleFilterTag::class, "vehicle_id");
+    }
 }

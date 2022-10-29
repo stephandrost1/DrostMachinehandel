@@ -2,7 +2,7 @@ import axios from "axios";
 import _ from "lodash";
 
 function fetchVehicleViews() {
-    axios.get("/dashboard/vehicleViews").then(function (response) {
+    axios.get("/api/v1/vehicleViews").then(function (response) {
         generateVehicleViewsChart(response.data.vehicles);
     })
         .catch(function (error) {
