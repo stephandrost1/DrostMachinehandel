@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
-use Illuminate\Http\Request;
+use App\Models\RentFilter;
 
 class DashboardController extends Controller
 {
@@ -16,8 +16,11 @@ class DashboardController extends Controller
     {
         $rentVehicles = Vehicle::all();
 
+        $filters = RentFilter::with("options")->get();
+
         return view("dashboard/verhuur", [
-            "machines" => $rentVehicles
+            "machines" => $rentVehicles,
+            "filters" => $filters
         ]);
     }
 

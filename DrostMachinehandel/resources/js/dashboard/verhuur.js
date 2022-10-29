@@ -45,10 +45,26 @@ function _handleSelectVehicleButton() {
     })
 }
 
+function _handleFilterSelectListToggler() {
+    const filters = document.querySelectorAll(".vehicle-filter-option-list");
+
+    _.forEach([...filters], (filter) => {
+        filter.addEventListener("click", (event) => {
+            if (event.target.classList.contains("no-toggle")) {
+                return;
+            }
+
+            const list = filter.querySelector(".selectable-list");
+            list.classList.toggle("hidden");
+        })
+    })
+}
+
 function _init() {
     _handleSelectRentVehicleOption();
     _handleSelectVehicleDropdown();
     _handleSelectVehicleButton();
+    _handleFilterSelectListToggler();
 }
 
 _init();

@@ -863,6 +863,10 @@ select {
   margin-top: 1.25rem;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
 .block {
   display: block;
 }
@@ -1145,6 +1149,12 @@ select {
   cursor: pointer;
 }
 
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
 .resize {
   resize: both;
 }
@@ -1175,6 +1185,10 @@ select {
 
 .items-center {
   align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
 }
 
 .justify-end {

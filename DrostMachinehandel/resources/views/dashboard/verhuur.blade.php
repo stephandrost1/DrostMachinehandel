@@ -68,44 +68,37 @@
                                             <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
                                         </div>
                                         <div class="row flex justify-between gap-5">
-                                            <span class="w-1/2">Naam:</span>
+                                            <span class="w-1/2">Beschrijving:</span>
                                             <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
                                         </div>
                                         <div class="row flex justify-between gap-5">
-                                            <span class="w-1/2">Naam:</span>
+                                            <span class="w-1/2">Prijs per dag:</span>
                                             <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
                                         </div>
                                         <div class="row flex justify-between gap-5">
-                                            <span class="w-1/2">Naam:</span>
+                                            <span class="w-1/2">Prijs per week:</span>
                                             <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
                                         </div>
-                                        <div class="row flex justify-between gap-5">
-                                            <span class="w-1/2">Naam:</span>
-                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
-                                        </div>
-                                        <div class="row flex justify-between gap-5">
-                                            <span class="w-1/2">Naam:</span>
-                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
-                                        </div>
-                                        <div class="row flex justify-between gap-5">
-                                            <span class="w-1/2">Naam:</span>
-                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
-                                        </div>
-                                        <div class="row flex justify-between gap-5">
-                                            <span class="w-1/2">Naam:</span>
-                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
-                                        </div>
-                                        <div class="row flex justify-between gap-5">
-                                            <span class="w-1/2">Naam:</span>
-                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
-                                        </div>
-                                        <div class="row flex justify-between gap-5">
-                                            <span class="w-1/2">Naam:</span>
-                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
-                                        </div>
-                                        <div class="row flex justify-between gap-5">
-                                            <span class="w-1/2">Naam:</span>
-                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        <div class="row select-none flex justify-start gap-5">
+                                            <span class="w-1/2">Filter catagorieen:</span>
+                                            <div class="filters-wrapper flex flex-col gap-5 w-1/2">
+                                                @foreach($filters as $filter)
+                                                <div data-filterid="{{ $filter->id }}" class="vehicle-filter-option-list cursor-pointer wrapper bg-white rounded-lg border-2 border-primary p-2">
+                                                    <div class="title flex items-center gap-2">
+                                                        <span>{{ $filter->filter_name }}</span>
+                                                        <span id="toggler"><i class="fas fa-caret-down"></i></span>
+                                                    </div>
+                                                    <div class="selectable-list hidden">
+                                                        @foreach($filter->options as $option)
+                                                            <div data-optionid="{{ $option->id }}" class="option no-toggle flex gap-2 items-center">
+                                                                <input type="checkbox" id="{{ $option->value }}" class="no-toggle" />
+                                                                <label for="{{ $option->value }}" class="no-toggle" id="{{ $option->value }}">{{ $option->name }}</lab>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="buttons flex flex-row justify-end gap-5 items-center">
