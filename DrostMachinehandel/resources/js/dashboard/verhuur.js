@@ -17,8 +17,8 @@ function _handleSelectVehicleDropdown() {
 function _handleSelectRentVehicleOption() {
     _.forEach([...selectVehicleOptions], (vehicle) => {
         vehicle.addEventListener("click", (event) => {
-            selectedVehicle.innerHTML = event.target.innerHTML
-            fetchVehicleById(event.target.id);
+            selectedVehicle.innerHTML = event.target.innerHTML;
+            selectedVehicle.dataset.vehicleId = event.target.id;
         })
     })
 }
@@ -35,5 +35,20 @@ function fetchVehicleById(id) {
     })
 }
 
-_handleSelectRentVehicleOption();
-_handleSelectVehicleDropdown();
+function _handleSelectVehicleButton() {
+    selectVehicleButton.addEventListener("click", () => {
+        if (!selectedVehicle.dataset.vehicleId) {
+            return;
+        }
+
+        fetchVehicleById(selectedVehicle.dataset.vehicleId);
+    })
+}
+
+function _init() {
+    _handleSelectRentVehicleOption();
+    _handleSelectVehicleDropdown();
+    _handleSelectVehicleButton();
+}
+
+_init();

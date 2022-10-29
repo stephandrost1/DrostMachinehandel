@@ -11,14 +11,14 @@
         </div>
 
              <div class="flex flex-wrap">
-                    <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                    <div class="w-full md:w-1/4 h-full p-6 flex">
                         <!--Metric Card-->
-                        <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
+                        <div class="bg-gradient-to-b w-full from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
                             <div id="select-rent-vehicle-wrapper" class="flex flex-col rounded-lg shadow-xl w-3/4 pr-0 px-5 border-2 border-green-500 bg-green-200">
                                 <div id="select-rent-vehicle-toggler" class="selected-vehicle mr-4 truncate overflow-hidden my-2">
                                     <span id="selected-vehicle" class=" text-green-500 font-bold">Nog geen machine geselecteerd</span>
                                 </div>
-                                <div id="select-rent-vehicle-dropdown" class="possible-options max-h-56 duration-300 overflow-scroll pr-4">
+                                <div id="select-rent-vehicle-dropdown" class="possible-options duration-300 pr-4">
                                     @foreach($machines as $key => $vehicle)
                                         <div class="option border-b-2 border-green-500 w-full hover:font-bold hover:cursor-pointer @if($key != 0) mt-3 @endif">
                                             <span class="select-rent-vehicle-option text-green-500" id="{{ $vehicle->id }}">{{ $vehicle->vehicle_name }}</span>
@@ -32,9 +32,96 @@
                         </div>
                         <!--/Metric Card-->
                     </div>
-                      <div class="w-full md:w-1/2 xl:w-2/3 p-6">
+                      <div class="w-full md:w-3/4 p-6">
+                        <div class="header mb-5 w-full flex items-center gap-5 justify-end">
+                            <div class="bg-gradient-to-b w-1/8 from-green-500 flex items-start justify-between to-green-200 border-b-4 border-green-500 rounded-lg shadow-xl p-3">
+                                <div id="select-rent-vehicle-button" class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-green-500 bg-green-200">
+                                    <button class="text-green-500 font-bold">Toevoegen</button>
+                                </div>
+                            </div>
+                        </div>
                         <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                            <div id="selected-vehicle-data"></div>
+                            <div id="selected-vehicle-data" class="flex gap-5">
+                                <div class="col-left flex flex-col gap-5 w-1/2">
+                                    <div class="row-1 h-4/5">
+                                        <img src="https://picsum.photos/1200" class="rounded-lg w-full h-full object-cover" />
+                                    </div>
+                                    <div class="row-2 flex gap-5 h-1/5">
+                                        <div class="image w-1/4">
+                                            <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
+                                        </div>
+                                        <div class="image w-1/4">
+                                            <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
+                                        </div>
+                                        <div class="image w-1/4">
+                                            <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
+                                        </div>
+                                        <div class="image w-1/4">
+                                            <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-right w-1/2 ">
+                                    <div class="content flex flex-col mb-5 gap-5 w-full">
+                                        <div class="row flex justify-between gap-5">
+                                            <span class="w-1/2">Naam:</span>
+                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        </div>
+                                        <div class="row flex justify-between gap-5">
+                                            <span class="w-1/2">Naam:</span>
+                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        </div>
+                                        <div class="row flex justify-between gap-5">
+                                            <span class="w-1/2">Naam:</span>
+                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        </div>
+                                        <div class="row flex justify-between gap-5">
+                                            <span class="w-1/2">Naam:</span>
+                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        </div>
+                                        <div class="row flex justify-between gap-5">
+                                            <span class="w-1/2">Naam:</span>
+                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        </div>
+                                        <div class="row flex justify-between gap-5">
+                                            <span class="w-1/2">Naam:</span>
+                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        </div>
+                                        <div class="row flex justify-between gap-5">
+                                            <span class="w-1/2">Naam:</span>
+                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        </div>
+                                        <div class="row flex justify-between gap-5">
+                                            <span class="w-1/2">Naam:</span>
+                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        </div>
+                                        <div class="row flex justify-between gap-5">
+                                            <span class="w-1/2">Naam:</span>
+                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        </div>
+                                        <div class="row flex justify-between gap-5">
+                                            <span class="w-1/2">Naam:</span>
+                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        </div>
+                                        <div class="row flex justify-between gap-5">
+                                            <span class="w-1/2">Naam:</span>
+                                            <input placeholder="Machine 1" name="vehicleName" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                        </div>
+                                    </div>
+                                    <div class="buttons flex flex-row justify-end gap-5 items-center">
+                                        <div class="bg-gradient-to-b w-1/8 from-red-500 flex items-start justify-between to-red-200 border-b-4 border-red-500 rounded-lg shadow-xl p-3">
+                                            <div id="select-rent-vehicle-button" class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200">
+                                                <button class="text-red-500 font-bold">Verwijder</button>
+                                            </div>
+                                         </div>
+                                        <div class="bg-gradient-to-b w-1/8 from-green-500 flex items-start justify-between to-green-200 border-b-4 border-green-500 rounded-lg shadow-xl p-3">
+                                            <div id="select-rent-vehicle-button" class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-green-500 bg-green-200">
+                                                <button class="text-green-500 font-bold">Opslaan</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
