@@ -37,6 +37,6 @@ class VerhuurController extends Controller
             return response()->json(["message" => 'vehicle not found', "results" => false], 400);
         }
 
-        return response()->json(["vehicle" => $vehicle, "results" => true], 200);
+        return response()->json(["vehicle" => collect($vehicle)->first(), "results" => true], 200);
     }
 }
