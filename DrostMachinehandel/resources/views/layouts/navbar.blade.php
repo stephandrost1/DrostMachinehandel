@@ -62,7 +62,7 @@
             <a href={{ route("home") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.home') }}</div></a>
             <a href={{ route("voorraad") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.stock') }}</div></a>
             <a href={{ route("verhuur") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('verhuur')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.rent') }}</div></a>
-            {{-- <a href={{ route("leasen") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.lease') }}</div></a> --}}
+            <a href={{ route("leasen") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.lease') }}</div></a>
             <a href={{ route("contact") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.contact') }}</div></a>
             <a href={{ route("dashboard") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('dashboard')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.login') }}</div></a>
         </div>
@@ -150,11 +150,11 @@
                   <div class="navbar-item @if(Request::is('verhuur')) active @endif">{{ __('content/navbar.rent') }}</div>
                 </a>
               </li>
-              {{-- <li>
+              <li>
                 <a href={{ route("leasen") }}>
                   <div class="navbar-item @if(Request::is('leasen')) active @endif">{{ __('content/navbar.lease') }}</div>
                 </a>
-              </li> --}}
+              </li>
               <li>
                 <a href={{ route("contact") }}>
                   <div class="navbar-item @if(Request::is('contact')) active @endif">{{ __('content/navbar.contact') }}</div>

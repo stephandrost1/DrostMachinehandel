@@ -24,7 +24,7 @@
                             <i class="fas fa-chevron-up filter-arrow"></i>
                         </span> </br>
                         <div class="filter-items-wrapper">
-                            <input type="checkbox" class="filter-item"> John Deere </br>
+                            <input type="checkbox" class="filter-item accent-pink-500"> John Deere </br>
                             <input type="checkbox" class="filter-item"> Lamborghini </br>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                     @foreach ($machines as $machine)
                         <div class="vehicle-card swiper-slide">
                             <div class="thumbnail-wrapper">
-                                <img src="https://www.voorraadmodule.nl/i/T8ggcgJAu9zsJU6P1fLo_dijFlq3iD_gk5kCWawXl8U=/Fronteq-rups-hoogwerker-elektrische-werkhoogte-810-cm-1.jpg" class="vehicle-thumbnail">
+                                <img src="https://www.voorraadmodule.nl/i/TMggcgJPmo3HhU4a1PLo_dijFlq3iD_gkxw4tee61AaZ6g==/Hangcha-stapelaar-elektrische-hefhoogte-330-cm-1.jpg" class="vehicle-thumbnail">
                             </div>
                             <div class="card-body">
                                 <div class="vehicle-description-content">

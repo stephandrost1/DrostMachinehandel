@@ -40,9 +40,15 @@
                 @yield('content')
             </div>
     
-            {{-- Footer --}}
-            @include('layouts.footer', [
-                "currentLang" => App::getLocale()
-            ])
+            @if(!request()->is('login'))
+            
+                {{-- Footer --}}
+                @include('layouts.footer', [
+                    "currentLang" => App::getLocale()
+                ])
+
+            @endif
+            
+            
         </body>
     </html>
