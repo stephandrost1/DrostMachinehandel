@@ -8,5 +8,10 @@ return [
     'Leasen' => 'Louer',
     'Contact' => 'Contact',
     'Dashboard' => 'Tableau de bord',
-    'MachineDetail' => `Détails de l'appareil`
+    'MachineDetail' => `Détails de l'appareil`,
+    'Dashboard-payments' => 'Paiements',
+    'Dashboard-tasks' => 'Tâches',
+    'Dashboard-messages' => 'Messages',
+    'Dashboard-analytics' => 'Analytique',
+    'Dashboard-settings' => 'Réglages'
 ];

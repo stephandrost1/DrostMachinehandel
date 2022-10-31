@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VoorraadController;
 use App\Http\Controllers\LeasenController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardApiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VerhuurController;
 use Illuminate\Support\Facades\App;
@@ -35,9 +36,22 @@ Route::middleware(['locale'])->group((function () {
     Route::post('/contact', [ContactController::class, 'submitRequest'])->name('contact');
 
     Route::get('/verhuur', [VerhuurController::class, 'index'])->name('verhuur');
-
-    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 }));
+
+Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name("dashboard");
+    Route::get('/verhuur', [DashboardController::class, "verhuur"])->name("dashboard-verhuur");
+    Route::get('/messages', [DashboardController::class, "messages"])->name("dashboard-messages");
+    Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");
+    Route::get('/payments', [DashboardController::class, "payments"])->name("dashboard-payments");
+    Route::get('/settings', [DashboardController::class, "settings"])->name("dashboard-settings");
+    Route::get('/logout', [DashboardController::class, "logout"])->name("dashboard-logout");
+});
+
+Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
+    Route::get("/vehicleViews", [DashboardApiController::class, "vehicleViews"]);
+    Route::get("/vehicle/{id}", [VerhuurController::class, "getVehicleById"]);
+});
 
 Route::get('set-locale/{locale}', function ($locale) {
     App::setLocale($locale);

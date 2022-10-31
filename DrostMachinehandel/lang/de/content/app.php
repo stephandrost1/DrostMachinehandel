@@ -8,5 +8,9 @@ return [
     'Leasen' => 'Mieten',
     'Contact' => 'Kontakt',
     'Dashboard' => 'Armaturenbrett',
-    'MachineDetail' => 'Maschinendetails'
+    'Dashboard-payments' => 'Zahlungen',
+    'Dashboard-tasks' => 'Aufgaben',
+    'Dashboard-messages' => 'Mitteilungen',
+    'Dashboard-analytics' => 'Analytik',
+    'Dashboard-settings' => 'Einstellungen'
 ];
