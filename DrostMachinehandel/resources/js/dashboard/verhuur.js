@@ -213,9 +213,9 @@ function _handleSelectVehicleButton() {
     })
 }
 
-noVehicleSelectedAlert.classList.add("hidden");
-showVehicleDataHtml.classList.remove("hidden");
-fetchVehicleById(1);
+// noVehicleSelectedAlert.classList.add("hidden");
+// showVehicleDataHtml.classList.remove("hidden");
+// fetchVehicleById(1);
 
 function _handleFilterSelectListToggler() {
     const filters = document.querySelectorAll(".vehicle-filter-option-list");
