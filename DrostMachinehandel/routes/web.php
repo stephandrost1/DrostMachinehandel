@@ -36,6 +36,8 @@ Route::middleware(['locale'])->group((function () {
     Route::post('/contact', [ContactController::class, 'submitRequest'])->name('contact');
 
     Route::get('/verhuur', [VerhuurController::class, 'index'])->name('verhuur');
+
+    Route::get('/verhuurDetail', [VerhuurController::class, 'verhuurDetail'])->name('verhuurDetail');
 }));
 
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {

@@ -39,4 +39,9 @@ class VerhuurController extends Controller
 
         return response()->json(["vehicle" => collect($vehicle)->first(), "results" => true], 200);
     }
+
+    public function verhuurDetail()
+    {
+        return view("verhuurDetail");
+    }
 }
