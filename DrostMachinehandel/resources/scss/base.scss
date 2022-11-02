@@ -2129,6 +2129,10 @@ select {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.accent-pink-500 {
+  accent-color: #ec4899;
+}
+
 .opacity-0 {
   opacity: 0;
 }
@@ -2416,6 +2420,10 @@ select {
 .focus\:border-secondary:focus {
   --tw-border-opacity: 1;
   border-color: rgb(112 112 112 / var(--tw-border-opacity));
+}
+
+.focus\:border-transparent:focus {
+  border-color: transparent;
 }
 
 .focus\:bg-gray-100:focus {

@@ -1,5 +1,10 @@
 import axios from "axios";
 import _ from "lodash";
+import Swiper, { Autoplay } from 'swiper';
+import 'swiper/css';
+import { Dropzone } from "dropzone";
+
+Swiper.use(Autoplay);
 
 const selectVehicleButton = document.querySelector("#select-rent-vehicle-button");
 const selectVehicleDropdown = document.querySelector("#select-rent-vehicle-dropdown");
@@ -14,6 +19,7 @@ const acceptNewFilterButton = document.querySelector("#accept-new-filter");
 const rejectNewFilterButton = document.querySelector("#reject-new-filter");
 const newFilterInput = document.querySelector("#newFilter-input");
 const listOfFilters = document.querySelector("#list-of-filters");
+const selectedVehicleSwiperElement = document.querySelector(".vehicle-swiper");
 
 const showVehicleDataHtml = document.querySelector("#selected-vehicle-data");
 const showVehicleDataLoader = document.querySelector("#vehicle-loader");
@@ -213,9 +219,25 @@ function _handleSelectVehicleButton() {
     })
 }
 
-// noVehicleSelectedAlert.classList.add("hidden");
-// showVehicleDataHtml.classList.remove("hidden");
-// fetchVehicleById(1);
+function _handleVehicleImagesSwiper() {
+    const swiper = new Swiper(selectedVehicleSwiperElement, {
+        loop: false,
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
+        spaceBetween: 32,
+        slidesPerView: 4,
+    })
+}
+
+function _handleVehicleImagesDragAndDropZone() {
+    const dropZone = new Dropzone(".drag-and-drop-zone", { url: "/public/vehicles/images" })
+}
+
+noVehicleSelectedAlert.classList.add("hidden");
+showVehicleDataHtml.classList.remove("hidden");
+fetchVehicleById(1);
 
 function _handleFilterSelectListToggler() {
     const filters = document.querySelectorAll(".vehicle-filter-option-list");
@@ -240,6 +262,8 @@ function _init() {
     _handleFilterSelectListToggler();
     _handleAddNewFilterButton();
     _handleNewFilterActions();
+    _handleVehicleImagesSwiper();
+    _handleVehicleImagesDragAndDropZone();
 }
 
 _init();
