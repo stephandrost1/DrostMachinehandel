@@ -8,12 +8,12 @@
       <hr class="w-full h-[4px] bg-primary border-none mt-1 mb-3">
       <p class="text-base sm:text-lg w-11/12">{{ __('content/homepage.subtitle') }}</p>
       <div class="flex justify-between flex-wrap content-buttons-wrapper mt-3">
-        {{-- <a href={{ route("leasen") }}>
-          <button class="cta-button w-32 border-[3px] border-primary bg-transparent text-primary font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl"><span>{{ __('content/homepage.leasen') }}</span> <i class="fas fa-chevron-right"></i></button>
-        </a> --}}
+        <a href={{ route("leasen") }}>
+          <button class="cta-button w-32 border-[3px] border-primary bg-transparent text-primary font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl"><span>{{ __('content/homepage.lease') }}</span> <i class="fas fa-chevron-right"></i></button>
+        </a>
         
         <a href={{ route("voorraad") }}>
-          <button class="cta-button w-32 border-[3px] border-primary bg-primary text-white font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl">{{ __('content/homepage.voorraad') }}<i class="fas fa-chevron-right"></i></button>
+          <button class="cta-button w-32 border-[3px] border-primary bg-primary text-white font-bold px-5 sm:px-20 py-1 rounded-lg flex gap-5 items-center justify-center sm:text-xl">{{ __('content/homepage.stock') }}<i class="fas fa-chevron-right"></i></button>
         </a>
       </div>
     </div>

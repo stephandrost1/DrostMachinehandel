@@ -10,13 +10,13 @@
     </div>
 
     {{-- Desktop / Tablet Navbar --}}
-    <nav style="background-color: rgba(0, 0, 0, 0.6);" class="hidden md:block py-5">
+    <nav style="background-color: rgba(0, 0, 0, 0.6);" class="desktop-visibility py-5">
       <div class="flex flex-wrap justify-between justify-content-end items-center mx-12 xl:mx-16">
         <a href="https://drostmachinehandel.com/" class="flex items-center">
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
         </a>
 
-        <div class="flex gap-10 xl:gap-20 language-selector">
+        <div class="flex desktop-gap language-selector">
             <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="flex items-center justify-center gap-2" type="button">
               @if ($currentLang == 'nl')<img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> @endif
               @if ($currentLang == 'en')<img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> @endif
@@ -70,7 +70,7 @@
     </nav>
 
     {{-- Mobile Navbar --}}
-    <nav id="navbar" style="background-color: rgba(0, 0, 0, 0.6);" class="block md:hidden py-5 z-50">
+    <nav id="navbar" style="background-color: rgba(0, 0, 0, 0.6);" class="mobile-visibility py-5 z-50">
       <div class="flex flex-wrap justify-between justify-content-end items-center mx-8">
         <a href="https://drostmachinehandel.com/" class="nav-logo 
          flex items-center">

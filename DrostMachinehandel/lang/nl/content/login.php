@@ -6,5 +6,5 @@ return [
     'login' => 'Inloggen',
     'email' => 'E-mailadres',
     'password' => 'Wachtwoord',
-    'remember_me' => 'Onthoud mij',
+    'remember-me' => 'Onthoud mij',
 ];

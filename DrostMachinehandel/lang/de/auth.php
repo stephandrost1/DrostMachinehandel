@@ -13,8 +13,7 @@ return [
     |
     */
 
-    'failed' => `Ces informations d'identification ne correspondent pas à nos dossiers.`,
-    'password' => 'Le mot de passe fourni est incorrect.',
-    'throttle' => 'Trop de tentatives de connexion. Veuillez réessayer dans :seconds seconds.',
-
+    'failed' => 'Diese Anmeldeinformationen stimmen nicht mit unseren Aufzeichnungen überein.',
+    'password' => 'Das angegebene Passwort ist falsch.',
+    'throttle' => 'Zu viele Anmeldeversuche. Bitte versuchen Sie es erneut :seconds seconds.',
 ];

@@ -14,7 +14,6 @@
         <div class="mb-2">
             <label for="email" class="font-bold text-primary pb-1">{{ __('content/login.email') }}</label> </br>
             <input required type="text" id="email" name="email" placeholder="JohnDoe@example.com" class="border-2 border-secondary rounded-md w-full text-gray-700 focus:border-secondary focus:ring-0">
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
         <div class="mb-2">
             <label for="email" class="font-bold text-primary pb-1">{{ __('content/login.password') }}</label> </br>
@@ -26,8 +25,10 @@
         </div>
       </div>
 
+      <x-input-error :messages="$errors->get('email')" class="mt-2 mb-2" />
+
       <div class="mb-3 flex items-center gap-1">
-        <input id="remember_me" name="remember" type="checkbox" class="focus:border-transparent focus:ring-0 login-remind-me"> {{ __('content/login.remember_me') }} </br>
+        <input id="remember_me" name="remember" type="checkbox" class="focus:border-transparent focus:ring-0 login-remind-me"> {{ __('content/login.remember-me') }} </br>
       </div>
     
       <div>

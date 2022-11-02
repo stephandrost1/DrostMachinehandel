@@ -7,7 +7,7 @@
    <div class="col-left">
     <div class="form-wrapper">
       <div class="header">
-        <h1 class="title">{{ __('/content/contact.title') }}</h1>
+        <h1 class="title">{{ __('/content/contact.contact') }}</h1>
         <p class="subtitle">{{ __('/content/contact.subtext') }}</p>
       </div>
       @if (!isset($statusCode)) 
@@ -60,7 +60,7 @@
       <div class="office-hours">
         <div class="hours-wrapper">
           <div class="contact-details">
-            <h1 class="text-2xl font-bold">{{ __('content/contact.subtitle 1') }}</h1>
+            <h1 class="text-2xl font-bold">{{ __('content/contact.contact-details') }}</h1>
             <hr class="w-full h-[4px] bg-primary border-none">
             <div class="flex flex-col gap-2 ml-3 font-bold mt-1">
               <div><i class="fas fa-envelope"></i> info@drostmachinehandel.com</div>
@@ -69,14 +69,14 @@
             </div>
           </div>
           <div class="hours">
-            <h1 class="text-2xl font-bold">{{ __('content/contact.subtitle 2') }}</h1>
+            <h1 class="text-2xl font-bold">{{ __('content/contact.opening-hours') }}</h1>
             <hr class="w-full h-[4px] bg-primary border-none">
-            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.day 1') }}</span><span>09:00-17:00</span></div>
-            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.day 2') }}</span><span>09:00-17:00</span></div>
-            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.day 3') }}</span><span>09:00-17:00</span></div>
-            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.day 4') }}</span><span>09:00-17:00</span></div>
-            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.day 5') }}</span><span>09:00-17:00</span></div>
-            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.day 6 & 7') }}</span><span>{{ __('content/contact.closed') }}</span></div>
+            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.monday') }}</span><span>09:00-17:00</span></div>
+            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.tuesday') }}</span><span>09:00-17:00</span></div>
+            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.wednesday') }}</span><span>09:00-17:00</span></div>
+            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.thursday') }}</span><span>09:00-17:00</span></div>
+            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.friday') }}</span><span>09:00-17:00</span></div>
+            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.saturday-sunday') }}</span><span>{{ __('content/contact.closed') }}</span></div>
           </div>
         </div>
       </div>
