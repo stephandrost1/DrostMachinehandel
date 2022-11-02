@@ -1,57 +1,57 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.app')
+@section('content')
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+<hr class="w-full h-2 bg-primary border-none">
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <!-- Email Address -->
+<div class="mt-12 flex flex-col items-center justify-center">
+  
+  <div class="login-title-wrapper bg-primary">
+    <h1 class="font-bold text-3xl text-center login-title">{{ __('content/login.login') }}</h1>
+  </div>
+  <form method="POST" action="{{ route('login') }}" class="bg-gray-800 login-form">
+      @csrf
+      <div class="mb-3 mt-5">
+        <div class="mb-2">
+            <label for="email" class="font-bold text-primary pb-1">{{ __('content/login.email') }}</label> </br>
+            <input required type="text" id="email" name="email" placeholder="JohnDoe@example.com" class="border-2 border-secondary rounded-md w-full text-gray-700 focus:border-secondary focus:ring-0">
+        </div>
+        <div class="mb-2">
+            <label for="email" class="font-bold text-primary pb-1">{{ __('content/login.password') }}</label> </br>
             <div>
-                <x-input-label for="email" :value="__('Email')" />
-
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+              <input required id="password" name="password" type="password"  placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" class="border-2 border-secondary rounded-md w-full text-gray-700 focus:border-secondary focus:ring-0">
+              <i id="passwordIcon" class="fas fa-eye password-icon" onclick="togglePasswordVisibility()"></i>
             </div>
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
+      </div>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-input-label for="password" :value="__('Password')" />
+      <x-input-error :messages="$errors->get('email')" class="mt-2 mb-2" />
 
-                <x-text-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
+      <div class="mb-3 flex items-center gap-1">
+        <input id="remember_me" name="remember" type="checkbox" class="focus:border-transparent focus:ring-0 login-remind-me"> {{ __('content/login.remember-me') }} </br>
+      </div>
+    
+      <div>
+        <button type="submit" class="bg-primary rounded-md w-full font-bold text-white login-button">{{ __('content/login.login') }}</button>
+      </div>
+  </form>
 
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
-            </div>
+  <script>
+    function togglePasswordVisibility() {
+      var input = document.getElementById("password");
+      var icon = document.getElementById("passwordIcon")
+      if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+    }
+    </script>
+  
+</div>
 
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-primary-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-primary-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+@endsection

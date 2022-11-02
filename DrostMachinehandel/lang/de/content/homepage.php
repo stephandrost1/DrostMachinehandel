@@ -7,8 +7,8 @@ return [
     'subtitle' => 'Wir bieten auch Service für verkaufte Maschinen.
                    Die Maschinen werden vor dem Verkauf gründlich geprüft und fahrbereit gemacht!
                    Auf Wunsch Inzahlungnahme Ihrer Gebrauchtmaschine, aber auch Transport zum Wunschort.',
-    'voorraad' => 'Lager',
-    'leasen' => 'Mieten',
+    'stock' => 'Lager',
+    'lease' => 'Mieten',
     'quote' => 'Gabelstapler, Hubwagen, Stapler und andere Transportgeräte!',
     'quote-link' => 'Sehen Sie sich unser Sortiment an!',
     'recently-added-title' => 'Die zuletzt hinzugefügten Maschinen'

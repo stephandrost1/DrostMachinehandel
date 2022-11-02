@@ -12,5 +12,5 @@ return [
     'lease' => 'Leasen',
     'contact' => 'Contact',
     'rent' => 'Verhuur',
-    'login' => 'Login',
+    'login' => 'Inloggen',
 ];

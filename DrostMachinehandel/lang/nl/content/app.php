@@ -5,8 +5,10 @@
 return [
     'Home' => 'Home',
     'Voorraad' => 'Voorraad',
+    'Verhuur' => 'Verhuur',
     'Leasen' => 'Leasen',
     'Contact' => 'Contact',
+    'Login' => 'Inloggen',
     'Dashboard' => 'Dashboard',
     'MachineDetail' => 'Machine Details',
     'Dashboard-payments' => 'Betalingen',

@@ -10,13 +10,13 @@
     </div>
 
     {{-- Desktop / Tablet Navbar --}}
-    <nav style="background-color: rgba(0, 0, 0, 0.6);" class="hidden md:block py-5">
+    <nav style="background-color: rgba(0, 0, 0, 0.6);" class="desktop-visibility py-5">
       <div class="flex flex-wrap justify-between justify-content-end items-center mx-12 xl:mx-16">
         <a href="https://drostmachinehandel.com/" class="flex items-center">
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
         </a>
 
-        <div class="flex gap-10 xl:gap-20 language-selector">
+        <div class="flex desktop-gap language-selector">
             <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="flex items-center justify-center gap-2" type="button">
               @if ($currentLang == 'nl')<img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> @endif
               @if ($currentLang == 'en')<img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> @endif
@@ -62,7 +62,7 @@
             <a href={{ route("home") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.home') }}</div></a>
             <a href={{ route("voorraad") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.stock') }}</div></a>
             <a href={{ route("verhuur") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('verhuur')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.rent') }}</div></a>
-            {{-- <a href={{ route("leasen") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.lease') }}</div></a> --}}
+            <a href={{ route("leasen") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.lease') }}</div></a>
             <a href={{ route("contact") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.contact') }}</div></a>
             <a href={{ route("dashboard") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('dashboard')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.login') }}</div></a>
         </div>
@@ -70,7 +70,7 @@
     </nav>
 
     {{-- Mobile Navbar --}}
-    <nav id="navbar" style="background-color: rgba(0, 0, 0, 0.6);" class="block md:hidden py-5 z-50">
+    <nav id="navbar" style="background-color: rgba(0, 0, 0, 0.6);" class="mobile-visibility py-5 z-50">
       <div class="flex flex-wrap justify-between justify-content-end items-center mx-8">
         <a href="https://drostmachinehandel.com/" class="nav-logo 
          flex items-center">
@@ -150,11 +150,11 @@
                   <div class="navbar-item @if(Request::is('verhuur')) active @endif">{{ __('content/navbar.rent') }}</div>
                 </a>
               </li>
-              {{-- <li>
+              <li>
                 <a href={{ route("leasen") }}>
                   <div class="navbar-item @if(Request::is('leasen')) active @endif">{{ __('content/navbar.lease') }}</div>
                 </a>
-              </li> --}}
+              </li>
               <li>
                 <a href={{ route("contact") }}>
                   <div class="navbar-item @if(Request::is('contact')) active @endif">{{ __('content/navbar.contact') }}</div>

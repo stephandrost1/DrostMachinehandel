@@ -11,6 +11,6 @@ return [
     'stock' => 'Lager',
     'lease' => 'Mieten',
     'contact' => 'Kontakt',
-    'rent' => 'Miete',
+    'rent' => 'Vermietung',
     'login' => 'Anmeldung',
 ];

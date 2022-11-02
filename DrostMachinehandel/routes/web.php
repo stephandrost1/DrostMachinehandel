@@ -29,13 +29,15 @@ Route::middleware(['locale'])->group((function () {
 
     Route::get('/voorraad/machine', [VoorraadController::class, 'detail'])->name('machineDetail');
 
-    // Route::get('/leasen', [LeasenController::class, 'index'])->name('leasen');
+    Route::get('/leasen', [LeasenController::class, 'index'])->name('leasen');
 
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
     Route::post('/contact', [ContactController::class, 'submitRequest'])->name('contact');
 
     Route::get('/verhuur', [VerhuurController::class, 'index'])->name('verhuur');
+
+    Route::get('/verhuurDetail', [VerhuurController::class, 'verhuurDetail'])->name('verhuurDetail');
 }));
 
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
