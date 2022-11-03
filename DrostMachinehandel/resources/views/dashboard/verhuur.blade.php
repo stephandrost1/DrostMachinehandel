@@ -76,18 +76,23 @@
                                                         </div> 
                                                 </div>
                                             </div>
-                                            <div class="w-3/4 vehicle-swiper w-full h-1/5">
+                                            <div class="w-3/4 vehicle-swiper w-full h-1/5 user-select-none">
                                                 <div class="vehicle-swiper-wrapper gap-5 h-full grid grid-cols-4">
-                                                    <div class="image w-full h-full">
+                                                    <div class="image w-full h-full relative">
+                                                        <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
+                                                        <div class="image-actions absolute duration-200 flex justify-center items-center w-full h-full top-0">
+                                                            <div class="delete-image">
+                                                                <i class="fas fa-trash text-black text-xl"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="image w-full h-full relative">
                                                         <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
                                                     </div>
-                                                    <div class="image w-full h-full">
+                                                    <div class="image w-full h-full relative">
                                                         <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
                                                     </div>
-                                                    <div class="image w-full h-full">
-                                                        <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
-                                                    </div>
-                                                    <div class="image w-full h-full">
+                                                    <div class="image w-full h-full relative">
                                                         <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
                                                     </div>
                                                 </div>

@@ -1,0 +1,20 @@
+.page-dashboard-verhuur {
+    #selected-vehicle-data {
+        .row-2 {
+            .vehicle-swiper {
+                .vehicle-swiper-wrapper {
+                    .image {
+                        .image-actions {
+                            opacity: 0;
+
+                            &:hover {
+                                opacity: 100;
+                                background-color: rgba($color-main, 0.5);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

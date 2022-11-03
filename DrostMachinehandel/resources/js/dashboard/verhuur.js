@@ -213,23 +213,48 @@ function _handleSelectVehicleButton() {
     })
 }
 
+function generateVehicleSliderImage(image, file, swiperWrapper) {
+    const swiperSlide = document.createElement("div");
+    swiperSlide.classList = "image w-full h-full relative";
+
+    const slideImage = document.createElement("img");
+    slideImage.classList = "rounded-lg w-full h-full object-cover aspect-square";
+    if (!_.isEmpty(image)) {
+        slideImage.src = `${image.image_location}${image.image_name}.${image.image_type}`;
+    } else {
+        slideImage.src = URL.createObjectURL(file);
+    }
+    slideImage.width = "400";
+    slideImage.height = "400";
+
+    const imageActions = document.createElement("div");
+    imageActions.classList = "image-actions absolute duration-200 flex justify-center items-center w-full h-full top-0";
+
+    const deleteImageAction = document.createElement("div");
+    deleteImageAction.classList = "delete-image";
+    deleteImageAction.addEventListener("click", () => {
+        swiperWrapper.removeChild(deleteImageAction.closest(".image"));
+    })
+
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList = "fas fa-trash text-black text-xl";
+
+    deleteImageAction.append(deleteIcon);
+    imageActions.append(deleteImageAction);
+
+    swiperSlide.append(slideImage);
+    swiperSlide.append(imageActions);
+
+    return swiperSlide;
+}
+
 function _handleVehicleImagesDragAndDropZone() {
     const dropzoneInput = document.getElementById("dropzone-file");
     const swiperWrapper = document.querySelector(".vehicle-swiper-wrapper");
 
     dropzoneInput.addEventListener("change", (event) => {
         _.forEach(event.target.files, (file) => {
-            const swiperSlide = document.createElement("div");
-            swiperSlide.classList = "image w-full h-full";
-
-            const slideImage = document.createElement("img");
-            slideImage.classList = "rounded-lg w-full h-full object-cover aspect-square";
-            slideImage.src = URL.createObjectURL(file);
-            slideImage.width = "400";
-            slideImage.height = "400";
-
-            swiperSlide.append(slideImage);
-            swiperWrapper.append(swiperSlide);
+            swiperWrapper.append(generateVehicleSliderImage([], file, swiperWrapper));
         })
     });
 }
