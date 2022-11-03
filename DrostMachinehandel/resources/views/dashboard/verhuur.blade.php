@@ -61,22 +61,35 @@
                                         <div class="row-1 h-4/5">
                                             <img src="https://picsum.photos/1200" class="rounded-lg w-full h-full object-cover" />
                                         </div>
-                                        <div class="row-2 vehicle-swiper overflow-hidden">
-                                            <div class="vehicle-swiper-wrapper swiper-wrapper flex gap-5 h-1/5">
-                                                <div class="image image-dropzone swiper-slide w-1/4">
-                                                    <form action="/target" class="drag-and-drop-zone"></form>
+                                        <div class="row-2 flex gap-5">
+                                            <div class="image-uploader w-1/4 h-1/4 aspect-square border-2 rounded-lg border-primary">
+                                                <div class="w-full flex items-center justify-center h-full">
+                                                        <div class="flex justify-center items-center h-full w-full">
+                                                            <label for="dropzone-file" class="flex flex-col justify-center items-center w-full h-full cursor-pointer">
+                                                                <div class="flex flex-col justify-center items-center h-full pt-5 pb-6">
+                                                                    <svg aria-hidden="true" class="mb-3 w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                                                    <p class="mb-2 text-sm text-center text-primary"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                                                    <p class="text-xs text-center text-primary">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                                                </div>
+                                                                <input id="dropzone-file" multiple type="file" class="hidden">
+                                                            </label>
+                                                        </div> 
                                                 </div>
-                                                <div class="image swiper-slide w-1/4">
-                                                    <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
-                                                </div>
-                                                <div class="image swiper-slide w-1/4">
-                                                    <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
-                                                </div>
-                                                <div class="image swiper-slide w-1/4">
-                                                    <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
-                                                </div>
-                                                <div class="image swiper-slide w-1/4">
-                                                    <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
+                                            </div>
+                                            <div class="w-3/4 vehicle-swiper w-full h-1/5">
+                                                <div class="vehicle-swiper-wrapper gap-5 h-full grid grid-cols-4">
+                                                    <div class="image w-full h-full">
+                                                        <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
+                                                    </div>
+                                                    <div class="image w-full h-full">
+                                                        <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
+                                                    </div>
+                                                    <div class="image w-full h-full">
+                                                        <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
+                                                    </div>
+                                                    <div class="image w-full h-full">
+                                                        <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

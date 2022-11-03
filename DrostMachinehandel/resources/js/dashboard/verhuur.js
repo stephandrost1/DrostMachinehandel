@@ -1,10 +1,5 @@
 import axios from "axios";
 import _ from "lodash";
-import Swiper, { Autoplay } from 'swiper';
-import 'swiper/css';
-import { Dropzone } from "dropzone";
-
-Swiper.use(Autoplay);
 
 const selectVehicleButton = document.querySelector("#select-rent-vehicle-button");
 const selectVehicleDropdown = document.querySelector("#select-rent-vehicle-dropdown");
@@ -19,7 +14,6 @@ const acceptNewFilterButton = document.querySelector("#accept-new-filter");
 const rejectNewFilterButton = document.querySelector("#reject-new-filter");
 const newFilterInput = document.querySelector("#newFilter-input");
 const listOfFilters = document.querySelector("#list-of-filters");
-const selectedVehicleSwiperElement = document.querySelector(".vehicle-swiper");
 
 const showVehicleDataHtml = document.querySelector("#selected-vehicle-data");
 const showVehicleDataLoader = document.querySelector("#vehicle-loader");
@@ -219,20 +213,25 @@ function _handleSelectVehicleButton() {
     })
 }
 
-function _handleVehicleImagesSwiper() {
-    const swiper = new Swiper(selectedVehicleSwiperElement, {
-        loop: false,
-        effect: 'fade',
-        fadeEffect: {
-            crossFade: true
-        },
-        spaceBetween: 32,
-        slidesPerView: 4,
-    })
-}
-
 function _handleVehicleImagesDragAndDropZone() {
-    const dropZone = new Dropzone(".drag-and-drop-zone", { url: "/public/vehicles/images" })
+    const dropzoneInput = document.getElementById("dropzone-file");
+    const swiperWrapper = document.querySelector(".vehicle-swiper-wrapper");
+
+    dropzoneInput.addEventListener("change", (event) => {
+        _.forEach(event.target.files, (file) => {
+            const swiperSlide = document.createElement("div");
+            swiperSlide.classList = "image w-full h-full";
+
+            const slideImage = document.createElement("img");
+            slideImage.classList = "rounded-lg w-full h-full object-cover aspect-square";
+            slideImage.src = URL.createObjectURL(file);
+            slideImage.width = "400";
+            slideImage.height = "400";
+
+            swiperSlide.append(slideImage);
+            swiperWrapper.append(swiperSlide);
+        })
+    });
 }
 
 noVehicleSelectedAlert.classList.add("hidden");
@@ -262,7 +261,6 @@ function _init() {
     _handleFilterSelectListToggler();
     _handleAddNewFilterButton();
     _handleNewFilterActions();
-    _handleVehicleImagesSwiper();
     _handleVehicleImagesDragAndDropZone();
 }
 
