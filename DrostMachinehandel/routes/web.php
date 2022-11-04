@@ -46,6 +46,7 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     Route::get('/verhuur', [DashboardController::class, "verhuur"])->name("dashboard-verhuur");
 
     Route::delete('/vehicle/{vehicleId}/delete', [VehicleController::class, "delete"]);
+    Route::patch('/vehicle/{vehicleId}/update', [VehicleController::class, "update"]);
 
     Route::get('/messages', [DashboardController::class, "messages"])->name("dashboard-messages");
     Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");

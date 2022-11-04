@@ -14,6 +14,7 @@ const rejectNewFilterButton = document.querySelector("#reject-new-filter");
 const newFilterInput = document.querySelector("#newFilter-input");
 const listOfFilters = document.querySelector("#list-of-filters");
 const deleteSelectedVehicleButton = document.querySelector("#delete-selected-vehicle");
+const saveSelectedVehicleButton = document.querySelector("#save-selected-vehicle");
 const deleteVehiclePopup = document.querySelector(".popup-confirmation-box");
 const popupAcceptButton = document.querySelector(".popup-confirmation-box #popup-accept-button");
 const popupCancelButton = document.querySelector(".popup-confirmation-box #popup-cancel-button");
@@ -22,11 +23,12 @@ const showVehicleDataHtml = document.querySelector("#selected-vehicle-data");
 const showVehicleDataLoader = document.querySelector("#vehicle-loader");
 const noVehicleSelectedAlert = document.querySelector("#no-vehicle-selected");
 
-function generateVehicleSpecBlock(name, value) {
+function generateVehicleSpecBlock(name, value, id) {
     const selectedVehicleSpecs = document.querySelectorAll("#vehicle-specs-container .specs-row");
 
     const container = document.createElement("div")
     container.classList = "specs-row flex gap-2 w-full items-center"
+    container.dataset.specId = id ?? "";
 
     const columnOne = document.createElement("div")
     columnOne.classList = "col-1 w-5/12"
@@ -34,7 +36,7 @@ function generateVehicleSpecBlock(name, value) {
     const inputColumnOne = document.createElement("input")
     inputColumnOne.name = "spec_" + (selectedVehicleSpecs.length + 1) + "_q";
     inputColumnOne.id = "spec_" + (selectedVehicleSpecs.length + 1) + "_q";
-    inputColumnOne.classList = "w-full h-12 rounded-lg border-2 border-primary pl-2";
+    inputColumnOne.classList = "w-full h-12 spec_name rounded-lg border-2 border-primary pl-2";
     if (value) {
         inputColumnOne.value = name;
     } else {
@@ -49,7 +51,7 @@ function generateVehicleSpecBlock(name, value) {
     const inputColumnTwo = document.createElement("input")
     inputColumnTwo.name = "spec_" + (selectedVehicleSpecs.length + 1) + "_a";
     inputColumnTwo.id = "spec_" + (selectedVehicleSpecs.length + 1) + "_a";
-    inputColumnTwo.classList = "w-full h-12 rounded-lg border-2 border-primary pl-2";
+    inputColumnTwo.classList = "w-full h-12 spec_value rounded-lg border-2 border-primary pl-2";
     if (value) {
         inputColumnTwo.value = value;
     } else {
@@ -104,7 +106,7 @@ function _handleNewFilterActions() {
         container.classList = "option no-toggle flex gap-2 items-center";
 
         const input = document.createElement("input");
-        input.classList = "no-toggle";
+        input.classList = "no-toggle input-tag";
         input.type = "checkbox";
         input.id = "new-filter"
 
@@ -165,7 +167,7 @@ function fetchVehicleById(id) {
 
     axios.get("/api/v1/vehicle/" + id).then((response) => {
         if (response.data.results) {
-            console.log(response.data.vehicle)
+            console.log(response.data.vehicle);
             updateVehicleHtml(response.data.vehicle);
 
             if (showVehicleDataHtml.classList.contains("hidden")) {
@@ -235,6 +237,11 @@ async function updateVehicleHtml(vehicle) {
     const vehicleThumbnail = document.querySelector("#vehicle-data-thumbnail");
     const noImagePlaceholder = vehicleThumbnail.querySelector(".no-image-available");
 
+    _.forEach(vehicle.tags, (tag) => {
+        const selectedTag = document.querySelector('.list-wrapper .option[data-optionid="' + tag.tags_value.id + '"]').querySelector("input.input-tag");
+        selectedTag.checked = true;
+    });
+
     swiperWrapper.replaceChildren([]);
     vehicleThumbnail.replaceChildren(noImagePlaceholder);
 
@@ -249,7 +256,7 @@ async function updateVehicleHtml(vehicle) {
     selectedVehicleSpecsContainer.replaceChildren([]);
 
     _.forEach(vehicle.details, (detail) => {
-        generateVehicleSpecBlock(detail.detail_name, detail.detail_value);
+        generateVehicleSpecBlock(detail.detail_name, detail.detail_value, detail.id);
     })
 }
 
@@ -359,6 +366,64 @@ function _handleDeleteVehicleButton() {
     })
 }
 
+function getSelectedVehicleSpecs() {
+    const specsWrapper = document.querySelector(".specs-wrapper").querySelectorAll(".specs-row");
+
+    return _.map([...specsWrapper], (spec) => {
+        return {
+            "id": parseInt(spec.dataset.specId),
+            "name": spec.querySelector(".col-1 .spec_name").value,
+            "value": spec.querySelector(".col-2 .spec_value").value,
+        }
+    })
+}
+
+function getSelectedVehicleTags() {
+    const tagLists = document.querySelectorAll(".vehicle-filter-option-list");
+
+    return _.map([...tagLists], (tagList) => {
+        const listItems = tagList.querySelectorAll(".list-wrapper #list-of-filters .option");
+
+        const allFilters = _.map([...listItems], (listItem) => {
+            return {
+                "id": listItem.dataset.optionid,
+                "name": listItem.querySelector(".input-tag").id !== "new-filter" ? listItem.querySelector(".input-tag").id : listItem.querySelector(".option-label").id ?? "",
+                "checked": listItem.querySelector(".input-tag").checked,
+                "newLabel": listItem.querySelector(".input-tag").id == "new-filter",
+                "filterId": listItem.closest(".vehicle-filter-option-list").dataset.filterid,
+            }
+        })
+
+        return _.filter(allFilters, (filter) => {
+            return filter.checked;
+        })
+    }).flat();
+}
+
+function _handleSaveVehicleButton() {
+    saveSelectedVehicleButton.addEventListener("click", () => {
+        const vehicleId = document.querySelector("#selected-vehicle").dataset.vehicleId;
+        const vehicleName = document.querySelector("#selected-vehicle-name").value;
+        const vehicleDescription = document.querySelector("#selected-vehicle-description").value;
+        const vehiclePricePerDay = document.querySelector("#selected-vehicle-price-per-day").value;
+        const vehiclePricePerWeek = document.querySelector("#selected-vehicle-price-per-week").value;
+        const vehicleSpecs = getSelectedVehicleSpecs();
+        const vehicleTags = getSelectedVehicleTags();
+
+        axios.patch(`/dashboard/vehicle/${vehicleId}/update`, {
+            "id": vehicleId,
+            "name": vehicleName,
+            "description": vehicleDescription,
+            "pricePerDay": vehiclePricePerDay,
+            "pricePerWeek": vehiclePricePerWeek,
+            "specs": vehicleSpecs,
+            "tags": vehicleTags
+        }).then(response => {
+            window.location.reload();
+        })
+    })
+}
+
 function _handleFilterSelectListToggler() {
     const filters = document.querySelectorAll(".vehicle-filter-option-list");
 
@@ -383,6 +448,10 @@ function _handlePopupButtons() {
     popupCancelButton.addEventListener("click", _handlePopupCancelButton(deleteVehiclePopup));
 }
 
+noVehicleSelectedAlert.classList.add("hidden");
+showVehicleDataHtml.classList.remove("hidden");
+fetchVehicleById(1);
+
 function _init() {
     _handleSelectRentVehicleOption();
     _handleSelectVehicleButton();
@@ -391,6 +460,7 @@ function _init() {
     _handleAddNewFilterButton();
     _handleNewFilterActions();
     _handleDeleteVehicleButton();
+    _handleSaveVehicleButton();
     _handlePopupButtons();
     _handleVehicleImagesDragAndDropZone();
 }

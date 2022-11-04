@@ -158,7 +158,7 @@
 
                                                                 @foreach($filter->options as $option)
                                                                     <div data-optionid="{{ $option->id }}" class="option no-toggle flex gap-2 items-center">
-                                                                        <input type="checkbox" id="{{ $option->value }}" class="no-toggle" />
+                                                                        <input type="checkbox" id="{{ $option->value }}" class="no-toggle input-tag" />
                                                                         <label for="{{ $option->value }}" class="no-toggle option-label" id="{{ $option->value }}">{{ $option->name }}</lab>
                                                                     </div>
                                                                 @endforeach
@@ -194,7 +194,7 @@
                                                     <button class="text-red-500 font-bold">Verwijder</button>
                                                 </div>
                                             </div>
-                                            <div class="bg-gradient-to-b w-1/8 from-green-500 flex items-start justify-between to-green-200 border-b-4 border-green-500 rounded-lg shadow-xl p-3">
+                                            <div id="save-selected-vehicle" class="bg-gradient-to-b w-1/8 from-green-500 flex items-start justify-between to-green-200 border-b-4 border-green-500 rounded-lg shadow-xl p-3">
                                                 <div id="select-rent-vehicle-button" class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-green-500 bg-green-200">
                                                     <button class="text-green-500 font-bold">Opslaan</button>
                                                 </div>
