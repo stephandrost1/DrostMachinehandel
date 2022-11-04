@@ -10,8 +10,8 @@
             </div>
         </div>
 
-             <div class="flex flex-wrap">
-                    <div class="w-full md:w-1/4 h-full p-6 flex">
+             <div class="flex flex-wrap bg-black h-full">
+                    <div class="w-full h-fit md:w-1/4 p-6 flex">
                         <!--Metric Card-->
                         <div class="bg-gradient-to-b w-full from-primary flex items-start gap-5 justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
                             <div id="select-rent-vehicle-wrapper" class="flex flex-col rounded-lg shadow-xl w-3/4 p-5 gap-5 border-2 border-primary-500 bg-primary-200">
@@ -61,18 +61,23 @@
                                         <div class="row-1 h-4/5">
                                             <img src="https://picsum.photos/1200" class="rounded-lg w-full h-full object-cover" />
                                         </div>
-                                        <div class="row-2 flex gap-5 h-1/5">
-                                            <div class="image w-1/4">
-                                                <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
-                                            </div>
-                                            <div class="image w-1/4">
-                                                <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
-                                            </div>
-                                            <div class="image w-1/4">
-                                                <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
-                                            </div>
-                                            <div class="image w-1/4">
-                                                <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
+                                        <div class="row-2 vehicle-swiper overflow-hidden">
+                                            <div class="vehicle-swiper-wrapper swiper-wrapper flex gap-5 h-1/5">
+                                                <div class="image image-dropzone swiper-slide w-1/4">
+                                                    <form action="/target" class="drag-and-drop-zone"></form>
+                                                </div>
+                                                <div class="image swiper-slide w-1/4">
+                                                    <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
+                                                </div>
+                                                <div class="image swiper-slide w-1/4">
+                                                    <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
+                                                </div>
+                                                <div class="image swiper-slide w-1/4">
+                                                    <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
+                                                </div>
+                                                <div class="image swiper-slide w-1/4">
+                                                    <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

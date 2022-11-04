@@ -16,6 +16,7 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "dropzone": "^6.0.0-beta.2",
         "requirejs": "^2.3.6",
         "sass": "^1.54.9",
         "swiper": "^8.4.4"
