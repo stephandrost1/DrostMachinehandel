@@ -41,7 +41,7 @@
                             <i class="fas fa-chevron-up filter-arrow"></i>
                         </span> </br>
                         <div class="filter-items-wrapper">
-                            <input type="checkbox" class="filter-item"> Machine </br>
+                            <input type="checkbox" class="filter-item focus:border-transparent focus:ring-0"> Machine </br>
                         </div>
                     </div>
                     <div class="filter-wrapper">
@@ -49,8 +49,8 @@
                             <i class="fas fa-chevron-up filter-arrow"></i>
                         </span> </br>
                         <div class="filter-items-wrapper">
-                            <input type="checkbox" class="filter-item accent-pink-500"> John Deere </br>
-                            <input type="checkbox" class="filter-item"> Lamborghini </br>
+                            <input type="checkbox" class="filter-item focus:border-transparent focus:ring-0"> John Deere </br>
+                            <input type="checkbox" class="filter-item focus:border-transparent focus:ring-0"> Lamborghini </br>
                         </div>
                     </div>
                 </div>

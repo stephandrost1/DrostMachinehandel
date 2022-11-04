@@ -34,6 +34,10 @@
     .login-remind-me {
         --tw-ring-offset-shadow: 0;
     }
+
+    [type=checkbox] {
+        color: $color-main;
+    }
     
 }
 
