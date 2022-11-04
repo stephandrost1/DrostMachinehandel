@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("filter_name");
             $table->string("filter_type_id");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

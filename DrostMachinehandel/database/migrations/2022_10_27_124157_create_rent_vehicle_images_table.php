@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("image_name");
             $table->string("image_location");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

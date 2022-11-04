@@ -1,9 +1,8 @@
 import axios from "axios";
 import _ from "lodash";
+import popupS from "popups";
 
 const selectVehicleButton = document.querySelector("#select-rent-vehicle-button");
-const selectVehicleDropdown = document.querySelector("#select-rent-vehicle-dropdown");
-const selectVehicleToggler = document.querySelector("#select-rent-vehicle-toggler");
 const selectVehicleOptions = document.querySelectorAll(".select-rent-vehicle-option");
 const selectedVehicle = document.querySelector("#selected-vehicle");
 const selectedVehicleSpecsContainer = document.querySelector("#vehicle-specs-container");
@@ -14,6 +13,10 @@ const acceptNewFilterButton = document.querySelector("#accept-new-filter");
 const rejectNewFilterButton = document.querySelector("#reject-new-filter");
 const newFilterInput = document.querySelector("#newFilter-input");
 const listOfFilters = document.querySelector("#list-of-filters");
+const deleteSelectedVehicleButton = document.querySelector("#delete-selected-vehicle");
+const deleteVehiclePopup = document.querySelector(".popup-confirmation-box");
+const popupAcceptButton = document.querySelector(".popup-confirmation-box #popup-accept-button");
+const popupCancelButton = document.querySelector(".popup-confirmation-box #popup-cancel-button");
 
 const showVehicleDataHtml = document.querySelector("#selected-vehicle-data");
 const showVehicleDataLoader = document.querySelector("#vehicle-loader");
@@ -75,11 +78,25 @@ function generateVehicleSpecBlock(name, value) {
 
 }
 
-function _handleNewFilterActions() {
-    acceptNewFilterButton.addEventListener("click", () => {
-        addNewOptionItem.classList.add("hidden");
+function getAllFilterValues(parent) {
+    if (!_.isElement(parent)) {
+        return;
+    }
 
-        if (newFilterInput.value == "") {
+    const children = parent.querySelectorAll(".option");
+
+    return _.map(children, (child) => {
+        return child.querySelector(".option-label").id.toLowerCase()
+    })
+}
+
+function _handleNewFilterActions() {
+    acceptNewFilterButton.addEventListener("click", (event) => {
+        addNewOptionItem.classList.add("hidden");
+        const filtersList = event.target.closest(".list-wrapper").querySelector("#list-of-filters");
+
+        if (newFilterInput.value == "" || _.includes(getAllFilterValues(filtersList), newFilterInput.value.toLowerCase())) {
+            newFilterInput.value = "";
             return;
         }
 
@@ -92,8 +109,8 @@ function _handleNewFilterActions() {
         input.id = "new-filter"
 
         const label = document.createElement("label");
-        label.classList = "no-toggle";
-        label.id = "new-filter";
+        label.classList = "no-toggle option-label";
+        label.id = newFilterInput.value;
         label.innerHTML = newFilterInput.value;
         newFilterInput.value = "";
 
@@ -120,12 +137,6 @@ function _handleAddVehicleSpecButton() {
     })
 }
 
-function _handleSelectVehicleDropdown() {
-    selectVehicleToggler.addEventListener("click", () => {
-        selectVehicleDropdown.classList.toggle("h-0")
-    })
-}
-
 function unselectEveryMachineOption() {
     _.forEach([...selectVehicleOptions], (vehicle) => {
         vehicle.classList.remove("bg-primary");
@@ -148,7 +159,7 @@ function _handleSelectRentVehicleOption() {
 }
 
 function fetchVehicleById(id) {
-    if (_.isEmpty(id)) {
+    if (_.isNull(id)) {
         return;
     }
 
@@ -168,6 +179,42 @@ function fetchVehicleById(id) {
     })
 }
 
+function generateVehicleThumbnail(image, file, parent) {
+    const container = document.createElement("div");
+    container.classList = "vehicle-thumbnail-container"
+
+    const imageElement = document.createElement("img");
+    imageElement.classList = "rounded-lg w-full h-full object-cover";
+    if (!_.isEmpty(image)) {
+        imageElement.src = `/${image.image_location}${image.image_name}.${image.image_type}`;
+    } else {
+        imageElement.src = URL.createObjectURL(file);
+    }
+
+    const imageActions = document.createElement("div");
+    imageActions.classList = "image-actions absolute duration-200 flex justify-center items-center w-full h-full top-0";
+
+    const deleteImageWrapper = document.createElement("div");
+    deleteImageWrapper.classList = "delete-image";
+
+    deleteImageWrapper.addEventListener("click", () => {
+        parent.removeChild(container);
+        const noImageAlert = document.querySelector(".no-image-available")
+        noImageAlert.classList.remove("hidden");
+    })
+
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList = "fas fa-trash text-black text-xl";
+
+    deleteImageWrapper.append(deleteIcon);
+    imageActions.append(deleteImageWrapper);
+
+    container.append(imageElement);
+    container.append(imageActions);
+
+    return container;
+}
+
 async function updateVehicleHtml(vehicle) {
     const vehicleWrapper = document.querySelector("#selected-vehicle");
     vehicleWrapper.dataset.vehicleId = vehicle.id;
@@ -183,6 +230,21 @@ async function updateVehicleHtml(vehicle) {
 
     const vehiclePricePerWeek = document.querySelector("#selected-vehicle-price-per-week");
     vehiclePricePerWeek.value = vehicle.price_per_week;
+
+    const swiperWrapper = document.querySelector(".vehicle-swiper-wrapper");
+    const vehicleThumbnail = document.querySelector("#vehicle-data-thumbnail");
+    const noImagePlaceholder = vehicleThumbnail.querySelector(".no-image-available");
+
+    swiperWrapper.replaceChildren([]);
+    vehicleThumbnail.replaceChildren(noImagePlaceholder);
+
+    _.forEach((vehicle.images), (image, index) => {
+        if (index === 0) {
+            vehicleThumbnail.append(generateVehicleThumbnail(image, null, vehicleThumbnail));
+        } else {
+            swiperWrapper.append(generateVehicleSliderImage(image, null, swiperWrapper));
+        }
+    })
 
     selectedVehicleSpecsContainer.replaceChildren([]);
 
@@ -220,7 +282,7 @@ function generateVehicleSliderImage(image, file, swiperWrapper) {
     const slideImage = document.createElement("img");
     slideImage.classList = "rounded-lg w-full h-full object-cover aspect-square";
     if (!_.isEmpty(image)) {
-        slideImage.src = `${image.image_location}${image.image_name}.${image.image_type}`;
+        slideImage.src = `/${image.image_location}${image.image_name}.${image.image_type}`;
     } else {
         slideImage.src = URL.createObjectURL(file);
     }
@@ -248,20 +310,54 @@ function generateVehicleSliderImage(image, file, swiperWrapper) {
     return swiperSlide;
 }
 
+function vehicleHasThumbnail() {
+    const vehicleThumbnailWrapper = document.querySelector("#vehicle-data-thumbnail");
+
+    return _.isEqual(vehicleThumbnailWrapper.childElementCount, 2);
+}
+
 function _handleVehicleImagesDragAndDropZone() {
     const dropzoneInput = document.getElementById("dropzone-file");
     const swiperWrapper = document.querySelector(".vehicle-swiper-wrapper");
+    const vehicleThumbnail = document.querySelector("#vehicle-data-thumbnail")
 
     dropzoneInput.addEventListener("change", (event) => {
-        _.forEach(event.target.files, (file) => {
+        _.forEach(event.target.files, (file, index) => {
+            if (index == 0 && !vehicleHasThumbnail()) {
+                vehicleThumbnail.append(generateVehicleThumbnail([], file, vehicleThumbnail));
+                vehicleThumbnail.querySelector(".no-image-available").classList.add("hidden");
+            }
+
             swiperWrapper.append(generateVehicleSliderImage([], file, swiperWrapper));
         })
     });
 }
 
-noVehicleSelectedAlert.classList.add("hidden");
-showVehicleDataHtml.classList.remove("hidden");
-fetchVehicleById(1);
+function _handlePopupAcceptButton(popup, vehicleId) {
+    popup.classList.add("hidden");
+
+    axios.delete(`/dashboard/vehicle/${vehicleId}/delete`);
+
+    if (!showVehicleDataHtml.classList.contains("hidden")) {
+        showVehicleDataHtml.classList.add("hidden");
+    }
+
+    if (noVehicleSelectedAlert.classList.contains("hidden")) {
+        noVehicleSelectedAlert.classList.remove("hidden");
+    }
+
+    window.location.reload();
+}
+
+function _handlePopupCancelButton(popup) {
+    popup.classList.add("hidden");
+}
+
+function _handleDeleteVehicleButton() {
+    deleteSelectedVehicleButton.addEventListener("click", () => {
+        deleteVehiclePopup.classList.remove("hidden");
+    })
+}
 
 function _handleFilterSelectListToggler() {
     const filters = document.querySelectorAll(".vehicle-filter-option-list");
@@ -278,14 +374,24 @@ function _handleFilterSelectListToggler() {
     })
 }
 
+function _handlePopupButtons() {
+    popupAcceptButton.addEventListener("click", () => {
+        const selectedVehicleId = document.querySelector("#selected-vehicle").dataset.vehicleId;
+        _handlePopupAcceptButton(deleteVehiclePopup, selectedVehicleId)
+    })
+
+    popupCancelButton.addEventListener("click", _handlePopupCancelButton(deleteVehiclePopup));
+}
+
 function _init() {
     _handleSelectRentVehicleOption();
-    _handleSelectVehicleDropdown();
     _handleSelectVehicleButton();
     _handleAddVehicleSpecButton();
     _handleFilterSelectListToggler();
     _handleAddNewFilterButton();
     _handleNewFilterActions();
+    _handleDeleteVehicleButton();
+    _handlePopupButtons();
     _handleVehicleImagesDragAndDropZone();
 }
 

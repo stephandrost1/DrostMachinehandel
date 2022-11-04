@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("vehicle_views");
             $table->string("vehicle_is_default_stock");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\LeasenController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardApiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VerhuurController;
 use Illuminate\Support\Facades\App;
 
@@ -43,6 +44,9 @@ Route::middleware(['locale'])->group((function () {
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name("dashboard");
     Route::get('/verhuur', [DashboardController::class, "verhuur"])->name("dashboard-verhuur");
+
+    Route::delete('/vehicle/{vehicleId}/delete', [VehicleController::class, "delete"]);
+
     Route::get('/messages', [DashboardController::class, "messages"])->name("dashboard-messages");
     Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");
     Route::get('/payments', [DashboardController::class, "payments"])->name("dashboard-payments");

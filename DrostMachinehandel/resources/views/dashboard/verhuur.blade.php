@@ -9,7 +9,25 @@
                 <h1 class="font-bold pl-2">Machines verhuur</h1>
             </div>
         </div>
-
+            <div class="confirmation-box popup-confirmation-box absolute top-0 left-0 w-full h-full z-10 flex hidden justify-center items-center">
+                <div class="content-box rounded-lg border-2 border-primary bg-white">
+                    <div class="header">
+                        <span class="title">Weet je zeker dat je deze machine wilt verwijderen?</span>
+                    </div>
+                    <div class="buttons">
+                        <div class="reject">
+                            <div class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200">
+                                <button id="popup-cancel-button" class="text-red-500 font-bold">Annuleren</button>
+                            </div>
+                        </div>
+                        <div class="accept">
+                            <div class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-green-500 bg-green-200">
+                                <button id="popup-accept-button" class="text-green-500 font-bold">Verwijderen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
              <div class="flex flex-wrap bg-black h-full">
                     <div class="w-full h-fit md:w-1/4 p-6 flex">
                         <!--Metric Card-->
@@ -58,8 +76,10 @@
                             <div id="selected-vehicle-data" class="flex gap-5 hidden">
                                 <div class="flex gap-5">
                                     <div class="col-left h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5 w-1/2">
-                                        <div class="row-1 h-4/5">
-                                            <img src="https://picsum.photos/1200" class="rounded-lg w-full h-full object-cover" />
+                                        <div id="vehicle-data-thumbnail" class="row-1 h-4/5 relative">
+                                            <div class="no-image-available hidden">
+                                                <img src="/img/errors/no_image_placeholder.png">
+                                            </div>                         
                                         </div>
                                         <div class="row-2 flex gap-5">
                                             <div class="image-uploader w-1/4 h-1/4 aspect-square border-2 rounded-lg border-primary">
@@ -78,23 +98,6 @@
                                             </div>
                                             <div class="w-3/4 vehicle-swiper w-full h-1/5 user-select-none">
                                                 <div class="vehicle-swiper-wrapper gap-5 h-full grid grid-cols-4">
-                                                    <div class="image w-full h-full relative">
-                                                        <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
-                                                        <div class="image-actions absolute duration-200 flex justify-center items-center w-full h-full top-0">
-                                                            <div class="delete-image">
-                                                                <i class="fas fa-trash text-black text-xl"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="image w-full h-full relative">
-                                                        <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
-                                                    </div>
-                                                    <div class="image w-full h-full relative">
-                                                        <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
-                                                    </div>
-                                                    <div class="image w-full h-full relative">
-                                                        <img src="https://picsum.photos/400" class="rounded-lg w-full h-full object-cover aspect-square" />
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -145,7 +148,7 @@
                                                 </div>
                                                 <div class="filters-wrapper flex flex-col gap-5 w-1/2">
                                                     @foreach($filters as $filter)
-                                                    <div data-filterid="{{ $filter->id }}" class="vehicle-filter-option-list cursor-pointer wrapper bg-white rounded-lg border-2 border-primary p-2">
+                                                    <div data-filterid="{{ $filter->id }}" class="vehicle-filter-option-list vehicle-filter-list-{{$filter->id}} cursor-pointer wrapper bg-white rounded-lg border-2 border-primary p-2">
                                                         <div class="title flex items-center gap-2">
                                                             <span>{{ $filter->filter_name }}</span>
                                                             <span id="toggler"><i class="fas fa-caret-down"></i></span>
@@ -156,7 +159,7 @@
                                                                 @foreach($filter->options as $option)
                                                                     <div data-optionid="{{ $option->id }}" class="option no-toggle flex gap-2 items-center">
                                                                         <input type="checkbox" id="{{ $option->value }}" class="no-toggle" />
-                                                                        <label for="{{ $option->value }}" class="no-toggle" id="{{ $option->value }}">{{ $option->name }}</lab>
+                                                                        <label for="{{ $option->value }}" class="no-toggle option-label" id="{{ $option->value }}">{{ $option->name }}</lab>
                                                                     </div>
                                                                 @endforeach
                             
@@ -186,7 +189,7 @@
                                             </div>
                                         </div>
                                         <div class="buttons flex flex-row justify-end gap-5 items-center">
-                                            <div class="bg-gradient-to-b w-1/8 from-red-500 flex items-start justify-between to-red-200 border-b-4 border-red-500 rounded-lg shadow-xl p-3">
+                                            <div id="delete-selected-vehicle" class="bg-gradient-to-b w-1/8 from-red-500 flex items-start justify-between to-red-200 border-b-4 border-red-500 rounded-lg shadow-xl p-3">
                                                 <div id="select-rent-vehicle-button" class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200">
                                                     <button class="text-red-500 font-bold">Verwijder</button>
                                                 </div>

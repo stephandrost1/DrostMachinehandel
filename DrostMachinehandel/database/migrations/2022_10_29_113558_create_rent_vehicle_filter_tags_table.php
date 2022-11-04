@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("fid");
             $table->string("vehicle_id");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

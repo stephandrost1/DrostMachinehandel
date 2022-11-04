@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("vehicle_description");
             $table->string("price_per_day");
             $table->string("price_per_week");
+            $table->softDeletes();
         });
     }
 

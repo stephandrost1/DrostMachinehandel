@@ -1,18 +1,40 @@
 .page-dashboard-verhuur {
-    #selected-vehicle-data {
-        .row-2 {
-            .vehicle-swiper {
-                .vehicle-swiper-wrapper {
-                    .image {
-                        .image-actions {
-                            opacity: 0;
+    .confirmation-box {
+        background-color: rgba($color-black, 0.75);
 
-                            &:hover {
-                                opacity: 100;
-                                background-color: rgba($color-main, 0.5);
-                            }
-                        }
-                    }
+        .content-box  {
+            width: 90vw;
+            max-width: 500px;
+            height: 200px;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+
+            .header {
+                .title {
+                    font-size: 1.25rem;
+                    font-weight: bold;
+                }
+            }
+
+            .buttons {
+                display: flex;
+                justify-content: flex-end;
+                gap: 1.25rem;
+            }
+        }
+    }
+
+    #selected-vehicle-data {
+        #vehicle-data-thumbnail,
+        .row-2 .vehicle-swiper .vehicle-swiper-wrapper .image {
+            .image-actions {
+                opacity: 0;
+
+                &:hover {
+                    opacity: 100;
+                    background-color: rgba($color-main, 0.5);
                 }
             }
         }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("detail_name");
             $table->string("detail_value");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
