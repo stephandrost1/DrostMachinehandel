@@ -15,6 +15,14 @@
             gap: 2rem;
         }
 
+        .total-filter-wrapper{
+            flex-basis: 25%;
+            
+            @media (min-width: 929px) {
+                margin-top: 2rem;
+            }
+        }
+
         .result-amount {
             font-size: 22px;
             line-height: 50px;
@@ -22,10 +30,21 @@
         }
 
         .result-amount-mobile {
-            display: block !important;
+            display: block;
 
             @media (min-width: 929px) {
                 display: none !important;
+            }
+        }
+
+        .close-filters-button {
+            display: none;
+            font-weight: bold;
+            border-bottom: 3px solid $color-white;
+            margin-bottom: 1.25rem;
+            
+            .hide-filter-text {
+                font-size: 20px;
             }
         }
 
@@ -68,8 +87,13 @@
                 .filter-items-wrapper {
                     margin: 6px 0 8px;
 
+                    [type=checkbox] {
+                        color: $color-main;
+                    }
+
                     .filter-item {
                         line-height: 27px;
+                        --tw-ring-offset-shadow: 0;
                     }
                 }
             }
@@ -89,10 +113,47 @@
             }
         }
 
+        .active-filters {
+            display: none;
+
+            @media (min-width: 929px) {
+                display: block !important;
+            }
+
+            .active-filter {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-bottom: 5px;
+
+                .delete-filter-button {
+                    color: $color-main;
+                    margin-right: 5px;
+                    font-size: 0.9rem;
+                }
+
+                .delete-filter-name {
+                    font-weight: bold;
+                    font-size: 15px;
+                }
+            }
+
+            .delete-active-filters {
+                padding: 10px 0 15px;
+                font-weight: bold;
+                font-size: 15px;
+                text-decoration: underline;
+                text-decoration-color: #E56D01;
+                text-underline-offset: 4px;
+                -moz-text-decoration-color: #E56D01;
+}
+        }
+
         .results-content {
             padding: 0px;
             flex-grow: 1;
             margin-top: 38px;
+            flex-basis: 75%;
 
             @media (min-width: 929px) {
                 padding: 20px;
