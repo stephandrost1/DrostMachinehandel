@@ -186,7 +186,7 @@ function generateVehicleThumbnail(image, file, parent) {
     container.classList = "vehicle-thumbnail-container"
 
     const imageElement = document.createElement("img");
-    imageElement.classList = "rounded-lg w-full h-full object-cover";
+    imageElement.classList = "vehicle-thumbnail-image rounded-lg w-full h-full object-cover";
     if (!_.isEmpty(image)) {
         imageElement.src = `/${image.image_location}${image.image_name}.${image.image_type}`;
     } else {
@@ -287,7 +287,7 @@ function generateVehicleSliderImage(image, file, swiperWrapper) {
     swiperSlide.classList = "image w-full h-full relative";
 
     const slideImage = document.createElement("img");
-    slideImage.classList = "rounded-lg w-full h-full object-cover aspect-square";
+    slideImage.classList = "rounded-lg w-full vehicle-image-element h-full object-cover aspect-square";
     if (!_.isEmpty(image)) {
         slideImage.src = `/${image.image_location}${image.image_name}.${image.image_type}`;
     } else {
@@ -323,19 +323,43 @@ function vehicleHasThumbnail() {
     return _.isEqual(vehicleThumbnailWrapper.childElementCount, 2);
 }
 
+async function postImageToServer(image, vehicleId) {
+    let formData = new FormData();
+    formData.append("file", image);
+    formData.append("vehicleId", vehicleId);
+
+    return await axios.post("vehicles/images/upload", formData).then(response => {
+        return true;
+    }).catch((error) => {
+        return false;
+    })
+}
+
 function _handleVehicleImagesDragAndDropZone() {
     const dropzoneInput = document.getElementById("dropzone-file");
     const swiperWrapper = document.querySelector(".vehicle-swiper-wrapper");
     const vehicleThumbnail = document.querySelector("#vehicle-data-thumbnail")
 
     dropzoneInput.addEventListener("change", (event) => {
-        _.forEach(event.target.files, (file, index) => {
+        const vehicleId = document.querySelector("#selected-vehicle").dataset.vehicleId;
+
+        _.forEach(event.target.files, async (file, index) => {
+            console.log(URL.createObjectURL(file));
+            console.log(blobToDataURL(URL.createObjectURL(file)));
+
+            //Make the controller return the posted imges path 
+            if (!await postImageToServer(file, vehicleId)) {
+                return //error;
+            }
+
+            console.log(file);
+
             if (index == 0 && !vehicleHasThumbnail()) {
                 vehicleThumbnail.append(generateVehicleThumbnail([], file, vehicleThumbnail));
                 vehicleThumbnail.querySelector(".no-image-available").classList.add("hidden");
+            } else {
+                swiperWrapper.append(generateVehicleSliderImage([], file, swiperWrapper));
             }
-
-            swiperWrapper.append(generateVehicleSliderImage([], file, swiperWrapper));
         })
     });
 }
@@ -400,6 +424,37 @@ function getSelectedVehicleTags() {
     }).flat();
 }
 
+function generateImageData(image) {
+    const vehicleAbsoluteUrl = image.src.replace(window.location.origin, "");
+    const splitVehicleAbsoluteUrl = vehicleAbsoluteUrl.split("/");
+
+    const vehiclePath = splitVehicleAbsoluteUrl[1] + "/" + splitVehicleAbsoluteUrl[2] + "/";
+    const imageDetails = splitVehicleAbsoluteUrl[3].split(".");
+
+    return {
+        "path": vehiclePath,
+        "name": imageDetails[0],
+        "extension": imageDetails[1]
+    }
+}
+
+function getSelectedVehicleImages() {
+    let images = [];
+
+    const vehicleThumbnail = document.querySelector("#vehicle-data-thumbnail .vehicle-thumbnail-container .vehicle-thumbnail-image");
+    const vehicleImages = document.querySelectorAll(".vehicle-swiper-wrapper .image .vehicle-image-element");
+
+    _.forEach([...vehicleImages], (image) => {
+        images.push(generateImageData(image))
+    })
+
+    if (vehicleHasThumbnail()) {
+        images.unshift(generateImageData(vehicleThumbnail));
+    }
+
+    return images;
+}
+
 function _handleSaveVehicleButton() {
     saveSelectedVehicleButton.addEventListener("click", () => {
         const vehicleId = document.querySelector("#selected-vehicle").dataset.vehicleId;
@@ -409,6 +464,7 @@ function _handleSaveVehicleButton() {
         const vehiclePricePerWeek = document.querySelector("#selected-vehicle-price-per-week").value;
         const vehicleSpecs = getSelectedVehicleSpecs();
         const vehicleTags = getSelectedVehicleTags();
+        const vehicleImages = getSelectedVehicleImages();
 
         axios.patch(`/dashboard/vehicle/${vehicleId}/update`, {
             "id": vehicleId,
@@ -417,7 +473,8 @@ function _handleSaveVehicleButton() {
             "pricePerDay": vehiclePricePerDay,
             "pricePerWeek": vehiclePricePerWeek,
             "specs": vehicleSpecs,
-            "tags": vehicleTags
+            "tags": vehicleTags,
+            "images": vehicleImages
         }).then(response => {
             window.location.reload();
         })

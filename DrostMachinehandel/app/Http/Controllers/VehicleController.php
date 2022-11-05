@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RentFiltersOption;
 use App\Models\RentVehicleDetail;
 use App\Models\RentVehicleFilterTag;
+use App\Models\RentVehicleImage;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,25 @@ class VehicleController extends Controller
 
         $this->updateVehicleSpecs($request->specs, $request->id);
 
+        $this->updateVehicleImages($request->images, $request->id);
+
         $vehicle->save();
+    }
+
+    private function updateVehicleImages(array $images, int $vehicleId)
+    {
+        RentVehicleImage::where("vehicle_id", $vehicleId)->delete();
+
+        foreach ($images as $image) {
+            $vehicleImage = new RentVehicleImage();
+
+            $vehicleImage->vehicle_id = $vehicleId;
+            $vehicleImage->image_type = $image["extension"];
+            $vehicleImage->image_name = $image["name"];
+            $vehicleImage->image_location = $image["path"];
+
+            $vehicleImage->save();
+        }
     }
 
     private function updateVehicleSpecs(array $specs, int $vehicleId)

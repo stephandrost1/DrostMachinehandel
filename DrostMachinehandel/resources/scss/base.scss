@@ -1006,10 +1006,6 @@ select {
   height: 80%;
 }
 
-.h-1\/4 {
-  height: 25%;
-}
-
 .h-1\/5 {
   height: 20%;
 }
@@ -1026,8 +1022,8 @@ select {
   height: 24rem;
 }
 
-.h-0 {
-  height: 0px;
+.h-1\/4 {
+  height: 25%;
 }
 
 .min-h-screen {
@@ -1095,10 +1091,6 @@ select {
   width: 25%;
 }
 
-.w-10 {
-  width: 2.5rem;
-}
-
 .w-2\/12 {
   width: 16.666667%;
 }
@@ -1117,6 +1109,10 @@ select {
 
 .w-5\/12 {
   width: 41.666667%;
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .min-w-full {
@@ -1590,11 +1586,6 @@ select {
 .bg-red-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 202 202 / var(--tw-bg-opacity));
-}
-
-.bg-red-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-r {
@@ -2152,10 +2143,6 @@ select {
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.accent-pink-500 {
-  accent-color: #ec4899;
 }
 
 .opacity-0 {

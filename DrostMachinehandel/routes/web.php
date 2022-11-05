@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardApiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\VehicleImagesController;
 use App\Http\Controllers\VerhuurController;
 use Illuminate\Support\Facades\App;
 
@@ -47,6 +48,8 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
 
     Route::delete('/vehicle/{vehicleId}/delete', [VehicleController::class, "delete"]);
     Route::patch('/vehicle/{vehicleId}/update', [VehicleController::class, "update"]);
+
+    Route::post("/vehicles/images/upload", [VehicleImagesController::class, "create"]);
 
     Route::get('/messages', [DashboardController::class, "messages"])->name("dashboard-messages");
     Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");
