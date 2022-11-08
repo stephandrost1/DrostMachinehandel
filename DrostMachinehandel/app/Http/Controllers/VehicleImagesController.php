@@ -16,12 +16,14 @@ class VehicleImagesController extends Controller
 
         try {
             $file = $request->file("file");
-            $file->move(base_path("/public/vehicles/" . $request->vehicleId), $this->generateUniqueFilename($file));
+            $fileExtension = $file->getClientOriginalExtension();
+            $fileName = str_replace("." . $fileExtension, "", $this->generateUniqueFilename($file));
+            $file->move(base_path("/public/vehicles/" . $request->vehicleId), $fileName . "." . $fileExtension);
         } catch (Exception $e) {
             return response()->json(["message" => "something went wrong: " . $e->getMessage()], 400);
         }
 
-        return response()->json(["message" => "succes"], 200);
+        return response()->json(["message" => "succes", "fileName" => $fileName, "fileExtension" => $fileExtension], 200);
     }
 
     public function generateUniqueFilename(UploadedFile $file): string

@@ -4,4 +4,5 @@ import "./global";
 
 import "./analytics";
 
-import "./verhuur";
+import "./verhuur/edit";
+import "./verhuur/create";
