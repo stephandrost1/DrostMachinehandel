@@ -166,7 +166,6 @@ function fetchVehicleById(id) {
 
     axios.get("/api/v1/vehicle/" + id).then((response) => {
         if (response.data.results) {
-            console.log(response.data.vehicle);
             updateVehicleHtml(response.data.vehicle);
 
             if (showVehicleDataHtml.classList.contains("hidden")) {

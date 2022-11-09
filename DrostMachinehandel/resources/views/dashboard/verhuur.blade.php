@@ -63,7 +63,7 @@
                                     <div id="select-rent-vehicle-button" class="flex rounded-lg justify-center shadow-xl py-2 px-5 border-2 border-green-500 bg-green-200 text-green-500 hover:text-white hover:bg-green-500 duration-200 hover:border-green-200">
                                         <button class="font-bold">Selecteer</button>
                                     </div>
-                                    <div id="select-rent-vehicle-button" class="flex rounded-lg justify-center shadow-xl py-2 px-5 border-2 border-blue-500 bg-blue-200 text-blue-500 hover:text-white hover:bg-blue-500 duration-200 hover:border-blue-200">
+                                    <div id="create-rent-vehicle-button" class="flex rounded-lg justify-center shadow-xl py-2 px-5 border-2 border-blue-500 bg-blue-200 text-blue-500 hover:text-white hover:bg-blue-500 duration-200 hover:border-blue-200">
                                         <button class="font-bold">Toevoegen</button>
                                     </div>
                                 </div>
@@ -73,15 +73,15 @@
                     </div>
                       <div class="w-full md:w-3/4 p-6">
                         <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                            <div id="selected-vehicle-data" class="flex gap-5 hidden">
-                                <div class="flex gap-5">
+                            <div id="selected-vehicle-data" class="flex gap-5 hidden w-full">
+                                <div class="flex gap-5 w-full">
                                     <div class="col-left h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5 w-1/2">
                                         <div id="vehicle-data-thumbnail" class="row-1 h-4/5 relative">
                                             <div class="no-image-available hidden">
                                                 <img src="/img/errors/no_image_placeholder.png">
                                             </div>                         
                                         </div>
-                                        <div class="row-2 flex gap-5">
+                                        <div class="row-2 flex gap-5 border-t-2 border-primary pt-5">
                                             <div class="image-uploader w-1/4 h-1/4 aspect-square border-2 rounded-lg border-primary">
                                                 <div class="w-full flex items-center justify-center h-full">
                                                         <div class="flex justify-center items-center h-full w-full">
@@ -120,13 +120,13 @@
                                                 <div class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
                                                     <span class="w-full">Prijs per dag:</span>
                                                 </div>
-                                                <input placeholder="Machine 1" name="vehicleName" id="selected-vehicle-price-per-day" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                                <input placeholder="Machine 1" type="number" name="vehicleName" id="selected-vehicle-price-per-day" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
                                             </div>
                                             <div class="row flex justify-between gap-5">
                                                 <div class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
                                                     <span class="w-full">Prijs per week:</span>
                                                 </div>
-                                                <input placeholder="Machine 1" name="vehicleName" id="selected-vehicle-price-per-week" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+                                                <input placeholder="Machine 1" type="number" name="vehicleName" id="selected-vehicle-price-per-week" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
                                             </div>
                                             <div class="row flex justify-between gap-5">
                                                 <div class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
@@ -190,7 +190,7 @@
                                         </div>
                                         <div class="buttons flex flex-row justify-end gap-5 items-center">
                                             <div id="delete-selected-vehicle" class="bg-gradient-to-b w-1/8 from-red-500 flex items-start justify-between to-red-200 border-b-4 border-red-500 rounded-lg shadow-xl p-3">
-                                                <div id="select-rent-vehicle-button" class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200">
+                                                <div id="delete-rent-vehicle-button" class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200">
                                                     <button class="text-red-500 font-bold">Verwijder</button>
                                                 </div>
                                             </div>
