@@ -6,3 +6,4 @@ import "./analytics";
 
 import "./verhuur/edit";
 import "./verhuur/create";
+import "./verhuur/sidebar";

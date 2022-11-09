@@ -7,6 +7,9 @@
         <div class="bg-gray-800 pt-3">
             <div class="rounded-tl-3xl bg-gradient-to-r from-primary to-gray-800 p-4 shadow text-2xl text-white">
                 <h1 class="font-bold pl-2">Machines verhuur</h1>
+                <div class="vehicle-action hidden">
+                    <span id="current-vehicle-action" data-action="null"></span>
+                </div>
             </div>
         </div>
             <div class="confirmation-box popup-confirmation-box absolute top-0 left-0 w-full h-full z-10 flex hidden justify-center items-center">
@@ -191,12 +194,12 @@
                                         <div class="buttons flex flex-row justify-end gap-5 items-center">
                                             <div id="delete-selected-vehicle" class="bg-gradient-to-b w-1/8 from-red-500 flex items-start justify-between to-red-200 border-b-4 border-red-500 rounded-lg shadow-xl p-3">
                                                 <div id="delete-rent-vehicle-button" class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200">
-                                                    <button class="text-red-500 font-bold">Verwijder</button>
+                                                    <div class="text-red-500 font-bold">Verwijder</div>
                                                 </div>
                                             </div>
                                             <div id="save-selected-vehicle" class="bg-gradient-to-b w-1/8 from-green-500 flex items-start justify-between to-green-200 border-b-4 border-green-500 rounded-lg shadow-xl p-3">
                                                 <div id="select-rent-vehicle-button" class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-green-500 bg-green-200">
-                                                    <button class="text-green-500 font-bold">Opslaan</button>
+                                                    <div class="text-green-500 font-bold">Opslaan</div>
                                                 </div>
                                             </div>
                                         </div>

@@ -21,7 +21,7 @@ class RentVehicleImageFactory extends Factory
             'vehicle_id' => random_int(0, 10),
             'image_type' => 'jpeg',
             'image_name' => 'download',
-            'image_location' => 'vehicles/1/'
+            'image_location' => '/vehicles/1/'
         ];
     }
 }

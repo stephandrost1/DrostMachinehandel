@@ -1,9 +1,7 @@
 import axios from "axios";
 import _ from "lodash";
 
-const selectVehicleButton = document.querySelector("#select-rent-vehicle-button");
 const selectVehicleOptions = document.querySelectorAll(".select-rent-vehicle-option");
-const selectedVehicle = document.querySelector("#selected-vehicle");
 const selectedVehicleSpecsContainer = document.querySelector("#vehicle-specs-container");
 const selectedVehicleSpecsAdd = document.querySelector("#add-specs");
 const addNewFilter = document.querySelector("#add-new-filter");
@@ -21,6 +19,8 @@ const popupCancelButton = document.querySelector(".popup-confirmation-box #popup
 const showVehicleDataHtml = document.querySelector("#selected-vehicle-data");
 const showVehicleDataLoader = document.querySelector("#vehicle-loader");
 const noVehicleSelectedAlert = document.querySelector("#no-vehicle-selected");
+
+const currentVehicleAction = document.querySelector("#current-vehicle-action").dataset.action;
 
 function generateVehicleSpecBlock(name, value, id) {
     const selectedVehicleSpecs = document.querySelectorAll("#vehicle-specs-container .specs-row");
@@ -138,26 +138,6 @@ function _handleAddVehicleSpecButton() {
     })
 }
 
-function unselectEveryMachineOption() {
-    _.forEach([...selectVehicleOptions], (vehicle) => {
-        vehicle.classList.remove("bg-primary");
-        vehicle.classList.remove("text-white");
-        vehicle.classList.add("text-primary");
-    })
-}
-
-function _handleSelectRentVehicleOption() {
-    _.forEach([...selectVehicleOptions], (vehicle) => {
-        vehicle.addEventListener("click", (event) => {
-            unselectEveryMachineOption();
-            selectedVehicle.innerHTML = event.target.children[0].innerHTML;
-            selectedVehicle.dataset.vehicleId = event.target.children[0].id;
-            event.target.classList.add("bg-primary")
-            event.target.classList.add("text-white")
-            event.target.classList.remove("text-primary")
-        })
-    })
-}
 
 function fetchVehicleById(id) {
     if (_.isNull(id)) {
@@ -263,28 +243,6 @@ async function updateVehicleHtml(vehicle) {
 
     _.forEach(vehicle.details, (detail) => {
         generateVehicleSpecBlock(detail.detail_name, detail.detail_value, detail.id);
-    })
-}
-
-function _handleSelectVehicleButton() {
-    selectVehicleButton.addEventListener("click", () => {
-        if (!selectedVehicle.dataset.vehicleId) {
-            return;
-        }
-
-        if (!noVehicleSelectedAlert.classList.contains("hidden")) {
-            noVehicleSelectedAlert.classList.add("hidden");
-        }
-
-        if (!showVehicleDataHtml.classList.contains("hidden")) {
-            showVehicleDataHtml.classList.add("hidden");
-        }
-
-        if (showVehicleDataLoader.classList.contains("hidden")) {
-            showVehicleDataLoader.classList.remove("hidden");
-        }
-
-        fetchVehicleById(selectedVehicle.dataset.vehicleId);
     })
 }
 
@@ -513,8 +471,6 @@ function _handlePopupButtons() {
 }
 
 function _init() {
-    _handleSelectRentVehicleOption();
-    _handleSelectVehicleButton();
     _handleAddVehicleSpecButton();
     _handleFilterSelectListToggler();
     _handleAddNewFilterButton();
