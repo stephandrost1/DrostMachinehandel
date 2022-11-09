@@ -1,6 +1,5 @@
 import axios from "axios";
 import _ from "lodash";
-import popupS from "popups";
 
 const selectVehicleButton = document.querySelector("#select-rent-vehicle-button");
 const selectVehicleOptions = document.querySelectorAll(".select-rent-vehicle-option");
@@ -181,16 +180,22 @@ function fetchVehicleById(id) {
     })
 }
 
-function generateVehicleThumbnail(image, file, parent) {
+function generateVehicleThumbnail(image, file, parent, fileName, vehicleId, fileExtension) {
     const container = document.createElement("div");
     container.classList = "vehicle-thumbnail-container"
 
     const imageElement = document.createElement("img");
     imageElement.classList = "vehicle-thumbnail-image rounded-lg w-full h-full object-cover";
     if (!_.isEmpty(image)) {
-        imageElement.src = `/${image.image_location}${image.image_name}.${image.image_type}`;
+        imageElement.src = `${image.image_location}${image.image_name}.${image.image_type}`;
+        imageElement.dataset.fileName = image.image_name;
+        imageElement.dataset.vehicleId = vehicleId;
+        imageElement.dataset.fileExtension = image.image_type;
     } else {
         imageElement.src = URL.createObjectURL(file);
+        imageElement.dataset.fileName = fileName;
+        imageElement.dataset.vehicleId = vehicleId;
+        imageElement.dataset.fileExtension = fileExtension;
     }
 
     const imageActions = document.createElement("div");
@@ -246,10 +251,12 @@ async function updateVehicleHtml(vehicle) {
     vehicleThumbnail.replaceChildren(noImagePlaceholder);
 
     _.forEach((vehicle.images), (image, index) => {
+        console.log(vehicle);
+
         if (index === 0) {
-            vehicleThumbnail.append(generateVehicleThumbnail(image, null, vehicleThumbnail));
+            vehicleThumbnail.append(generateVehicleThumbnail(image, null, vehicleThumbnail, null, vehicle.id));
         } else {
-            swiperWrapper.append(generateVehicleSliderImage(image, null, swiperWrapper));
+            swiperWrapper.append(generateVehicleSliderImage(image, null, swiperWrapper, null, vehicle.id));
         }
     })
 
@@ -282,16 +289,22 @@ function _handleSelectVehicleButton() {
     })
 }
 
-function generateVehicleSliderImage(image, file, swiperWrapper) {
+function generateVehicleSliderImage(image, file, swiperWrapper, fileName, vehicleId, fileExtension) {
     const swiperSlide = document.createElement("div");
     swiperSlide.classList = "image w-full h-full relative";
 
     const slideImage = document.createElement("img");
     slideImage.classList = "rounded-lg w-full vehicle-image-element h-full object-cover aspect-square";
     if (!_.isEmpty(image)) {
-        slideImage.src = `/${image.image_location}${image.image_name}.${image.image_type}`;
+        slideImage.src = `${image.image_location}${image.image_name}.${image.image_type}`;
+        slideImage.dataset.fileName = image.image_name;
+        slideImage.dataset.vehicleId = vehicleId;
+        slideImage.dataset.fileExtension = image.image_type;
     } else {
         slideImage.src = URL.createObjectURL(file);
+        slideImage.dataset.fileName = fileName;
+        slideImage.dataset.vehicleId = vehicleId;
+        slideImage.dataset.fileExtension = fileExtension;
     }
     slideImage.width = "400";
     slideImage.height = "400";
@@ -329,7 +342,7 @@ async function postImageToServer(image, vehicleId) {
     formData.append("vehicleId", vehicleId);
 
     return await axios.post("vehicles/images/upload", formData).then(response => {
-        return true;
+        return response.data;
     }).catch((error) => {
         return false;
     })
@@ -344,21 +357,17 @@ function _handleVehicleImagesDragAndDropZone() {
         const vehicleId = document.querySelector("#selected-vehicle").dataset.vehicleId;
 
         _.forEach(event.target.files, async (file, index) => {
-            console.log(URL.createObjectURL(file));
-            console.log(blobToDataURL(URL.createObjectURL(file)));
+            const uploadedFile = await postImageToServer(file, vehicleId);
 
-            //Make the controller return the posted imges path 
-            if (!await postImageToServer(file, vehicleId)) {
+            if (uploadedFile == false) {
                 return //error;
             }
 
-            console.log(file);
-
             if (index == 0 && !vehicleHasThumbnail()) {
-                vehicleThumbnail.append(generateVehicleThumbnail([], file, vehicleThumbnail));
+                vehicleThumbnail.append(generateVehicleThumbnail([], file, vehicleThumbnail, uploadedFile["fileName"], vehicleId, uploadedFile["fileExtension"]));
                 vehicleThumbnail.querySelector(".no-image-available").classList.add("hidden");
             } else {
-                swiperWrapper.append(generateVehicleSliderImage([], file, swiperWrapper));
+                swiperWrapper.append(generateVehicleSliderImage([], file, swiperWrapper, uploadedFile["fileName"], vehicleId, uploadedFile["fileExtension"]));
             }
         })
     });
@@ -425,16 +434,15 @@ function getSelectedVehicleTags() {
 }
 
 function generateImageData(image) {
-    const vehicleAbsoluteUrl = image.src.replace(window.location.origin, "");
-    const splitVehicleAbsoluteUrl = vehicleAbsoluteUrl.split("/");
-
-    const vehiclePath = splitVehicleAbsoluteUrl[1] + "/" + splitVehicleAbsoluteUrl[2] + "/";
-    const imageDetails = splitVehicleAbsoluteUrl[3].split(".");
+    const vehicleAbsoluteUrl = "/vehicles/"
+    const vehicleId = image.dataset.vehicleId;
+    const imageName = image.dataset.fileName;
+    const imageExtension = image.dataset.fileExtension;
 
     return {
-        "path": vehiclePath,
-        "name": imageDetails[0],
-        "extension": imageDetails[1]
+        "path": vehicleAbsoluteUrl + vehicleId + "/",
+        "name": imageName,
+        "extension": imageExtension,
     }
 }
 
@@ -504,10 +512,6 @@ function _handlePopupButtons() {
 
     popupCancelButton.addEventListener("click", _handlePopupCancelButton(deleteVehiclePopup));
 }
-
-noVehicleSelectedAlert.classList.add("hidden");
-showVehicleDataHtml.classList.remove("hidden");
-fetchVehicleById(1);
 
 function _init() {
     _handleSelectRentVehicleOption();
