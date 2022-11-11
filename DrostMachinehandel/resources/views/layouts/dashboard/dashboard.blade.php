@@ -28,7 +28,7 @@
         @include('layouts/dashboard.navbar')
 
         {{-- Page content --}}
-        <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col md:flex-row" id="app">
             @include('layouts/dashboard.sidebar')
         
             @yield('content')

@@ -10,6 +10,7 @@
                 <div class="vehicle-action hidden">
                     <span id="current-vehicle-action" data-action="null"></span>
                 </div>
+                <test-test></test-test>
             </div>
         </div>
             <div class="confirmation-box popup-confirmation-box absolute top-0 left-0 w-full h-full z-10 flex hidden justify-center items-center">
