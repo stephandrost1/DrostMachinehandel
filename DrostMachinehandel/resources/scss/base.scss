@@ -1155,6 +1155,10 @@ select {
   flex-grow: 0;
 }
 
+.grow {
+  flex-grow: 1;
+}
+
 .origin-top-left {
   transform-origin: top left;
 }

@@ -52,6 +52,7 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     Route::post("/vehicles/images/upload", [VehicleImagesController::class, "create"]);
 
     Route::get('/messages', [DashboardController::class, "messages"])->name("dashboard-messages");
+    Route::get('/vehicles', [VehicleController::class, "index"])->name("dashboard-vehicles");
     Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");
     Route::get('/payments', [DashboardController::class, "payments"])->name("dashboard-payments");
     Route::get('/settings', [DashboardController::class, "settings"])->name("dashboard-settings");

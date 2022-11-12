@@ -9,11 +9,8 @@ import "./verhuur/create";
 import "./verhuur/sidebar";
 
 import { createApp } from 'vue'
-import test from '../components/test.vue';
+import dmTest from '../components/dm-test.vue';
 
+createApp(dmTest).mount("#app");
 
-const app = createApp()
-
-app.mount("#app");
-
-app.component("test-test", test);
+// app.component("dm-test", dmTest);

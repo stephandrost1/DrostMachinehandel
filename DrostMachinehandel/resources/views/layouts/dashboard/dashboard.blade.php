@@ -20,7 +20,7 @@
         <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     
         {{-- Required custom scss and js --}}
-        @vite(['resources/scss/dashboard.scss', 'resources/js/dashboard/dashboard.js'])
+        @vite(['resources/scss/dashboard.scss', 'resources/vue/dashboard.js'])
     </head>
 
     <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12 page-{{ Route::currentRouteName() }}">
@@ -28,7 +28,7 @@
         @include('layouts/dashboard.navbar')
 
         {{-- Page content --}}
-        <div class="flex flex-col md:flex-row" id="app">
+        <div class="flex flex-col md:flex-row">
             @include('layouts/dashboard.sidebar')
         
             @yield('content')

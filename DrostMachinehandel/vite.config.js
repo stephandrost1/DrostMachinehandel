@@ -11,9 +11,14 @@ export default defineConfig({
                 'resources/scss/main.scss',
                 'resources/scss/dashboard.scss',
                 'resources/js/app.js',
-                'resources/js/dashboard/dashboard.js',
+                'resources/vue/dashboard.js',
             ],
             refresh: true,
         }),
     ],
+    resolve: {
+        alias: {
+            'vue': 'vue/dist/vue.esm-bundler',
+        }
+    }
 });

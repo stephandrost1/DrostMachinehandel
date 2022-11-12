@@ -15,7 +15,9 @@ class VehicleController extends Controller
 {
     public function index()
     {
-        dd("test");
+        $vehicles = Vehicle::all();
+
+        return response()->json(["vehicles" => $vehicles, "results" => count($vehicles) > 0]);
     }
 
     public function delete($id)
