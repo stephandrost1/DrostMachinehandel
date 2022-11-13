@@ -6,10 +6,9 @@ module.exports = {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
-        './resources/**/*.{html,js,blade,blade.php,php}',
-        './resources/**/**/*.{html,js,blade,blade.php,php}'
+        './resources/**/*.{html,js,blade,blade.php,php,vue}',
+        './resources/**/**/*.{html,js,blade,blade.php,php,vue}'
     ],
-
     theme: {
         extend: {
             fontFamily: {
