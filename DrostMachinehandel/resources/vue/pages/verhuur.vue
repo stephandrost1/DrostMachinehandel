@@ -117,7 +117,7 @@ export default {
                 
                     <div class="w-full md:w-3/4 p-6">
                         <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                            <dm-vehicle v-if="hasSelectedVehicleData" :vehicle="selectedVehicle"></dm-vehicle>
+                            <dm-vehicle v-if="hasSelectedVehicleData" :vehicle="selectedVehicle" :filters="filters" ></dm-vehicle>
                             <dm-vehicle-loader v-if="isFetchingVehicleData"></dm-vehicle-loader>
                             <dm-no-vehicle-selected v-if="!hasSelectedVehicleData && !isFetchingVehicleData"></dm-no-vehicle-selected>
                         </div>

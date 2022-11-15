@@ -33,6 +33,10 @@ class VerhuurController extends Controller
         /** @var Vehicle */
         $vehicle = Vehicle::where("id", $vehicleId)->with(["images", "details", "tags"])->get();
 
+        $vehicleTags = collect(collect($vehicle)->first()["tags"])->groupBy("filter_id")->toArray();
+
+        // $vehicle["tags"] = $vehicleTags;
+
         if (empty($vehicle)) {
             return response()->json(["message" => 'vehicle not found', "results" => false], 400);
         }
