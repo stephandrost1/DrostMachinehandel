@@ -2,12 +2,14 @@
 
 import addTag from './tags/addTag.vue';
 import tag from './tags/tag.vue';
+import spec from './specs/spec.vue';
 
 export default {
     props: ["vehicle"],
 
     components: {
         "dm-add-tag": addTag,
+        "dm-vehicle-spec": spec,
         "dm-vehicle-tag": tag
     },
 
@@ -123,6 +125,7 @@ export default {
                         </div>
                         <div class="specs-wrapper w-1/2 flex flex-col">
                             <div id="vehicle-specs-container" class="specs-container flex flex-col gap-2">
+                                <dm-vehicle-spec v-for="spec in getVehicleSpecs" :key="spec.id" :spec="spec"></dm-vehicle-spec>
                             </div>
                             <div class="add-specs flex justify-end items-center h-12">
                                 <div id="add-specs" class="add-spec-icon w-2/12 flex items-center justify-center">

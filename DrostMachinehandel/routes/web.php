@@ -7,6 +7,7 @@ use App\Http\Controllers\LeasenController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardApiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleImagesController;
 use App\Http\Controllers\VerhuurController;
@@ -52,7 +53,6 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     Route::post("/vehicles/images/upload", [VehicleImagesController::class, "create"]);
 
     Route::get('/messages', [DashboardController::class, "messages"])->name("dashboard-messages");
-    Route::get('/vehicles', [VehicleController::class, "index"])->name("dashboard-vehicles");
     Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");
     Route::get('/payments', [DashboardController::class, "payments"])->name("dashboard-payments");
     Route::get('/settings', [DashboardController::class, "settings"])->name("dashboard-settings");
@@ -62,6 +62,8 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
 Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::get("/vehicleViews", [DashboardApiController::class, "vehicleViews"]);
     Route::get("/vehicle/{id}", [VerhuurController::class, "getVehicleById"]);
+    Route::get('/vehicles', [VehicleController::class, "index"]);
+    Route::get('/filters', [FilterController::class, "index"]);
 });
 
 Route::get('set-locale/{locale}', function ($locale) {

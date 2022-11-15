@@ -11,9 +11,4 @@ class RentVehicleFilterTag extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'rent_vehicle_filter_tags';
-
-    public function tagsValue()
-    {
-        return $this->belongsTo(RentFiltersOption::class, "fid");
-    }
 }

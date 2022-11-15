@@ -17,6 +17,7 @@ export default {
     data() {
         return {
             vehicles: [],
+            filters: [],
             currentAction: null,
             isFetchingData: false,
             selectedVehicle: {
@@ -27,8 +28,9 @@ export default {
         }
     },
 
-    mounted() {
-        this.fetchVehicles()
+    async mounted() {
+        this.fetchVehicles();
+        this.fetchFilters();
     }, 
 
     computed: {
@@ -43,10 +45,17 @@ export default {
 
     methods: {
         fetchVehicles() {
-            axios.get('/dashboard/vehicles')
+            axios.get('/api/v1/vehicles')
                 .then((response) => {
                     this.vehicles = response.data.vehicles;
                 })
+        },
+
+        fetchFilters() {
+            axios.get('/api/v1/filters')
+                .then((response) => {
+                    this.filters = response.data.filters;
+                });
         },
 
         _handleSelectVehicle(vehicle) {
