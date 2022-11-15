@@ -1,6 +1,15 @@
 <script>
+
+import addTag from './tags/addTag.vue';
+import tag from './tags/tag.vue';
+
 export default {
     props: ["vehicle"],
+
+    components: {
+        "dm-add-tag": addTag,
+        "dm-vehicle-tag": tag
+    },
 
     computed: {
         getVehicleName() {
@@ -17,6 +26,14 @@ export default {
 
         getVehiclePricePerWeek() {
             return this.vehicle.price_per_week ?? "";
+        },
+
+        getVehicleSpecs() { 
+            return this.vehicle.details ?? [];
+        },
+
+        getVehicleTags() {
+            return this.vehicle.tags ?? []
         }
     },
 }
@@ -128,33 +145,9 @@ export default {
                                 </div>
                                 <div class="list-wrapper selectable-list hidden">
                                     <div id="list-of-filters" class="selectable-list">
-                                        <div data-optionid="1" class="option no-toggle flex gap-2 items-center">
-                                            <input type="checkbox" id="option name" class="no-toggle input-tag" />
-                                            <label for="option id" class="no-toggle option-label"
-                                                id="option id">Option name</label>
-                                        </div>
+                                        <!-- <dm-vehicle-tag :v-for="getVehicleTags in tag" :tag="tag" :isChecked="true" :groupId="1"></dm-vehicle-tag> -->
                                     </div>
-                                    <div id="add-new-option-item"
-                                        class="option hidden no-toggle flex gap-2 items-center my-2">
-                                        <div
-                                            class="newFilter-label-wrapper no-toggle px-2 py-1 border-primary border-2 text-primary bg-white rounded-lg">
-                                            <label for="newFilter" class="no-toggle">Naam:</label>
-                                        </div>
-                                        <input id="newFilter-input"
-                                            class="no-toggle border-2 border-primary px-2 py-1 rounded-lg" />
-                                        <div class="actions no-toggle flex gap-2">
-                                            <div id="reject-new-filter"
-                                                class="reject rounded-lg no-toggle bg-white border-2 h-9 w-9 flex items-center duration-200 hover:border-red-200 hover:bg-red-500 text-red-500 hover:text-white justify-center border-primary">
-                                                <i
-                                                    class="fas pointer-events-none fa-times no-toggle font-bold font-lg"></i>
-                                            </div>
-                                            <div id="accept-new-filter"
-                                                class="accept rounded-lg no-toggle bg-white border-2 h-9 w-9 flex items-center duration-200 hover:border-green-200 hover:bg-green-500 text-green-500 hover:text-white justify-center border-primary">
-                                                <i
-                                                    class="fas pointer-events-none fa-check no-toggle font-bold font-lg"></i>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!-- <dm-add-tag></dm-add-tag> -->
 
                                     <div id="add-new-filter" class="underline no-toggle">
                                         <span class="no-toggle">Filter toevoegen</span>

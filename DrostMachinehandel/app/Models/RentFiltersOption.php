@@ -11,4 +11,8 @@ class RentFiltersOption extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'rent_filter_options';
+
+    public function parentGroup() {
+        return $this->belongsTo(RentFilter::class, "filter_id");
+    }
 }

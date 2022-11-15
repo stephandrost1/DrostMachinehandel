@@ -22,6 +22,6 @@ class Vehicle extends Model
 
     public function tags()
     {
-        return $this->hasMany(RentVehicleFilterTag::class, "vehicle_id");
+        return $this->hasOneThrough(RentVehicleFilterTag::class, RentFilter::class);
     }
 }

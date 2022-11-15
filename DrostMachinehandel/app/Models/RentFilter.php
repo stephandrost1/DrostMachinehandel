@@ -15,6 +15,6 @@ class RentFilter extends Model
 
     public function options()
     {
-        return $this->hasMany(RentFiltersOption::class, "filter_id");
+        return $this->hasMany(RentFiltersOption::class);
     }
 }
