@@ -1026,6 +1026,19 @@ select {
   height: 2.25rem;
 }
 
+.max-h-fit {
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+}
+
+.max-h-0 {
+  max-height: 0px;
+}
+
+.max-h-96 {
+  max-height: 24rem;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1912,6 +1925,10 @@ select {
 
 .pb-6 {
   padding-bottom: 1.5rem;
+}
+
+.pl-px {
+  padding-left: 1px;
 }
 
 .text-left {

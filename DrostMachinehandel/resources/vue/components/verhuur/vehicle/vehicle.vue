@@ -1,5 +1,4 @@
 <script>
-
 import addFilter from './filters/addFilter.vue';
 import filter from './filters/filter.vue';
 import filterGroup from './filters/filterGroup.vue';
@@ -17,7 +16,7 @@ export default {
 
     data() {
         return {
-            vehicleSpecs: this.vehicle.details ?? []
+            vehicleSpecs: this.vehicle.details ?? [],
         }
     },
 
@@ -71,7 +70,7 @@ export default {
 
             return [];
         },
-    }
+    },
 }
 </script>
 
@@ -174,7 +173,7 @@ export default {
                             <span class="w-full">Filter categorieën:</span>
                         </div>
                         <div class="filters-wrapper flex flex-col gap-5 w-1/2">
-                            <dm-vehicle-filter-group :v-for="filter in filters" :filterGroup="filter"></dm-vehicle-filter-group>
+                            <dm-vehicle-filter-group v-for="filter in filterGroups" :key="filter.id" :filter-group="filter" :checked-filters="getFiltersById(filter.id)"></dm-vehicle-filter-group>
                         </div>
                     </div>
                 </div>
