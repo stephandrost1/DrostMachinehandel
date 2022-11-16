@@ -1,7 +1,7 @@
 <script>
 
 export default {
-    props: ["tag", "isChecked" , "groupId"],
+    props: ["filter", "isChecked" , "groupId"],
 
     data() {
         return {
@@ -16,6 +16,6 @@ export default {
 <template>
     <div data-optionid="1" class="option no-toggle flex gap-2 items-center">
         <input type="checkbox" :value="tagIsChecked" id="option name" class="no-toggle input-tag" />
-        <label for="option id" class="no-toggle option-label" id="option id">Option name</label>
+        <label for="option id" class="no-toggle option-label" id="option id">{{ filter.name }}</label>
     </div>
 </template>

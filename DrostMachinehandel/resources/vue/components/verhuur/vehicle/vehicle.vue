@@ -6,7 +6,7 @@ import filterGroup from './filters/filterGroup.vue';
 import spec from './specs/spec.vue';
 
 export default {
-    props: ["vehicle", "filters"],
+    props: ["vehicle", "filterGroups"],
 
     components: {
         "dm-add-filter": addFilter,
@@ -56,6 +56,20 @@ export default {
 
         _handleRemoveSpec(specId) {
             this.vehicleSpecs = this.vehicleSpecs.filter((spec) => spec.id !== specId);
+        },
+
+        getFiltersById(id) {
+            const vehicleTags = JSON.parse(JSON.stringify(this.vehicle.tags));
+            
+            if (vehicleTags.length > 0) {
+                return vehicleTags.reduce(function (prev, current) {
+                    prev[current.filter_id] = prev[current.filter_id] || [];
+                    prev[current.filter_id].push(current);
+                    return prev
+                }, Object.create(null))[id];
+            }
+
+            return [];
         },
     }
 }
@@ -160,7 +174,7 @@ export default {
                             <span class="w-full">Filter categorieën:</span>
                         </div>
                         <div class="filters-wrapper flex flex-col gap-5 w-1/2">
-                            <dm-vehicle-filter-group v-for="filter in filters" :key="filter.id" :filter="filter"></dm-vehicle-filter-group>
+                            <dm-vehicle-filter-group :v-for="filter in filters" :filterGroup="filter"></dm-vehicle-filter-group>
                         </div>
                     </div>
                 </div>
