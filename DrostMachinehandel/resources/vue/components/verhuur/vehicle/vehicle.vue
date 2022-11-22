@@ -2,6 +2,7 @@
 import addFilter from './filters/addFilter.vue';
 import filter from './filters/filter.vue';
 import filterGroup from './filters/filterGroup.vue';
+import AddFilterGroup from './filters/AddFilterGroup.vue';
 import spec from './specs/spec.vue';
 
 export default {
@@ -12,6 +13,7 @@ export default {
         "dm-vehicle-spec": spec,
         "dm-vehicle-filter": filter,
         "dm-vehicle-filter-group": filterGroup,
+        "dm-add-vehicle-filter-group": AddFilterGroup,
     },
 
     data() {
@@ -76,6 +78,7 @@ export default {
 
 <template>
     <div id="selected-vehicle-data" class="flex gap-5 w-full">
+        <dm-add-vehicle-filter-group></dm-add-vehicle-filter-group>
         <div class="flex gap-5 w-full">
             <div
                 class="col-left h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5 w-1/2">

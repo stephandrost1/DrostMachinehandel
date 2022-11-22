@@ -38,7 +38,7 @@ export default {
         },
         
         _handleAcceptNewFilter(newFilter) {
-            if (this.filterOptions.some(filter => filter.name.toLowerCase() !== newFilter.value.toLowerCase())) {
+            if (!this.filterOptions.some(filter => filter.name.toLowerCase() == newFilter.value.toLowerCase())) {
                 this.filterOptions.push({
                     name: newFilter.value,
                     value: newFilter.value,
