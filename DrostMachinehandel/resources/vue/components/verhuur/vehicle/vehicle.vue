@@ -19,6 +19,7 @@ export default {
     data() {
         return {
             vehicleSpecs: this.vehicle.details ?? [],
+            addNewFilterPopupIsOpen: true,
         }
     },
 
@@ -61,7 +62,7 @@ export default {
 
         getFiltersById(id) {
             const vehicleTags = JSON.parse(JSON.stringify(this.vehicle.tags));
-            
+
             if (vehicleTags.length > 0) {
                 return vehicleTags.reduce(function (prev, current) {
                     prev[current.filter_id] = prev[current.filter_id] || [];
@@ -72,13 +73,37 @@ export default {
 
             return [];
         },
+
+        toggleAddNewFilterPopup() {
+            this.addNewFilterPopupIsOpen = !this.addNewFilterPopupIsOpen;
+        },
+
+        _handleRejectNewFilterGroup() {
+            this.toggleAddNewFilterPopup();
+        },
+
+        _handleAcceptNewFilterGroup(filterGroup) {
+            this.toggleAddNewFilterPopup();
+
+            this.filterGroups.push({
+                id: this.filterGroups[this.filterGroups.length - 1].id + 1,
+                filter_name: filterGroup.name,
+                options: filterGroup.options.map(option => {
+                    return {
+                        id: option.id,
+                        name: option.name,
+                        value: option.name
+                    }
+                })
+            })
+        }
     },
 }
 </script>
 
 <template>
     <div id="selected-vehicle-data" class="flex gap-5 w-full">
-        <dm-add-vehicle-filter-group></dm-add-vehicle-filter-group>
+        <dm-add-vehicle-filter-group v-show="addNewFilterPopupIsOpen" @_handleRejectNewFilterGroup="_handleRejectNewFilterGroup" @_handleAcceptNewFilterGroup="_handleAcceptNewFilterGroup"></dm-add-vehicle-filter-group>
         <div class="flex gap-5 w-full">
             <div
                 class="col-left h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5 w-1/2">
@@ -177,10 +202,15 @@ export default {
                         </div>
                         <div class="filters-wrapper flex flex-col gap-5 w-1/2">
                             <dm-vehicle-filter-group v-for="filter in filterGroups" :key="filter.id" :filter-group="filter" :checked-filters="getFiltersById(filter.id)"></dm-vehicle-filter-group>
+                            <div class="filter-group flex items-center justify-end">
+                                <div @click="toggleAddNewFilterPopup" class="wrapper">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="buttons flex flex-row justify-end gap-5 items-center">
+                <div class="buttons mt-6 flex flex-row justify-end gap-5 items-center">
                     <div id="delete-selected-vehicle"
                         class="bg-gradient-to-b w-1/8 from-red-500 flex items-start justify-between to-red-200 border-b-4 border-red-500 rounded-lg shadow-xl p-3">
                         <div id="delete-rent-vehicle-button"

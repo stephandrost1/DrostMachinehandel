@@ -1,11 +1,18 @@
 <script>
 
+import filter from './addPopup/filter.vue';
+
 export default {
+    components: {
+        "dm-added-filter": filter,
+    },
+
     data() {
         return {
             filterName: "",
             filterOptions: [
                 {
+                    id: 0,
                     name: ""
                 }
             ]
@@ -14,7 +21,47 @@ export default {
 
     methods: {
         _handleAddFilterClick() {
+            this.filterOptions.push({
+                id: this.filterOptions[this.filterOptions.length - 1].id + 1,
+                name: "",
+            });
+        },
 
+        _handleRemoveFilter(filterId) {
+            this.filterOptions = this.filterOptions.filter((filter) => filter.id !== filterId);
+        },
+
+        _updateFilterValue(filter) {
+            this.filterOptions = this.filterOptions.map((f) => {
+                if (f.id == filter.id && filter.name) {
+                    f.name = filter.name;
+                }
+
+                return f;
+            });
+        },
+
+        _handleAcceptNewFilterGroup() {
+            this.$emit("_handleAcceptNewFilterGroup", {
+                name: this.filterName,
+                options: this.filterOptions
+            });
+            this.clearCurrentFormData();
+        },
+
+        _handleRejectNewFilterGroup() {
+            this.clearCurrentFormData();
+            this.$emit("_handleRejectNewFilterGroup");
+        },
+
+        clearCurrentFormData() {
+            this.filterName = "";
+            this.filterOptions = [
+                {
+                    id: 0,
+                    name: "",
+                }
+            ]
         }
     }
 }
@@ -40,71 +87,14 @@ export default {
                             </div>
                         </div>
                         <div class="list-filter-options">
-                            <div class="option">
-                                <div class="name">
-                                    <p>Naam:</p>
-                                </div>
-                                <div class="value">
-                                    <input class="filter-value" value="test"/>
-                                    <div class="removeButton">
-                                        <i class="fas fa-trash text-lg remove-icon"></i>
-                                    </div>
-                                </div>
+                            <dm-added-filter v-for="filter in filterOptions" :key="filter.id" :filter="filter" @_handleRemoveFilter="_handleRemoveFilter" @_updateFilterValue="_updateFilterValue"></dm-added-filter>
+                        </div>
+                        <div class="actions">
+                            <div @click="_handleRejectNewFilterGroup" class="reject bg-gradient-to-b w-1/8 cursor-pointer from-red-500 flex items-start justify-between to-red-200 border-b-4 border-red-500 rounded-lg shadow-xl p-3">
+                                <div class="inner flex rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200 text-red-500 font-bold">Annuleren</div>
                             </div>
-                            <div class="option">
-                                <div class="name">
-                                    <p>Naam:</p>
-                                </div>
-                                <div class="value">
-                                    <input class="filter-value" value="test"/>
-                                    <div class="removeButton">
-                                        <i class="fas fa-trash text-lg remove-icon"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="option">
-                                <div class="name">
-                                    <p>Naam:</p>
-                                </div>
-                                <div class="value">
-                                    <input class="filter-value" value="test"/>
-                                    <div class="removeButton">
-                                        <i class="fas fa-trash text-lg remove-icon"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="option">
-                                <div class="name">
-                                    <p>Naam:</p>
-                                </div>
-                                <div class="value">
-                                    <input class="filter-value" value="test"/>
-                                    <div class="removeButton">
-                                        <i class="fas fa-trash text-lg remove-icon"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="option">
-                                <div class="name">
-                                    <p>Naam:</p>
-                                </div>
-                                <div class="value">
-                                    <input class="filter-value" value="test"/>
-                                    <div class="removeButton">
-                                        <i class="fas fa-trash text-lg remove-icon"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="option">
-                                <div class="name">
-                                    <p>Naam:</p>
-                                </div>
-                                <div class="value">
-                                    <input class="filter-value" value="test"/>
-                                    <div class="removeButton">
-                                        <i class="fas fa-trash text-lg remove-icon"></i>
-                                    </div>
-                                </div>
+                            <div @click="_handleAcceptNewFilterGroup" class="accept bg-gradient-to-b cursor-pointer w-1/8 from-green-500 flex items-start justify-between to-green-200 border-b-4 border-green-500 rounded-lg shadow-xl p-3">
+                                <div class="inner flex rounded-lg shadow-xl py-2 px-5 border-2 border-green-500 bg-green-200 text-green-500 font-bold">Opslaan</div>
                             </div>
                         </div>
                     </div>

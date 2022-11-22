@@ -20,8 +20,13 @@ export default {
     },
 
     mounted() {
-        this.activeFilters = JSON.parse(JSON.stringify(this.checkedFilters));
-        this.filterOptions = JSON.parse(JSON.stringify(this.filterGroup.options));
+        if (this.checkedFilters) {
+            this.activeFilters = JSON.parse(JSON.stringify(this.checkedFilters));
+        }
+
+        if (this.filterGroup.options.length > 0) {
+            this.filterOptions = JSON.parse(JSON.stringify(this.filterGroup.options));
+        }
     },
 
     methods: { 
