@@ -9,6 +9,7 @@ export default {
 
     data() {
         return {
+            showErrorMessage: false,
             filterName: "",
             filterOptions: [
                 {
@@ -22,7 +23,7 @@ export default {
     methods: {
         _handleAddFilterClick() {
             this.filterOptions.push({
-                id: this.filterOptions[this.filterOptions.length - 1].id + 1,
+                id: this.filterOptions.length > 0 ? this.filterOptions[this.filterOptions.length - 1].id + 1 : 0,
                 name: "",
             });
         },
@@ -41,12 +42,31 @@ export default {
             });
         },
 
+        toggleErrorMessage(status) {
+            this.showErrorMessage = status;
+        },
+
+        validateFilterOptions(options) {
+            return options.filter(option => {
+                return option.name != "";
+            }).length == 0;
+        },
+
         _handleAcceptNewFilterGroup() {
+            if (this.filterName == "" || this.validateFilterOptions(this.filterOptions)) {
+                this.toggleErrorMessage(true);
+                return;
+            }
+
             this.$emit("_handleAcceptNewFilterGroup", {
                 name: this.filterName,
                 options: this.filterOptions
             });
             this.clearCurrentFormData();
+
+            if (this.showErrorMessage) {
+                this.toggleErrorMessage(false);
+            }
         },
 
         _handleRejectNewFilterGroup() {
@@ -56,12 +76,7 @@ export default {
 
         clearCurrentFormData() {
             this.filterName = "";
-            this.filterOptions = [
-                {
-                    id: 0,
-                    name: "",
-                }
-            ]
+            this.filterOptions = [];
         }
     }
 }
@@ -70,7 +85,12 @@ export default {
 
 <template>
         <div class="absolute w-screen h-screen add-filter-group-vue top-0 left-0">
-            <div class="add-filter-menu">
+            <div class="add-filter-menu" :class="{ 'add-filter-menu-extended': showErrorMessage }">
+                <div class="error-notification" v-show="showErrorMessage">
+                    <div class="error border-2 border-red-500 bg-red-200 rounded text-center py-2 mb-2">
+                        <p class="text-red-500 font-bold">Niet alle velden zijn ingevuld. Vul een titel in en verwijder lege filters!</p>
+                    </div>
+                </div>
                 <div class="head">
                     <h1>Filter toevoegen</h1>
                 </div>

@@ -5,10 +5,14 @@
     justify-content: center;
     align-items: center;
 
+    .add-filter-menu-extended {
+        max-height: 552px !important; 
+    }
+
     .add-filter-menu {
         width: 90vw;
-        max-width: 600px;
-        height: 60vh;
+        max-width: 625px;
+        height: 90vh;
         max-height: 500px;
         background-color: $color-white;
         border: 2px solid $color-main;
