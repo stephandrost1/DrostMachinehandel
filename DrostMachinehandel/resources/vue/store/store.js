@@ -5,7 +5,7 @@ export default createStore({
     state: {
         vehicleFilters: [],
         vehicles: [],
-        activeVehicle: [],
+        selectedVehicle: null,
     },
 
     getters: {
@@ -15,12 +15,20 @@ export default createStore({
 
         getVehicles(state) {
             return state.vehicles;
+        },
+
+        getSelectedVehicle(state) {
+            return state.selectedVehicle;
         }
     },
 
     mutations: {
         SET_VEHICLES(state, vehicles) {
             state.vehicles = vehicles;
+        },
+
+        SET_SELECTED_VEHICLE(state, vehicle) {
+            state.selectedVehicle = vehicle;
         },
 
         SET_FILTERS(state, filters) {
@@ -47,6 +55,13 @@ export default createStore({
             axios.get('/api/v1/vehicles')
                 .then((response) => {
                     commit("SET_VEHICLES", response.data.vehicles);
+                })
+        },
+
+        async fetchVehicleById({ commit }, id) {
+            axios.get(`/api/v1/vehicle/${id}`)
+                .then((response) => {
+                    commit("SET_SELECTED_VEHICLE", response.data.vehicle);
                 })
         },
 

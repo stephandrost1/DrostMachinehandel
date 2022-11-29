@@ -6,8 +6,6 @@ import AddFilterGroup from './filters/AddFilterGroup.vue';
 import spec from './specs/spec.vue';
 
 export default {
-    props: ["vehicle"],
-
     components: {
         "dm-add-filter": addFilter,
         "dm-vehicle-spec": spec,
@@ -18,35 +16,37 @@ export default {
 
     data() {
         return {
-            vehicleSpecs: this.vehicle.details ?? [],
-            addNewFilterPopupIsOpen: true,
-            filterGroups: this.$store.getters.getFilters
+            addNewFilterPopupIsOpen: false,
         }
     },
 
     computed: {
+        getVehicle() {
+            return this.$store.getters.getSelectedVehicle;
+        },
+
         getVehicleName() {
-            return this.vehicle.vehicle_name ?? "";
+            return this.getVehicle.vehicle_name ?? "";
         },
 
         getVehicleDescription() {
-            return this.vehicle.vehicle_description ?? "";
+            return this.getVehicle.vehicle_description ?? "";
         },
 
         getVehiclePricePerDay() {
-            return this.vehicle.price_per_day ?? "";
+            return this.getVehicle.price_per_day ?? "";
         },
 
         getVehiclePricePerWeek() {
-            return this.vehicle.price_per_week ?? "";
+            return this.getVehicle.price_per_week ?? "";
         },
 
         getVehicleSpecs() { 
-            return this.vehicle.details ?? [];
+            return this.getVehicle.details ?? [];
         },
 
         getVehicleTags() {
-            return this.vehicle.tags ?? []
+            return this.getVehicle.tags ?? []
         }
     },
 
@@ -187,7 +187,7 @@ export default {
                         </div>
                         <div class="specs-wrapper w-1/2 flex flex-col">
                             <div id="vehicle-specs-container" class="specs-container flex flex-col gap-2">
-                                <dm-vehicle-spec @_handleRemoveSpec="_handleRemoveSpec" v-for="spec in vehicleSpecs" :key="spec.id" :spec="spec"></dm-vehicle-spec>
+                                <dm-vehicle-spec @_handleRemoveSpec="_handleRemoveSpec" v-for="spec in getVehicleSpecs" :key="spec.id" :spec="spec"></dm-vehicle-spec>
                             </div>
                             <div class="add-specs flex justify-end items-center h-12">
                                 <div id="add-specs" @click="_handleAddVehicleSpecButton" class="add-spec-icon w-2/12 flex items-center justify-center">

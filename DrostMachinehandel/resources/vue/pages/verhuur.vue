@@ -16,14 +16,8 @@ export default {
 
     data() {
         return {
-            vehicles: [],
             currentAction: null,
             isFetchingData: false,
-            selectedVehicle: {
-                vehicle_name: "Nog geen machine geselecteerd",
-                id: null,
-                isSearchResult: true,
-            }
         }
     },
 
@@ -32,37 +26,20 @@ export default {
     }, 
 
     computed: {
-        hasSelectedVehicleData() {
-            return !this.selectedVehicle.isSearchResult;
+        hasSelectedVehicle() {
+            return this.$store.getters.getSelectedVehicle !== null;
         },
 
-        isFetchingVehicleData() {
-            return this.isFetchingData;
+        isFetchingVehicle() {
+            return this.isFetchingData && this.$store.getters.getSelectedVehicle && this.$store.getters.getSelectedVehicle.length == 0;
         },
     },
 
     methods: {
-        _handleSelectVehicle(vehicle) {
-            this.selectedVehicle = vehicle;
-            this.selectedVehicle.isSearchResult = true;
-        },
-
-        async _handleSelectButton() {
-            if (_.isNull(this.selectedVehicle.id)) {
-                return;
-            }
-
-            this.selectedVehicle = await this.fetchVehicleById(this.selectedVehicle.id);
-        },
-
-        async fetchVehicleById(id) {
+        _handleSelectVehicle(vehicleId) {
             this.isFetchingData = true;
-
-            return await axios.get(`/api/v1/vehicle/${id}`).then((response) => {
-                this.isFetchingData = false;
-                return response.data.vehicle
-            })
-        }
+            this.$store.dispatch("fetchVehicleById", vehicleId);
+        },
      }  
 }
 </script>
@@ -97,13 +74,13 @@ export default {
                 </div>
             </div> -->
             <div class="flex flex-wrap bg-black h-full">
-                <dm-sidebar @_handleSelectButton="_handleSelectButton"  @_handleSelectVehicle="_handleSelectVehicle" :selectedVehicle="selectedVehicle"></dm-sidebar>
+                <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"></dm-sidebar>
                 
                     <div class="w-full md:w-3/4 p-6">
                         <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                            <dm-vehicle v-if="hasSelectedVehicleData" :vehicle="selectedVehicle"></dm-vehicle>
-                            <dm-vehicle-loader v-if="isFetchingVehicleData"></dm-vehicle-loader>
-                            <dm-no-vehicle-selected v-if="!hasSelectedVehicleData && !isFetchingVehicleData"></dm-no-vehicle-selected>
+                            <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>
+                            <dm-vehicle-loader v-if="isFetchingVehicle"></dm-vehicle-loader>
+                            <dm-no-vehicle-selected v-if="!hasSelectedVehicle && !isFetchingVehicle"></dm-no-vehicle-selected>
                         </div>
                     </div>
             </div>
