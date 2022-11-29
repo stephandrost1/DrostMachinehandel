@@ -58,6 +58,16 @@ export default {
                 return;
             }
 
+            this.$store.commit("addFilter", {
+                filter_name: this.filterName,
+                options: this.filterOptions.map((filter) => {
+                    return {
+                        ...filter,
+                        isActive: false,
+                    }
+                })
+            })
+
             this.$emit("_handleAcceptNewFilterGroup", {
                 name: this.filterName,
                 options: this.filterOptions

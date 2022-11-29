@@ -2,7 +2,10 @@ import _ from "lodash";
 import { createApp } from 'vue'
 
 import PageVehuur from './pages/verhuur.vue';
+import store from "./store/store.js"
 
-import VShowSlide from 'v-show-slide'
+const app = createApp(PageVehuur)
 
-createApp(PageVehuur).use(VShowSlide).mount("#page-dashboard-verhuur");
+app.use(store);
+
+app.mount("#page-dashboard-verhuur");

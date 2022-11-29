@@ -17,7 +17,6 @@ export default {
     data() {
         return {
             vehicles: [],
-            filters: [],
             currentAction: null,
             isFetchingData: false,
             selectedVehicle: {
@@ -29,8 +28,7 @@ export default {
     },
 
     async mounted() {
-        this.fetchVehicles();
-        this.fetchFilters();
+        this.$store.dispatch("fetchFilters");
     }, 
 
     computed: {
@@ -40,24 +38,10 @@ export default {
 
         isFetchingVehicleData() {
             return this.isFetchingData;
-        }
+        },
     },
 
     methods: {
-        fetchVehicles() {
-            axios.get('/api/v1/vehicles')
-                .then((response) => {
-                    this.vehicles = response.data.vehicles;
-                })
-        },
-
-        fetchFilters() {
-            axios.get('/api/v1/filters')
-                .then((response) => {
-                    this.filters = response.data.filters;
-                });
-        },
-
         _handleSelectVehicle(vehicle) {
             this.selectedVehicle = vehicle;
             this.selectedVehicle.isSearchResult = true;
@@ -113,11 +97,11 @@ export default {
                 </div>
             </div> -->
             <div class="flex flex-wrap bg-black h-full">
-                <dm-sidebar @_handleSelectButton="_handleSelectButton"  @_handleSelectVehicle="_handleSelectVehicle" :selectedVehicle="selectedVehicle" :vehicles="vehicles"></dm-sidebar>
+                <dm-sidebar @_handleSelectButton="_handleSelectButton"  @_handleSelectVehicle="_handleSelectVehicle" :selectedVehicle="selectedVehicle"></dm-sidebar>
                 
                     <div class="w-full md:w-3/4 p-6">
                         <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                            <dm-vehicle v-if="hasSelectedVehicleData" :vehicle="selectedVehicle" :filter-groups="filters" ></dm-vehicle>
+                            <dm-vehicle v-if="hasSelectedVehicleData" :vehicle="selectedVehicle"></dm-vehicle>
                             <dm-vehicle-loader v-if="isFetchingVehicleData"></dm-vehicle-loader>
                             <dm-no-vehicle-selected v-if="!hasSelectedVehicleData && !isFetchingVehicleData"></dm-no-vehicle-selected>
                         </div>

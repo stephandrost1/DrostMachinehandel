@@ -6,7 +6,7 @@ import AddFilterGroup from './filters/AddFilterGroup.vue';
 import spec from './specs/spec.vue';
 
 export default {
-    props: ["vehicle", "filterGroups"],
+    props: ["vehicle"],
 
     components: {
         "dm-add-filter": addFilter,
@@ -20,6 +20,7 @@ export default {
         return {
             vehicleSpecs: this.vehicle.details ?? [],
             addNewFilterPopupIsOpen: true,
+            filterGroups: this.$store.getters.getFilters
         }
     },
 

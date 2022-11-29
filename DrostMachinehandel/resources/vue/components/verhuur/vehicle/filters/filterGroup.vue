@@ -71,7 +71,7 @@ export default {
             <span>{{ filterGroup.filter_name }}</span>
             <span id="toggler"><i class="fas fa-caret-down"></i></span>
         </div>
-        <div class="list-wrapper selectable-list overflow-hidden duration-300" :class="[ filterIsOpen ? 'max-h-96' : 'max-h-0' ]" v-show-slide="filterIsOpen">
+        <div class="list-wrapper selectable-list overflow-hidden duration-300" :class="[ filterIsOpen ? 'max-h-96' : 'max-h-0' ]">
             <div id="list-of-filters" class="selectable-list pl-1">
                 <dm-filter v-for="filter in filterOptions" :key="filter.id" :filter="filter" :is-checked="calculateFilterIsChecked(filter)" :group-id="filterGroup.id"></dm-filter>
             </div>
