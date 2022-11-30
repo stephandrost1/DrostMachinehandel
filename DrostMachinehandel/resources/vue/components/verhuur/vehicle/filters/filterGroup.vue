@@ -3,7 +3,7 @@ import addFilter from './addFilter.vue';
 import filter from './filter.vue';
 
 export default {
-    props: ["filterGroup", "checkedFilters"],
+    props: ["filterGroup"],
 
     components: {
         "dm-filter": filter,
@@ -13,19 +13,7 @@ export default {
     data() {
         return {
             filterIsOpen: false,
-            filterOptions: [],
-            activeFilters: [],
             addNewFilter: false,
-        }
-    },
-
-    mounted() {
-        if (this.checkedFilters) {
-            this.activeFilters = JSON.parse(JSON.stringify(this.checkedFilters));
-        }
-
-        if (this.filterGroup.options.length > 0) {
-            this.filterOptions = JSON.parse(JSON.stringify(this.filterGroup.options));
         }
     },
 
@@ -41,39 +29,46 @@ export default {
         _handleRejectNewFilter() {
             this.addNewFilter = false;
         },
+
+        getFilterById(filterId) {
+            return this.$store.getters.getFilters.filter((filter) => filter.id == filterId);
+        },  
         
         _handleAcceptNewFilter(newFilter) {
-            if (!this.filterOptions.some(filter => filter.name.toLowerCase() == newFilter.value.toLowerCase())) {
-                this.filterOptions.push({
-                    name: newFilter.value,
-                    value: newFilter.value,
-                    filter_id: newFilter.groupId
-                })
+            let filterGroup = JSON.parse(JSON.stringify(this.getFilterById(this.filterGroup.id))).shift();
+
+            if (filterGroup.length > 0) {
+                return;
+            }
+
+            if (!filterGroup.options.some(option => option.name.toLowerCase() == newFilter.value.toLowerCase())) {
+                this.$store.commit("SET_NEW_FILTER_OPTION", {
+                    filterId: this.filterGroup.id,
+                    option: {
+                        name: newFilter.value,
+                        value: newFilter.value,
+                        filter_id: newFilter.groupId,
+                        isActive: false,
+                    }
+                });
             }
 
             this.addNewFilter = false;
         },
-
-        calculateFilterIsChecked(filter) {
-            return this.activeFilters.some(f => {
-                return f.id === filter.id
-            });
-        },
-
     }
 }
 
 </script>
 
 <template>
-    <div data-filterid="1" class="vehicle-filter-option-list vehicle-filter-list-1 cursor-pointer wrapper bg-white rounded-lg border-2 border-primary p-2">
+    <div class="vehicle-filter-option-list vehicle-filter-list-1 cursor-pointer wrapper bg-white rounded-lg border-2 border-primary p-2">
         <div class="title flex items-center gap-2 pl-1" @click="_handleFilterToggler">
             <span>{{ filterGroup.filter_name }}</span>
             <span id="toggler"><i class="fas fa-caret-down"></i></span>
         </div>
         <div class="list-wrapper selectable-list overflow-hidden duration-300" :class="[ filterIsOpen ? 'max-h-96' : 'max-h-0' ]">
             <div id="list-of-filters" class="selectable-list pl-1">
-                <dm-filter v-for="filter in filterOptions" :key="filter.id" :filter="filter" :is-checked="calculateFilterIsChecked(filter)" :group-id="filterGroup.id"></dm-filter>
+                <dm-filter v-for="filter in filterGroup.options" :key="filter.id" :filter="filter" :group-id="filterGroup.id"></dm-filter>
             </div>
             <dm-add-filter v-if="addNewFilter" :group-id="filterGroup.id" @_handleRejectNewFilter="_handleRejectNewFilter" @_handleAcceptNewFilter="_handleAcceptNewFilter"></dm-add-filter>  
     

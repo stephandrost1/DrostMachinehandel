@@ -1,6 +1,4 @@
 <script>
-import axios from 'axios';
-import _ from "lodash";
 import loader from '../components/loader.vue';
 import vehicleSelectorVue from '../components/verhuur/sidebar/vehicleSelector.vue';
 import vehicle from '../components/verhuur/vehicle/vehicle.vue';
@@ -27,16 +25,21 @@ export default {
 
     computed: {
         hasSelectedVehicle() {
-            return this.$store.getters.getSelectedVehicle !== null;
+            return this.getSelectedVehicle;
         },
 
         isFetchingVehicle() {
-            return this.isFetchingData && this.$store.getters.getSelectedVehicle && this.$store.getters.getSelectedVehicle.length == 0;
+            return this.isFetchingData && !this.getSelectedVehicle;
         },
+
+        getSelectedVehicle() {
+            return this.$store.getters.getSelectedVehicle;
+        }
     },
 
     methods: {
         _handleSelectVehicle(vehicleId) {
+            this.$store.commit("SET_SELECTED_VEHICLE", null);
             this.isFetchingData = true;
             this.$store.dispatch("fetchVehicleById", vehicleId);
         },

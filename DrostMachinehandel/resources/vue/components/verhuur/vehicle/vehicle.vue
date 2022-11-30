@@ -4,6 +4,7 @@ import filter from './filters/filter.vue';
 import filterGroup from './filters/filterGroup.vue';
 import AddFilterGroup from './filters/AddFilterGroup.vue';
 import spec from './specs/spec.vue';
+import vehicleImage from './vehicleImage.vue';
 
 export default {
     components: {
@@ -12,6 +13,7 @@ export default {
         "dm-vehicle-filter": filter,
         "dm-vehicle-filter-group": filterGroup,
         "dm-add-vehicle-filter-group": AddFilterGroup,
+        "dm-vehicle-image-item": vehicleImage,
     },
 
     data() {
@@ -47,7 +49,27 @@ export default {
 
         getVehicleTags() {
             return this.getVehicle.tags ?? []
-        }
+        },
+
+        getFilterGroups() {
+            return this.$store.getters.getFilters ?? [];
+        },
+
+        getVehicleImages() {
+            return this.getVehicle.images ?? [];
+        },
+
+        hasVehicleImages() {
+            return this.getVehicleImages.length > 0
+        },
+
+        getVehicleThumbnail() {
+            return this.getVehicleImages[0];
+        },
+
+        getVehicleSwiperImages() {
+            return this.getVehicleImages.slice(1);
+        },
     },
 
     methods: {
@@ -59,20 +81,6 @@ export default {
 
         _handleRemoveSpec(specId) {
             this.vehicleSpecs = this.vehicleSpecs.filter((spec) => spec.id !== specId);
-        },
-
-        getFiltersById(id) {
-            const vehicleTags = JSON.parse(JSON.stringify(this.vehicle.tags));
-
-            if (vehicleTags.length > 0) {
-                return vehicleTags.reduce(function (prev, current) {
-                    prev[current.filter_id] = prev[current.filter_id] || [];
-                    prev[current.filter_id].push(current);
-                    return prev
-                }, Object.create(null))[id];
-            }
-
-            return [];
         },
 
         toggleAddNewFilterPopup() {
@@ -109,8 +117,11 @@ export default {
             <div
                 class="col-left h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5 w-1/2">
                 <div id="vehicle-data-thumbnail" class="row-1 h-4/5 relative">
-                    <div class="no-image-available hidden">
+                    <div class="no-image-available" v-if="!hasVehicleImages">
                         <img src="/img/errors/no_image_placeholder.png">
+                    </div>
+                    <div class="vehicle-thumb" v-if="hasVehicleImages">
+                        <dm-vehicle-image-item :image="getVehicleThumbnail"></dm-vehicle-image-item>
                     </div>
                 </div>
                 <div class="row-2 flex gap-5 border-t-2 border-primary pt-5">
@@ -140,6 +151,7 @@ export default {
                     </div>
                     <div class="w-3/4 vehicle-swiper w-full h-1/5 user-select-none">
                         <div class="vehicle-swiper-wrapper gap-5 h-full grid grid-cols-4">
+                            <dm-vehicle-image-item v-for="image in getVehicleSwiperImages" :key="image.id" :image="image"></dm-vehicle-image-item>
                         </div>
                     </div>
                 </div>
@@ -202,7 +214,7 @@ export default {
                             <span class="w-full">Filter categorieën:</span>
                         </div>
                         <div class="filters-wrapper flex flex-col gap-5 w-1/2">
-                            <dm-vehicle-filter-group v-for="filter in filterGroups" :key="filter.id" :filter-group="filter" :checked-filters="getFiltersById(filter.id)"></dm-vehicle-filter-group>
+                            <dm-vehicle-filter-group v-for="filter in getFilterGroups" :key="filter.id" :filter-group="filter"></dm-vehicle-filter-group>
                             <div class="filter-group flex items-center justify-end">
                                 <div @click="toggleAddNewFilterPopup" class="wrapper">
                                     <i class="fas fa-plus"></i>

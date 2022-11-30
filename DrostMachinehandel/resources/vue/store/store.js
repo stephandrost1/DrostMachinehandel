@@ -35,6 +35,58 @@ export default createStore({
             state.filters = filters;
         },
 
+        SET_NEW_FILTER_OPTION(state, data) {
+            state.vehicleFilters = state.vehicleFilters.map((filter) => {
+                if (filter.id == data.filterId) {
+                    return {
+                        ...filter,
+                        options: [...filter.options, data.option]
+                    };
+                }
+
+                return filter;
+            })
+        },
+
+        SET_FILTER_OPTION_STATUS(state, data) {
+            state.vehicleFilters = state.vehicleFilters.map((filter) => {
+                if (filter.id != data.filterId) {
+                    return filter;
+                }
+
+
+                return {
+                    ...filter,
+                    options: filter.options.map((option) => {
+                        if (option.name.toLowerCase() != data.optionName.toLowerCase()) {
+                            return option;
+                        }
+
+                        return {
+                            ...option,
+                            isActive: data.isActive,
+                        }
+                    })
+                }
+            })
+        },
+
+        UPDATE_FILTERS_ACTIVE_STATUS(state, tags) {
+            state.vehicleFilters = state.vehicleFilters.map(filter => {
+                return {
+                    ...filter,
+                    options: filter.options.map((option) => {
+                        return {
+                            ...option,
+                            isActive: tags.filter((tag) => {
+                                return tag.filter_id == filter.id && tag.name.toLowerCase() == option.name.toLowerCase()
+                            }).length > 0
+                        }
+                    })
+                }
+            })
+        },
+
         ADD_FILTER(state, filter) {
             if (state.vehicleFilters.filter(f => f.filter_name.toLowerCase() == filter.filter_name.toLowerCase()).length <= 0) {
                 state.vehicleFilters.push({
@@ -62,6 +114,10 @@ export default createStore({
             axios.get(`/api/v1/vehicle/${id}`)
                 .then((response) => {
                     commit("SET_SELECTED_VEHICLE", response.data.vehicle);
+
+                    if (response.data.vehicle) {
+                        commit("UPDATE_FILTERS_ACTIVE_STATUS", response.data.vehicle.tags);
+                    }
                 })
         },
 
