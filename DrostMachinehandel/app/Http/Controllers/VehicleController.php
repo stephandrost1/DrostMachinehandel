@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateVehicleRequest;
 use App\Models\RentFiltersOption;
 use App\Models\RentVehicleDetail;
 use App\Models\RentVehicleFilterTag;
@@ -56,9 +57,11 @@ class VehicleController extends Controller
         return response()->json(["vehicle" => collect($vehicle)->first(), "results" => true], 200);
     }
 
-    public function update(Request $request)
+    public function update(UpdateVehicleRequest $request)
     {
         try {
+            $validated = $request->validated();
+
             $vehicle = Vehicle::find($request->id);
 
             if (!$vehicle) {
@@ -70,15 +73,17 @@ class VehicleController extends Controller
             $vehicle->price_per_day = $request->pricePerDay;
             $vehicle->price_per_week = $request->pricePerWeek;
 
-            $this->updateVehicleTags($request->tags, $request->id);
+            // $this->updateVehicleSpecs($request->specs, $request->id);
 
-            $this->updateVehicleSpecs($request->specs, $request->id);
+            // $this->updateVehicleTags($request->tags, $request->id);
 
-            $this->updateVehicleImages($request->images, $request->id);
+            // $this->updateVehicleImages($request->images, $request->id);
 
             $vehicle->save();
+
+            return response()->json(["message" => "Machine is succesvol opgeslagen!"], 200);
         } catch (Exception $e) {
-            response()->json(["message" => $e->getMessage()], 400);
+            return response()->json(["message" => $e->getMessage()], 400);
         }
     }
 

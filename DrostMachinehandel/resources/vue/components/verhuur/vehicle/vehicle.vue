@@ -2,19 +2,25 @@
 import addFilter from './filters/addFilter.vue';
 import filter from './filters/filter.vue';
 import filterGroup from './filters/filterGroup.vue';
-import AddFilterGroup from './filters/AddFilterGroup.vue';
-import spec from './specs/spec.vue';
+import specsBlock from "./specs/specsBlock.vue";
 import vehicleImage from './images/vehicleImage.vue';
 import dropzone from './images/dropzone.vue';
+import nameBlock from './name/nameBlock.vue';
+import descriptionBlock from './description/descriptionBlock.vue';
+import priceBlock from './prices/priceBlock.vue';
+import FiltersBlock from './filters/filtersBlock.vue';
 
 export default {
     components: {
         "dm-dropzone": dropzone,
         "dm-add-filter": addFilter,
-        "dm-vehicle-spec": spec,
-        "dm-vehicle-filter": filter,
-        "dm-vehicle-filter-group": filterGroup,
-        "dm-add-vehicle-filter-group": AddFilterGroup,
+
+        "dm-vehicle-specs-block": specsBlock,
+        "dm-vehicle-name-block": nameBlock,
+        "dm-vehicle-description-block": descriptionBlock,
+        "dm-vehicle-price-block": priceBlock,
+        "dm-vehicle-filters-block": FiltersBlock,
+
         "dm-vehicle-image-item": vehicleImage,
     },
 
@@ -55,14 +61,6 @@ export default {
             return this.getVehicle.details ?? [];
         },
 
-        getVehicleTags() {
-            return this.getVehicle.tags ?? []
-        },
-
-        getFilterGroups() {
-            return this.$store.getters.getFilters ?? [];
-        },
-
         getVehicleImages() {
             return this.getVehicle.images ?? [];
         },
@@ -78,14 +76,6 @@ export default {
         getVehicleSwiperImages() {
             return this.getVehicleImages.slice(1);
         },
-
-        getLastFilterId() {
-            if (this.$store.getters.getFilters && this.$store.getters.getFilters.length > 0) {
-                return this.$store.getters.getFilters[this.$store.getters.getFilters.length - 1].id;
-            }
-
-            return 0;
-        }
     },
 
     mounted() {
@@ -96,37 +86,20 @@ export default {
     },
 
     methods: {
-        _handleAddVehicleSpecButton() {
-            const latestSpecId = this.vehicleSpecs[this.vehicleSpecs.length - 1].id;
-
-            this.vehicleSpecs = [...this.vehicleSpecs, { id: latestSpecId + 1 }];
+        _handleNameInput(name) {
+            this.vehicle.name = name;
         },
 
-        _handleRemoveSpec(specId) {
-            this.vehicleSpecs = this.vehicleSpecs.filter((spec) => spec.id !== specId);
+        _handleDescriptionInput(description) {
+            this.vehicle.description = description;
         },
 
-        toggleAddNewFilterPopup() {
-            this.addNewFilterPopupIsOpen = !this.addNewFilterPopupIsOpen;
+        _handlePricePerDay(newPrice) {
+            this.vehicle.pricePerDay = newPrice;
         },
 
-        _handleRejectNewFilterGroup() {
-            this.toggleAddNewFilterPopup();
-        },
-
-        _handleAcceptNewFilterGroup(filterGroup) {
-            this.toggleAddNewFilterPopup();
-            this.$store.commit("ADD_FILTER", {
-                id: this.getLastFilterId,
-                filter_name: filterGroup.name,
-                options: filterGroup.options.map(option => {
-                    return {
-                        id: option.id,
-                        name: option.name,
-                        value: option.name
-                    }
-                })
-            })
+        _handlePricePerWeek(newPrice) {
+            this.vehicle.pricePerWeek = newPrice;
         },
 
         _handleDeleteVehicleButton() {
@@ -144,17 +117,24 @@ export default {
         _handleSaveVehicleButton() {
             const vehicleData = {
                 ...this.vehicle,
+                id: this.getVehicle.id,
                 specifications: this.getVehicleSpecs,
-                tags: this.getVehicleTags,
+                activeTags: this.$store.getters.getActiveFilters,
+                tags: this.$store.getters.getFilters,
                 images: this.getVehicleImages
             }
 
             axios.patch(`/api/v1/vehicle/${this.getVehicle.id}/update`, vehicleData)
                 .then((response) => {
-                    console.log(response);
+                    this.$toast.success(response.data.message);
                 }).catch((error) => {
-                    console.log(error);
+                    this.$toast.error(error.response.data.message)
                 })
+
+            this.$store.commit("UPDATE_VEHICLE_NAME_BY_ID", {
+                vehicleId: this.getVehicle.id,
+                vehicleName: this.vehicle.name,
+            });
         }
     },
 }
@@ -162,7 +142,6 @@ export default {
 
 <template>
     <div id="selected-vehicle-data" class="flex gap-5 w-full vue-vehicle">
-        <dm-add-vehicle-filter-group v-show="addNewFilterPopupIsOpen" @_handleRejectNewFilterGroup="_handleRejectNewFilterGroup" @_handleAcceptNewFilterGroup="_handleAcceptNewFilterGroup"></dm-add-vehicle-filter-group>
         <div class="flex gap-5 w-full">
             <div class="col-left h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5 w-1/2">
                 <div id="vehicle-data-thumbnail" class="row-1 h-4/5 relative">
@@ -186,70 +165,15 @@ export default {
             </div>
             <div class="col-right w-1/2 p-5 border-2 border-primary-500 bg-primary-200 rounded-lg ">
                 <div class="content flex flex-col mb-5 gap-5 w-full">
-                    <div id="selected-vehicle" class="row flex justify-between gap-5">
-                        <div
-                            class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
-                            <span class="w-full">Naam:</span>
-                        </div>
-                        <input placeholder="Naam" v-model="vehicle.name" name="vehicleName" id="selected-vehicle-name"
-                            class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
-                    </div>
-                    <div class="row flex justify-between gap-5">
-                        <div
-                            class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
-                            <span class="w-full">Beschrijving:</span>
-                        </div>
-                        <textarea placeholder="Beschrijving" v-model="vehicle.description" name="vehicleName" id="selected-vehicle-description"
-                            rows="4" class="w-1/2 rounded-lg border-2 border-primary pl-2"></textarea>
-                    </div>
-                    <div class="row flex justify-between gap-5">
-                        <div
-                            class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
-                            <span class="w-full">Prijs per dag:</span>
-                        </div>
-                        <input placeholder="Prijs per dag" v-model="vehicle.pricePerDay" type="number" name="vehicleName"
-                            id="selected-vehicle-price-per-day"
-                            class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
-                    </div>
-                    <div class="row flex justify-between gap-5">
-                        <div
-                            class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
-                            <span class="w-full">Prijs per week:</span>
-                        </div>
-                        <input placeholder="Prijs per week" v-model="vehicle.pricePerWeek" type="number" name="vehicleName"
-                            id="selected-vehicle-price-per-week"
-                            class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
-                    </div>
-                    <div class="row flex justify-between gap-5">
-                        <div
-                            class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
-                            <span class="w-full">Specificaties:</span>
-                        </div>
-                        <div class="specs-wrapper w-1/2 flex flex-col">
-                            <div id="vehicle-specs-container" class="specs-container flex flex-col gap-2">
-                                <dm-vehicle-spec @_handleRemoveSpec="_handleRemoveSpec" v-for="spec in getVehicleSpecs" :key="spec.id" :spec="spec"></dm-vehicle-spec>
-                            </div>
-                            <div class="add-specs flex justify-end items-center h-12">
-                                <div id="add-specs" @click="_handleAddVehicleSpecButton" class="add-spec-icon w-2/12 flex items-center justify-center">
-                                    <i class="fas fa-plus"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row select-none flex justify-between gap-5">
-                        <div
-                            class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
-                            <span class="w-full">Filter categorieën:</span>
-                        </div>
-                        <div class="filters-wrapper flex flex-col gap-5 w-1/2">
-                            <dm-vehicle-filter-group v-for="filter in getFilterGroups" :key="filter.id" :filter-group="filter"></dm-vehicle-filter-group>
-                            <div class="filter-group flex items-center justify-end remove-filter-action">
-                                <div @click="toggleAddNewFilterPopup" class="wrapper flex items-center justify-center">
-                                    <i class="fas fa-plus"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <dm-vehicle-name-block @_handleNameInput="_handleNameInput" :value="vehicle.name"></dm-vehicle-name-block>
+
+                    <dm-vehicle-description-block @_handleDescriptionInput="_handleDescriptionInput" :value="vehicle.description"></dm-vehicle-description-block>
+         
+                    <dm-vehicle-price-block @_handlePricePerDay="_handlePricePerDay" @_handlePricePerWeek="_handlePricePerWeek" :pricePerDay="vehicle.pricePerDay" :pricePerWeek="vehicle.pricePerWeek"></dm-vehicle-price-block>
+                    
+                    <dm-vehicle-specs-block></dm-vehicle-specs-block>
+                    
+                    <dm-vehicle-filters-block></dm-vehicle-filters-block>
                 </div>
                 <div class="buttons mt-6 flex flex-row justify-end gap-5 items-center">
                     <div id="delete-selected-vehicle"

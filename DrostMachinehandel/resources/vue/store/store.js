@@ -13,6 +13,15 @@ export default createStore({
             return state.vehicleFilters;
         },
 
+        getActiveFilters(state) {
+            return state.vehicleFilters.map((filter) => {
+                return {
+                    ...filter,
+                    options: filter.options.filter((option) => option.isActive),
+                }
+            })
+        },
+
         getVehicles(state) {
             return state.vehicles;
         },
@@ -88,6 +97,19 @@ export default createStore({
                         }
                     })
                 }
+            })
+        },
+
+        UPDATE_VEHICLE_NAME_BY_ID(state, data) {
+            state.vehicles = state.vehicles.map(vehicle => {
+                if (vehicle.id == data.vehicleId) {
+                    return {
+                        ...vehicle,
+                        vehicle_name: data.vehicleName,
+                    };
+                }
+
+                return vehicle;
             })
         },
 
