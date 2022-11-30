@@ -38,10 +38,11 @@ export default {
     },
 
     methods: {
-        _handleSelectVehicle(vehicleId) {
+        async _handleSelectVehicle(vehicleId) {
             this.$store.commit("SET_SELECTED_VEHICLE", null);
             this.isFetchingData = true;
-            this.$store.dispatch("fetchVehicleById", vehicleId);
+            await this.$store.dispatch("fetchVehicleById", vehicleId);
+            this.isFetchingData = false;
         },
      }  
 }

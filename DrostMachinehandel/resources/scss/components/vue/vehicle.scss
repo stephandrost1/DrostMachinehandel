@@ -1,0 +1,11 @@
+.vue-vehicle {
+    .filters-wrapper {
+        .filter-group {
+            &.remove-filter-action {
+                .wrapper {
+                    width: 16.666667% !important;
+                }
+            }
+        }
+    }   
+}

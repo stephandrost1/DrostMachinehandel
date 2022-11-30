@@ -19,6 +19,10 @@ export default createStore({
 
         getSelectedVehicle(state) {
             return state.selectedVehicle;
+        },
+
+        getSelectedVehicleImages(state) {
+            return state.selectedVehicle.images;
         }
     },
 
@@ -100,18 +104,34 @@ export default createStore({
                 });
             }
         },
+
+        ADD_VEHICLE_IMAGE(state, image) {
+            state.selectedVehicle.images.push(image);
+        },
+
+        REMOVE_IMAGE_BY_ID(state, imageId) {
+            state.selectedVehicle.images = state.selectedVehicle.images.filter(image => image.id != imageId);
+        },
+
+        REMOVE_FILTER_GROUP_BY_ID(state, filterGroupId) {
+            state.vehicleFilters = state.vehicleFilters.filter(group => group.id != filterGroupId);
+        },
+
+        REMOVE_VEHICLE_BY_ID(state, vehicleId) {
+            state.vehicles = state.vehicles.filter(vehicle => vehicle.id != vehicleId);
+        }
     },
 
     actions: {
         async fetchVehicles({ commit }) {
-            axios.get('/api/v1/vehicles')
+            await axios.get('/api/v1/vehicles')
                 .then((response) => {
                     commit("SET_VEHICLES", response.data.vehicles);
                 })
         },
 
         async fetchVehicleById({ commit }, id) {
-            axios.get(`/api/v1/vehicle/${id}`)
+            await axios.get(`/api/v1/vehicle/${id}`)
                 .then((response) => {
                     commit("SET_SELECTED_VEHICLE", response.data.vehicle);
 
@@ -122,7 +142,7 @@ export default createStore({
         },
 
         async fetchFilters({ commit }) {
-            axios.get('/api/v1/filters')
+            await axios.get('/api/v1/filters')
                 .then((response) => {
                     response.data.filters.forEach(filter => {
                         commit("ADD_FILTER", filter);

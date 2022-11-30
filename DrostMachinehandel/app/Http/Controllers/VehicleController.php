@@ -7,9 +7,8 @@ use App\Models\RentVehicleDetail;
 use App\Models\RentVehicleFilterTag;
 use App\Models\RentVehicleImage;
 use App\Models\Vehicle;
+use Exception;
 use Illuminate\Http\Request;
-
-use function PHPUnit\Framework\isNull;
 
 class VehicleController extends Controller
 {
@@ -20,33 +19,67 @@ class VehicleController extends Controller
         return response()->json(["vehicles" => $vehicles, "results" => count($vehicles) > 0]);
     }
 
-    public function delete($id)
+    public function destroy(Int $id)
     {
-        $vehicle = Vehicle::find($id);
+        try {
+            $vehicle = Vehicle::find($id);
 
-        $vehicle->delete();
+            if (!$vehicle) {
+                throw new Exception("Machine niet gevonden");
+            }
+
+            $vehicle->delete();
+
+            return response()->json(["message" => "Machine is succesvol verwijderd"], 200);
+        } catch (Exception $e) {
+            return response()->json(["message" => "Machine is niet verwijderd omdat: " . $e->getMessage()], 400);
+        }
+    }
+
+    public function show(Int $vehicleId)
+    {
+        if (empty($vehicleId)) {
+            return response()->json(["message" => 'missing vehicle id', "results" => false], 400);
+        }
+
+        /** @var Vehicle */
+        $vehicle = Vehicle::where("id", $vehicleId)->with(["images", "details", "tags"])->get();
+
+        $vehicleTags = collect(collect($vehicle)->first()["tags"])->groupBy("filter_id")->toArray();
+
+        $vehicle["tags"] = $vehicleTags;
+
+        if (empty($vehicle)) {
+            return response()->json(["message" => 'vehicle not found', "results" => false], 400);
+        }
+
+        return response()->json(["vehicle" => collect($vehicle)->first(), "results" => true], 200);
     }
 
     public function update(Request $request)
     {
-        $vehicle = Vehicle::find($request->id);
+        try {
+            $vehicle = Vehicle::find($request->id);
 
-        if (!$vehicle) {
-            return;
+            if (!$vehicle) {
+                throw new Exception("Machine niet gevonden");
+            }
+
+            $vehicle->vehicle_name = $request->name;
+            $vehicle->vehicle_description = $request->description;
+            $vehicle->price_per_day = $request->pricePerDay;
+            $vehicle->price_per_week = $request->pricePerWeek;
+
+            $this->updateVehicleTags($request->tags, $request->id);
+
+            $this->updateVehicleSpecs($request->specs, $request->id);
+
+            $this->updateVehicleImages($request->images, $request->id);
+
+            $vehicle->save();
+        } catch (Exception $e) {
+            response()->json(["message" => $e->getMessage()], 400);
         }
-
-        $vehicle->vehicle_name = $request->name;
-        $vehicle->vehicle_description = $request->description;
-        $vehicle->price_per_day = $request->pricePerDay;
-        $vehicle->price_per_week = $request->pricePerWeek;
-
-        $this->updateVehicleTags($request->tags, $request->id);
-
-        $this->updateVehicleSpecs($request->specs, $request->id);
-
-        $this->updateVehicleImages($request->images, $request->id);
-
-        $vehicle->save();
     }
 
     private function updateVehicleImages(array $images, int $vehicleId)

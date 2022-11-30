@@ -1,5 +1,7 @@
 <script>
+
 import vehicleItemVue from './vehicleItem.vue'
+
 export default {
     components: {
         "dm-sidebar-vehicle-item": vehicleItemVue

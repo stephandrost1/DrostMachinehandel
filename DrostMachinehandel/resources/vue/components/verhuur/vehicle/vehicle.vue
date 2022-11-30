@@ -4,10 +4,12 @@ import filter from './filters/filter.vue';
 import filterGroup from './filters/filterGroup.vue';
 import AddFilterGroup from './filters/AddFilterGroup.vue';
 import spec from './specs/spec.vue';
-import vehicleImage from './vehicleImage.vue';
+import vehicleImage from './images/vehicleImage.vue';
+import dropzone from './images/dropzone.vue';
 
 export default {
     components: {
+        "dm-dropzone": dropzone,
         "dm-add-filter": addFilter,
         "dm-vehicle-spec": spec,
         "dm-vehicle-filter": filter,
@@ -19,6 +21,12 @@ export default {
     data() {
         return {
             addNewFilterPopupIsOpen: false,
+            vehicle: {
+                name: "",
+                description: "",
+                pricePerDay: "",
+                pricePerWeek: "",
+            }
         }
     },
 
@@ -70,6 +78,21 @@ export default {
         getVehicleSwiperImages() {
             return this.getVehicleImages.slice(1);
         },
+
+        getLastFilterId() {
+            if (this.$store.getters.getFilters && this.$store.getters.getFilters.length > 0) {
+                return this.$store.getters.getFilters[this.$store.getters.getFilters.length - 1].id;
+            }
+
+            return 0;
+        }
+    },
+
+    mounted() {
+        this.vehicle.name = this.getVehicleName;
+        this.vehicle.description = this.getVehicleDescription;
+        this.vehicle.pricePerDay = this.getVehiclePricePerDay;
+        this.vehicle.pricePerWeek = this.getVehiclePricePerWeek;
     },
 
     methods: {
@@ -93,9 +116,8 @@ export default {
 
         _handleAcceptNewFilterGroup(filterGroup) {
             this.toggleAddNewFilterPopup();
-
-            this.filterGroups.push({
-                id: this.filterGroups[this.filterGroups.length - 1].id + 1,
+            this.$store.commit("ADD_FILTER", {
+                id: this.getLastFilterId,
                 filter_name: filterGroup.name,
                 options: filterGroup.options.map(option => {
                     return {
@@ -105,17 +127,44 @@ export default {
                     }
                 })
             })
+        },
+
+        _handleDeleteVehicleButton() {
+            axios.delete(`/api/v1/vehicle/${this.getVehicle.id}/delete`)
+                .then((response) => {
+                    this.$toast.success(response.data.message);
+                }).catch((error) => {
+                    this.$toast.error(error.response.data.message)
+                })
+
+            this.$store.commit("REMOVE_VEHICLE_BY_ID", this.$store.getters.getSelectedVehicle.id);
+            this.$store.commit("SET_SELECTED_VEHICLE", null);
+        },
+
+        _handleSaveVehicleButton() {
+            const vehicleData = {
+                ...this.vehicle,
+                specifications: this.getVehicleSpecs,
+                tags: this.getVehicleTags,
+                images: this.getVehicleImages
+            }
+
+            axios.patch(`/api/v1/vehicle/${this.getVehicle.id}/update`, vehicleData)
+                .then((response) => {
+                    console.log(response);
+                }).catch((error) => {
+                    console.log(error);
+                })
         }
     },
 }
 </script>
 
 <template>
-    <div id="selected-vehicle-data" class="flex gap-5 w-full">
+    <div id="selected-vehicle-data" class="flex gap-5 w-full vue-vehicle">
         <dm-add-vehicle-filter-group v-show="addNewFilterPopupIsOpen" @_handleRejectNewFilterGroup="_handleRejectNewFilterGroup" @_handleAcceptNewFilterGroup="_handleAcceptNewFilterGroup"></dm-add-vehicle-filter-group>
         <div class="flex gap-5 w-full">
-            <div
-                class="col-left h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5 w-1/2">
+            <div class="col-left h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5 w-1/2">
                 <div id="vehicle-data-thumbnail" class="row-1 h-4/5 relative">
                     <div class="no-image-available" v-if="!hasVehicleImages">
                         <img src="/img/errors/no_image_placeholder.png">
@@ -126,28 +175,7 @@ export default {
                 </div>
                 <div class="row-2 flex gap-5 border-t-2 border-primary pt-5">
                     <div class="image-uploader w-1/4 h-1/4 aspect-square border-2 rounded-lg border-primary">
-                        <div class="w-full flex items-center justify-center h-full">
-                            <div class="flex justify-center items-center h-full w-full">
-                                <label for="dropzone-file"
-                                    class="flex flex-col justify-center items-center w-full h-full cursor-pointer">
-                                    <div class="flex flex-col justify-center items-center h-full pt-5 pb-6">
-                                        <svg aria-hidden="true" class="mb-3 w-10 h-10 text-primary" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                            </path>
-                                        </svg>
-                                        <p class="mb-2 text-sm text-center text-primary"><span
-                                                class="font-semibold">Click to upload</span> or drag and
-                                            drop</p>
-                                        <p class="text-xs text-center text-primary">SVG, PNG, JPG or GIF
-                                            (MAX. 800x400px)</p>
-                                    </div>
-                                    <input id="dropzone-file" multiple type="file" class="hidden">
-                                </label>
-                            </div>
-                        </div>
+                        <dm-dropzone></dm-dropzone>
                     </div>
                     <div class="w-3/4 vehicle-swiper w-full h-1/5 user-select-none">
                         <div class="vehicle-swiper-wrapper gap-5 h-full grid grid-cols-4">
@@ -163,7 +191,7 @@ export default {
                             class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
                             <span class="w-full">Naam:</span>
                         </div>
-                        <input placeholder="Naam" :value="getVehicleName" name="vehicleName" id="selected-vehicle-name"
+                        <input placeholder="Naam" v-model="vehicle.name" name="vehicleName" id="selected-vehicle-name"
                             class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
                     </div>
                     <div class="row flex justify-between gap-5">
@@ -171,7 +199,7 @@ export default {
                             class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
                             <span class="w-full">Beschrijving:</span>
                         </div>
-                        <textarea placeholder="Beschrijving" :value="getVehicleDescription" name="vehicleName" id="selected-vehicle-description"
+                        <textarea placeholder="Beschrijving" v-model="vehicle.description" name="vehicleName" id="selected-vehicle-description"
                             rows="4" class="w-1/2 rounded-lg border-2 border-primary pl-2"></textarea>
                     </div>
                     <div class="row flex justify-between gap-5">
@@ -179,7 +207,7 @@ export default {
                             class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
                             <span class="w-full">Prijs per dag:</span>
                         </div>
-                        <input placeholder="Prijs per dag" :value="getVehiclePricePerDay" type="number" name="vehicleName"
+                        <input placeholder="Prijs per dag" v-model="vehicle.pricePerDay" type="number" name="vehicleName"
                             id="selected-vehicle-price-per-day"
                             class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
                     </div>
@@ -188,7 +216,7 @@ export default {
                             class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
                             <span class="w-full">Prijs per week:</span>
                         </div>
-                        <input placeholder="Prijs per week" :value="getVehiclePricePerWeek" type="number" name="vehicleName"
+                        <input placeholder="Prijs per week" v-model="vehicle.pricePerWeek" type="number" name="vehicleName"
                             id="selected-vehicle-price-per-week"
                             class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
                     </div>
@@ -215,8 +243,8 @@ export default {
                         </div>
                         <div class="filters-wrapper flex flex-col gap-5 w-1/2">
                             <dm-vehicle-filter-group v-for="filter in getFilterGroups" :key="filter.id" :filter-group="filter"></dm-vehicle-filter-group>
-                            <div class="filter-group flex items-center justify-end">
-                                <div @click="toggleAddNewFilterPopup" class="wrapper">
+                            <div class="filter-group flex items-center justify-end remove-filter-action">
+                                <div @click="toggleAddNewFilterPopup" class="wrapper flex items-center justify-center">
                                     <i class="fas fa-plus"></i>
                                 </div>
                             </div>
@@ -226,15 +254,13 @@ export default {
                 <div class="buttons mt-6 flex flex-row justify-end gap-5 items-center">
                     <div id="delete-selected-vehicle"
                         class="bg-gradient-to-b w-1/8 from-red-500 flex items-start justify-between to-red-200 border-b-4 border-red-500 rounded-lg shadow-xl p-3">
-                        <div id="delete-rent-vehicle-button"
-                            class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200">
+                        <div id="delete-rent-vehicle-button" @click="_handleDeleteVehicleButton" class="flex cursor-pointer rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200">
                             <div class="text-red-500 font-bold">Verwijder</div>
                         </div>
                     </div>
                     <div id="save-selected-vehicle"
                         class="bg-gradient-to-b w-1/8 from-green-500 flex items-start justify-between to-green-200 border-b-4 border-green-500 rounded-lg shadow-xl p-3">
-                        <div id="select-rent-vehicle-button"
-                            class="flex rounded-lg shadow-xl py-2 px-5 border-2 border-green-500 bg-green-200">
+                        <div id="select-rent-vehicle-button" @click="_handleSaveVehicleButton" class="flex rounded-lg cursor-pointer shadow-xl py-2 px-5 border-2 border-green-500 bg-green-200">
                             <div class="text-green-500 font-bold">Opslaan</div>
                         </div>
                     </div>

@@ -47,8 +47,6 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     Route::get('/', [DashboardController::class, 'index'])->name("dashboard");
     Route::get('/verhuur', [DashboardController::class, "verhuur"])->name("dashboard-verhuur");
 
-    Route::delete('/vehicle/{vehicleId}/delete', [VehicleController::class, "delete"]);
-    Route::patch('/vehicle/{vehicleId}/update', [VehicleController::class, "update"]);
 
     Route::post("/vehicles/images/upload", [VehicleImagesController::class, "create"]);
 
@@ -61,7 +59,11 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
 
 Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::get("/vehicleViews", [DashboardApiController::class, "vehicleViews"]);
-    Route::get("/vehicle/{id}", [VerhuurController::class, "getVehicleById"]);
+
+    Route::get("/vehicle/{id}", [VehicleController::class, "show"]);
+    Route::delete("/vehicle/{id}/delete", [VehicleController::class, "destroy"]);
+    Route::patch('/vehicle/{id}/update', [VehicleController::class, "update"]);
+
     Route::get('/vehicles', [VehicleController::class, "index"]);
     Route::get('/filters', [FilterController::class, "index"]);
 });
