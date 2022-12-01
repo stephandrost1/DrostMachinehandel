@@ -1,7 +1,5 @@
 <script>
 import addFilter from './filters/addFilter.vue';
-import filter from './filters/filter.vue';
-import filterGroup from './filters/filterGroup.vue';
 import specsBlock from "./specs/specsBlock.vue";
 import vehicleImage from './images/vehicleImage.vue';
 import dropzone from './images/dropzone.vue';
@@ -13,7 +11,6 @@ import FiltersBlock from './filters/filtersBlock.vue';
 export default {
     components: {
         "dm-dropzone": dropzone,
-        "dm-add-filter": addFilter,
 
         "dm-vehicle-specs-block": specsBlock,
         "dm-vehicle-name-block": nameBlock,
@@ -26,7 +23,6 @@ export default {
 
     data() {
         return {
-            addNewFilterPopupIsOpen: false,
             vehicle: {
                 name: "",
                 description: "",

@@ -1,14 +1,17 @@
 <script>
 
 import AddFilterGroup from './AddFilterGroup.vue';
+import filterGroup from "./filterGroup.vue";
 
 export default {
     components: {
         "dm-add-vehicle-filter-group": AddFilterGroup,
+        "dm-vehicle-filter-group": filterGroup,
     },
     
     data() {
         return {
+            addNewFilterPopupIsOpen: false,
         }
     },
 

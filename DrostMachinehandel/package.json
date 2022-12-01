@@ -27,6 +27,7 @@
         "vue": "^3.2.36",
         "vue-loader": "^17.0.0",
         "vue2-dropzone": "^3.6.0",
+        "vue3-promise-dialog": "^0.3.4",
         "vuex": "^4.1.0"
     }
 }
