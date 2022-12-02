@@ -14,14 +14,15 @@ export default {
     },
 
     methods: {
-        _handleRemoveSpec(specId) {
-            this.vehicleSpecs = this.vehicleSpecs.filter((spec) => spec.id !== specId);
-        },
-
         _handleAddSpec() {
-            const latestSpecId = this.vehicleSpecs[this.vehicleSpecs.length - 1].id;
+            const newSpecId = this.getVehicleSpecs.length > 0 ? this.getVehicleSpecs[this.getVehicleSpecs.length - 1].id + 1 : 0;
 
-            this.vehicleSpecs = [...this.vehicleSpecs, { id: latestSpecId + 1 }];
+            this.$store.commit("ADD_VEHICLE_SPEC", {
+                detail_name: "",
+                detail_value: "",
+                id: newSpecId,
+                vehicle_id: this.$store.getters.getSelectedVehicle.id,
+            });
         },
     }
 
@@ -36,7 +37,7 @@ export default {
         </div>
         <div class="specs-wrapper w-1/2 flex flex-col">
             <div id="vehicle-specs-container" class="specs-container flex flex-col gap-2">
-                <dm-vehicle-spec @_handleRemoveSpec="_handleRemoveSpec" v-for="spec in getVehicleSpecs" :key="spec.id" :spec="spec"></dm-vehicle-spec>
+                <dm-vehicle-spec v-for="spec in getVehicleSpecs" :key="spec.id" :spec="spec"></dm-vehicle-spec>
             </div>
             <div class="add-specs flex justify-end items-center h-12">
                 <div id="add-specs" @click="_handleAddSpec" class="add-spec-icon w-2/12 flex items-center justify-center">

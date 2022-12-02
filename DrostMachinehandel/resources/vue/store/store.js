@@ -32,7 +32,7 @@ export default createStore({
 
         getSelectedVehicleImages(state) {
             return state.selectedVehicle.images;
-        }
+        },
     },
 
     mutations: {
@@ -113,6 +113,16 @@ export default createStore({
             })
         },
 
+        UPDATE_VEHICLE_SPEC_BY_ID(state, spec) {
+            state.selectedVehicle.details = state.selectedVehicle.details.map(detail => {
+                if (detail.id == spec.id) {
+                    return spec;
+                }
+
+                return detail;
+            })
+        },
+
         ADD_FILTER(state, filter) {
             if (state.vehicleFilters.filter(f => f.filter_name.toLowerCase() == filter.filter_name.toLowerCase()).length <= 0) {
                 state.vehicleFilters.push({
@@ -131,6 +141,10 @@ export default createStore({
             state.selectedVehicle.images.push(image);
         },
 
+        ADD_VEHICLE_SPEC(state, spec) {
+            state.selectedVehicle.details.push(spec);
+        },
+
         REMOVE_IMAGE_BY_ID(state, imageId) {
             state.selectedVehicle.images = state.selectedVehicle.images.filter(image => image.id != imageId);
         },
@@ -141,6 +155,10 @@ export default createStore({
 
         REMOVE_VEHICLE_BY_ID(state, vehicleId) {
             state.vehicles = state.vehicles.filter(vehicle => vehicle.id != vehicleId);
+        },
+
+        REMOVE_VEHICLE_SPEC_BY_ID(state, specId) {
+            state.selectedVehicle.details = state.selectedVehicle.details.filter(detail => detail.id != specId);
         }
     },
 

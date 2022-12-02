@@ -28,7 +28,7 @@
   </div>
   
   <video style="z-index: -1" class="opacity-50 w-screen h-screen object-cover" autoplay muted loop playsinline>
-    <source src="{{ asset('/vid/backgroundVideo.mp4') }}"  type="video/mp4">
+    <source src="{{ asset('/vid/backgroundVideo.mp4') }}#t=0.5" preload="metadata"  type="video/mp4">
   </video>
   
 </div>

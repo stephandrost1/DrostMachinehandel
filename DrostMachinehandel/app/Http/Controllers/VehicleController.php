@@ -73,6 +73,8 @@ class VehicleController extends Controller
             $vehicle->price_per_day = $request->pricePerDay;
             $vehicle->price_per_week = $request->pricePerWeek;
 
+            dd($request->specifications);
+
             // $this->updateVehicleSpecs($request->specs, $request->id);
 
             // $this->updateVehicleTags($request->tags, $request->id);

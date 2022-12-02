@@ -18,6 +18,9 @@ export default {
         return {
             currentAction: null,
             isFetchingData: false,
+            // deleteMachineModal: {
+            //     isOpen: false,
+            // }
         }
     },
 
@@ -46,14 +49,22 @@ export default {
             await this.$store.dispatch("fetchVehicleById", vehicleId);
             this.isFetchingData = false;
         },
-     }  
+
+        // _handleMachineDeleteReject() {
+        //     this.deleteMachineModal.isOpen = false;
+        // },
+
+        // _handleMachineDeleteAccept() {
+        //     this.deleteMachineModal.isOpen = false;
+        // }
+     }
 }
 </script>
 
 
 <template>
     <section class="w-full">
-        <dm-dialog title="Weet u zeker dat u deze machine wilt verwijderen?"></dm-dialog>
+        <!-- <dm-dialog @_handleReject="_handleMachineDeleteReject" @_handleAccept="_handleMachineDeleteAccept" title="Weet u zeker dat u deze machine wilt verwijderen?" description="Klik op akkoord om de machine definitief te verwijderen"></dm-dialog> -->
 
         <div id="main" class="main-content w-full h-full flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
             <div class="bg-gray-800 pt-3">
