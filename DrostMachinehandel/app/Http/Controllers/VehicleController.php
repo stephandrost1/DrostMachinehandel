@@ -73,9 +73,9 @@ class VehicleController extends Controller
             $vehicle->price_per_day = $request->pricePerDay;
             $vehicle->price_per_week = $request->pricePerWeek;
 
-            dd($request->specifications);
+            $this->updateVehicleSpecs($request->specifications, $request->id);
 
-            // $this->updateVehicleSpecs($request->specs, $request->id);
+            dd($request->images);
 
             // $this->updateVehicleTags($request->tags, $request->id);
 
@@ -107,16 +107,43 @@ class VehicleController extends Controller
 
     private function updateVehicleSpecs(array $specs, int $vehicleId)
     {
-        RentVehicleDetail::where("vehicle_id", $vehicleId)->delete();
+        try {
+            $this->vehicleSpecificationExisist($specs, $vehicleId);
 
-        foreach ($specs as $spec) {
-            $vehicleSpec = new RentVehicleDetail();
+            foreach ($specs as $spec) {
 
-            $vehicleSpec->vehicle_id = $vehicleId;
-            $vehicleSpec->detail_name = $spec["name"];
-            $vehicleSpec->detail_value = $spec["value"];
+                $vehicleSpec = new RentVehicleDetail();
+                $vehicleSpec->vehicle_id = $vehicleId;
+                $vehicleSpec->detail_name = $spec["detail_name"];
+                $vehicleSpec->detail_value = $spec["detail_value"];
 
-            $vehicleSpec->save();
+                $vehicleSpec->save();
+            }
+        } catch (Exception $e) {
+            throw new Exception("Er is iets fout gegaan: " . $e->getMessage());
+        }
+    }
+
+    private function vehicleSpecificationExisist(array $newSpecifications, int $vehicleId)
+    {
+        try {
+            $vehicleSpecs = collect(RentVehicleDetail::all())->toArray();
+
+            $removedSpecs = array_diff(array_column($vehicleSpecs, "id"), array_column($newSpecifications, "id"));
+            die;
+            // $rentVehicleDetail = collect(RentVehicleDetail::where("vehicle_id", $vehicleId)->get())->first()->toArray();
+
+            // if (empty($rentVehicleDetail)) {
+            //     return false;
+            // }
+
+            // if (strtolower($rentVehicleDetail["detail_name"]) == strtolower($spec["detail_name"]) && strtolower($rentVehicleDetail["detail_value"]) == strtolower($spec["detail_value"])) {
+            //     return true;
+            // }
+
+            // return false;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
         }
     }
 

@@ -22,12 +22,19 @@ export default {
     },
 
     watch: {
-        specName: _.debounce(function (newValue) {
+        specName: function(newValue) {
             this.$store.commit("UPDATE_VEHICLE_SPEC_BY_ID", {
                 ...this.spec,
                 detail_name: newValue,
             })
-        }, 250),
+        },
+
+        specValue: function (newValue) {
+            this.$store.commit("UPDATE_VEHICLE_SPEC_BY_ID", {
+                ...this.spec,
+                detail_value: newValue,
+            })
+        }
     }
 }
 
