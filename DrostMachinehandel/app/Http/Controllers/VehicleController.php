@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateVehicleRequest;
+use App\Models\RentFilter;
 use App\Models\RentFiltersOption;
 use App\Models\RentVehicleDetail;
 use App\Models\RentVehicleFilterTag;
@@ -92,6 +93,12 @@ class VehicleController extends Controller
         try {
             $this->deleteUnusedVehicleTags($tagsGroup);
 
+            foreach ($tagsGroup as $tagGroup) {
+                if ($this->vehicleTagExists($tagGroup)) {
+                    continue;
+                }
+                dd($tagGroup);
+            }
             // foreach ($tags as $tag) {
             //     if ($this->vehicleTagExists($tag)) {
             //         continue;
@@ -147,22 +154,42 @@ class VehicleController extends Controller
         // }
     }
 
+    private function vehicleTagExists(array $filterGroup)
+    {
+        $filter = collect(RentFilter::find($filterGroup["id"]))->first()->toArray();
+
+        if (empty($filter)) {
+            return false;
+        }
+
+        if (($filter["id"] == $filterGroup["id"]) && (strtolower($filter["filter_name"]) == strtolower($filterGroup["id"]))) {
+            return true;
+        }
+
+        return false;
+    }
+
     private function deleteUnusedVehicleTags(array $tagsGroup)
     {
-        $vehicleTags = collect(RentFiltersOption::all())->toArray();
+        try {
+            $vehicleTags = collect(RentFiltersOption::all())->toArray();
 
-        $currentFilterOptions = [];
+            $currentFilterOptions = [];
 
-        collect($tagsGroup)->each(function ($tagGroup) use (&$currentFilterOptions) {
-            collect($tagGroup["options"])->each(function ($tagOption) use (&$currentFilterOptions) {
-                array_push($currentFilterOptions, $tagOption);
+            collect($tagsGroup)->each(function ($tagGroup) use (&$currentFilterOptions) {
+                collect($tagGroup["options"])->each(function ($tagOption) use (&$currentFilterOptions) {
+                    array_push($currentFilterOptions, $tagOption);
+                });
             });
-        });
 
-        $currentFilterIds = array_column($currentFilterOptions, "id");
-        $vehicleTagsIds = array_column($vehicleTags, "id");
-        dump($vehicleTagsIds);
-        dd($currentFilterIds);
+            $vehicleTagsIds = array_diff(array_column($vehicleTags, "id"), array_column($currentFilterOptions, "id"));
+
+            foreach ($vehicleTagsIds as $tagId) {
+                RentFiltersOption::find($tagId)->delete();
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     private function updateVehicleImages(array $images, int $vehicleId)

@@ -24,9 +24,14 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function messages()
+    public function dealerCreate()
     {
-        return view("dashboard/messages");
+        return view("dashboard/dealerCreate");
+    }
+
+    public function dealerRequests()
+    {
+        return view("dashboard/dealerRequests");
     }
 
     public function analytics()

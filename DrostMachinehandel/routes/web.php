@@ -47,10 +47,10 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     Route::get('/', [DashboardController::class, 'index'])->name("dashboard");
     Route::get('/verhuur', [DashboardController::class, "verhuur"])->name("dashboard-verhuur");
 
-
     Route::post("/vehicles/images/upload", [VehicleImagesController::class, "create"]);
 
-    Route::get('/messages', [DashboardController::class, "messages"])->name("dashboard-messages");
+    Route::get('/dealer-requests', [DashboardController::class, "dealerRequests"])->name("dashboard-dealer-requests");
+    Route::get('/dealer/create-account', [DashboardController::class, "dealerCreate"])->name("dashboard-dealer-create");
     Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");
     Route::get('/payments', [DashboardController::class, "payments"])->name("dashboard-payments");
     Route::get('/settings', [DashboardController::class, "settings"])->name("dashboard-settings");

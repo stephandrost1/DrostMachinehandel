@@ -159,6 +159,19 @@ export default createStore({
 
         REMOVE_VEHICLE_SPEC_BY_ID(state, specId) {
             state.selectedVehicle.details = state.selectedVehicle.details.filter(detail => detail.id != specId);
+        },
+
+        REMOVE_FILTER_OPTION_BY_ID(state, data) {
+            state.vehicleFilters = state.vehicleFilters.map((filterGroup) => {
+                if (filterGroup.id == data.filterId) {
+                    return {
+                        ...filterGroup,
+                        options: filterGroup.options.filter((option) => option.id != data.optionId)
+                    };
+                }
+
+                return filterGroup;
+            })
         }
     },
 

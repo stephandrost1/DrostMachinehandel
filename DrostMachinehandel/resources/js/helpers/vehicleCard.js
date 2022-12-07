@@ -142,4 +142,3 @@ export {
     generateVehicleCard,
     fetchVehicles
 }
-

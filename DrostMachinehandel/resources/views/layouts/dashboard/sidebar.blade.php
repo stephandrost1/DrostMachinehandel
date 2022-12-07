@@ -9,8 +9,8 @@
                             </a>
                         </li>
                         <li class="mr-3 flex-1">
-                            <a href="{{ route("dashboard-messages") }}" class="@if(Request::is('dashboard/messages')) border-primary text-primary @else border-gray-800 @endif flex items-center gap-2 block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-white border-b-2">
-                                <i class="fas fa-comments"></i><span class="pb-1 md:pb-0 text-xs md:text-base block md:inline-block">Messages</span>
+                            <a href="{{ route("dashboard-dealer-requests") }}" class="@if(Request::is('dashboard/dealer-requests')) border-primary text-primary @else border-gray-800 @endif flex items-center gap-2 block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-white border-b-2">
+                                <i class="fas fa-exclamation-circle"></i><span class="pb-1 md:pb-0 text-xs md:text-base block md:inline-block">Aanvragen</span>
                             </a>
                         </li>
                         <li class="mr-3 flex-1">

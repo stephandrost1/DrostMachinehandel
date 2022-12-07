@@ -1,10 +1,13 @@
 //Modules
-import _ from "lodash";
+import _, { create } from "lodash";
 import axios from "axios";
 import { createApp } from 'vue'
 
 //Base page
 import PageVehuur from './pages/verhuur.vue';
+import dealerRequests from './pages/dealerRequests.vue';
+import dealerRequests from './pages/dealerRequests.vue';
+import dealerCreate from "./pages/dealerCreate.vue";
 
 //External components
 import store from "./store/store.js"
@@ -13,9 +16,13 @@ import Toaster from '../../node_modules/@meforma/vue-toaster';
 window._ = _;
 window.axios = axios;
 
-const app = createApp(PageVehuur)
+const verhuurApp = createApp(PageVehuur);
+const dealerNofiticationsApp = createApp(dealerRequests);
+const dealerCreateApp = createApp(dealerCreate);
 
-app.use(store);
-app.use(Toaster);
+verhuurApp.use(store);
+verhuurApp.use(Toaster);
 
-app.mount("#page-dashboard-verhuur");
+verhuurApp.mount("#page-dashboard-verhuur");
+dealerNofiticationsApp.mount("#page-dashboard-dealer-requests");
+dealerCreateApp.mount("#page-dashboard-dealer-create");
