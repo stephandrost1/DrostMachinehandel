@@ -25,4 +25,4 @@ verhuurApp.use(Toaster);
 
 verhuurApp.mount("#page-dashboard-verhuur");
 dealerNofiticationsApp.mount("#page-dashboard-dealer-requests");
-dealerCreateApp.mount("#page-dashboard-dealer-create");
+dealerCreateApp.mount("#page-dealer-create");

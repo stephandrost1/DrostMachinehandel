@@ -1,0 +1,87 @@
+.page-dashboard-dealer-create {
+    .dealer-create-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .create-dealer-account {
+            background-color: $color-white;
+            border-radius: 25px;
+            max-width: 600px;
+            width: 70vw;
+            max-height: 800px;
+            height: fit-content;
+            padding: 3rem;
+            box-shadow: 0px 0px 50px -4px rgba(229,107,1,0.35);
+
+            .header {
+                margin-bottom: 2rem;
+
+                .title {
+                    font-size: 1.75rem;
+                    color: $color-main;
+                }
+            }
+
+            .body {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+
+                .form-group {
+                    display: flex;
+                    gap: 2rem;
+
+                    .form-item {
+                        width: 100%;
+                    }
+                }
+
+                .form-item:not(.no-style) {
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+
+                    .form-item-label {
+                        background-color: $color-white;
+                        position: absolute;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        left: 20px;
+                        top: -12px;
+                        padding: 0 1rem;
+                        color: $color-main;
+                        font-weight: bold;
+                    }
+
+                    .form-item-input {
+                        border-radius: 25px;
+                        border: 2px solid $color-main;
+                    }
+                }
+
+                .form-item {
+                    &.submit-form {
+                        background-color: $color-main;
+                        width: fit-content;
+                        padding: 0.75rem 2rem;
+                        border-radius: 25px;
+                        color: $color-white;
+                        font-weight: bold;
+                        margin-left: auto;
+                        transition: $transition-sm;
+
+                        &:hover {
+                            background-color: $color-main-light;
+                        }
+                    }
+
+                    &.terms {
+                        font-size: 0.75rem;
+                    }
+                }
+            }
+        }
+    }
+}

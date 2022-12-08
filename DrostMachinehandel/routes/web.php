@@ -7,6 +7,7 @@ use App\Http\Controllers\LeasenController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardApiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DealerController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleImagesController;
@@ -51,6 +52,7 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
 
     Route::get('/dealer-requests', [DashboardController::class, "dealerRequests"])->name("dashboard-dealer-requests");
     Route::get('/dealer/create-account', [DashboardController::class, "dealerCreate"])->name("dashboard-dealer-create");
+    Route::post('/dealer/create', [DealerController::class, "create"])->name("dealer-create-request");
     Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");
     Route::get('/payments', [DashboardController::class, "payments"])->name("dashboard-payments");
     Route::get('/settings', [DashboardController::class, "settings"])->name("dashboard-settings");
