@@ -68,6 +68,10 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/vehicles', [VehicleController::class, "index"]);
     Route::get('/filters', [FilterController::class, "index"]);
+
+    Route::get('/dealers/pending', [DealerController::class, "getPending"]);
+    Route::get('/dealers/active', [DealerController::class, "getActive"]);
+    Route::get('/dealers', [DealerController::class, "getAll"]);
 });
 
 Route::get('set-locale/{locale}', function ($locale) {

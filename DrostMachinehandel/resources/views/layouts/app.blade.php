@@ -18,7 +18,7 @@
             <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     
             {{-- Required custom scss and js --}}
-            @vite(['resources/scss/main.scss', 'resources/js/app.js', 'resources/vue/app.js'])
+            @vite(['resources/scss/main.scss', 'resources/js/app.js'])
           
             <script type="text/javascript">
                 (function(){h=document.getElementsByTagName('head')[0];s=document.createElement('script');
