@@ -6,6 +6,19 @@
 <div class="dealer-create-wrapper text-black px-5 block md:px-20 py-12" id="page-dealer-create">
     <form action="{{ route("dealer-create-request") }}" method="POST" class="create-dealer-account">
         @csrf
+
+        @if (isset($status)) {
+            {{ $status }}
+        }
+        @endif
+
+        @if ($errors) {
+            @foreach($errors as $key => $value)
+                {{ $value }}
+            @endforeach
+        }
+        @endif
+
         <div class="header block">
             <h1 class="title text-center text-lg font-bold">Handelaars account aanmaken</h1>
         </div>
@@ -48,7 +61,7 @@
                 <p>Wanneer u een account aanmaakt geeft u de beheerder toestemming om uw gegevens te gebruiken om uw account te controleren.</p>
             </div>
             <div class="form-item no-style submit-form">
-                <button type="submit" class="form-item-input" type="text" id="firstname" name="firstname">Account aanvragen</button>
+                <button type="submit" class="form-item-input">Account aanvragen</button>
             </div>
         </div>
     </form>
