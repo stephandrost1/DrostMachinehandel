@@ -71,7 +71,11 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dealers/pending', [DealerController::class, "getPending"]);
     Route::get('/dealers/active', [DealerController::class, "getActive"]);
-    Route::get('/dealers', [DealerController::class, "getAll"]);
+    Route::get('/dealers/page/{pageId}', [DealerController::class, "getAll"]);
+    Route::patch('/dealer/{id}/active', [DealerController::class, "active"]);
+    Route::patch('/dealer/{id}/deactive', [DealerController::class, "deactive"]);
+    Route::patch('/dealer/{id}/update', [DealerController::class, "update"]);
+    Route::delete('/dealer/{id}/delete', [DealerController::class, "delete"]);
 });
 
 Route::get('set-locale/{locale}', function ($locale) {

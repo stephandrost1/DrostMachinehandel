@@ -31,7 +31,7 @@ class CreateDealerRequest extends FormRequest
             "lastname" => "required|min:1",
             "email" => "required|email|unique:Dealers|",
             "phonenumber" => "required|min:10|numeric",
-            "companyname" => "required|min:5",
+            "companyname" => "required",
             "kvknumber" => "required|min:8|numeric",
             "password" => [
                 'required',
