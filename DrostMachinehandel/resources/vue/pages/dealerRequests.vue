@@ -1,6 +1,8 @@
 <script>
 import dealer from '../components/dealers/dealer.vue';
 
+import _ from "lodash";
+
 export default {
     components: {
         "dm-dealer": dealer
@@ -9,16 +11,21 @@ export default {
     data() {
         return {
             searchKey: '',
+            searchKeyDebouncer: '',
             page: 1,
         }
     },
 
     computed: {
         getDealers() {
-            return _.filter(this.$store.getters.getDealers, (dealer) => {
-                const dealerName = `${dealer.firstname} ${dealer.lastname}`;
-                return dealerName.toLowerCase().includes(this.searchKey.toLowerCase());
-            })
+            const filteredByName = _.filter(this.$store.getters.getDealers, (dealer) => `${dealer.firstname} ${dealer.lastname}`.toLowerCase().includes(this.searchKey.toLowerCase()));
+            const filteredByKvk = _.filter(this.$store.getters.getDealers, (dealer) => dealer.kvknumber.toLowerCase().includes(this.searchKey.toLowerCase()));
+            const filteredByEmail = _.filter(this.$store.getters.getDealers, (dealer) => dealer.email.toLowerCase().includes(this.searchKey.toLowerCase()));
+            const filteredByCompanyname = _.filter(this.$store.getters.getDealers, (dealer) => dealer.companyname.toLowerCase().includes(this.searchKey.toLowerCase()));
+
+            const dealers = filteredByName.concat(filteredByKvk, filteredByEmail, filteredByCompanyname)
+
+            return dealers.filter((item, index) => index === dealers.indexOf(item));;
         },
 
         getPages() {
@@ -45,7 +52,17 @@ export default {
             this.page = page;
             this.$store.commit("SET_DEALERS", []);
             this.$store.dispatch("fetchDealers", page);
-        }
+        },
+
+        updateSearchKey(key) {
+            this.searchKey = key;
+        },
+    },
+
+    watch: {
+        searchKeyDebouncer: _.debounce(function (value) {
+            this.searchKey = value;
+        }, 500)
     }
 }
 </script>
@@ -66,15 +83,9 @@ export default {
                             <div class="col-left">
                                 <div class="filter-on-name">
                                     <div class="input">
-                                        <input v-model="searchKey" type="text" class="searcher" placeholder="Zoeken...">
+                                        <input v-model="searchKeyDebouncer" type="text" class="searcher" placeholder="Zoeken...">
                                         <i class="fas fa-search search-icon"></i>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-right">
-                                <div class="add-dealer border-2 font-bold duration-300">
-                                    <p>Dealer Toevoegen</p>
-                                    <i class="fas fa-plus"></i>
                                 </div>
                             </div>
                         </div>

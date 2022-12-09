@@ -145,9 +145,27 @@ class DealerController extends Controller
                 throw new Exception("Handelaar niet gevonden!");
             }
 
+            $emailAccounts = collect(Dealer::where('email', $request->email)->whereNot('id', $request->id)->get())->toArray();
+            $kvkNumbers = collect(Dealer::where('kvknumber', $request->kvknumber)->whereNot('id', $request->id)->get())->toArray();
 
+            if (count($emailAccounts) > 0) {
+                throw new Exception("E-mailadres is al in gebruik!");
+            }
 
-            return response()->json(["message" => "Handelaar is succesvol geupdate!", "status" => true], 400);
+            if (count($kvkNumbers) > 0) {
+                throw new Exception("Kvk nummer is al in gebruik!");
+            }
+
+            $dealer->firstname = $request->firstname;
+            $dealer->lastname = $request->lastname;
+            $dealer->email = $request->email;
+            $dealer->phonenumber = $request->phonenumber;
+            $dealer->companyname = $request->companyname;
+            $dealer->kvknumber = $request->kvknumber;
+            $dealer->email_verified_at = $request->email_verified_at;
+            $dealer->save();
+
+            return response()->json(["message" => "Handelaar is succesvol geupdate!", "status" => true], 200);
         } catch (Exception $e) {
             return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage(), "status" => true], 400);
         }

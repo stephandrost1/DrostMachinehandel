@@ -32,7 +32,7 @@ export default {
                 .then((response) => {
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
-                    this.$toast.error(error.data.message);
+                    this.$toast.error(error.response.data.message);
                 })
         }, 
 
@@ -49,7 +49,7 @@ export default {
                 .then((response) => {
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
-                    this.$toast.error(error.data.message);
+                    this.$toast.error(error.response.data.message);
                 })
          },
 
@@ -64,7 +64,7 @@ export default {
                     console.log(response);
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
-                    this.$toast.error(error.data.message);
+                    this.$toast.error(error.response.data.message);
                 });
          },
 
@@ -81,16 +81,11 @@ export default {
                 .then((response) => {
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
-                    this.$toast.error(error.data.message);
+                    console.log(error);
+                    this.$toast.error(error.response.data.message);
                 })
         }
     },
-
-    watch: {
-        dealer: (dealer) => {
-            this.nDealer = dealer;
-        }
-    }
 }
 
 </script>
