@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateDealerRequest;
 use App\Models\Dealer;
 use Exception;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Request;
 
 class DealerController extends Controller
 {
@@ -31,32 +32,50 @@ class DealerController extends Controller
         }
     }
 
-    public function getAll($pageId)
+    public function getAll($pageId, Request $request)
     {
         try {
-            $dealers = collect(Dealer::all())->map(function ($dealer) {
-                return [
-                    "id" => $dealer->id,
-                    "firstname" => $dealer->firstname,
-                    "lastname" => $dealer->lastname,
-                    "email" => $dealer->email,
-                    "phonenumber" => $dealer->phonenumber,
-                    "companyname" => $dealer->companyname,
-                    "kvknumber" => $dealer->kvknumber,
-                    "email_verified_at" => $dealer->email_verified_at,
-                ];
-            })->toArray();
+            $searchQuery = '%' . $request->s . '%';
+
+            $dealers = Dealer::select("id", "firstname", "lastname", "email", "phonenumber", "companyname", "kvknumber", "email_verified_at")
+                ->orWhere('firstname', 'like', $searchQuery)
+                ->orWhere('lastname', 'like', $searchQuery)
+                ->orWhere('email', 'like', $searchQuery)
+                ->orWhere('companyname', 'like', $searchQuery)
+                ->orWhere('kvknumber', 'like', $searchQuery)
+                ->orderBy('id', 'desc')
+                ->orderBy('email_verified_at', 'asc')
+                ->get()->toArray();
 
             $pages = array_chunk($dealers, 15);
 
             return response()->json([
                 "dealers" => $pages[$pageId - 1] ?? [],
-                "pages" => count($pages),
+                "pages" => $this->getPageNumbers(count($pages), $pageId),
+                "maxPages" => count($pages),
                 "status" => true
             ], 200);
         } catch (Exception $e) {
             return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage(), "status" => true], 400);
         }
+    }
+
+    public function getPageNumbers(int $maxPages, int $page): array
+    {
+        // If there are no pages, return an empty array
+        if ($maxPages == 0) {
+            return [];
+        }
+
+        // Return an array with the three page numbers centered around the current page
+        return $page <= 1
+            // If the current page is 1 or less, return the first three page numbers
+            ? [1, 2, 3]
+            // Otherwise, if the current page is greater than or equal to the maximum number of pages, return the last three page numbers
+            : ($page >= $maxPages
+                ? [$maxPages - 2, $maxPages - 1, $maxPages]
+                // Otherwise, return the three page numbers centered around the current page
+                : [$page - 1, $page, $page + 1]);
     }
 
     public function getPending()

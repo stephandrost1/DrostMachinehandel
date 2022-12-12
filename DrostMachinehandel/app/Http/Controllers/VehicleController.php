@@ -154,9 +154,19 @@ class VehicleController extends Controller
         // }
     }
 
-    private function vehicleTagExists(array $filterGroup)
+    private function recordExists(string $modelClass, array $criteria): bool
     {
-        $filter = collect(RentFilter::find($filterGroup["id"]))->first()->toArray();
+        $query = $modelClass::query();
+        foreach ($criteria as $column => $value) {
+            $query->where($column, $value);
+        }
+
+        return $query->count() > 0;
+    }
+
+    private function filterGroupExists(array $filterGroup)
+    {
+        $filter = RentFilter::find($filterGroup["id"])->first()->toArray();
 
         if (empty($filter)) {
             return false;
@@ -261,7 +271,8 @@ class VehicleController extends Controller
             $this->deleteUnusedVehicleSpecs($specs, $vehicleId);
 
             foreach ($specs as $spec) {
-                if ($this->vehicleSpecificationExisist($spec, $vehicleId)) {
+                dd($this->recordExists(RentVehicleDetail::class, ['vehicle_id' => $vehicleId]));
+                if ($this->recordExists('RentVehicleDetail', ['vehicle_id' => $vehicleId])) {
                     continue;
                 };
 
@@ -280,7 +291,7 @@ class VehicleController extends Controller
     private function vehicleSpecificationExisist(array $spec, int $vehicleId)
     {
         try {
-            $rentVehicleDetail = collect(RentVehicleDetail::where("vehicle_id", $vehicleId)->get())->first()->toArray();
+            $rentVehicleDetail = RentVehicleDetail::where("vehicle_id", $vehicleId)->first()->toArray();
 
             if (empty($rentVehicleDetail)) {
                 return false;

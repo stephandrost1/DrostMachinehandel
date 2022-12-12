@@ -23,6 +23,7 @@ class DealerFactory extends Factory
             'phonenumber' => fake()->phoneNumber(),
             'companyname' => fake()->company(),
             'kvknumber' => random_int(11111111, 99999999),
+            'btwnumber' => 'NL123456789B01',
             'email_verified_at' => random_int(0, 1) == 1 ? now() : null,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ];

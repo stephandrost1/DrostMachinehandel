@@ -4,7 +4,8 @@ import axios from "axios";
 export default createStore({
     state: {
         dealers: [],
-        pages: 1,
+        pages: [],
+        maxPages: 1,
     },
 
     getters: {
@@ -14,6 +15,10 @@ export default createStore({
 
         getPages(state) {
             return state.pages;
+        },
+
+        getMaxPages(state) {
+            return state.maxPages;
         }
     },
 
@@ -24,6 +29,10 @@ export default createStore({
 
         SET_PAGES(state, pages) {
             state.pages = pages;
+        },
+
+        SET_MAX_PAGES(state, maxPages) {
+            state.maxPages = maxPages;
         },
 
         REMOVE_DEALER(state, dealerId) {
@@ -42,11 +51,12 @@ export default createStore({
     },
 
     actions: {
-        async fetchDealers({ commit }, page) {
-            await axios.get(`/api/v1/dealers/page/${page}`)
+        async fetchDealers({ commit }, searchData) {
+            await axios.get(`/api/v1/dealers/page/${searchData.page ? searchData.page : searchData}${searchData.s ? `?s=${searchData.s}` : ''}`)
                 .then((response) => {
                     commit("SET_DEALERS", response.data.dealers);
                     commit("SET_PAGES", response.data.pages);
+                    commit("SET_MAX_PAGES", response.data.maxPages);
                 })
         },
     }

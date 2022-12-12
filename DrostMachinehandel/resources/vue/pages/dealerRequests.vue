@@ -11,35 +11,21 @@ export default {
     data() {
         return {
             searchKey: '',
-            searchKeyDebouncer: '',
             page: 1,
         }
     },
 
     computed: {
         getDealers() {
-            const filteredByName = _.filter(this.$store.getters.getDealers, (dealer) => `${dealer.firstname} ${dealer.lastname}`.toLowerCase().includes(this.searchKey.toLowerCase()));
-            const filteredByKvk = _.filter(this.$store.getters.getDealers, (dealer) => dealer.kvknumber.toLowerCase().includes(this.searchKey.toLowerCase()));
-            const filteredByEmail = _.filter(this.$store.getters.getDealers, (dealer) => dealer.email.toLowerCase().includes(this.searchKey.toLowerCase()));
-            const filteredByCompanyname = _.filter(this.$store.getters.getDealers, (dealer) => dealer.companyname.toLowerCase().includes(this.searchKey.toLowerCase()));
-
-            const dealers = filteredByName.concat(filteredByKvk, filteredByEmail, filteredByCompanyname)
-
-            return dealers.filter((item, index) => index === dealers.indexOf(item));;
+            return this.$store.getters.getDealers;
         },
 
         getPages() {
-            return this.$store.getters.getPages;
+            return this.$store.getters.getMaxPages;
         },
 
         getPager() {
-            if (this.page === 1) {
-                return [this.page, this.page + 1, this.page + 2];
-            } else if (this.page + 1 > this.getPages) {
-                return [this.page - 2, this.page - 1, this.page];
-            } else {
-                return [this.page - 1, this.page, this.page + 1];
-            }
+            return this.$store.getters.getPages
         }
     },
 
@@ -53,15 +39,15 @@ export default {
             this.$store.commit("SET_DEALERS", []);
             this.$store.dispatch("fetchDealers", page);
         },
-
-        updateSearchKey(key) {
-            this.searchKey = key;
-        },
     },
 
     watch: {
-        searchKeyDebouncer: _.debounce(function (value) {
-            this.searchKey = value;
+        searchKey: _.debounce(function (searchQuery) {
+            this.page = 1;
+            this.$store.dispatch("fetchDealers", {
+                page: this.page,
+                s: searchQuery
+            })
         }, 500)
     }
 }
@@ -73,7 +59,7 @@ export default {
         <div id="main" class="main-content w-full h-full flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
             <div class="bg-gray-800 pt-3">
                 <div class="rounded-tl-3xl bg-gradient-to-r from-primary to-gray-800 p-4 shadow text-2xl text-white">
-                    <h1 class="font-bold pl-2">Account aanvragen handelaren</h1>
+                    <h1 class="font-bold pl-2">Handelaren</h1>
                 </div>
             </div>
             <div class="flex flex-wrap h-full">
@@ -83,7 +69,7 @@ export default {
                             <div class="col-left">
                                 <div class="filter-on-name">
                                     <div class="input">
-                                        <input v-model="searchKeyDebouncer" type="text" class="searcher" placeholder="Zoeken...">
+                                        <input v-model="searchKey" type="text" class="searcher" placeholder="Zoeken...">
                                         <i class="fas fa-search search-icon"></i>
                                     </div>
                                 </div>
