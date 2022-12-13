@@ -10,5 +10,10 @@ class RentVehicleFilterTag extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        "fid",
+        "vehicle_id",
+    ];
+
     protected $table = 'rent_vehicle_filter_tags';
 }

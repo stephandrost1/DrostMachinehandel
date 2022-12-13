@@ -10,5 +10,11 @@ class RentVehicleDetail extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        "vehicle_id",
+        "detail_name",
+        "detail_value",
+    ];
+
     protected $table = 'rent_vehicle_details';
 }
