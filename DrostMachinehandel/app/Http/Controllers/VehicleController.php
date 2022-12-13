@@ -90,36 +90,36 @@ class VehicleController extends Controller
     private function updateVehicleTags(array $tagsGroup, int $vehicleId)
     {
         try {
-            $this->deleteUnusedRecords($tagsGroup, 'vehicle_id', $vehicleId, new RentFilter());
+            $this->deleteUnusedRecords($tagsGroup, '', '', new RentFilter(), "filter_name", "filter_name");
 
             foreach ($tagsGroup as $tagGroup) {
-                $filterId = $tagGroup["id"];
+                $filterId = $tagGroup["id"] ?? null;
+
+                if (!$this->recordExists(new RentFilter(), ["id" => $filterId, "filter_name" => $tagGroup["filter_name"]])) {
+                    $newFilterGroup = new RentFilter();
+                    $newFilterGroup->fill([
+                        "filter_name" => $tagGroup["filter_name"],
+                        "filter_type_id" => $tagGroup["filter_type_id"] ?? 1,
+                    ])->save();
+
+                    $filterId = $newFilterGroup->id;
+                }
 
                 foreach ($tagGroup["options"] as $option) {
-                    if (!$this->recordExists(new RentFilter(), ["id" => $tagGroup["id"], "filter_name" => $tagGroup["filter_name"]])) {
-                        $newFilterGroup = new RentFilter();
-                        $newFilterGroup->fill([
-                            "filter_name" => $tagGroup["filter_name"],
-                            "filter_type_id" => $tagGroup["filter_type_id"],
-                        ])->save();
-
-                        $filterId = $newFilterGroup->id;
-                    }
-
-                    $optionId = $option["id"];
-                    if (!$this->recordExists(new RentFiltersOption(), ["id" => $option["id"], "filter_id" => $option["filter_id"], "name" => $option["name"], "value" => $option["value"]])) {
+                    $optionId = $option["id"] ?? null;
+                    if (!$this->recordExists(new RentFiltersOption(), ["id" => $optionId, "filter_id" => $filterId, "name" => $option["name"], "value" => $option["value"] ?? $option["name"]])) {
                         $newOption = new RentFiltersOption();
                         $newOption->fill([
                             "filter_id" => $filterId,
                             "name" => $option["name"],
-                            "value" => $option["value"],
+                            "value" => $option["value"] ?? $option["name"],
                         ])->save();
 
                         $optionId = $newOption->id;
                     }
 
                     if ($option["isActive"]) {
-                        if (!$this->recordExists(new RentVehicleFilterTag(), ["fid" => $option["id"], "vehicle_id" => $vehicleId])) {
+                        if (!$this->recordExists(new RentVehicleFilterTag(), ["fid" => $optionId, "vehicle_id" => $vehicleId])) {
                             $newVehicleFilterTag = new RentVehicleFilterTag();
                             $newVehicleFilterTag->fill([
                                 "fid" => $optionId,
@@ -127,8 +127,8 @@ class VehicleController extends Controller
                             ])->save();
                         }
                     } else {
-                        if ($this->recordExists(new RentVehicleFilterTag(), ["fid" => $option["id"], "vehicle_id" => $vehicleId])) {
-                            RentVehicleFilterTag::where("fid", $option)->where("vehicle_id", $vehicleId)->delete();
+                        if ($this->recordExists(new RentVehicleFilterTag(), ["fid" => $optionId, "vehicle_id" => $vehicleId])) {
+                            RentVehicleFilterTag::where("fid", $optionId)->where("vehicle_id", $vehicleId)->delete();
                         }
                     }
                 }
@@ -184,20 +184,36 @@ class VehicleController extends Controller
         $query = $modelClass::query();
 
         foreach ($criteria as $column => $value) {
+            if (is_null($column) || is_null($value)) {
+                continue;
+            }
+
             $query->where($column, $value);
         }
 
         return $query->count() > 0;
     }
 
-    private function deleteUnusedRecords(array $data, string $columnKey, string $columnValue, Model $modelClass)
+    private function deleteUnusedRecords(array $data, string $columnKey, string $columnValue, Model $modelClass, $recordKey = null, $dataKey = null)
     {
         try {
-            $records = $modelClass::where($columnKey, $columnValue)->get();
+            $query = $modelClass::query();
+
+            if (!empty($columnKey) && !empty($columnValue)) {
+                $query = $query->where($columnKey, $columnValue);
+            }
+
+            $records = $query->get();
 
             foreach ($records as $record) {
-                if (!in_array($record, $data)) {
-                    $record->delete();
+                if (!is_null($recordKey) || !is_null($dataKey)) {
+                    if (!in_array($record[$recordKey], array_column($data, $dataKey))) {
+                        $record->delete();
+                    }
+                } else {
+                    if (!in_array($record, $data)) {
+                        $record->delete();
+                    }
                 }
             }
         } catch (\Exception $e) {
