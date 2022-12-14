@@ -10,6 +10,16 @@ export default {
     computed: {
         getVehicleId() {
             return this.$store.getters.getSelectedVehicle.id;
+        },
+
+        getLastVehicleImage() {
+            const vehicleImages = this.$store.getters.getSelectedVehicleImages;
+
+            if (vehicleImages.length > 0) {
+                return vehicleImages[vehicleImages.length - 1];
+            }
+
+            return null
         }
     },
 
@@ -37,14 +47,12 @@ export default {
         },
 
         addImageToVehicle(image) {
-            const vehicleImages = this.$store.getters.getSelectedVehicleImages;
-
             const imageObject = {
                 image_location: `/vehicles/${this.getVehicleId}/`,
                 image_name: image.fileName,
                 image_type: image.fileExtension,
                 vehicleId: this.getVehicleId,
-                id: vehicleImages[vehicleImages.length - 1].id + 1.
+                id: this.getLastVehicleImage ? this.getLastVehicleImage.id + 1 : 1,
             }
 
             this.$store.commit("ADD_VEHICLE_IMAGE", imageObject)

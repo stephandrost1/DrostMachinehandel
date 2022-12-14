@@ -111,6 +111,8 @@ export default {
         },
 
         _handleSaveVehicleButton() {
+            console.log("update");
+
             const vehicleData = {
                 ...this.vehicle,
                 id: this.getVehicle.id,

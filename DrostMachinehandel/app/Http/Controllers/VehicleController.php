@@ -10,7 +10,8 @@ use App\Models\RentVehicleFilterTag;
 use App\Models\RentVehicleImage;
 use App\Models\Vehicle;
 use Exception;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class VehicleController extends Controller
 {
@@ -63,16 +64,14 @@ class VehicleController extends Controller
         try {
             $validated = $request->validated();
 
-            $vehicle = Vehicle::find($request->id);
+            $vehicle = Vehicle::findOrFail($request->id);
 
-            if (!$vehicle) {
-                throw new Exception("Machine niet gevonden");
-            }
-
-            $vehicle->vehicle_name = $request->name;
-            $vehicle->vehicle_description = $request->description;
-            $vehicle->price_per_day = $request->pricePerDay;
-            $vehicle->price_per_week = $request->pricePerWeek;
+            $vehicle->fill([
+                'vehicle_name' => $request->name,
+                'vehicle_description' => $request->description,
+                'price_per_day' => $request->pricePerDay,
+                'price_per_week' => $request->pricePerWeek,
+            ])->save();
 
             $this->updateVehicleSpecs($request->specifications, $request->id);
 
@@ -80,234 +79,145 @@ class VehicleController extends Controller
 
             $this->updateVehicleTags($request->tags, $request->id);
 
-            $vehicle->save();
-
             return response()->json(["message" => "Machine is succesvol opgeslagen!"], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(["message" => "Machine niet gevonden!"], 404);
         } catch (Exception $e) {
-            return response()->json(["message" => $e->getMessage()], 400);
+            return response()->json(["message" => $e->getMessage()], 500);
         }
     }
 
     private function updateVehicleTags(array $tagsGroup, int $vehicleId)
     {
         try {
-            $this->deleteUnusedVehicleTags($tagsGroup);
+            $this->deleteUnusedRecords($tagsGroup, '', '', new RentFilter(), "filter_name", "filter_name");
 
             foreach ($tagsGroup as $tagGroup) {
-                if ($this->vehicleTagExists($tagGroup)) {
-                    continue;
+                $filterId = $tagGroup["id"] ?? null;
+
+                if (!$this->recordExists(new RentFilter(), ["id" => $filterId, "filter_name" => $tagGroup["filter_name"]])) {
+                    $newFilterGroup = new RentFilter();
+                    $newFilterGroup->fill([
+                        "filter_name" => $tagGroup["filter_name"],
+                        "filter_type_id" => $tagGroup["filter_type_id"] ?? 1,
+                    ])->save();
+
+                    $filterId = $newFilterGroup->id;
                 }
-                dd($tagGroup);
+
+                foreach ($tagGroup["options"] as $option) {
+                    $optionId = $option["id"] ?? null;
+                    if (!$this->recordExists(new RentFiltersOption(), ["id" => $optionId, "filter_id" => $filterId, "name" => $option["name"], "value" => $option["value"] ?? $option["name"]])) {
+                        $newOption = new RentFiltersOption();
+                        $newOption->fill([
+                            "filter_id" => $filterId,
+                            "name" => $option["name"],
+                            "value" => $option["value"] ?? $option["name"],
+                        ])->save();
+
+                        $optionId = $newOption->id;
+                    }
+
+                    if ($option["isActive"]) {
+                        if (!$this->recordExists(new RentVehicleFilterTag(), ["fid" => $optionId, "vehicle_id" => $vehicleId])) {
+                            $newVehicleFilterTag = new RentVehicleFilterTag();
+                            $newVehicleFilterTag->fill([
+                                "fid" => $optionId,
+                                "vehicle_id" => $vehicleId
+                            ])->save();
+                        }
+                    } else {
+                        if ($this->recordExists(new RentVehicleFilterTag(), ["fid" => $optionId, "vehicle_id" => $vehicleId])) {
+                            RentVehicleFilterTag::where("fid", $optionId)->where("vehicle_id", $vehicleId)->delete();
+                        }
+                    }
+                }
             }
-            // foreach ($tags as $tag) {
-            //     if ($this->vehicleTagExists($tag)) {
-            //         continue;
-            //     };
-
-            //     $vehicleImage = new RentVehicleImage();
-
-            //     $vehicleImage->vehicle_id = $vehicleId;
-            //     $vehicleImage->image_type = $tag["image_type"];
-            //     $vehicleImage->image_name = $tag["image_name"];
-            //     $vehicleImage->image_location = $tag["image_location"];
-
-            //     $vehicleImage->save();
-            // }
         } catch (Exception $e) {
             throw new Exception("Er is iets fout gegaan: " . $e->getMessage());
-        }
-
-        // RentVehicleFilterTag::where("vehicle_id", $vehicleId)->delete();
-
-        // foreach ($tags as $tag) {
-        //     $tagId = $tag["id"] ?? null;
-
-        //     if ($tag["newLabel"]) {
-        //         $newTagOption = new RentFiltersOption();
-
-        //         $newTagOption->filter_id = $tag["filterId"];
-        //         $newTagOption->name = $tag["name"];
-        //         $newTagOption->value = $tag["name"];
-
-        //         $newTagOption->save();
-        //         $tagId = $newTagOption->id;
-        //     }
-
-        //     if (is_null($tagId)) {
-        //         continue;
-        //     }
-
-        //     $vehicleTag = RentVehicleFilterTag::where([
-        //         "fid" => $tagId,
-        //         "vehicle_id" => $vehicleId
-        //     ])->first();
-
-        //     if (!is_null($vehicleTag)) {
-        //         continue;
-        //     }
-
-        //     $vehicleTag = new RentVehicleFilterTag();
-        //     $vehicleTag->fid = $tagId;
-        //     $vehicleTag->vehicle_id = $vehicleId;
-
-        //     $vehicleTag->save();
-        // }
-    }
-
-    private function vehicleTagExists(array $filterGroup)
-    {
-        $filter = collect(RentFilter::find($filterGroup["id"]))->first()->toArray();
-
-        if (empty($filter)) {
-            return false;
-        }
-
-        if (($filter["id"] == $filterGroup["id"]) && (strtolower($filter["filter_name"]) == strtolower($filterGroup["id"]))) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private function deleteUnusedVehicleTags(array $tagsGroup)
-    {
-        try {
-            $vehicleTags = collect(RentFiltersOption::all())->toArray();
-
-            $currentFilterOptions = [];
-
-            collect($tagsGroup)->each(function ($tagGroup) use (&$currentFilterOptions) {
-                collect($tagGroup["options"])->each(function ($tagOption) use (&$currentFilterOptions) {
-                    array_push($currentFilterOptions, $tagOption);
-                });
-            });
-
-            $vehicleTagsIds = array_diff(array_column($vehicleTags, "id"), array_column($currentFilterOptions, "id"));
-
-            foreach ($vehicleTagsIds as $tagId) {
-                RentFiltersOption::find($tagId)->delete();
-            }
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
         }
     }
 
     private function updateVehicleImages(array $images, int $vehicleId)
     {
         try {
-            $this->deleteUnusedVehicleImages($images, $vehicleId);
+            $this->deleteUnusedRecords($images, 'vehicle_id', $vehicleId, new RentVehicleImage());
 
             foreach ($images as $image) {
-                if ($this->vehicleImageExisist($image)) {
-                    continue;
+                if (!$this->recordExists(new RentVehicleImage(), ["image_type" => $image["image_type"], "image_name" => $image["image_name"], "image_location" => $image["image_location"], "vehicle_id" => $image["vehicle_id"]])) {
+                    $vehicleImage = new RentVehicleImage();
+                    $vehicleImage->fill([
+                        "vehicle_id" => $vehicleId,
+                        "image_type" => $image["image_type"],
+                        "image_name" => $image["image_name"],
+                        "image_location" => $image["image_location"],
+                    ])->save();
                 };
-
-                $vehicleImage = new RentVehicleImage();
-
-                $vehicleImage->vehicle_id = $vehicleId;
-                $vehicleImage->image_type = $image["image_type"];
-                $vehicleImage->image_name = $image["image_name"];
-                $vehicleImage->image_location = $image["image_location"];
-
-                $vehicleImage->save();
             }
         } catch (Exception $e) {
             throw new Exception("Er is iets fout gegaan: " . $e->getMessage());
-        }
-    }
-
-    private function vehicleImageExisist(array $image)
-    {
-        try {
-            $rentVehicleImage = collect(RentVehicleImage::find($image["id"])->get())->first()->toArray();
-
-            if (empty($rentVehicleImage)) {
-                return false;
-            }
-
-            if (
-                strtolower($rentVehicleImage["image_type"]) == strtolower($image["image_type"])
-                && strtolower($rentVehicleImage["image_name"]) == strtolower($image["image_name"])
-                && strtolower($rentVehicleImage["image_location"]) == strtolower($image["image_location"])
-                && strtolower($rentVehicleImage["vehicle_id"]) == strtolower($image["vehicle_id"])
-            ) {
-                return true;
-            }
-
-            return false;
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    private function deleteUnusedVehicleImages(array $images, int $vehicleId)
-    {
-        try {
-            $vehicleImages = collect(RentVehicleImage::where("vehicle_id", $vehicleId)->get())->toArray();
-
-            $imageIds = array_diff(array_column($vehicleImages, "id"), array_column($images, "id"));
-
-            foreach ($imageIds as $imageId) {
-                RentVehicleImage::find($imageId)->delete();
-            }
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
         }
     }
 
     private function updateVehicleSpecs(array $specs, int $vehicleId)
     {
         try {
-            $this->deleteUnusedVehicleSpecs($specs, $vehicleId);
+            $this->deleteUnusedRecords($specs, 'vehicle_id', $vehicleId, new RentVehicleDetail());
 
             foreach ($specs as $spec) {
-                if ($this->vehicleSpecificationExisist($spec, $vehicleId)) {
-                    continue;
+                if (!$this->recordExists(new RentVehicleDetail(), ['vehicle_id' => $vehicleId])) {
+                    $vehicleSpec = new RentVehicleDetail;
+                    $vehicleSpec->fill([
+                        "vehicle_id" => $vehicleId,
+                        "detail_name" => $spec["detail_name"],
+                        "detail_value" => $spec["detail_value"],
+                    ])->save();
                 };
-
-                $vehicleSpec = new RentVehicleDetail();
-                $vehicleSpec->vehicle_id = $vehicleId;
-                $vehicleSpec->detail_name = $spec["detail_name"];
-                $vehicleSpec->detail_value = $spec["detail_value"];
-
-                $vehicleSpec->save();
             }
         } catch (Exception $e) {
             throw new Exception("Er is iets fout gegaan: " . $e->getMessage());
         }
     }
 
-    private function vehicleSpecificationExisist(array $spec, int $vehicleId)
+    private function recordExists(Model $modelClass, array $criteria): bool
     {
-        try {
-            $rentVehicleDetail = collect(RentVehicleDetail::where("vehicle_id", $vehicleId)->get())->first()->toArray();
+        $query = $modelClass::query();
 
-            if (empty($rentVehicleDetail)) {
-                return false;
+        foreach ($criteria as $column => $value) {
+            if (is_null($column) || is_null($value)) {
+                continue;
             }
 
-            if (strtolower($rentVehicleDetail["detail_name"]) == strtolower($spec["detail_name"]) && strtolower($rentVehicleDetail["detail_value"]) == strtolower($spec["detail_value"])) {
-                return true;
-            }
-
-            return false;
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            $query->where($column, $value);
         }
+
+        return $query->count() > 0;
     }
 
-    private function deleteUnusedVehicleSpecs(array $specs, int $vehicleId)
+    private function deleteUnusedRecords(array $data, string $columnKey, string $columnValue, Model $modelClass, $recordKey = null, $dataKey = null)
     {
         try {
-            $vehicleSpecs = collect(RentVehicleDetail::where("vehicle_id", $vehicleId)->get())->toArray();
+            $query = $modelClass::query();
 
-            $specIds = array_diff(array_column($vehicleSpecs, "id"), array_column($specs, "id"));
-
-            foreach ($specIds as $specId) {
-                RentVehicleDetail::find($specId)->delete();
+            if (!empty($columnKey) && !empty($columnValue)) {
+                $query = $query->where($columnKey, $columnValue);
             }
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+
+            $records = $query->get();
+
+            foreach ($records as $record) {
+                if (!is_null($recordKey) || !is_null($dataKey)) {
+                    if (!in_array($record[$recordKey], array_column($data, $dataKey))) {
+                        $record->delete();
+                    }
+                } else {
+                    if (!in_array($record, $data)) {
+                        $record->delete();
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while updating the records'], 500);
         }
     }
 }

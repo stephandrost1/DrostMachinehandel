@@ -29,10 +29,10 @@ class UpdateVehicleRequest extends FormRequest
             'description' => 'required|min:1',
             'pricePerDay' => 'required|min:1|numeric',
             'pricePerWeek' => 'required|min:1|numeric',
-            'specifications' => 'required',
-            'activeTags' => 'required',
-            'tags' => 'required',
-            'images' => 'required',
+            'specifications' => 'sometimes|present|array',
+            'activeTags' => 'sometimes|present|array',
+            'tags' => 'sometimes|present|array',
+            'images' => 'sometimes|present|array',
         ];
     }
 

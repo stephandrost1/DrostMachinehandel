@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Dealer;
 use Illuminate\Database\Seeder;
 use App\Models\RentFilter;
 use App\Models\RentFiltersOption;
@@ -28,10 +30,6 @@ class DatabaseSeeder extends Seeder
         RentVehicleFilterTag::factory(10)->create();
         RentVehicleImage::factory(10)->create();
         Vehicle::factory(10)->create();
-
-        \App\Models\User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'admin@admin.com',
-        ]);
+        Dealer::factory(100)->create();
     }
 }

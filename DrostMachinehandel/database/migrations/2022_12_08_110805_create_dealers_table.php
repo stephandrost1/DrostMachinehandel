@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("phonenumber");
             $table->string("companyname");
             $table->string("kvknumber")->unique();
+            $table->string("btwnumber");
             $table->string("password");
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();

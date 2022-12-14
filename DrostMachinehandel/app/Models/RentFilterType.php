@@ -10,5 +10,9 @@ class RentFilterType extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        "type",
+    ];
+
     protected $table = 'rent_filter_types';
 }

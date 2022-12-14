@@ -58,8 +58,7 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
 
     Route::post("/vehicles/images/upload", [VehicleImagesController::class, "create"]);
 
-    Route::get('/dealer-requests', [DashboardController::class, "dealerRequests"])->name("dashboard-dealer-requests");
-
+    Route::get('/dealers', [DashboardController::class, "dealerRequests"])->name("dashboard-dealers");
     Route::post('/dealer/create', [DealerController::class, "create"])->name("dealer-create-request");
     Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");
     Route::get('/payments', [DashboardController::class, "payments"])->name("dashboard-payments");
@@ -76,6 +75,14 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/vehicles', [VehicleController::class, "index"]);
     Route::get('/filters', [FilterController::class, "index"]);
+
+    Route::get('/dealers/pending', [DealerController::class, "getPending"]);
+    Route::get('/dealers/active', [DealerController::class, "getActive"]);
+    Route::get('/dealers/page/{pageId}', [DealerController::class, "getAll"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
+    Route::patch('/dealer/{id}/active', [DealerController::class, "active"]);
+    Route::patch('/dealer/{id}/deactive', [DealerController::class, "deactive"]);
+    Route::patch('/dealer/{id}/update', [DealerController::class, "update"]);
+    Route::delete('/dealer/{id}/delete', [DealerController::class, "delete"]);
 });
 
 Route::get('set-locale/{locale}', function ($locale) {

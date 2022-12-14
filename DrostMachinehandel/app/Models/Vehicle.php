@@ -10,6 +10,13 @@ class Vehicle extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        "vehicle_name",
+        "vehicle_description",
+        "price_per_day",
+        "price_per_week",
+    ];
+
     public function images()
     {
         return $this->hasMany(RentVehicleImage::class, "vehicle_id");
