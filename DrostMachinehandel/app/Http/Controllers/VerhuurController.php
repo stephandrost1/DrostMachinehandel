@@ -13,10 +13,15 @@ class VerhuurController extends Controller
 
         $filters = RentFilter::with("options")->get();
 
-        return view("verhuur", [
+        return view("verhuur/verhuur", [
             "machines" => $machines,
             "filters" => $filters
         ]);
+    }
+
+    public function dealers()
+    {
+        return view('verhuur/dealers');
     }
 
     public function verhuurDetail()

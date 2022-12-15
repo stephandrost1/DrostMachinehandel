@@ -1,5 +1,4 @@
 <script>
-import addFilter from './filters/addFilter.vue';
 import specsBlock from "./specs/specsBlock.vue";
 import vehicleImage from './images/vehicleImage.vue';
 import dropzone from './images/dropzone.vue';
@@ -7,6 +6,7 @@ import nameBlock from './name/nameBlock.vue';
 import descriptionBlock from './description/descriptionBlock.vue';
 import priceBlock from './prices/priceBlock.vue';
 import FiltersBlock from './filters/filtersBlock.vue';
+import delivery from './delivery/delivery.vue';
 
 export default {
     components: {
@@ -17,6 +17,7 @@ export default {
         "dm-vehicle-description-block": descriptionBlock,
         "dm-vehicle-price-block": priceBlock,
         "dm-vehicle-filters-block": FiltersBlock,
+        "dm-delivery-options-block": delivery,
 
         "dm-vehicle-image-item": vehicleImage,
     },
@@ -166,6 +167,8 @@ export default {
                     <dm-vehicle-name-block @_handleNameInput="_handleNameInput" :value="vehicle.name"></dm-vehicle-name-block>
 
                     <dm-vehicle-description-block @_handleDescriptionInput="_handleDescriptionInput" :value="vehicle.description"></dm-vehicle-description-block>
+
+                    <dm-delivery-options-block></dm-delivery-options-block>
          
                     <dm-vehicle-price-block @_handlePricePerDay="_handlePricePerDay" @_handlePricePerWeek="_handlePricePerWeek" :pricePerDay="vehicle.pricePerDay" :pricePerWeek="vehicle.pricePerWeek"></dm-vehicle-price-block>
                     

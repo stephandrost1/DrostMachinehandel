@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RentFilter;
+use Exception;
 
 class FilterController extends Controller
 {

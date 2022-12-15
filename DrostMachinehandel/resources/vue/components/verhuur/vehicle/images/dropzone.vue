@@ -51,7 +51,7 @@ export default {
                 image_location: `/vehicles/${this.getVehicleId}/`,
                 image_name: image.fileName,
                 image_type: image.fileExtension,
-                vehicleId: this.getVehicleId,
+                vehicle_id: this.getVehicleId,
                 id: this.getLastVehicleImage ? this.getLastVehicleImage.id + 1 : 1,
             }
 

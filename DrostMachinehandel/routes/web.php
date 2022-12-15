@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardApiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DealerController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleImagesController;
 use App\Http\Controllers\VerhuurController;
@@ -41,6 +42,8 @@ Route::middleware(['locale'])->group((function () {
 
     Route::get('/verhuur', [VerhuurController::class, 'index'])->name('verhuur');
 
+    Route::get('/verhuur/dealers', [VerhuurController::class, 'dealers'])->name('verhuur-dealers');
+
     Route::get('/verhuurDetail', [VerhuurController::class, 'verhuurDetail'])->name('verhuurDetail');
 }));
 
@@ -53,8 +56,9 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     Route::get('/dealers', [DashboardController::class, "dealerRequests"])->name("dashboard-dealers");
     Route::get('/dealer/create-account', [DashboardController::class, "dealerCreate"])->name("dashboard-dealer-create");
     Route::post('/dealer/create', [DealerController::class, "create"])->name("dealer-create-request");
-    Route::get('/analytics', [DashboardController::class, "analytics"])->name("dashboard-analytics");
-    Route::get('/payments', [DashboardController::class, "payments"])->name("dashboard-payments");
+    Route::get('/statistics', [DashboardController::class, "statistics"])->name("dashboard-statistics");
+    Route::get('/reservations', [DashboardController::class, "reservations"])->name("dashboard-reservations");
+    Route::get('/account', [UserController::class, "show"])->name("dashboard-account");
     Route::get('/settings', [DashboardController::class, "settings"])->name("dashboard-settings");
     Route::get('/logout', [DashboardController::class, "logout"])->name("dashboard-logout");
 });
