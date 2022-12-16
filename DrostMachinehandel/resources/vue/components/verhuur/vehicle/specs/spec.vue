@@ -42,13 +42,13 @@ export default {
 
 <template>
     <div class="specs-row flex gap-2 w-full items-center">
-        <div class="col-1 w-5/12">
+        <div class="col-1">
             <input placeholder="Naam" type="text" class="w-full h-12 spec_name rounded-lg border-2 border-primary pl-2" v-model="specName">
         </div>
-        <div class="col-2 w-5/12">
+        <div class="col-2">
             <input placeholder="Waarde" type="text" class="w-full h-12 spec_name rounded-lg border-2 border-primary pl-2" v-model="specValue">
         </div>
-        <div @click="_handleRemoveSpec" class="col-3 w-2/12 flex items-center justify-center">
+        <div @click="_handleRemoveSpec" class="col-3 flex items-center justify-center">
             <i class="fas fa-trash text-lg"></i>
         </div>
     </div>

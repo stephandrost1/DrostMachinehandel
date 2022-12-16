@@ -90,8 +90,8 @@
                   {{ __('content/navbar.private-individuals') }}
                 </a>
                 
-                <a class="flex gap-1 items-center" href="#">
-                  @if (Request::is('#')) <i class="fas fa-circle text-primary text-xs"></i> @endif
+                <a class="flex gap-1 items-center" href="{{ route("dealer-voorraad") }}">
+                  @if (Request::is('dealer/voorraad')) <i class="fas fa-circle text-primary text-xs"></i> @endif
                   {{ __('content/navbar.traders') }}
                 </a>
               </div>
@@ -187,8 +187,8 @@
                       {{ __('content/navbar.private-individuals') }}
                     </a>
                     
-                    <a class="flex gap-1 items-center" href="{{ route("voorraad") }}">
-                      @if (Request::is('contact')) <i class="fas fa-circle text-primary text-xs"></i> @endif
+                    <a class="flex gap-1 items-center" href="{{ route("dealer-voorraad") }}">
+                      @if (Request::is('dealer/voorraad')) <i class="fas fa-circle text-primary text-xs"></i> @endif
                       {{ __('content/navbar.traders') }}
                     </a>
                   </div>

@@ -1,4 +1,10 @@
 .vue-vehicle {
+    .vehicle-wrapper {
+        @media screen and (min-width: 1024px) {
+            flex-direction: row;
+        }
+    }
+
     .filters-wrapper {
         .filter-group {
             &.remove-filter-action {

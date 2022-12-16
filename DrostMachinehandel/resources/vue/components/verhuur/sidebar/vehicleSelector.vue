@@ -27,8 +27,8 @@ export default {
 
 
 <template>
-    <div class="w-full h-fit md:w-1/4 p-6 flex">
-        <div class="bg-gradient-to-b w-full from-primary flex items-start gap-5 justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
+    <div class="w-full h-fit p-6 flex select-machine-wrapper">
+        <div class="bg-gradient-to-b w-full from-primary flex flex-col xl:flex-row items-start gap-5 justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
             <div id="select-rent-vehicle-wrapper" class="flex flex-col rounded-lg shadow-xl w-3/4 p-5 gap-5 border-2 border-primary-500 bg-primary-200">
                 <div class="options-wrapper">
                     <div class="label mb-1">

@@ -140,8 +140,8 @@ export default {
 
 <template>
     <div id="selected-vehicle-data" class="flex gap-5 w-full vue-vehicle">
-        <div class="flex gap-5 w-full">
-            <div class="col-left h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5 w-1/2">
+        <div class="flex flex-col xl:flex-row gap-5 w-full vehicle-wrapper">
+            <div class="col-left h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5">
                 <div id="vehicle-data-thumbnail" class="row-1 h-4/5 relative">
                     <div class="no-image-available" v-if="!hasVehicleImages">
                         <img src="/img/errors/no_image_placeholder.png">
@@ -151,17 +151,17 @@ export default {
                     </div>
                 </div>
                 <div class="row-2 flex gap-5 border-t-2 border-primary pt-5">
-                    <div class="image-uploader w-1/4 h-1/4 aspect-square border-2 rounded-lg border-primary">
+                    <div class="image-uploader w-full border-2 rounded-lg border-primary">
                         <dm-dropzone></dm-dropzone>
                     </div>
-                    <div class="w-3/4 vehicle-swiper w-full h-1/5 user-select-none">
+                    <div class="vehicle-swiper w-auto user-select-none">
                         <div class="vehicle-swiper-wrapper gap-5 h-full grid grid-cols-4">
                             <dm-vehicle-image-item v-for="image in getVehicleSwiperImages" :key="image.id" :image="image"></dm-vehicle-image-item>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-right w-1/2 p-5 border-2 border-primary-500 bg-primary-200 rounded-lg ">
+            <div class="col-right p-5 border-2 border-primary-500 bg-primary-200 rounded-lg ">
                 <div class="content flex flex-col mb-5 gap-5 w-full">
                     <dm-vehicle-name-block @_handleNameInput="_handleNameInput" :value="vehicle.name"></dm-vehicle-name-block>
 

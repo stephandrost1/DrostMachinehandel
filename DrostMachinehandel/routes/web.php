@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardApiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DealerController;
+use App\Http\Controllers\DealerVoorraadController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleImagesController;
@@ -45,11 +46,10 @@ Route::middleware(['locale'])->group((function () {
 }));
 
 Route::get('/dealer/create-account', [DashboardController::class, "dealerCreate"])->name("dealer-create");
+// Route::get('/login', [DashboardController::class, 'index'])->name("dealer-login");
 
-Route::prefix('/dealer')->middleware(['auth', 'verified'])->group(function () {
-    // Route::get('/voorraad', [DashboardController::class, 'index'])->name("dealer-voorraad");
-    // Route::get('/login', [DashboardController::class, 'index'])->name("dealer-login");
-
+Route::prefix('/dealer')->middleware([])->group(function () {
+    Route::get('/voorraad', [DealerVoorraadController::class, 'index'])->name("dealer-voorraad");
 });
 
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
