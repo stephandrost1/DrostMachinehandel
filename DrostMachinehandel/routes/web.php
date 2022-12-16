@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardApiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DealerController;
+use App\Http\Controllers\DealerVoorraadController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
@@ -48,6 +49,13 @@ Route::middleware(['locale'])->group((function () {
     Route::get('/verhuurDetail', [VerhuurController::class, 'verhuurDetail'])->name('verhuurDetail');
 }));
 
+Route::get('/dealer/create-account', [DashboardController::class, "dealerCreate"])->name("dealer-create");
+// Route::get('/login', [DashboardController::class, 'index'])->name("dealer-login");
+
+Route::prefix('/dealer')->middleware([])->group(function () {
+    Route::get('/voorraad', [DealerVoorraadController::class, 'index'])->name("dealer-voorraad");
+});
+
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name("dashboard");
     Route::get('/verhuur', [DashboardController::class, "verhuur"])->name("dashboard-verhuur");
@@ -55,7 +63,6 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     Route::post("/vehicles/images/upload", [VehicleImagesController::class, "create"]);
 
     Route::get('/dealers', [DashboardController::class, "dealerRequests"])->name("dashboard-dealers");
-    Route::get('/dealer/create-account', [DashboardController::class, "dealerCreate"])->name("dashboard-dealer-create");
     Route::post('/dealer/create', [DealerController::class, "create"])->name("dealer-create-request");
     Route::get('/statistics', [DashboardController::class, "statistics"])->name("dashboard-statistics");
     Route::get('/reservations', [DashboardController::class, "reservations"])->name("dashboard-reservations");

@@ -31,16 +31,16 @@ export default {
 </script>
 
 <template>
-    <div class="w-full flex items-start justify-between">
-        <div class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
+    <div class="w-full flex flex-col gap-2 items-start justify-between">
+        <div class="input-label w-5/12 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
             <span class="w-full">Specificaties:</span>
         </div>
-        <div class="specs-wrapper w-1/2 flex flex-col">
+        <div class="specs-wrapper flex flex-col">
             <div id="vehicle-specs-container" class="specs-container flex flex-col gap-2">
                 <dm-vehicle-spec v-for="spec in getVehicleSpecs" :key="spec.id" :spec="spec"></dm-vehicle-spec>
             </div>
             <div class="add-specs flex justify-end items-center h-12">
-                <div id="add-specs" @click="_handleAddSpec" class="add-spec-icon w-2/12 flex items-center justify-center">
+                <div id="add-specs" @click="_handleAddSpec" class="add-spec-icon flex items-center justify-center">
                     <i class="fas fa-plus"></i>
                 </div>
             </div>

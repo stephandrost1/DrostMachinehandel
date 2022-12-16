@@ -58,10 +58,10 @@ export default {
 </script>
 
 <template>
-    <div class="row select-none flex justify-between gap-5">
+    <div class="row select-none flex items-center justify-between gap-5">
         <dm-add-vehicle-filter-group v-show="addNewFilterPopupIsOpen" @_handleRejectNewFilterGroup="_handleRejectNewFilterGroup" @_handleAcceptNewFilterGroup="_handleAcceptNewFilterGroup"></dm-add-vehicle-filter-group>
 
-        <div class="input-label w-1/4 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
+        <div class="input-label w-full h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
             <span class="w-full">Filter categorieën:</span>
         </div>
         <div class="filters-wrapper flex flex-col gap-5 w-1/2">

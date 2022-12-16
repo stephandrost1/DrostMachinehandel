@@ -63,10 +63,10 @@ export default {
 
 
 <template>
-    <div class="flex flex-wrap bg-black w-full h-full">
+    <div class="flex flex-col bg-black w-full h-full total-rental-wrapper">
         <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"></dm-sidebar>
         
-        <div class="w-full md:w-3/4 p-6">
+        <div class="w-full p-6">
             <div
                 class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
                 <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>

@@ -1,3 +1,22 @@
+<script>
+  function toggleDropdown() {
+    var x = document.getElementById("occasions-dropdown");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+  }
+
+  function toggleDropdownMobile() {
+    var x = document.getElementById("occasions-dropdown-mobile");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
 <div class="z-20 homepage-video-style">
     {{-- Orange header --}}
     <div class="swiper h-fit swiper-container-element">
@@ -60,7 +79,23 @@
             </div>
 
             <a href={{ route("home") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.home') }}</div></a>
-            <a href={{ route("voorraad") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.stock') }}</div></a>
+            <div class="flex flex-col relative">
+              <div onclick="toggleDropdown()" class="text-lg xl:text-2xl font-bold cursor-pointer flex items-center justify-center gap-2">
+                {{ __('content/navbar.occasions') }} <i class="fas fa-chevron-down text-2xl"></i>
+              </div>
+
+              <div id="occasions-dropdown" class="absolute mt-12 bg-secondary px-2 py-1 z-10 font-bold text-xl occasions-dropdown hidden -right-2">
+                <a class="flex gap-1 items-center" href="{{ route("voorraad") }}">
+                  @if (Request::is('voorraad')) <i class="fas fa-circle text-primary text-xs"></i> @endif
+                  {{ __('content/navbar.private-individuals') }}
+                </a>
+                
+                <a class="flex gap-1 items-center" href="{{ route("dealer-voorraad") }}">
+                  @if (Request::is('dealer/voorraad')) <i class="fas fa-circle text-primary text-xs"></i> @endif
+                  {{ __('content/navbar.traders') }}
+                </a>
+              </div>
+            </div>
             <a href={{ route("verhuur") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('verhuur')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.rent') }}</div></a>
             <a href={{ route("leasen") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.lease') }}</div></a>
             <a href={{ route("contact") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.contact') }}</div></a>
@@ -141,8 +176,22 @@
                 </a>
               </li>
               <li>
-                <a href={{ route("voorraad") }}>
-                  <div class="navbar-item @if(Request::is('voorraad')) active @endif">{{ __('content/navbar.stock') }}</div>
+                <a class="flex flex-col relative">
+                  <div onclick="toggleDropdownMobile()" class="navbar-item text-lg xl:text-2xl font-bold cursor-pointer flex gap-2 pb-3">
+                    {{ __('content/navbar.occasions') }} <i class="fas fa-chevron-down text-2xl"></i>
+                  </div>
+    
+                  <div id="occasions-dropdown-mobile" class="absolute mt-2 bg-secondary px-2 py-1 z-10 font-bold text-xl occasions-dropdown @if (Request::is('voorraad')) occasions-dropdown-mobile-active-voorraad @elseif (Request::is('contact')) occasions-dropdown-mobile-active-dealer  @else occasions-dropdown-mobile @endif hidden">
+                    <a class="flex gap-1 items-center" href="{{ route("voorraad") }}">
+                      @if (Request::is('voorraad')) <i class="fas fa-circle text-primary text-xs"></i> @endif
+                      {{ __('content/navbar.private-individuals') }}
+                    </a>
+                    
+                    <a class="flex gap-1 items-center" href="{{ route("dealer-voorraad") }}">
+                      @if (Request::is('dealer/voorraad')) <i class="fas fa-circle text-primary text-xs"></i> @endif
+                      {{ __('content/navbar.traders') }}
+                    </a>
+                  </div>
                 </a>
               </li>
               <li>
