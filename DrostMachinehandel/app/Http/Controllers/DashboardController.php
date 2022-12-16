@@ -34,15 +34,21 @@ class DashboardController extends Controller
         return view("dashboard/dealerRequests");
     }
 
-    public function analytics()
+    public function statistics()
     {
 
-        return view("dashboard/analytics");
+        return view("dashboard/statistics");
     }
 
-    public function payments()
+    public function account()
     {
-        return view("dashboard/payments");
+
+        return view("dashboard/account");
+    }
+
+    public function reservations()
+    {
+        return view("dashboard/reservations");
     }
 
     public function settings()
