@@ -9,7 +9,7 @@
                     <h1 class="font-bold pl-2">Reserveringen</h1>
                 </div>
             </div>
-            <div class="flex flex-wrap bg-black w-full h-full" id="page-dashboard-reservations">
+            <div class="flex flex-wrap bg-black w-full h-full p-6" id="page-dashboard-reservations">
             </div>
         </div>
     </section>

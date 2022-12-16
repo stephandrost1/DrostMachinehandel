@@ -13,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vehicles', function (Blueprint $table) {
+        Schema::create('dealer_addresses', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->string("vehicle_name");
-            $table->string("vehicle_description");
-            $table->string("stock");
-            $table->string("price_per_day");
-            $table->string("price_per_week");
+            $table->string("country");
+            $table->string("province");
+            $table->string("city");
+            $table->string("streetname");
+            $table->string("housenumber");
+            $table->string("postalcode");
+            $table->string("dealer_id");
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehicles');
+        Schema::dropIfExists('dealer_adresses');
     }
 };

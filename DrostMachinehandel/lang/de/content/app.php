@@ -13,6 +13,6 @@ return [
     'Dashboard-payments' => 'Zahlungen',
     'Dashboard-tasks' => 'Aufgaben',
     'Dashboard-messages' => 'Mitteilungen',
-    'Dashboard-analytics' => 'Analytik',
+    'Dashboard-statistics' => 'Analytik',
     'Dashboard-settings' => 'Einstellungen'
 ];

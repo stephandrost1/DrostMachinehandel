@@ -14,6 +14,6 @@ return [
     'Dashboard-payments' => 'Paiements',
     'Dashboard-tasks' => 'Tâches',
     'Dashboard-messages' => 'Messages',
-    'Dashboard-analytics' => 'Analytique',
+    'Dashboard-statistics' => 'Analytique',
     'Dashboard-settings' => 'Réglages'
 ];

@@ -73,6 +73,7 @@ class VehicleController extends Controller
             $vehicle->fill([
                 'vehicle_name' => $request->name,
                 'vehicle_description' => $request->description,
+                'stock' => $request->stock,
                 'price_per_day' => $request->pricePerDay,
                 'price_per_week' => $request->pricePerWeek,
             ])->save();

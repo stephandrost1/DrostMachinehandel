@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return redirect()->route("dashboard-analytics");
+        return redirect()->route("dashboard-verhuur");
     }
 
     public function verhuur()

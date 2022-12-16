@@ -6,7 +6,7 @@ import nameBlock from './name/nameBlock.vue';
 import descriptionBlock from './description/descriptionBlock.vue';
 import priceBlock from './prices/priceBlock.vue';
 import FiltersBlock from './filters/filtersBlock.vue';
-import delivery from './delivery/delivery.vue';
+import StockBlock from "./stock/stockBlock.vue";
 
 export default {
     components: {
@@ -17,7 +17,7 @@ export default {
         "dm-vehicle-description-block": descriptionBlock,
         "dm-vehicle-price-block": priceBlock,
         "dm-vehicle-filters-block": FiltersBlock,
-        "dm-delivery-options-block": delivery,
+        "dm-vehicle-stock-block": StockBlock,
 
         "dm-vehicle-image-item": vehicleImage,
     },
@@ -26,6 +26,7 @@ export default {
         return {
             vehicle: {
                 name: "",
+                stock: 1,
                 description: "",
                 pricePerDay: "",
                 pricePerWeek: "",
@@ -40,6 +41,10 @@ export default {
 
         getVehicleName() {
             return this.getVehicle.vehicle_name ?? "";
+        },
+
+        getVehicleStock() {
+            return this.getVehicle.stock ?? 1;
         },
 
         getVehicleDescription() {
@@ -80,12 +85,17 @@ export default {
         this.vehicle.description = this.getVehicleDescription;
         this.vehicle.pricePerDay = this.getVehiclePricePerDay;
         this.vehicle.pricePerWeek = this.getVehiclePricePerWeek;
+        this.vehicle.stock = this.getVehicleStock;
     },
 
     methods: {
         _handleNameInput(name) {
             this.vehicle.name = name;
         },
+
+        _handleStockInput(stock) {
+            this.vehicle.stock = stock;
+        },  
 
         _handleDescriptionInput(description) {
             this.vehicle.description = description;
@@ -168,9 +178,9 @@ export default {
 
                     <dm-vehicle-description-block @_handleDescriptionInput="_handleDescriptionInput" :value="vehicle.description"></dm-vehicle-description-block>
 
-                    <dm-delivery-options-block></dm-delivery-options-block>
-         
                     <dm-vehicle-price-block @_handlePricePerDay="_handlePricePerDay" @_handlePricePerWeek="_handlePricePerWeek" :pricePerDay="vehicle.pricePerDay" :pricePerWeek="vehicle.pricePerWeek"></dm-vehicle-price-block>
+                    
+                    <dm-vehicle-stock-block @_handleStockInput="_handleStockInput" :value="vehicle.stock" ></dm-vehicle-stock-block>
                     
                     <dm-vehicle-specs-block></dm-vehicle-specs-block>
                     

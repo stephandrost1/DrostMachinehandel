@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardApiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DealerController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleImagesController;
@@ -71,6 +72,7 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::patch('/vehicle/{id}/update', [VehicleController::class, "update"]);
 
     Route::get('/vehicles', [VehicleController::class, "index"]);
+    Route::get('/reservations/{page}', [ReservationController::class, "index"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
     Route::get('/filters', [FilterController::class, "index"]);
 
     Route::get('/dealers/pending', [DealerController::class, "getPending"]);

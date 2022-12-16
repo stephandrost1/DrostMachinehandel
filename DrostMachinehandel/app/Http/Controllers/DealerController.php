@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateDealerRequest;
 use App\Http\Requests\UpdateDealerRequest;
 use App\Models\Dealer;
+use App\Models\DealerAddress;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,14 +18,27 @@ class DealerController extends Controller
             $validated = $request->validated();
 
             $dealer = new Dealer();
-            $dealer->firstname = $request->firstname;
-            $dealer->lastname = $request->lastname;
-            $dealer->email = $request->email;
-            $dealer->phonenumber = $request->phonenumber;
-            $dealer->companyname = $request->companyname;
-            $dealer->kvknumber = $request->kvknumber;
-            $dealer->password = Hash::make($request->kvknumber);
-            $dealer->email_verified_at = null;
+            $dealer->fill([
+                "firstname" => $request->firstname,
+                "lastname" => $request->lastname,
+                "email" => $request->email,
+                "phonenumber" => $request->phonenumber,
+                "companyname" => $request->companyname,
+                "kvknumber" => $request->kvknumber,
+                "password" => Hash::make($request->password),
+                "email_verified_at" => null,
+            ])->save();
+
+            $dealerAdress = new DealerAddress();
+            $dealerAdress->fill([
+                "country" => $request->country,
+                "province" => $request->province,
+                "city" => $request->city,
+                "streetname" => $request->streetname,
+                "housenumber" => $request->housenumber,
+                "postalcode" => $request->postalcode,
+                "dealer_id" => $dealer->id,
+            ])->save();
 
             return redirect()->back()->with("status", "succes");
         } catch (Exception $e) {

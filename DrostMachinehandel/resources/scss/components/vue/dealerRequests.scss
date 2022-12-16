@@ -1,0 +1,157 @@
+.vue-dealer-requests {
+    #main {
+        .table {
+            width: 100%;
+            padding: 3rem 5rem;
+
+            .dealer-table-header {
+                margin-bottom: 1rem;
+
+                .actions {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .col-left {
+                        .filter-on-name {
+                            width: fit-content;
+
+                            div.input {
+                                display: flex;
+                                position: relative;
+
+                                input, .search-icon {
+                                    height: 2.5rem;
+
+                                    &.searcher {
+                                        border-radius: 10px;
+                                        border: 2px solid $color-main;
+                                    }
+
+                                    &.search-icon {
+                                        position: absolute;
+                                        color: $color-main;
+                                        right: 10px;
+                                        pointer-events: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .col-right {
+                        .add-dealer {
+                            padding: 0.5rem 2rem;
+                            border-radius: 10px;
+                            border: 2px solid $color-main;
+                            color: $color-main;
+                            display: flex;
+                            align-items: center;
+                            gap: 1rem;
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .table-info {
+                    margin-top: 2rem;
+                    padding: 0 1rem;
+                    display: flex;
+                    justify-content: space-between;
+
+                    .item {
+                        color: $color-main;
+                        font-weight: bold;
+
+                        &:not(.actions) {
+                            width: calc(100% - 80px);
+                        }
+
+                        &.actions {
+                            width: 80px !important;
+                        }
+                    }
+                }
+            }
+
+            .table-body {
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                flex-direction: column;
+
+                .row-item {
+                    display: flex;
+                    align-items: center;
+                    border-radius: 10px;
+                    border: 2px solid $color-main;
+                    padding: 1rem;
+
+                    .item {
+                        width: 100%;
+
+                        &.status {
+                            font-weight: bold;
+
+                            p {
+                                width: fit-content;
+                                padding: 0.25rem 0.5rem;
+                                border-radius: 10px;
+                            }
+                        }
+
+                        &.actions {
+                            display: flex;
+                            width: 80px;
+                            gap: 1rem;
+                        }
+
+                        .editable {
+                            display: flex;
+                            gap: 1rem;
+
+                            input {
+                                padding: 0.5rem 1rem;
+                                border-radius: 10px;
+                                border: 2px solid $color-main;
+                                width: 50%;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .table-footer {
+                .pager {
+                    display: flex;
+                    gap: 0.5rem;
+                    justify-content: flex-end;
+
+                    .pager-item {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: 2px solid $color-main;
+                        width: 35px;
+                        height: 35px;
+                        border-radius: 10px;
+                        cursor: pointer;
+
+                        &.active {
+                            background-color: $color-main;
+
+                            .pager-counter {
+                                color: $color-white;
+                            }
+                        }
+
+                        .pager-counter {
+                            color: $color-main;
+                            font-weight: bold;
+                            font-size: 1.125rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

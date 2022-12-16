@@ -20,4 +20,9 @@ class Dealer extends Model
         "btwnumber",
         "email_verified_at",
     ];
+
+    public function address()
+    {
+        return $this->hasOne(DealerAddress::class, 'dealer_id', 'id');
+    }
 }
