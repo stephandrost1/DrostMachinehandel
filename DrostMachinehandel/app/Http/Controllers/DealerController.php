@@ -76,20 +76,18 @@ class DealerController extends Controller
 
     public function getPageNumbers(int $maxPages, int $page): array
     {
-        // If there are no pages, return an empty array
-        if ($maxPages == 0) {
-            return [];
-        }
-
-        // Return an array with the three page numbers centered around the current page
-        return $page <= 1
-            // If the current page is 1 or less, return the first three page numbers
-            ? [1, 2, 3]
-            // Otherwise, if the current page is greater than or equal to the maximum number of pages, return the last three page numbers
-            : ($page >= $maxPages
-                ? [$maxPages - 2, $maxPages - 1, $maxPages]
-                // Otherwise, return the three page numbers centered around the current page
-                : [$page - 1, $page, $page + 1]);
+        // If the maximum number of pages is 1, return just that page
+        return $maxPages == 1 ? [1]
+            // If the maximum number of pages is 2, return the first two pages
+            : ($maxPages == 2 ? [1, 2]
+                // If the maximum number of pages is 3, return the first three pages
+                : ($maxPages == 3 ? [1, 2, 3]
+                    // If the current page is the first or second page, return the next three pages
+                    : ($page <= 1 ? [$page, $page + 1, $page + 2]
+                        // If the current page is the last or second-to-last page, return the previous three pages
+                        : ($page >= $maxPages ? [$maxPages - 2, $maxPages - 1, $maxPages]
+                            // Otherwise, return the three pages centered around the current page
+                            : [$page - 1, $page, $page + 1]))));
     }
 
     public function getPending()

@@ -9,6 +9,7 @@ use App\Models\RentVehicleDetail;
 use App\Models\RentVehicleFilterTag;
 use App\Models\RentVehicleImage;
 use App\Models\Vehicle;
+use App\Models\VehicleView;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -41,6 +42,13 @@ class VehicleController extends Controller
         } catch (Exception $e) {
             return response()->json(['message' => 'Machine is niet verwijderd omdat: ' . $e->getMessage()], 400);
         }
+    }
+
+    public function vehicleViews()
+    {
+        $vehicleViews = VehicleView::orderBy("vehicle_views", "desc")->limit(5)->get();
+
+        return response()->json(["vehicles" => $vehicleViews, "results" => !empty($vehicleViews)]);
     }
 
     public function show(Int $vehicleId)

@@ -5,7 +5,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VoorraadController;
 use App\Http\Controllers\LeasenController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\DashboardApiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DealerController;
 use App\Http\Controllers\DealerVoorraadController;
@@ -72,7 +71,7 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
 });
 
 Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
-    Route::get("/vehicleViews", [DashboardApiController::class, "vehicleViews"]);
+    Route::get("/vehicleViews", [VehicleController::class, "vehicleViews"]);
 
     Route::get("/vehicle/{id}", [VehicleController::class, "show"]);
     Route::delete("/vehicle/{id}/delete", [VehicleController::class, "destroy"]);
