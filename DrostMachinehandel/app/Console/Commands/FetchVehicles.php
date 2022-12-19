@@ -2,9 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Controllers\SettingsController;
+use DOMDocument;
+use DOMXPath;
 use Illuminate\Console\Command;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\DomCrawler\Crawler;
 
 class FetchVehicles extends Command
 {
@@ -29,27 +33,26 @@ class FetchVehicles extends Command
      */
     public function handle()
     {
-        $url = 'http://localhost:8000/voorraad';
+        $url = SettingsController::fetchSetting("fetch:vehicles");
 
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10); // Wait for 10 seconds before timing out
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 
+        $data = curl_exec($ch);
 
-        while (true) {
-            $data = curl_exec($ch);
-            $info = curl_getinfo($ch);
-            if ($info['http_code'] === 200) {
-                if (preg_match('/id="svm-canvas-content"/', $data)) {
-                    break;
-                }
-            }
-        }
-
-        $this->output->write($data);
+        $vehicles = $this->scrapeVehicles($data, $url);
 
         curl_close($ch);
+    }
+
+    private function scrapeVehicles(string $data, string $url): array
+    {
+    }
+
+    private function fetchVehicleDetails($url)
+    {
     }
 }

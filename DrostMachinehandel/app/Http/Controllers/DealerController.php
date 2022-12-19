@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\CreateDealerRequest;
 use App\Http\Requests\UpdateDealerRequest;
 use App\Models\Dealer;
 use App\Models\DealerAddress;
+use App\Providers\RouteServiceProvider;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DealerController extends Controller
 {
+    public function index()
+    {
+        return view('dealerVoorraad');
+    }
+
     public function create(CreateDealerRequest $request)
     {
         try {
@@ -202,5 +210,23 @@ class DealerController extends Controller
         } catch (Exception $e) {
             return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage(), "status" => true], 400);
         }
+    }
+
+    public function login(LoginRequest $request)
+    {
+        $request->authenticate();
+
+        if ($request->user()->hasRole('dealer')) {
+            $request->session()->regenerate();
+
+            return redirect()->intended(RouteServiceProvider::DEALER_VOORRAAD);
+        } else {
+            return redirect()->back()->withErrors(['email' => 'You do not have the necessary permissions to access this page']);
+        }
+    }
+
+    public function showLogin()
+    {
+        return view('dealers/login');
     }
 }

@@ -49,10 +49,11 @@ Route::middleware(['locale'])->group((function () {
 }));
 
 Route::get('/dealer/create-account', [DashboardController::class, "dealerCreate"])->name("dealer-create");
-// Route::get('/login', [DashboardController::class, 'index'])->name("dealer-login");
+Route::get('/dealer/login', [DealerController::class, 'showLogin'])->name("dealer-login");
+Route::post('/dealer/login', [DealerController::class, 'login'])->name("dealer-login-action");
 
-Route::prefix('/dealer')->middleware([])->group(function () {
-    Route::get('/voorraad', [DealerVoorraadController::class, 'index'])->name("dealer-voorraad");
+Route::prefix('/dealer')->middleware('dealerAuth')->group(function () {
+    Route::get('/voorraad', [DealerController::class, 'index'])->name("dealer-voorraad");
 });
 
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
