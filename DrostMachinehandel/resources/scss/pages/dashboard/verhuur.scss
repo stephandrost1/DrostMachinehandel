@@ -52,7 +52,13 @@
         }
 
         @media screen and (min-width: 1500px) {
-            width: 60%;
+            width: 40%;
+        }
+    }
+
+    .images-wrapper {
+        @media screen and (min-width: 1500px) {
+            width: 50%;
         }
     }
 }
