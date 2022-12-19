@@ -5,6 +5,7 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -57,6 +58,28 @@ class LoginRequest extends FormRequest
     }
 
     /**
+     * Attempt to authenticate the request's credentials.
+     *
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function authenticateDealers()
+    {
+        $this->ensureIsNotRateLimited();
+
+        if (!Auth::guard('dealer')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+            RateLimiter::hit($this->throttleKeyDealers());
+
+            throw ValidationException::withMessages([
+                'email' => trans('auth.failed'),
+            ]);
+        }
+
+        RateLimiter::clear($this->throttleKeyDealers());
+    }
+
+    /**
      * Ensure the login request is not rate limited.
      *
      * @return void
@@ -89,5 +112,15 @@ class LoginRequest extends FormRequest
     public function throttleKey()
     {
         return Str::transliterate(Str::lower($this->input('email')) . '|' . $this->ip());
+    }
+
+    /**
+     * Get the rate limiting throttle key for the request.
+     *
+     * @return string
+     */
+    public function throttleKeyDealers()
+    {
+        return Str::transliterate(Str::lower($this->input('email')) . '|' . 'dealers');
     }
 }

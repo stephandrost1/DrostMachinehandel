@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class DealerController extends Controller
 {
@@ -214,7 +215,7 @@ class DealerController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $request->authenticate();
+        $request->authenticateDealers();
 
         if ($request->user()->hasRole('dealer')) {
             $request->session()->regenerate();
