@@ -212,22 +212,4 @@ class DealerController extends Controller
             return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage(), "status" => true], 400);
         }
     }
-
-    public function login(LoginRequest $request)
-    {
-        $request->authenticateDealers();
-
-        if ($request->user()->hasRole('dealer')) {
-            $request->session()->regenerate();
-
-            return redirect()->intended(RouteServiceProvider::DEALER_VOORRAAD);
-        } else {
-            return redirect()->back()->withErrors(['email' => 'You do not have the necessary permissions to access this page']);
-        }
-    }
-
-    public function showLogin()
-    {
-        return view('dealers/login');
-    }
 }

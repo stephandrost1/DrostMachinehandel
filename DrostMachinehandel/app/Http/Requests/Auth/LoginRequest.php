@@ -64,19 +64,19 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticateDealers()
+    public function authenticateDealer()
     {
         $this->ensureIsNotRateLimited();
 
         if (!Auth::guard('dealer')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKeyDealers());
+            RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
         }
 
-        RateLimiter::clear($this->throttleKeyDealers());
+        RateLimiter::clear($this->throttleKey());
     }
 
     /**
@@ -112,15 +112,5 @@ class LoginRequest extends FormRequest
     public function throttleKey()
     {
         return Str::transliterate(Str::lower($this->input('email')) . '|' . $this->ip());
-    }
-
-    /**
-     * Get the rate limiting throttle key for the request.
-     *
-     * @return string
-     */
-    public function throttleKeyDealers()
-    {
-        return Str::transliterate(Str::lower($this->input('email')) . '|' . 'dealers');
     }
 }
