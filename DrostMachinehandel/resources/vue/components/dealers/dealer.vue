@@ -34,7 +34,7 @@ export default {
                 }).catch((error) => {
                     this.$toast.error(error.response.data.message);
                 })
-        }, 
+        },
 
         _handleEnable() {
             const dt = new Date();
@@ -51,7 +51,7 @@ export default {
                 }).catch((error) => {
                     this.$toast.error(error.response.data.message);
                 })
-         },
+        },
 
         _handleDisable() {
             this.$store.commit("UPDATE_DEALER", {
@@ -66,9 +66,9 @@ export default {
                 }).catch((error) => {
                     this.$toast.error(error.response.data.message);
                 });
-         },
+        },
 
-        _handleEdit() { 
+        _handleEdit() {
             this.edit = true;
         },
 
@@ -89,42 +89,47 @@ export default {
 }
 
 </script>
-
 <template>
-    <div class="row-item select-none">
-        <div class="item name">
+    <tr class="border-b-2 border-primary rounded-md p-5">
+        <td class="py-2 px-1 w-1/12">
             <p v-if="!edit">{{ getDealerName }}</p>
             <div v-if="edit" class="edit-name editable">
                 <input v-model="nDealer.firstname" />
                 <input v-model="nDealer.lastname" />
             </div>
-        </div>
-        <div class="item email">
+        </td>
+        <td class="py-2 px-1 w-1/12">
             <p v-if="!edit">{{ dealer.email }}</p>
             <div v-if="edit" class="edit-email editable">
                 <input v-model="nDealer.email" />
             </div>
-        </div>
-        <div class="item phonenumber">
+        </td>
+        <td class="py-2 px-1 w-1/12">
             <p v-if="!edit">{{ dealer.phonenumber }}</p>
             <div v-if="edit" class="edit-phonenumber editable">
                 <input v-model="nDealer.phonenumber" />
             </div>
-        </div>
-        <div class="item companyname">
+        </td>
+        <td class="py-2 px-1 w-1/12">
             <p v-if="!edit">{{ dealer.companyname }}</p>
             <div v-if="edit" class="edit-companyname editable">
                 <input v-model="nDealer.companyname" />
             </div>
-        </div>
-        <div class="item kvknumber">
+        </td>
+        <td class="py-2 px-1 w-1/12">
             <p v-if="!edit">{{ dealer.kvknumber }}</p>
             <div v-if="edit" class="edit-kvknumber editable">
                 <input v-model="nDealer.kvknumber" />
             </div>
-        </div>
-        <div class="item status" :class="[ dealerIsActive ? 'active' : 'inactive' ]"><p :class="[dealerIsActive ? 'text-green-500 bg-green-200' : 'text-red-500 bg-red-200']">{{ dealerIsActive ? "Actief" : "Inactief" }}</p></div>
-        <div class="item actions">
+        </td>
+        <td class="py-2 px-1 w-1/12" :class="[dealerIsActive ? 'active' : 'inactive']">
+            <p class="w-min rounded-md p-1 font-bold"
+                :class="[dealerIsActive ? 'text-green-500 bg-green-200' : 'text-red-500 bg-red-200']">{{
+                        dealerIsActive ?
+                            "Actief" : "Inactief"
+                }}</p>
+        </td>
+        <td class="py-2 px-1 w-1/12 mt-1 flex gap-3">
             <div @click="_handleDelete" class="delete text-red-500">
                 <i class="fas fa-trash"></i>
             </div>
@@ -140,6 +145,6 @@ export default {
             <div @click="_handleSave" v-if="edit" class="edit text-blue-500">
                 <i class="fas fa-save"></i>
             </div>
-        </div>
-    </div>
+        </td>
+    </tr>
 </template>

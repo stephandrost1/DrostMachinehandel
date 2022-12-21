@@ -52,8 +52,12 @@ export default {
     }
 }
 </script>
-
-
+<style>
+table tbody {
+    display: table;
+    width: 100%;
+}
+</style>
 <template>
     <section class="w-full vue-dealer-requests">
         <div id="main" class="main-content w-full h-full flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
@@ -69,38 +73,60 @@ export default {
                             <div class="col-left">
                                 <div class="filter-on-name">
                                     <div class="input">
-                                        <input v-model="searchKey" type="text" class="searcher" placeholder="Zoeken...">
+                                        <input v-model="searchKey" type="text" class="searcher focus:ring-0"
+                                            placeholder="Zoeken...">
                                         <i class="fas fa-search search-icon"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="table-info">
-                            <div class="item name"><p>Naam</p></div>
-                            <div class="item email"><p>E-mailadres</p></div>
-                            <div class="item phonenumber"><p>Telefoonnummer</p></div>
-                            <div class="item companyname"><p>Bedrijfsnaam</p></div>
-                            <div class="item kvknumber"><p>KVK nummer</p></div>
-                            <div class="item status"><p>Status</p></div>
-                            <div class="item actions"><p>Acties</p></div>
+                    </div>
+                    <div class="bg-[#e0e0e0] rounded-md p-2">
+                        <table
+                            class="table w-full border-collapse mb-4 overflow-x-auto max-w-fit m-auto whitespace-nowrap">
+                            <tr class="text-primary font-bold border-b-2 border-primary">
+                                <td class="px-1 py-3 w-1/12">
+                                    <p>Naam</p>
+                                </td>
+                                <td class="px-1 py-3 w-1/12">
+                                    <p>E-mailadres</p>
+                                </td>
+                                <td class="px-1 py-3 w-1/12">
+                                    <p>Telefoonnummer</p>
+                                </td>
+                                <td class="px-1 py-3 w-1/12">
+                                    <p>Bedrijfsnaam</p>
+                                </td>
+                                <td class="px-1 py-3 w-1/12">
+                                    <p>KVK nummer</p>
+                                </td>
+                                <td class="px-1 py-3 w-1/12">
+                                    <p>Status</p>
+                                </td>
+                                <td class="px-1 py-3 w-1/12">
+                                    <p>Acties</p>
+                                </td>
+                            </tr>
+
+                            <dm-dealer v-for="dealer in getDealers" :key="dealer.id" :dealer="dealer"></dm-dealer>
+                        </table>
+
+                        <div class="table-footer">
+                            <div class="pager">
+                                <div @click="_handlePagerClick(1)" v-if="(page !== 1)" class="pager-item">
+                                    <i class="pager-counter fas fa-angle-double-left"></i>
+                                </div>
+                                <div class="pager-item" :class="[this.page == page ? 'active' : 'inactive']"
+                                    :key="index" v-for="page, index in getPager">
+                                    <div class="pager-counter" @click="_handlePagerClick(page)">{{ page }}</div>
+                                </div>
+                                <div @click="_handlePagerClick(getPages)" v-if="(page !== getPages)" class="pager-item">
+                                    <i class="pager-counter fas fa-angle-double-right"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="table-body">
-                        <dm-dealer v-for="dealer in getDealers" :key="dealer.id" :dealer="dealer"></dm-dealer>
-                    </div>
-                    <div class="table-footer">
-                        <div class="pager">
-                            <div @click="_handlePagerClick(1)" v-if="(page !== 1)" class="pager-item">
-                                <i class="pager-counter fas fa-angle-double-left"></i>
-                            </div>
-                            <div class="pager-item" :class="[ this.page == page ? 'active' : 'inactive' ]" :key="index" v-for="page, index in getPager">
-                                <div class="pager-counter" @click="_handlePagerClick(page)">{{ page }}</div>
-                            </div>
-                            <div @click="_handlePagerClick(getPages)" v-if="(page !== getPages)" class="pager-item">
-                                <i class="pager-counter fas fa-angle-double-right"></i>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
