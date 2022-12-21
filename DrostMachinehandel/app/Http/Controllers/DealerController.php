@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class DealerController extends Controller
 {
@@ -210,23 +211,5 @@ class DealerController extends Controller
         } catch (Exception $e) {
             return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage(), "status" => true], 400);
         }
-    }
-
-    public function login(LoginRequest $request)
-    {
-        $request->authenticate();
-
-        if ($request->user()->hasRole('dealer')) {
-            $request->session()->regenerate();
-
-            return redirect()->intended(RouteServiceProvider::DEALER_VOORRAAD);
-        } else {
-            return redirect()->back()->withErrors(['email' => 'You do not have the necessary permissions to access this page']);
-        }
-    }
-
-    public function showLogin()
-    {
-        return view('dealers/login');
     }
 }

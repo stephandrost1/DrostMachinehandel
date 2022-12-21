@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VoorraadController;
@@ -49,10 +50,10 @@ Route::middleware(['locale'])->group((function () {
 }));
 
 Route::get('/dealer/create-account', [DashboardController::class, "dealerCreate"])->name("dealer-create");
-Route::get('/dealer/login', [DealerController::class, 'showLogin'])->name("dealer-login");
-Route::post('/dealer/login', [DealerController::class, 'login'])->name("dealer-login-action");
+Route::get('/dealer/login', [AuthenticatedSessionController::class, 'createDealer'])->name("dealer-login");
+Route::post('/dealer/login', [AuthenticatedSessionController::class, 'storeDealer'])->name("dealer-login-action");
 
-Route::prefix('/dealer')->middleware('dealerAuth')->group(function () {
+Route::prefix('/dealer')->middleware(['dealerAuth', 'verified'])->group(function () {
     Route::get('/voorraad', [DealerController::class, 'index'])->name("dealer-voorraad");
 });
 
