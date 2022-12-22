@@ -36,9 +36,11 @@ class FetchVehicles extends Command
     public function handle()
     {
         try {
-            $mainPage = SettingsController::fetchSetting("fetch:vehicles");
+            $mainUrl = SettingsController::fetchSetting("fetch:vehicles");
 
-            $this->fetchVehiclesByUrl($mainPage);
+            $content = file_get_contents($mainUrl);
+
+            $this->fetchVehiclesByUrl($content);
 
             Log::info("Fetch:vehicles ran and read " . count($this->vehiclesRead) . " existing vehicles and created " . count($this->vehiclesCreated) . " new vehicles", [
                 "created" => $this->vehiclesCreated,
@@ -51,10 +53,25 @@ class FetchVehicles extends Command
         }
     }
 
-    private function fetchVehiclesByUrl(string $url)
+    private function fetchPagesCount(string $content, string $baseUrl)
     {
-        $content = file_get_contents($url);
+        $crawler = new Crawler($content);
 
+        $navigationPage = $crawler->filter(".navigation .pager a.page");
+
+        $pages = collect($navigationPage)->map(function ($page) {
+            return $page->getAttribute("href");
+        })->reject(function ($page) {
+            return empty($page);
+        })->unique()->toArray();
+
+        collect($pages)->each(function ($page) use ($baseUrl) {
+            SettingsController::setSetting("fetch:vehicles:page", $baseUrl . $page);
+        });
+    }
+
+    private function fetchVehiclesByUrl(string $content)
+    {
         $crawler = new Crawler($content);
 
         $vehicles = $crawler->filter('.vehicleTile');
