@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DealerVehicle;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DealerVehicleController extends Controller
 {
@@ -13,7 +16,16 @@ class DealerVehicleController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $vehicles = DealerVehicle::all();
+
+            return response()->json(["vehicles" => $vehicles, "status" => true]);
+        } catch (Exception $e) {
+            Log::emergency("DealerVehicleController - Index", [
+                "error" => $e->getMessage(),
+            ]);
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage(), "status" => false]);
+        }
     }
 
     /**

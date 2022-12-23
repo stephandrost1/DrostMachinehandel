@@ -18,7 +18,7 @@ window.axios = axios;
 
 const verhuurApp = createApp(PageVehuur);
 const dealerNofiticationsApp = createApp(PageDealerRequests);
-const reservationsApp = createApp(PageReservations)
+const reservationsApp = createApp(PageReservations);
 
 verhuurApp.use(verhuurStore);
 verhuurApp.use(Toaster);

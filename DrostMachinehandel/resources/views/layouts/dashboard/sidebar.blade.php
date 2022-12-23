@@ -9,6 +9,11 @@
                             </a>
                         </li>
                         <li class="mr-3 flex-1">
+                            <a href="{{ route("dashboard-vehicles") }}" class="@if(Request::is('dashboard/vehicles')) border-primary text-primary @else border-gray-800 @endif flex items-center gap-2 block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-white border-b-2">
+                                <i class="fas fa-truck-pickup"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base block md:inline-block">Machines</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
                             <a href="{{ route("dashboard-dealers") }}" class="@if(Request::is('dashboard/dealers')) border-primary text-primary @else border-gray-800 @endif flex items-center gap-2 block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-white border-b-2">
                                 <i class="fas fa-users"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base block md:inline-block">Handelaren</span>
                             </a>
