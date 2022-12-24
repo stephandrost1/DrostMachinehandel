@@ -9,7 +9,7 @@
                     <h1 class="font-bold pl-2">Machines prijzen instellen handelaren</h1>
                 </div>
             </div>
-            <div class="flex flex-wrap bg-black w-full h-full" id="page-dashboard-verhuur">
+            <div class="flex flex-wrap bg-black w-full h-full" id="page-dashboard-dealer-vehicles">
             </div>
         </div>
     </section>
