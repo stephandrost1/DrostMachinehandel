@@ -1,5 +1,6 @@
 import './bootstrap';
 import './swiper';
+import '../css/app.css';
 
 //Homepage js
 import './homepage/arrow-down';

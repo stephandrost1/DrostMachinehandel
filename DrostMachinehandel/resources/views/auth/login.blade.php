@@ -3,55 +3,70 @@
 
 <hr class="w-full h-2 bg-primary border-none">
 
-<div class="mt-12 flex flex-col items-center justify-center">
-  
-  <div class="login-title-wrapper bg-primary">
-    <h1 class="font-bold text-3xl text-center login-title">{{ __('content/login.login') }}</h1>
-  </div>
-  <form method="POST" action="{{ route('login') }}" class="bg-gray-800 login-form">
+<div class="content-wrapper flex justify-center">
+  <form action="{{ route("dealer-login-action") }}" method="POST">
       @csrf
-      <div class="mb-3 mt-5">
-        <div class="mb-2">
-            <label for="email" class="font-bold text-primary pb-1">{{ __('content/login.email') }}</label> </br>
-            <input required type="text" id="email" name="email" placeholder="JohnDoe@example.com" class="border-2 border-secondary rounded-md w-full text-gray-700 focus:border-secondary focus:ring-0">
-        </div>
-        <div class="mb-2">
-            <label for="email" class="font-bold text-primary pb-1">{{ __('content/login.password') }}</label> </br>
-            <div>
-              <input required id="password" name="password" type="password"  placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" class="border-2 border-secondary rounded-md w-full text-gray-700 focus:border-secondary focus:ring-0">
-              <i id="passwordIcon" class="fas fa-eye password-icon" onclick="togglePasswordVisibility()"></i>
-            </div>
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-      </div>
 
-      <x-input-error :messages="$errors->get('email')" class="mt-2 mb-2" />
+      
+      <div class="flex flex-col md:flex-row md:gap-20 md:justify-center bg-white rounded-xl mt-12 px-5 py-20 md:px-10 md:py-24">
+          <div class="hidden md:flex items-center">
+              <img src="{{ asset('img/login-image.png') }}" alt="IMG">
+          </div>
 
-      <div class="mb-3 flex items-center gap-1">
-        <input id="remember_me" name="remember" type="checkbox" class="focus:border-transparent focus:ring-0 login-remind-me"> {{ __('content/login.remember-me') }} </br>
-      </div>
-    
-      <div>
-        <button type="submit" class="bg-primary rounded-md w-full font-bold text-white login-button">{{ __('content/login.login') }}</button>
+          <div class="flex items-center flex-col relative">
+              <span class="font-bold text-[#333333] text-3xl text-center w-full mb-10 md:mb-10">
+                  Beheerder login
+              </span>
+
+              <div class="relative w-full mb-3 z-10">
+                  <input class="placeholder:text-[#999999] focus:ring-primary border-none font-bold text-[#666666] block w-full bg-[#e6e6e6] h-12 rounded-2xl px-10 py-5 relative" type="text" name="email" placeholder="Email">
+                  <span class="flex items-center absolute rounded-xl bottom-0 left-0 h-full pl-5">
+                      <i class="fa fa-envelope text-[#666666] fa-sm"></i>
+                  </span>
+              </div>
+
+              <div class="relative w-full mb-3 z-10">
+                  <input class="placeholder:text-[#999999] focus:ring-primary border-none font-bold text-[#666666] block w-full bg-[#e6e6e6] h-12 rounded-2xl px-10 py-5 relative" type="password" name="password" placeholder="Password">
+                  <span class="flex items-center absolute rounded-xl bottom-0 left-0 h-full pl-5">
+                      <i class="fa fa-lock text-[#666666] fa-sm"></i>
+                  </span>
+              </div>
+
+              @if (Session::has('errors'))
+                  <div class="text-red-500 rounded">
+                      <ul>
+                          @foreach (Session::get('errors')->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
+              
+              <div class="w-full flex justify-center mt-1 md:mt-5">
+                  <button type="submit" class="w-full h-5 rounded-2xl bg-primary flex justify-center items-center px-0 py-6 font-bold">
+                      Inloggen
+                  </button>
+              </div>
+
+              <div class="text-center mt-2 font-bold">
+                  <a class="text-[#666666]" href="#">
+                      Gebruikersnaam / Wachtwoord
+                  </a>
+                  <span class="text-[#999999]">
+                      vergeten?
+                  </span>
+                  
+              </div>
+
+              <div class="text-center mt-10 font-bold">
+                  <a class="text-[#666666] flex items-center" href="#">
+                      <span>Account aanmaken</span>
+                      <i class="fas fa-long-arrow-alt-right ml-2"></i>
+                  </a>
+              </div>
+          </div>
       </div>
   </form>
-
-  <script>
-    function togglePasswordVisibility() {
-      var input = document.getElementById("password");
-      var icon = document.getElementById("passwordIcon")
-      if (input.type === "password") {
-        input.type = "text";
-        icon.classList.remove("fa-eye");
-        icon.classList.add("fa-eye-slash");
-      } else {
-        input.type = "password";
-        icon.classList.remove("fa-eye-slash");
-        icon.classList.add("fa-eye");
-      }
-    }
-    </script>
-  
 </div>
 
 @endsection
