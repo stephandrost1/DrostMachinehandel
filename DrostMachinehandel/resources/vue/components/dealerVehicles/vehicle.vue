@@ -1,23 +1,19 @@
 <script>
-import vehicleImage from './images/vehicleImage.vue';
-import nameBlock from './name/nameBlock.vue';
-import priceBlock from './prices/priceBlock.vue';
+import vehicleImage from '../global/vehicle/images/vehicleImage.vue';
+import nameBlock from '../global/vehicle/name/nameBlock.vue';
+import priceItem from '../global/vehicle/prices/priceItem.vue';
 
 export default {
     components: {
-        "dm-vehicle-name-block": nameBlock,
-        "dm-vehicle-price-block": priceBlock,
-        "dm-vehicle-image-item": vehicleImage,
+        "dm-name-block": nameBlock,
+        "dm-price": priceItem,
+        "dm-image-item": vehicleImage,
     },
 
     data() {
         return {
             vehicle: {
-                name: "",
-                stock: 1,
-                description: "",
-                pricePerDay: "",
-                pricePerWeek: "",
+                dealerPrice: 1,
             }
         }
     },
@@ -27,112 +23,39 @@ export default {
             return this.$store.getters.getSelectedVehicle;
         },
 
-        getVehicleName() {
+        getName() {
             return this.getVehicle.vehicle_name ?? "";
         },
 
-        getVehicleStock() {
-            return this.getVehicle.stock ?? 1;
+        getThumbnail() {
+            return this.getVehicle.image ?? "";
         },
 
-        getVehicleDescription() {
-            return this.getVehicle.vehicle_description ?? "";
+        getPrice() {
+            return this.getVehicle.price ?? "";
         },
 
-        getVehiclePricePerDay() {
-            return this.getVehicle.price_per_day ?? "";
+        getDealerPrice() {
+            const match = this.getVehicle.dealer_price.match(/\d+(\.\d+)?/g);
+
+            return match[0] ?? "";
         },
 
-        getVehiclePricePerWeek() {
-            return this.getVehicle.price_per_week ?? "";
+        hasThumbnail() {
+            return this.getThumbnail !== null;
         },
-
-        getVehicleSpecs() {
-            return this.getVehicle.details ?? [];
-        },
-
-        getVehicleImages() {
-            return this.getVehicle.images ?? [];
-        },
-
-        hasVehicleImages() {
-            return this.getVehicleImages.length > 0
-        },
-
-        getVehicleThumbnail() {
-            return this.getVehicleImages[0];
-        },
-
-        getVehicleSwiperImages() {
-            return this.getVehicleImages.slice(1);
-        },
-    },
-
-    mounted() {
-        this.vehicle.name = this.getVehicleName;
-        this.vehicle.description = this.getVehicleDescription;
-        this.vehicle.pricePerDay = this.getVehiclePricePerDay;
-        this.vehicle.pricePerWeek = this.getVehiclePricePerWeek;
-        this.vehicle.stock = this.getVehicleStock;
     },
 
     methods: {
-        _handleNameInput(name) {
-            this.vehicle.name = name;
-        },
-
-        _handleStockInput(stock) {
-            this.vehicle.stock = stock;
-        },
-
-        _handleDescriptionInput(description) {
-            this.vehicle.description = description;
-        },
-
-        _handlePricePerDay(newPrice) {
-            this.vehicle.pricePerDay = newPrice;
-        },
-
-        _handlePricePerWeek(newPrice) {
-            this.vehicle.pricePerWeek = newPrice;
+        _handleDealerPriceInput(newPrice) {
+            this.vehicle.dealerPrice = newPrice;
         },
 
         _handleDeleteVehicleButton() {
-            axios.delete(`/api/v1/vehicle/${this.getVehicle.id}/delete`)
-                .then((response) => {
-                    this.$toast.success(response.data.message);
-                }).catch((error) => {
-                    this.$toast.error(error.response.data.message)
-                })
-
-            this.$store.commit("REMOVE_VEHICLE_BY_ID", this.$store.getters.getSelectedVehicle.id);
-            this.$store.commit("SET_SELECTED_VEHICLE", null);
         },
 
         _handleSaveVehicleButton() {
-            console.log("update");
-
-            const vehicleData = {
-                ...this.vehicle,
-                id: this.getVehicle.id,
-                specifications: this.getVehicleSpecs,
-                activeTags: this.$store.getters.getActiveFilters,
-                tags: this.$store.getters.getFilters,
-                images: this.getVehicleImages
-            }
-
-            axios.patch(`/api/v1/vehicle/${this.getVehicle.id}/update`, vehicleData)
-                .then((response) => {
-                    this.$toast.success(response.data.message);
-                }).catch((error) => {
-                    this.$toast.error(error.response.data.message)
-                })
-
-            this.$store.commit("UPDATE_VEHICLE_NAME_BY_ID", {
-                vehicleId: this.getVehicle.id,
-                vehicleName: this.vehicle.name,
-            });
-        }
+        },
     },
 }
 </script>
@@ -142,22 +65,21 @@ export default {
         <div class="flex flex-col xl:flex-row gap-5 w-full vehicle-wrapper">
             <div class="col-left h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5">
                 <div id="vehicle-data-thumbnail" class="row-1 h-4/5 relative">
-                    <div class="no-image-available" v-if="!hasVehicleImages">
+                    <div class="no-image-available" v-if="!hasThumbnail">
                         <img src="/img/errors/no_image_placeholder.png">
                     </div>
-                    <div class="vehicle-thumb" v-if="hasVehicleImages">
-                        <dm-vehicle-image-item :image="getVehicleThumbnail"></dm-vehicle-image-item>
+                    <div class="vehicle-thumb" v-if="hasThumbnail">
+                        <dm-image-item :image="getThumbnail"></dm-image-item>
                     </div>
                 </div>
             </div>
             <div class="col-right p-5 border-2 border-primary-500 bg-primary-200 rounded-lg ">
                 <div class="content flex flex-col mb-5 gap-5 w-full">
-                    <dm-vehicle-name-block @_handleNameInput="_handleNameInput"
-                        :value="vehicle.name"></dm-vehicle-name-block>
+                    <dm-name-block :value="getName" :editable="false"></dm-name-block>
 
-                    <dm-vehicle-price-block @_handlePricePerDay="_handlePricePerDay"
-                        @_handlePricePerWeek="_handlePricePerWeek" :pricePerDay="vehicle.pricePerDay"
-                        :pricePerWeek="vehicle.pricePerWeek"></dm-vehicle-price-block>
+                    <dm-price title="Prijs particulieren" :value="getPrice" :editable="false"></dm-price>
+                    
+                    <dm-price title="Prijs handelaren" @_handleInput="_handleDealerPriceInput" :value="getDealerPrice"></dm-price>
                 </div>
                 <div class="buttons mt-6 flex flex-row justify-end gap-5 items-center">
                     <div id="delete-selected-vehicle"

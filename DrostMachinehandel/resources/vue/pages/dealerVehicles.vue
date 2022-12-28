@@ -1,7 +1,7 @@
 <script>
-import loader from '../components/loader.vue';
-import vehicleSelectorVue from '../components/verhuur/sidebar/vehicleSelector.vue';
-import noVehicleSelected from '../components/verhuur/vehicle/noVehicleSelected.vue'
+import loader from '../components/global/loader.vue';
+import noVehicleSelected from '../components/global/noVehicleSelected.vue'
+import vehicleSelector from '../components/global/vehicle/sidebar/vehicleSelector.vue';
 import dialog from '../components/Dialog/dialog.vue';
 import vehicle from '../components/dealerVehicles/vehicle.vue';
 
@@ -10,7 +10,7 @@ export default {
         'dm-no-vehicle-selected': noVehicleSelected,
         'dm-vehicle-loader': loader,
         'dm-vehicle': vehicle,
-        'dm-sidebar': vehicleSelectorVue,
+        'dm-sidebar': vehicleSelector,
         "dm-dialog": dialog
     },
 
@@ -56,7 +56,7 @@ export default {
 
 
 <template>
-    <div class="flex flex-col bg-black w-full h-full total-rental-wrapper">
+    <div class="flex flex-row bg-black w-full h-full total-rental-wrapper">
         <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"></dm-sidebar>
 
         <div class="w-full p-6">

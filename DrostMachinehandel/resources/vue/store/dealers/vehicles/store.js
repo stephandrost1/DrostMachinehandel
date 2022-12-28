@@ -36,7 +36,6 @@ export default createStore({
         },
 
         async fetchVehicleById({ commit, state }, id) {
-            console.log(state.vehicles);
             state.vehicles.forEach((vehicle) => {
                 if (vehicle.id === id) {
                     commit("SET_SELECTED_VEHICLE", vehicle);

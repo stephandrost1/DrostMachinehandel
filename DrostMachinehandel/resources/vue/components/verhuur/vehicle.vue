@@ -1,12 +1,12 @@
 <script>
-import specsBlock from "./specs/specsBlock.vue";
-import vehicleImage from './images/vehicleImage.vue';
-import dropzone from './images/dropzone.vue';
-import nameBlock from './name/nameBlock.vue';
-import descriptionBlock from './description/descriptionBlock.vue';
-import priceBlock from './prices/priceBlock.vue';
-import FiltersBlock from './filters/filtersBlock.vue';
-import StockBlock from "./stock/stockBlock.vue";
+import specsBlock from "../global/vehicle/specs/specsBlock.vue";
+import vehicleImage from '../global/vehicle/images/vehicleImage.vue';
+import dropzone from '../global/vehicle/images/dropzone.vue';
+import nameBlock from '../global/vehicle/name/nameBlock.vue';
+import descriptionBlock from '../global/vehicle/description/descriptionBlock.vue';
+import priceBlock from '../global/vehicle/prices/priceBlock.vue';
+import FiltersBlock from '../global/vehicle/filters/filtersBlock.vue';
+import StockBlock from "../global/vehicle/stock/stockBlock.vue";
 
 export default {
     components: {
@@ -122,8 +122,6 @@ export default {
         },
 
         _handleSaveVehicleButton() {
-            console.log("update");
-
             const vehicleData = {
                 ...this.vehicle,
                 id: this.getVehicle.id,

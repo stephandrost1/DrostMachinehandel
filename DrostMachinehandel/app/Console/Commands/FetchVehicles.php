@@ -98,6 +98,7 @@ class FetchVehicles extends Command
                     'vehicle_name'  => $vehicle["name"],
                     'vehicle_url'   => $vehicle["uri"],
                     'price'         => $vehicle["price"],
+                    'dealer_price'  => $vehicle["price"],
                     'image'         => $vehicle["image"]
                 ]
             );

@@ -1,6 +1,6 @@
 <script>
 
-import filter from './addPopup/filter.vue';
+import filter from './filter.vue';
 
 export default {
     components: {

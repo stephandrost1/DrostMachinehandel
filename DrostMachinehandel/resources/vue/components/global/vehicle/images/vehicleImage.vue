@@ -5,7 +5,12 @@ export default {
 
     computed: {
         getImagePath() {
-            return `${this.image.image_location}${this.image.image_name}.${this.image.image_type}`;
+            if (typeof this.image === "object") {
+                return `${this.image.image_location}${this.image.image_name}.${this.image.image_type}`;
+            } else if (!this.image.startsWith("https://")) {
+                return "https://" + this.image;
+            }
+            return this.image;
         }
     },
 
