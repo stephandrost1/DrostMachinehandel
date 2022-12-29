@@ -7,10 +7,13 @@ import { createApp } from 'vue'
 import PageVehuur from './pages/verhuur.vue';
 import PageDealerRequests from './pages/dealerRequests.vue';
 import PageReservations from './pages/reservations.vue'
+import PageDealerVehicles from './pages/dealerVehicles.vue'
 
 //External components
 import verhuurStore from "./store/verhuur/store.js"
 import dealersStore from "./store/dealers/store.js"
+import dealerVehicleStore from "./store/dealers/vehicles/store.js"
+
 import Toaster from '../../node_modules/@meforma/vue-toaster';
 
 window._ = _;
@@ -18,12 +21,15 @@ window.axios = axios;
 
 const verhuurApp = createApp(PageVehuur);
 const dealerNofiticationsApp = createApp(PageDealerRequests);
-const reservationsApp = createApp(PageReservations)
+const reservationsApp = createApp(PageReservations);
+const dealerVehiclesApp = createApp(PageDealerVehicles);
 
 verhuurApp.use(verhuurStore);
 verhuurApp.use(Toaster);
 
 dealerNofiticationsApp.use(dealersStore);
+dealerVehiclesApp.use(dealerVehicleStore);
+
 dealerNofiticationsApp.use(Toaster);
 
 if (document.querySelector("#page-dashboard-verhuur")) {
@@ -36,4 +42,8 @@ if (document.querySelector("#page-dashboard-dealer-requests")) {
 
 if (document.querySelector("#page-dashboard-reservations")) {
     reservationsApp.mount("#page-dashboard-reservations");
+}
+
+if (document.querySelector("#page-dashboard-dealer-vehicles")) {
+    dealerVehiclesApp.mount("#page-dashboard-dealer-vehicles");
 }

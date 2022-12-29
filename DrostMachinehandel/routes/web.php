@@ -8,6 +8,7 @@ use App\Http\Controllers\LeasenController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DealerController;
+use App\Http\Controllers\DealerVehicleController;
 use App\Http\Controllers\DealerVoorraadController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ReservationController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleImagesController;
 use App\Http\Controllers\VerhuurController;
+use App\Models\DealerVehicle;
 use Illuminate\Support\Facades\App;
 
 /*
@@ -60,6 +62,7 @@ Route::prefix('/dealer')->middleware(['dealerAuth', 'verified'])->group(function
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name("dashboard");
     Route::get('/verhuur', [DashboardController::class, "verhuur"])->name("dashboard-verhuur");
+    Route::get('/vehicles', [DashboardController::class, "vehicles"])->name("dashboard-vehicles");
 
     Route::post("/vehicles/images/upload", [VehicleImagesController::class, "create"]);
 
@@ -80,6 +83,7 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::patch('/vehicle/{id}/update', [VehicleController::class, "update"]);
 
     Route::get('/vehicles', [VehicleController::class, "index"]);
+    Route::get('dealer/vehicles', [DealerVehicleController::class, "index"]);
     Route::get('/reservations/{page}', [ReservationController::class, "index"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
     Route::get('/filters', [FilterController::class, "index"]);
 

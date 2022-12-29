@@ -61,7 +61,6 @@ export default {
 
             axios.patch(`/api/v1/dealer/${this.dealer.id}/deactive`)
                 .then((response) => {
-                    console.log(response);
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
                     this.$toast.error(error.response.data.message);
@@ -81,7 +80,6 @@ export default {
                 .then((response) => {
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
-                    console.log(error);
                     this.$toast.error(error.response.data.message);
                 })
         }

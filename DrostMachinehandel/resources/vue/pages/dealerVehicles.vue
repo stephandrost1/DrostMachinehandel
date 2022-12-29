@@ -1,9 +1,9 @@
 <script>
 import loader from '../components/global/loader.vue';
-import vehicleSelector from '../components/global/vehicle/sidebar/vehicleSelector.vue';
-import vehicle from '../components/verhuur/vehicle.vue';
 import noVehicleSelected from '../components/global/noVehicleSelected.vue'
+import vehicleSelector from '../components/global/vehicle/sidebar/vehicleSelector.vue';
 import dialog from '../components/Dialog/dialog.vue';
+import vehicle from '../components/dealerVehicles/vehicle.vue';
 
 export default {
     components: {
@@ -18,28 +18,21 @@ export default {
         return {
             currentAction: null,
             isFetchingData: false,
-            // deleteMachineModal: {
-            //     isOpen: false,
-            // }
         }
     },
 
     async mounted() {
-        this.$store.dispatch("fetchFilters");
+        this.$store.dispatch("fetchVehicles");
     },
 
     computed: {
         hasSelectedVehicle() {
-            return this.getSelectedVehicle;
+            return !_.isEmpty(this.$store.getters.getSelectedVehicle);
         },
 
         isFetchingVehicle() {
-            return this.isFetchingData && !this.getSelectedVehicle;
+            return this.isFetchingData && !this.$store.getters.getSelectedVehicle;
         },
-
-        getSelectedVehicle() {
-            return this.$store.getters.getSelectedVehicle;
-        }
     },
 
     methods: {
@@ -63,12 +56,11 @@ export default {
 
 
 <template>
-    <div class="flex flex-col lg:flex-row p-6 gap-5 bg-gray-100 w-full h-full">
+    <div class="flex flex-row bg-black w-full h-full total-rental-wrapper">
         <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"></dm-sidebar>
 
-        <div class="grow">
-            <div
-                class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
+        <div class="w-full p-6">
+            <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
                 <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>
                 <dm-vehicle-loader v-if="isFetchingVehicle"></dm-vehicle-loader>
                 <dm-no-vehicle-selected v-if="!hasSelectedVehicle && !isFetchingVehicle"></dm-no-vehicle-selected>

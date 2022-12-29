@@ -12,6 +12,11 @@ class DashboardController extends Controller
         return redirect()->route("dashboard-verhuur");
     }
 
+    public function vehicles()
+    {
+        return view('dashboard/vehicles');
+    }
+
     public function verhuur()
     {
         $rentVehicles = Vehicle::all();

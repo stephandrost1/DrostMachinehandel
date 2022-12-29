@@ -1,7 +1,16 @@
 <script>
 
 export default {
-    props: ["title", "value"],
+    props: {
+        value: {
+            type: String,
+            default: "",
+        },
+        editable: {
+            type: Boolean,
+            default: true,
+        }
+    },
 
     data() {
         return {
@@ -13,9 +22,19 @@ export default {
         this.content = this.value;
     },
 
+    computed: {
+        isReadOnly() {
+            return !this.editable;
+        }
+    },
+
     methods: {
         _handleInput() {
-            this.$emit("_handleInput", this.content)
+            if (this.isReadOnly) {
+                return;
+            }
+
+            this.$emit("_handleNameInput", this.content)
         }
     },
 
@@ -28,13 +47,14 @@ export default {
 
 </script>
 
+
 <template>
     <div class="row flex justify-between gap-1">
         <div
             class="input-label w-6/12 sm:w-5/12 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
-            <span class="w-full">{{ title }}:</span>
+            <span class="w-full">Naam:</span>
         </div>
-        <input placeholder="Prijs per week" v-model="content" @change="_handleInput" type="number"
+        <input placeholder="Naam" v-model="content" @change="_handleInput" :readonly="isReadOnly"
             class="w-1/2 sm:!w-7/12 h-12 rounded-lg border-2 border-primary pl-2" />
     </div>
 </template>
