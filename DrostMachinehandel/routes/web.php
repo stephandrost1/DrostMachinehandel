@@ -84,6 +84,8 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/vehicles', [VehicleController::class, "index"]);
     Route::get('dealer/vehicles', [DealerVehicleController::class, "index"]);
+    Route::get('dealer/vehicles/fetch', [DealerVehicleController::class, "fetchVehicles"]);
+    Route::patch('dealer/vehicles/{id}/update', [DealerVehicleController::class, "update"]);
     Route::get('/reservations/{page}', [ReservationController::class, "index"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
     Route::get('/filters', [FilterController::class, "index"]);
 

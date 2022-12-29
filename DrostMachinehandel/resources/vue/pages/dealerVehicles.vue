@@ -43,13 +43,17 @@ export default {
             this.isFetchingData = false;
         },
 
-        // _handleMachineDeleteReject() {
-        //     this.deleteMachineModal.isOpen = false;
-        // },
+        _handleFetchVehicles() {
+            this.$toast.success("Alle machines worden ingeladen, dit kan even duren");
 
-        // _handleMachineDeleteAccept() {
-        //     this.deleteMachineModal.isOpen = false;
-        // }
+            axios.get('/api/v1/dealer/vehicles/fetch')
+                .then((response) => {
+                    this.$toast.success(response.data.message);
+                    this.$store.dispatch("fetchVehicles");
+                }).catch((error) => {
+                    this.$toast.error(error.response.data.message)
+                })
+        }
     }
 }
 </script>
@@ -57,7 +61,7 @@ export default {
 
 <template>
     <div class="flex flex-row bg-black w-full h-full total-rental-wrapper">
-        <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"></dm-sidebar>
+        <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle" extraButtonText="Ophalen" @extraButtonCallback="_handleFetchVehicles" :hasCallback="true"></dm-sidebar>
 
         <div class="w-full p-6">
             <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">

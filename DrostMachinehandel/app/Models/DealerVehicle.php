@@ -13,6 +13,7 @@ class DealerVehicle extends Model
         "vehicle_name",
         "vehicle_url",
         "price",
+        "dealer_price",
         "image",
     ];
 }

@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
 import vehicleImage from '../global/vehicle/images/vehicleImage.vue';
 import nameBlock from '../global/vehicle/name/nameBlock.vue';
 import priceItem from '../global/vehicle/prices/priceItem.vue';
@@ -8,14 +9,6 @@ export default {
         "dm-name-block": nameBlock,
         "dm-price": priceItem,
         "dm-image-item": vehicleImage,
-    },
-
-    data() {
-        return {
-            vehicle: {
-                dealerPrice: 1,
-            }
-        }
     },
 
     computed: {
@@ -32,13 +25,11 @@ export default {
         },
 
         getPrice() {
-            return this.getVehicle.price ?? "";
+            return this.getVehicle.price ?? 0;
         },
 
         getDealerPrice() {
-            const match = this.getVehicle.dealer_price.match(/\d+(\.\d+)?/g);
-
-            return match[0] ?? "";
+            return this.getVehicle.dealer_price ?? 0;
         },
 
         hasThumbnail() {
@@ -48,13 +39,23 @@ export default {
 
     methods: {
         _handleDealerPriceInput(newPrice) {
-            this.vehicle.dealerPrice = newPrice;
+            console.log("handleNewPRice", newPrice);
+            this.$store.commit("SET_VEHICLE_DEALER_PRICE", newPrice);
         },
 
-        _handleDeleteVehicleButton() {
+        _handleCancelVehicleButton() {
+            this.$store.commit("SET_SELECTED_VEHICLE", []);
         },
 
         _handleSaveVehicleButton() {
+            this.$store.commit("UPDATE_VEHICLE_DEALER_PRICE", this.getVehicle);
+
+            axios.patch(`/api/v1/dealer/vehicles/${this.getVehicle.id}/update`, this.getVehicle)
+                .then((response) => {
+                    this.$toast.success(response.data.message);
+                }).catch((error) => {
+                    this.$toast.error(error.response.data.message)
+                })
         },
     },
 }
@@ -79,12 +80,12 @@ export default {
 
                     <dm-price title="Prijs particulieren" :value="getPrice" :editable="false"></dm-price>
                     
-                    <dm-price title="Prijs handelaren" @_handleInput="_handleDealerPriceInput" :value="getDealerPrice"></dm-price>
+                    <dm-price title="Prijs handelaren" @_handleInput="_handleDealerPriceInput" :value="getDealerPrice" type="text"></dm-price>
                 </div>
-                <div class="buttons mt-6 flex flex-row justify-end gap-5 items-center">
+                <div class="buttons mt-6 flex flex-row justify-end gap-5 items-center"> 
                     <div id="delete-selected-vehicle"
                         class="bg-gradient-to-b w-1/8 from-red-500 flex items-start justify-between to-red-200 border-b-4 border-red-500 rounded-lg shadow-xl p-3">
-                        <div id="delete-rent-vehicle-button" @click="_handleDeleteVehicleButton"
+                        <div id="delete-rent-vehicle-button" @click="_handleCancelVehicleButton"
                             class="flex cursor-pointer rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200">
                             <div class="text-red-500 font-bold">Annuleren</div>
                         </div>

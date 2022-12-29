@@ -91,14 +91,20 @@ class FetchVehicles extends Command
                 [
                     'vehicle_name'  => $vehicle["name"],
                     'vehicle_url'   => $vehicle["uri"],
-                    'price'         => $vehicle["price"],
+                    'price'         => array_reduce(array_map('intval', preg_split('/\D+/', $vehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
+                        return str($carry) . str($item);
+                    }),
                     'image'         => $vehicle["image"]
                 ],
                 [
                     'vehicle_name'  => $vehicle["name"],
                     'vehicle_url'   => $vehicle["uri"],
-                    'price'         => $vehicle["price"],
-                    'dealer_price'  => $vehicle["price"],
+                    'price'         => array_reduce(array_map('intval', preg_split('/\D+/', $vehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
+                        return str($carry) . str($item);
+                    }),
+                    'dealer_price'  => array_reduce(array_map('intval', preg_split('/\D+/', $vehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
+                        return str($carry) . str($item);
+                    }),
                     'image'         => $vehicle["image"]
                 ]
             );

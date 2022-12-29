@@ -31,6 +31,7 @@ dealerNofiticationsApp.use(dealersStore);
 dealerVehiclesApp.use(dealerVehicleStore);
 
 dealerNofiticationsApp.use(Toaster);
+dealerVehiclesApp.use(Toaster);
 
 if (document.querySelector("#page-dashboard-verhuur")) {
     verhuurApp.mount("#page-dashboard-verhuur");

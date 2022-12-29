@@ -3,6 +3,17 @@
 import vehicleItemVue from './vehicleItem.vue'
 
 export default {
+    props: {
+        extraButtonText: {
+            type: String,
+            "default": "Toevoegen",
+        },
+        hasCallback: {
+            type: Boolean,
+            "default": false
+        },
+    },
+
     components: {
         "dm-sidebar-vehicle-item": vehicleItemVue
     },
@@ -21,6 +32,13 @@ export default {
         _handleSelectVehicle(vehicle) {
             this.$emit("_handleSelectVehicle", vehicle.id);
         },
+
+        _handleExtraButton() {
+            if (this.hasCallback) {
+                console.log("emit");
+                this.$emit("extraButtonCallback");
+            }
+        }
     }
 }
 </script>
@@ -39,10 +57,10 @@ export default {
                     </div>
                 </div>
             </div>
-            <div class="rent-vehicle-options-wrapper bg-primary-200 border-2 border-primary-500 rounded-lg p-5">
+            <div v-if="hasCallback" class="rent-vehicle-options-wrapper bg-primary-200 border-2 border-primary-500 rounded-lg p-5">
                 <div class="rent-vehicle-options flex flex-col gap-5">
-                    <div id="create-rent-vehicle-button" class="flex rounded-lg justify-center shadow-xl py-2 px-5 border-2 border-blue-500 bg-blue-200 text-blue-500 hover:text-white hover:bg-blue-500 duration-200 hover:border-blue-200">
-                        <button class="font-bold">Toevoegen</button>
+                    <div @click="_handleExtraButton" class="flex rounded-lg justify-center shadow-xl py-2 px-5 border-2 border-blue-500 bg-blue-200 text-blue-500 hover:text-white hover:bg-blue-500 duration-200 hover:border-blue-200">
+                        <button class="font-bold">{{ extraButtonText }}</button>
                     </div>
                 </div>
             </div>

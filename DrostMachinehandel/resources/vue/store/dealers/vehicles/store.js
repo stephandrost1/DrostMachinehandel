@@ -24,6 +24,23 @@ export default createStore({
 
         SET_SELECTED_VEHICLE(state, vehicle) {
             state.selectedVehicle = vehicle;
+        },
+
+        SET_VEHICLE_DEALER_PRICE(state, dealer_price) {
+            state.selectedVehicle = {
+                ...state.selectedVehicle,
+                dealer_price
+            };
+        },
+
+        UPDATE_VEHICLE_DEALER_PRICE(state, vehicle) {
+            state.vehicles = state.vehicles.map(function (v) {
+                if (v.id === vehicle.id) {
+                    return vehicle;
+                }
+
+                return v;
+            })
         }
     },
 

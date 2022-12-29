@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DealerVehicle;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 
 class DealerVehicleController extends Controller
@@ -29,49 +30,6 @@ class DealerVehicleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -80,17 +38,40 @@ class DealerVehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $dealerVehicle = DealerVehicle::find($id);
+
+            Log::emergency($dealerVehicle);
+
+            $dealerVehicle->fill([
+                "dealer_price" => $request->dealer_price,
+            ])->save();
+
+            return response()->json(["message" => "Machine succesvol opgeslagen"], 200);
+        } catch (Exception $e) {
+            Log::emergency("DealerVehicleController", [
+                "action" => "update",
+                "vehicleId" => $id,
+                "dealerPrice" => $request->dealer_price,
+            ]);
+
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function fetchVehicles()
     {
-        //
+        try {
+            Artisan::call("fetch:vehicles");
+
+            return response()->json(["message" => "Machines succesvol ingeladen, machines worden nu opgehaald!"], 200);
+        } catch (Exception $e) {
+            Log::alert("DealerVehicleController", [
+                "action" => "fetchVehicles",
+                "error" => $e->getMessage(),
+            ]);
+
+            return response()->json(["message" => "Er is iets fout gegaan, neem contact met de administrator"], 200);
+        }
     }
 }

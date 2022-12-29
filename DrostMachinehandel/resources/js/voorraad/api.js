@@ -136,6 +136,6 @@ const _handlePriceFilterListener = () => {
     })
 }
 
-if (canvas && document.body.classList.contains("page-voorraad")) {
+if (canvas && document.body.classList.contains("page-voorraad") || document.body.classList.contains("page-dealer-voorraad")) {
     _handleCanvasListener(canvas);
 }
