@@ -22,8 +22,9 @@ export default {
     <div class="image-swiper-item relative vue-vehicle-image">
         <img :src="getImagePath" alt="Swiper item" class="image aspect-square object-cover w-full h-full">
         <div class="image-actions">
-            <div class="action" @click="_handleRemoveImage" id="delete">
-                <i class="fas fa-trash text-lg"></i>
+            <div @click="_handleRemoveImage" id="delete"
+                class="action flex items-center justify-center bg-white shadow-md p-2 rounded-full cursor-pointer">
+                <i class="fas fa-trash text-lg text-red-600"></i>
             </div>
         </div>
     </div>

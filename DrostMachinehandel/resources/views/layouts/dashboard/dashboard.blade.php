@@ -23,7 +23,7 @@
         @vite(['resources/scss/dashboard.scss', 'resources/vue/dashboard.js'])
     </head>
 
-    <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12 page-{{ Route::currentRouteName() }}">
+    <body class="bg-gray-100 font-sans leading-normal tracking-normal page-{{ Route::currentRouteName() }}">
         {{-- Navbar --}}
         @include('layouts/dashboard.navbar')
 

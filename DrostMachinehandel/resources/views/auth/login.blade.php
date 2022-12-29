@@ -4,7 +4,7 @@
 <hr class="w-full h-2 bg-primary border-none">
 
 <div class="content-wrapper flex justify-center">
-  <form action="{{ route("dealer-login-action") }}" method="POST">
+  <form action="{{ route("login") }}" method="POST">
       @csrf
 
       

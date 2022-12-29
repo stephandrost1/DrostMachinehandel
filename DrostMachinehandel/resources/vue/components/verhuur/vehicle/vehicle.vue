@@ -151,9 +151,10 @@ export default {
 
 <template>
     <div id="selected-vehicle-data" class="flex gap-5 w-full vue-vehicle">
-        <div class="flex flex-col xl:flex-row gap-5 w-full vehicle-wrapper">
+        <div
+            class="flex flex-col min-[680px]:flex-row md:flex-col min-[880px]:flex-row lg:flex-col min-[1150px]:flex-row gap-5 w-full vehicle-wrapper">
             <div
-                class="col-left h-fit images-wrapper p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5">
+                class="col-left max-w-[250px] min-[1150px]:max-w-[290px] h-fit w-full p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5">
                 <div id="vehicle-data-thumbnail" class="row-1 h-4/5 relative">
                     <div class="no-image-available" v-if="!hasVehicleImages">
                         <img src="/img/errors/no_image_placeholder.png">
@@ -167,14 +168,14 @@ export default {
                         <dm-dropzone></dm-dropzone>
                     </div>
                     <div class="vehicle-swiper w-auto user-select-none">
-                        <div class="vehicle-swiper-wrapper gap-5 h-full grid grid-cols-4">
+                        <div class="vehicle-swiper-wrapper gap-2 h-full grid grid-cols-2 min-[1150px]:grid-cols-2">
                             <dm-vehicle-image-item v-for="image in getVehicleSwiperImages" :key="image.id"
                                 :image="image"></dm-vehicle-image-item>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-right p-5 border-2 border-primary-500 bg-primary-200 rounded-lg ">
+            <div class="col-right p-5 grow border-2 border-primary-500 bg-primary-200 rounded-lg ">
                 <div class="content flex flex-col mb-5 gap-5 w-full">
                     <dm-vehicle-name-block @_handleNameInput="_handleNameInput"
                         :value="vehicle.name"></dm-vehicle-name-block>
@@ -193,16 +194,14 @@ export default {
 
                     <dm-vehicle-filters-block></dm-vehicle-filters-block>
                 </div>
-                <div class="buttons mt-6 flex flex-col md:flex-row md:items-end md:justify-end gap-5 items-center">
-                    <div id="delete-selected-vehicle"
-                        class="bg-gradient-to-b w-1/8 from-red-500 flex items-start justify-between to-red-200 border-b-4 border-red-500 rounded-lg shadow-xl p-3">
+                <div class="buttons mt-6 flex items-end justify-end gap-2 md:gap-5 ">
+                    <div id="delete-selected-vehicle">
                         <div id="delete-rent-vehicle-button" @click="_handleDeleteVehicleButton"
                             class="flex cursor-pointer rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200">
                             <div class="text-red-500 font-bold">Verwijder</div>
                         </div>
                     </div>
-                    <div id="save-selected-vehicle"
-                        class="bg-gradient-to-b w-1/8 from-green-500 flex items-start justify-between to-green-200 border-b-4 border-green-500 rounded-lg shadow-xl p-3">
+                    <div id="save-selected-vehicle">
                         <div id="select-rent-vehicle-button" @click="_handleSaveVehicleButton"
                             class="flex rounded-lg cursor-pointer shadow-xl py-2 px-5 border-2 border-green-500 bg-green-200">
                             <div class="text-green-500 font-bold">Opslaan</div>

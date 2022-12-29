@@ -16,7 +16,7 @@ export default {
     methods: {
         _handleInput(event) {
             this.$emit("_handleStockInput", event.target.value);
-        } 
+        }
     },
 
     watch: {
@@ -29,10 +29,12 @@ export default {
 </script>
 
 <template>
-        <div class="row flex justify-between gap-5">
-            <div class="input-label w-5/12 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
-                <span class="w-full">Aantal beschikbaar</span>
-            </div>
-            <input placeholder="Bijv.. 10" v-model="content" @change="_handleInput" type="number" class="w-1/2 h-12 rounded-lg border-2 border-primary pl-2" />
+    <div class="row flex justify-between gap-1">
+        <div
+            class="input-label w-6/12 sm:w-5/12 h-12 bg-white border-2 border-primary px-4 py-1 flex items-center justify-center text-primary rounded-lg">
+            <span class="w-full">Aantal beschikbaar:</span>
         </div>
+        <input placeholder="Bijv.. 10" v-model="content" @change="_handleInput" type="number"
+            class="w-1/2 sm:!w-7/12 h-12 rounded-lg border-2 border-primary pl-2" />
+    </div>
 </template>
