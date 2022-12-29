@@ -34,7 +34,7 @@ export default {
 
     methods: {
         fetchRequests(searchQuery = null) {
-            axios.get(`/api/v1/reservations/${this.currentPage}${ searchQuery !== null ? `?s=${searchQuery}` : '' }`)
+            axios.get(`/api/v1/reservations/${this.currentPage}${searchQuery !== null ? `?s=${searchQuery}` : ''}`)
                 .then((response) => {
                     this.reservations = response.data.reservations;
                     this.pages = response.data.pages;
@@ -89,14 +89,15 @@ export default {
             </div>
         </div>
         <div class="table-body">
-            <dm-reservation v-for="reservation in reservations" :key="reservation.id" :reservation="reservation"></dm-reservation>
+            <dm-reservation v-for="reservation in reservations" :key="reservation.id"
+                :reservation="reservation"></dm-reservation>
         </div>
         <div class="table-footer">
             <div class="pager">
                 <div @click="_handlePagerClick(1)" v-if="(currentPage !== 1)" class="pager-item">
                     <i class="pager-counter fas fa-angle-double-left"></i>
                 </div>
-                <div class="pager-item" :class="[this.currentPage == page ? 'active' : 'inactive' ]" :key="index"
+                <div class="pager-item" :class="[this.currentPage == page ? 'active' : 'inactive']" :key="index"
                     v-for="page, index in getPager">
                     <div class="pager-counter" @click="_handlePagerClick(page)">{{ page }}</div>
                 </div>

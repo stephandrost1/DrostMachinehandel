@@ -56,11 +56,12 @@ export default {
 
 
 <template>
-    <div class="flex flex-row bg-black w-full h-full total-rental-wrapper">
+    <div class="flex flex-row bg-gray-100 w-full h-full total-rental-wrapper">
         <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"></dm-sidebar>
 
         <div class="w-full p-6">
-            <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
+            <div
+                class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
                 <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>
                 <dm-vehicle-loader v-if="isFetchingVehicle"></dm-vehicle-loader>
                 <dm-no-vehicle-selected v-if="!hasSelectedVehicle && !isFetchingVehicle"></dm-no-vehicle-selected>
