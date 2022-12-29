@@ -17,6 +17,10 @@ export default {
         editable: {
             type: null,
             default: true,
+        },
+        type: {
+            type: String,
+            default: "number",
         }
     },
 
@@ -33,7 +37,7 @@ export default {
 
         getPlaceholder() {
             if (this.isReadOnly) {
-                return this.content;
+                return this.value;
             }
 
             return this.placeholder;
@@ -50,25 +54,16 @@ export default {
                 return;
             }
 
-            this.$emit("_handleInput", this.content)
+            this.$emit("_handleInput", this.formatNumber(this.content))
         },
 
         formatNumber(number) {
-            // Use a regular expression to remove all but the first decimal point from the string
-            let strippedStr = number.replace(/\./g, "$&,").replace(/(^,|,$)/g, "");
-
-            // Use a regular expression to split the string into groups of three digits
-            let groups = strippedStr.match(/\d{1,3}/g);
-
-            // Join the groups with a decimal point
-            let formatted = groups.join(".");
-
-            return formatted;
+            return number.replace(/[^0-9]/g, '');
         }
     },
 
     watch: {
-        content: function (newValue) {
+        value: function (newValue) {
             this.content = this.formatNumber(newValue);
         }
     }

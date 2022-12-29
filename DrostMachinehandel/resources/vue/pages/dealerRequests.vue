@@ -121,7 +121,8 @@ th:not(:last-child) {
                     <div class="flex gap-2 justify-end">
                         <div @click="_handlePagerClick(1)" v-if="(page !== 1)"
                             class="flex font-bold justify-center items-center border-2 border-primary w-9 h-9 rounded-xl cursor-pointer">
-                            <i class="fas fa-angle-double-left"></i>
+                            <i class="fas fa-angle-double-left"
+                                :class="[this.page == page ? 'text-primary' : 'text-white']"></i>
                         </div>
                         <div class="flex font-bold justify-center items-center border-2 border-primary w-9 h-9 rounded-xl cursor-pointer"
                             :class="[this.page == page ? 'bg-primary' : 'bg-transparent']" :key="index"
