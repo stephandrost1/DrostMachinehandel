@@ -4,18 +4,10 @@ import axios from "axios";
 import { createApp } from 'vue'
 
 //Base page
-<<<<<<< HEAD
 import PageVehuur from './pages/dashboard/verhuur.vue';
 import PageDealerRequests from './pages/dashboard/dealerRequests.vue';
 import PageReservations from './pages/dashboard/reservations.vue'
 import PageDealerVehicles from './pages/dashboard/dealerVehicles.vue'
-=======
-import PageVehuur from './pages/verhuur.vue';
-import PageDealerRequests from './pages/dealerRequests.vue';
-import PageReservations from './pages/reservations.vue'
-import PageDealerVehicles from './pages/dealerVehicles.vue'
-import PageAccount from './pages/account.vue'
->>>>>>> main
 
 //External components
 import verhuurStore from "./store/verhuur/store.js"

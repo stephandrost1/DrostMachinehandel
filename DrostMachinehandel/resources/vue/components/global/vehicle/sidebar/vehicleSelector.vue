@@ -61,18 +61,10 @@ export default {
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
             <div v-if="hasCallback" class="rent-vehicle-options-wrapper bg-primary-200 border-2 border-primary-500 rounded-lg p-5">
                 <div class="rent-vehicle-options flex flex-col gap-5">
                     <div @click="_handleExtraButton" class="flex rounded-lg justify-center shadow-xl py-2 px-5 border-2 border-blue-500 bg-blue-200 text-blue-500 hover:text-white hover:bg-blue-500 duration-200 hover:border-blue-200">
                         <button class="font-bold">{{ extraButtonText }}</button>
-=======
-            <div class="rent-vehicle-options-wrapper rounded-lg">
-                <div class="rent-vehicle-options flex flex-col gap-5">
-                    <div id="create-rent-vehicle-button"
-                        class="flex rounded-lg justify-center shadow-xl py-2 px-5 border-2 border-blue-500 bg-blue-200 text-blue-500 hover:text-white hover:bg-blue-500 duration-200 hover:border-blue-200">
-                        <button class="font-bold">Toevoegen</button>
->>>>>>> 2e803295021269a16468e87997c4b660089cb990
                     </div>
                 </div>
             </div>

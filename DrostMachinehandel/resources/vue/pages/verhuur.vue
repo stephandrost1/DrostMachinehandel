@@ -45,29 +45,18 @@ export default {
                 }) 
         },
 
-<<<<<<< HEAD
         fetchFilters() {
             axios.get("/api/v1/filters")
                 .then(response => {
                     this.filters = response.data.filters;
                 })
         }
-=======
-        // _handleMachineDeleteReject() {
-        //     this.deleteMachineModal.isOpen = false;
-        // },
-
-        // _handleMachineDeleteAccept() {
-        //     this.deleteMachineModal.isOpen = false;
-        // }
->>>>>>> main
     }
 }
 
 </script>
 
 <template>
-<<<<<<< HEAD
         <div class="verhuur-content">
             <div class="total-filter-wrapper">
                 <div id="result_amount_mobile" class="result-amount result-amount-mobile">2 Resultaten gevonden</div>
@@ -91,17 +80,6 @@ export default {
                 <div class="machines-wrapper">
                     <dm-vehicle v-for="vehicle in getVehicles" :key="vehicle.id" :vehicle="vehicle"></dm-vehicle>
                 </div>
-=======
-    <div class="flex flex-col lg:flex-row p-6 gap-5 bg-gray-100 w-full h-full">
-        <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"></dm-sidebar>
-
-        <div class="grow">
-            <div
-                class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>
-                <dm-vehicle-loader v-if="isFetchingVehicle"></dm-vehicle-loader>
-                <dm-no-vehicle-selected v-if="!hasSelectedVehicle && !isFetchingVehicle"></dm-no-vehicle-selected>
->>>>>>> main
             </div>
         </div>
 </template>
