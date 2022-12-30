@@ -39,26 +39,4 @@
             }
         }
     }
-
-    .total-rental-wrapper {
-        @media screen and (min-width: 1200px) {
-            flex-direction: row;
-        }
-    }
-
-    .select-machine-wrapper {
-        @media screen and (min-width: 1200px) {
-            width: 40%;
-        }
-
-        @media screen and (min-width: 1500px) {
-            width: 40%;
-        }
-    }
-
-    .images-wrapper {
-        @media screen and (min-width: 1500px) {
-            width: 50%;
-        }
-    }
 }

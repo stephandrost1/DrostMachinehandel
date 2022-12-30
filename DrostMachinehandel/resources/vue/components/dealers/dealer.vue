@@ -88,60 +88,63 @@ export default {
 
 </script>
 <template>
-    <tr class="border-b-2 border-primary rounded-md p-5">
-        <td class="py-2 px-1 w-1/12">
+    <tr class="flex flex-col flex-no wrap min-[1225px]:table-row mb-2 min-[1225px]:mb-0">
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
             <p v-if="!edit">{{ getDealerName }}</p>
-            <div v-if="edit" class="edit-name editable">
-                <input v-model="nDealer.firstname" />
-                <input v-model="nDealer.lastname" />
+            <div v-if="edit" class="edit-name editable flex gap-4">
+                <input class="w-1/2 border-2 border-primary rounded-lg py-2 px-1" v-model="nDealer.firstname" />
+                <input class="w-1/2" v-model="nDealer.lastname" />
             </div>
         </td>
-        <td class="py-2 px-1 w-1/12">
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
             <p v-if="!edit">{{ dealer.email }}</p>
-            <div v-if="edit" class="edit-email editable">
+            <div v-if="edit" class="edit-email editable ">
                 <input v-model="nDealer.email" />
             </div>
         </td>
-        <td class="py-2 px-1 w-1/12">
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
             <p v-if="!edit">{{ dealer.phonenumber }}</p>
-            <div v-if="edit" class="edit-phonenumber editable">
+            <div v-if="edit" class="edit-phonenumber">
                 <input v-model="nDealer.phonenumber" />
             </div>
         </td>
-        <td class="py-2 px-1 w-1/12">
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
             <p v-if="!edit">{{ dealer.companyname }}</p>
             <div v-if="edit" class="edit-companyname editable">
                 <input v-model="nDealer.companyname" />
             </div>
         </td>
-        <td class="py-2 px-1 w-1/12">
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
             <p v-if="!edit">{{ dealer.kvknumber }}</p>
             <div v-if="edit" class="edit-kvknumber editable">
                 <input v-model="nDealer.kvknumber" />
             </div>
         </td>
-        <td class="py-2 px-1 w-1/12" :class="[dealerIsActive ? 'active' : 'inactive']">
-            <p class="w-min rounded-md p-1 font-bold"
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate"
+            :class="[dealerIsActive ? 'active' : 'inactive']">
+            <p class="w-min rounded-md p-[2px] min-[1225px]:p-2 font-bold"
                 :class="[dealerIsActive ? 'text-green-500 bg-green-200' : 'text-red-500 bg-red-200']">{{
                         dealerIsActive ?
                             "Actief" : "Inactief"
                 }}</p>
         </td>
-        <td class="py-2 px-1 w-1/12 mt-1 flex gap-3">
-            <div @click="_handleDelete" class="delete text-red-500">
-                <i class="fas fa-trash"></i>
-            </div>
-            <div @click="_handleEnable" v-if="!dealerIsActive" class="enable text-green-500">
-                <i class="fas fa-check"></i>
-            </div>
-            <div @click="_handleDisable" v-if="dealerIsActive" class="disable text-orange-500">
-                <i class="fas fa-ban"></i>
-            </div>
-            <div @click="_handleEdit" v-if="!edit" class="edit text-blue-500">
-                <i class="fas fa-edit"></i>
-            </div>
-            <div @click="_handleSave" v-if="edit" class="edit text-blue-500">
-                <i class="fas fa-save"></i>
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
+            <div class="h-full flex items-center gap-3">
+                <div @click="_handleDelete" class="delete text-red-500 cursor-pointer">
+                    <i class="fas fa-trash"></i>
+                </div>
+                <div @click="_handleEnable" v-if="!dealerIsActive" class="enable text-green-500 cursor-pointer">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div @click="_handleDisable" v-if="dealerIsActive" class="disable text-orange-500 cursor-pointer">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <div @click="_handleEdit" v-if="!edit" class="edit text-blue-500 cursor-pointer">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div @click="_handleSave" v-if="edit" class="edit text-blue-500 cursor-pointer">
+                    <i class="fas fa-save"></i>
+                </div>
             </div>
         </td>
     </tr>

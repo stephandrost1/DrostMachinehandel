@@ -44,7 +44,7 @@ export default {
         <div class="value">
             <input class="filter-value" v-model="filterData.name" />
             <div class="removeButton" @click="_handleRemoveFilter">
-                <i class="fas fa-trash text-lg remove-icon"></i>
+                <i class="fas fa-trash text-lg remove-icon cursor-pointer"></i>
             </div>
         </div>
     </div>
