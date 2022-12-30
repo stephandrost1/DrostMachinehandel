@@ -37,11 +37,13 @@ export default {
 <template>
     <div data-optionid="1" class="option no-toggle flex gap-2 items-center justify-between">
         <div class="flex gap-2 items-center">
-            <input type="checkbox" @click="_handleFilterOptionClick" :checked="filterIsChecked" id="option name" class="no-toggle input-tag" />
+            <input type="checkbox" @click="_handleFilterOptionClick" :checked="filterIsChecked" id="option name"
+                class="no-toggle input-tag border-2 border-primary text-primary focus:ring-0" />
             <label for="option id" class="no-toggle option-label" id="option id">{{ filter.name }}</label>
         </div>
-        <div class="flex trash" @click="_handleTrashClick">
-            <i class="fas fa-trash text-lg"></i>
+        <div class="flex trash w-min items-center justify-end p-2 bg-white rounded-full shadow-md cursor-pointer"
+            @click="_handleTrashClick">
+            <i class="fas fa-trash text-lg text-red-600"></i>
         </div>
     </div>
 </template>

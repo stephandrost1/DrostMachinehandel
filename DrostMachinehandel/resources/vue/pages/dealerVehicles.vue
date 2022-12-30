@@ -64,7 +64,8 @@ export default {
         <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle" extraButtonText="Ophalen" @extraButtonCallback="_handleFetchVehicles" :hasCallback="true"></dm-sidebar>
 
         <div class="w-full p-6">
-            <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
+            <div
+                class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
                 <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>
                 <dm-vehicle-loader v-if="isFetchingVehicle"></dm-vehicle-loader>
                 <dm-no-vehicle-selected v-if="!hasSelectedVehicle && !isFetchingVehicle"></dm-no-vehicle-selected>

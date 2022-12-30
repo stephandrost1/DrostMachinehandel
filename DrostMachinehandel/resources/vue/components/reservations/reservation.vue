@@ -11,7 +11,7 @@ export default {
     computed: {
         getReservationName() {
             return `${this.reservation.dealer.firstname} ${this.reservation.dealer.lastname}`;
-        }, 
+        },
 
         getReservationEmail() {
             return this.reservation.dealer.email;
@@ -25,7 +25,7 @@ export default {
             return window.location.origin + '/dealer/voorraad/vehicle/' + this.reservation.vehicle.id + '/' + this.reservation.vehicle.vehicle_name;
         },
 
-        getReservationVehicleName() { 
+        getReservationVehicleName() {
             return this.reservation.vehicle.vehicle_name;
         },
 
@@ -38,38 +38,40 @@ export default {
 </script>
 
 <template>
-    <div class="row-item select-none">
-        <div class="item name">
+    <tr class="flex flex-col flex-no wrap min-[1225px]:table-row mb-2 min-[1225px]:mb-0">
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
             <p>{{ getReservationName }}</p>
-        </div>
-        <div class="item email">
+        </td>
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
             <p>{{ getReservationEmail }}</p>
-        </div>
-        <div class="item distance">
+        </td>
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
             <p>{{ getReservationDistance }}</p>
-        </div>
-        <div class="item vehicle">
+        </td>
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
             <a :href="getReservationVehicleLink">{{ getReservationVehicleName }}</a>
-        </div>
-        <div class="item time">
+        </td>
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
             <p>{{ getReservationDuration }}</p>
-        </div>
-        <div class="item actions">
-            <div @click="_handleDelete" class="delete text-red-500">
-                <i class="fas fa-trash"></i>
+        </td>
+        <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
+            <div class="h-full flex items-center gap-3">
+                <div @click="_handleDelete" class="delete text-red-500 cursor-pointer">
+                    <i class="fas fa-trash"></i>
+                </div>
+                <div @click="_handleEnable" v-if="!dealerIsActive" class="enable text-green-500 cursor-pointer">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div @click="_handleDisable" v-if="dealerIsActive" class="disable text-orange-500 cursor-pointer">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <div @click="_handleEdit" v-if="!edit" class="edit text-blue-500 cursor-pointer">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div @click="_handleSave" v-if="edit" class="edit text-blue-500 cursor-pointer">
+                    <i class="fas fa-save"></i>
+                </div>
             </div>
-            <div @click="_handleEnable" v-if="!dealerIsActive" class="enable text-green-500">
-                <i class="fas fa-check"></i>
-            </div>
-            <div @click="_handleDisable" v-if="dealerIsActive" class="disable text-orange-500">
-                <i class="fas fa-ban"></i>
-            </div>
-            <div @click="_handleEdit" class="edit text-blue-500">
-                <i class="fas fa-edit"></i>
-            </div>
-            <div @click="_handleSave"  class="edit text-blue-500">
-                <i class="fas fa-save"></i>
-            </div>
-        </div>
-    </div>
+        </td>
+    </tr>
 </template>

@@ -70,9 +70,10 @@ export default {
             <label for="dropzone-file" class="flex flex-col justify-center items-center w-full h-full cursor-pointer">
                 <div class="flex flex-col justify-center items-center h-full px-2 py-2">
                     <i class="fas fa-cloud-upload-alt text-primary"></i>
-                    <!-- <p class="mb-2 text-sm text-center text-primary"><span class="font-semibold">Click to upload</span> or
-                        drag and
-                        drop</p> -->
+                    <!-- <p class="hidden sm:block mb-2 text-sm text-center text-primary"><span class="font-semibold">Klik om
+                            foto's te
+                            uploaden</span>
+                    </p> -->
                     <!-- <p class="text-xs text-center text-primary">SVG, PNG, JPG or GIF</p> -->
                     <!-- <p class="text-xs text-center text-primary whitespace-nowrap">(MAX. 800x400px)</p> -->
                 </div>
