@@ -99,8 +99,15 @@
             <a href={{ route("verhuur") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('verhuur')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.rent') }}</div></a>
             <a href={{ route("leasen") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.lease') }}</div></a>
             <a href={{ route("contact") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.contact') }}</div></a>
-            <a href={{ route("dashboard") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('dashboard')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.login') }}</div></a>
-        </div>
+            @if (Auth::check())
+            <form action="{{ route("logout") }}" method="POST">
+              @csrf
+              <button type="submit" class="text-lg xl:text-2xl font-bold">{{ __('content/navbar.logout') }}</button>
+            </form>
+            @else
+              <a href={{ route("dashboard") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('dashboard')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.login') }}</div></a>
+            @endif
+          </div>
       </div>
     </nav>
 
