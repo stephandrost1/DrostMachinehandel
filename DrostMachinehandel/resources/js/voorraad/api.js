@@ -9,7 +9,11 @@ const _handleCanvasListener = (targetNode) => {
     const callback = (mutationsList, observer) => {
         for (let mutation of mutationsList) {
             if (mutation.type === 'childList' && (mutation.target.id === "svm-canvas" || mutation.target.id === "resultsTable") && !initted) {
-                initNewContent(targetNode);
+                if (document.body.classList.contains("page-voorraad")) {
+                    initNewContent(targetNode, "/voorraad/machine");
+                } else if (document.body.classList.contains("page-dealer-voorraad")) {
+                    initNewContent(targetNode, "/dealer/voorraad/machine");
+                }
                 _handleFiltersListener();
                 _handlePagerListener();
                 _handleSortFiltersListener();
@@ -24,7 +28,7 @@ const _handleCanvasListener = (targetNode) => {
     observer.observe(targetNode, config);
 }
 
-const initNewContent = (canvas) => {
+const initNewContent = (canvas, detailPage) => {
     const stockResults = canvas.querySelector('div#resultsTable');
 
     if (!stockResults) {
@@ -72,7 +76,7 @@ const initNewContent = (canvas) => {
     stockResults.replaceChildren([]);
 
     _.forEach(vehicles, (vehicle) => {
-        stockResults.appendChild(generateVehicleCard(vehicle));
+        stockResults.appendChild(generateVehicleCard(vehicle, detailPage));
     });
 }
 

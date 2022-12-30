@@ -18,7 +18,6 @@ class DealerController extends Controller
 {
     public function index()
     {
-        return view('dealerVoorraad');
     }
 
     public function create(CreateDealerRequest $request)

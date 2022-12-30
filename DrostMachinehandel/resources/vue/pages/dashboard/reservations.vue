@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios'
-import reservation from '../components/reservations/reservation.vue'
+import reservation from '../../components/reservations/reservation.vue'
 import _ from "lodash";
 
 export default {

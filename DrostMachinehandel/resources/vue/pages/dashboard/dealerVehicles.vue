@@ -1,9 +1,9 @@
 <script>
-import loader from '../components/global/loader.vue';
-import noVehicleSelected from '../components/global/noVehicleSelected.vue'
-import vehicleSelector from '../components/global/vehicle/sidebar/vehicleSelector.vue';
-import dialog from '../components/Dialog/dialog.vue';
-import vehicle from '../components/dealerVehicles/vehicle.vue';
+import loader from '../../components/global/loader.vue';
+import noVehicleSelected from '../../components/global/noVehicleSelected.vue'
+import vehicleSelector from '../../components/global/vehicle/sidebar/vehicleSelector.vue';
+import dialog from '../../components/Dialog/dialog.vue';
+import vehicle from '../../components/dealerVehicles/vehicle.vue';
 
 export default {
     components: {

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import _ from 'lodash';
 
 const canvas = document.querySelector('#svm-canvas');
@@ -40,16 +41,16 @@ const _addContactButtons = () => {
 
     const buttonsText = {
         "buy": {
-            "en": "Buy",
-            "fr": "Acheter",
-            "de": "Kaufen",
-            "nl": "Kopen",
+            "en": "Contact",
+            "fr": "Contacter",
+            "de": "Kontakt",
+            "nl": "Contact",
         },
         "rent": {
-            "en": "Rent",
-            "fr": "Location",
-            "de": "Miete",
-            "nl": "Huren",
+            "en": "Reserve",
+            "fr": "Réserver",
+            "de": "Reservieren",
+            "nl": "Reserveren",
         }
     }
 
@@ -137,6 +138,26 @@ const _handleDetailPageFormatter = () => {
     _reformatSpecs();
     _addContactButtons();
     _addShareButtons();
+    _handlePriceOverwritter();
+}
+
+const fetchDealerPrice = async () => {
+    const vehicleUrl = window.location.search;
+
+    return await axios.get("/api/v1/dealer/vehicle/" + vehicleUrl)
+        .then((response) => {
+            return response.data.vehicle;
+        })
+}
+
+const _handlePriceOverwritter = async () => {
+    let price = canvas.querySelector("#hcontact-block #hprice .price .price_with_currency");
+    const dealerVehicle = await fetchDealerPrice();
+
+    price.innerHTML = new Intl.NumberFormat('nl-NL', {
+        style: 'currency',
+        currency: 'EUR',
+    }).format(dealerVehicle.dealer_price);
 }
 
 const _handleCanvasListener = (targetNode) => {
@@ -156,6 +177,6 @@ const _handleCanvasListener = (targetNode) => {
     observer.observe(targetNode, config);
 }
 
-if (canvas && document.body.classList.contains("page-machineDetail")) {
+if (canvas && document.body.classList.contains("page-dealer-voorraad-detail")) {
     _handleCanvasListener(canvas);
 }

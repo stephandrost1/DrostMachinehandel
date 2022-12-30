@@ -48,7 +48,7 @@ Route::middleware(['locale'])->group((function () {
 
     Route::get('/verhuur/dealers', [VerhuurController::class, 'dealers'])->name('verhuur-dealers');
 
-    Route::get('/verhuurDetail', [VerhuurController::class, 'verhuurDetail'])->name('verhuurDetail');
+    Route::get('/verhuur/detail/{id}/{name}', [VerhuurController::class, 'verhuurDetail'])->name('verhuurDetail');
 }));
 
 Route::get('/dealer/create-account', [DashboardController::class, "dealerCreate"])->name("dealer-create");
@@ -56,7 +56,8 @@ Route::get('/dealer/login', [AuthenticatedSessionController::class, 'createDeale
 Route::post('/dealer/login', [AuthenticatedSessionController::class, 'storeDealer'])->name("dealer-login-action");
 
 Route::prefix('/dealer')->middleware(['dealerAuth', 'verified'])->group(function () {
-    Route::get('/voorraad', [DealerController::class, 'index'])->name("dealer-voorraad");
+    Route::get('/voorraad', [DealerVehicleController::class, 'show'])->name("dealer-voorraad");
+    Route::get('/voorraad/machine', [DealerVehicleController::class, 'detail'])->name("dealer-voorraad-detail");
 });
 
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
@@ -83,7 +84,8 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::patch('/vehicle/{id}/update', [VehicleController::class, "update"]);
 
     Route::get('/vehicles', [VehicleController::class, "index"]);
-    Route::get('dealer/vehicles', [DealerVehicleController::class, "index"]);
+    Route::get('dealer/vehicles', [DealerVehicleController::class, "index"])->where("svm", '[a-zA-Z0-9/_-]+');
+    Route::get('dealer/vehicle/', [DealerVehicleController::class, "getById"])->where("svm", '[a-zA-Z0-9/_-]+');
     Route::get('dealer/vehicles/fetch', [DealerVehicleController::class, "fetchVehicles"]);
     Route::patch('dealer/vehicles/{id}/update', [DealerVehicleController::class, "update"]);
     Route::get('/reservations/{page}', [ReservationController::class, "index"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');

@@ -1,6 +1,5 @@
 import _ from "lodash";
 
-const detail_page = "/voorraad/machine";
 const timesRun = 0;
 
 const getVehicleTitle = (title) => {
@@ -15,7 +14,7 @@ const getVehicleImage = (images) => {
     })[0];
 }
 
-const generateVehicleCard = (vehicle) => {
+const generateVehicleCard = (vehicle, detail_page) => {
     const card = document.createElement("div");
     card.classList = "vehicle-card swiper-slide";
     const thumbnailWrapper = document.createElement("div");
@@ -33,9 +32,13 @@ const generateVehicleCard = (vehicle) => {
     cardBodyCol2.classList = "vehicle-price-content"
     cardBody.classList = "card-body"
     const vehicleTitle = document.createElement("a");
+    const vehicleFullTitle = document.createElement("p");
+    vehicleFullTitle.classList = "hidden vehicle-full-title";
+    vehicleFullTitle.innerHTML = vehicle.title;
     vehicleTitle.classList = "vehicle-title";
     vehicleTitle.innerHTML = getVehicleTitle(vehicle.title);
     cardBodyCol1.appendChild(vehicleTitle);
+    cardBodyCol1.appendChild(vehicleFullTitle);
 
     const cardLinks = document.createElement("div");
     cardLinks.classList = "card-links"

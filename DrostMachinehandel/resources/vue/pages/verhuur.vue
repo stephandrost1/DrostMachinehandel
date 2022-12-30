@@ -1,78 +1,85 @@
 <script>
-import loader from '../components/global/loader.vue';
-import vehicleSelector from '../components/global/vehicle/sidebar/vehicleSelector.vue';
-import vehicle from '../components/verhuur/vehicle.vue';
-import noVehicleSelected from '../components/global/noVehicleSelected.vue'
-import dialog from '../components/Dialog/dialog.vue';
+import activeFilterVue from '../components/verhuur/home/filters/activeFilter.vue';
+import filterVue from '../components/verhuur/home/filters/filterGroup.vue';
+import vehicleVue from '../components/verhuur/home/vehicle.vue';
 
 export default {
     components: {
-        'dm-no-vehicle-selected': noVehicleSelected,
-        'dm-vehicle-loader': loader,
-        'dm-vehicle': vehicle,
-        'dm-sidebar': vehicleSelector,
-        "dm-dialog": dialog
+        "dm-vehicle": vehicleVue,
+        "dm-filter": filterVue,
+        "dm-active-filter": activeFilterVue
     },
 
-    data() {
-        return {
-            currentAction: null,
-            isFetchingData: false,
-            // deleteMachineModal: {
-            //     isOpen: false,
-            // }
-        }
-    },
-
-    async mounted() {
+    mounted() {
+        this.$store.dispatch("fetchVehicles");
         this.$store.dispatch("fetchFilters");
-    }, 
+    },
 
     computed: {
-        hasSelectedVehicle() {
-            return this.getSelectedVehicle;
+        getVehicleCount() {
+            return this.getVehicles.length;
         },
 
-        isFetchingVehicle() {
-            return this.isFetchingData && !this.getSelectedVehicle;
+        getVehicles() {
+            return this.$store.getters.getVehicles;
         },
 
-        getSelectedVehicle() {
-            return this.$store.getters.getSelectedVehicle;
+        getFilters() {
+            return this.$store.getters.getFilters;
+        },
+
+        getActiveFilters() {
+            return this.$store.getters.getActiveFilters;
+        },
+
+        hasActiveFilters() {
+            return this.getActiveFilters.length > 0;
         }
     },
 
     methods: {
-        async _handleSelectVehicle(vehicleId) {
-            this.$store.commit("SET_SELECTED_VEHICLE", null);
-            this.isFetchingData = true;
-            await this.$store.dispatch("fetchVehicleById", vehicleId);
-            this.isFetchingData = false;
+        fetchVehicles() {
+            axios.get("/api/v1/vehicles")
+                .then(response => {
+                    this.vehicles = response.data.vehicles;
+                }) 
         },
 
-        // _handleMachineDeleteReject() {
-        //     this.deleteMachineModal.isOpen = false;
-        // },
-
-        // _handleMachineDeleteAccept() {
-        //     this.deleteMachineModal.isOpen = false;
-        // }
-     }
+        fetchFilters() {
+            axios.get("/api/v1/filters")
+                .then(response => {
+                    this.filters = response.data.filters;
+                })
+        }
+    }
 }
+
 </script>
 
-
 <template>
-    <div class="flex flex-col bg-black w-full h-full total-rental-wrapper">
-        <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"></dm-sidebar>
-        
-        <div class="w-full p-6">
-            <div
-                class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>
-                <dm-vehicle-loader v-if="isFetchingVehicle"></dm-vehicle-loader>
-                <dm-no-vehicle-selected v-if="!hasSelectedVehicle && !isFetchingVehicle"></dm-no-vehicle-selected>
+        <div class="verhuur-content">
+            <div class="total-filter-wrapper">
+                <div id="result_amount_mobile" class="result-amount result-amount-mobile">2 Resultaten gevonden</div>
+                <div id="hide_filters" class="close-filters-button">
+                    <span class="hide-filter-text">Filters</span>
+                    <span style="float: right;" onclick="hideFilters()"><i class="fas fa-times"></i></span>
+                </div>
+                <div id="filter_button" onclick="showFilters()" class="filter-button">Filter</div>
+                <div id="active_filters" class="active-filters">
+                    <div>
+                        <dm-active-filter v-for="filter in getActiveFilters" :key="filter.id" :filter="filter"></dm-active-filter>
+                    </div>
+                    <div v-if="hasActiveFilters" class="delete-active-filters">Verwijder alle filters</div>
+                </div>
+                <div id="filters" class="filters">
+                    <dm-filter v-for="filter in getFilters" :key="filter.id" :filter="filter"></dm-filter>
+                </div>
+            </div>
+            <div id="results_content" class="results-content">
+                <div class="result-amount result-amount-desktop">{{ getVehicleCount }} Resultaten gevonden</div>
+                <div class="machines-wrapper">
+                    <dm-vehicle v-for="vehicle in getVehicles" :key="vehicle.id" :vehicle="vehicle"></dm-vehicle>
+                </div>
             </div>
         </div>
-    </div>
 </template>

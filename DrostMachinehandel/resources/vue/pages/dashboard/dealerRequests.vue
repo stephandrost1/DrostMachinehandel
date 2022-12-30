@@ -1,5 +1,5 @@
 <script>
-import dealer from '../components/dealers/dealer.vue';
+import dealer from '../../components/dealers/dealer.vue';
 
 import _ from "lodash";
 

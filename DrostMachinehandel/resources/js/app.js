@@ -13,3 +13,7 @@ import './navigation/menu-burger';
 //Voorraad page
 import './voorraad/api';
 import './voorraad/detail';
+
+//Voorraad dealers page
+import './voorraad/dealers/api';
+import './voorraad/dealers/detail';

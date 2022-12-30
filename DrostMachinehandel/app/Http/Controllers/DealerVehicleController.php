@@ -29,6 +29,16 @@ class DealerVehicleController extends Controller
         }
     }
 
+    public function show()
+    {
+        return view('dealerVoorraad');
+    }
+
+    public function detail()
+    {
+        return view('dealerDetail');
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -68,6 +78,26 @@ class DealerVehicleController extends Controller
         } catch (Exception $e) {
             Log::alert("DealerVehicleController", [
                 "action" => "fetchVehicles",
+                "error" => $e->getMessage(),
+            ]);
+
+            return response()->json(["message" => "Er is iets fout gegaan, neem contact met de administrator"], 200);
+        }
+    }
+
+    public function getById(Request $request)
+    {
+        try {
+            if (!empty($request->input("svm"))) {
+                $vehicle = DealerVehicle::where("vehicle_url", "?svm=" . $request->input("svm"))->get()->first();
+            } else {
+                throw new Exception("No vehicle identifier found");
+            }
+
+            return response()->json(["vehicle" => $vehicle], 200);
+        } catch (Exception $e) {
+            Log::alert("DealerVehicleController", [
+                "action" => "getById",
                 "error" => $e->getMessage(),
             ]);
 

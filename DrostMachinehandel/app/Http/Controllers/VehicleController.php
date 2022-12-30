@@ -19,7 +19,7 @@ class VehicleController extends Controller
     public function index()
     {
         try {
-            $vehicles = Vehicle::all();
+            $vehicles = Vehicle::with(['images', 'details', 'tags'])->get();
 
             return response()->json(['vehicles' => $vehicles, 'results' => count($vehicles) > 0]);
         } catch (Exception $e) {
