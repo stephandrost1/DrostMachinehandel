@@ -8,6 +8,7 @@ import PageVehuur from './pages/dashboard/verhuur.vue';
 import PageDealerRequests from './pages/dashboard/dealerRequests.vue';
 import PageReservations from './pages/dashboard/reservations.vue'
 import PageDealerVehicles from './pages/dashboard/dealerVehicles.vue'
+import PageAccount from './pages/account.vue'
 
 //External components
 import verhuurStore from "./store/verhuur/store.js"

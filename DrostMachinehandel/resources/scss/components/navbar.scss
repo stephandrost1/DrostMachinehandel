@@ -12,7 +12,7 @@
 .desktop-gap {
     gap: 2.5rem;
 
-    @media(min-width: 1400px)
+    @media(min-width: 1450px)
     {
         gap: 5rem;
     }
@@ -33,7 +33,7 @@
 .desktop-visibility {
     display: none;
 
-    @media(min-width: 1000px)
+    @media(min-width: 1070px)
     {
         display: block;
     }
@@ -42,15 +42,27 @@
 .mobile-visibility {
     display: block;
 
-    @media(min-width: 1000px)
+    @media(min-width: 1070px)
     {
         display: none;
     }
 }
 
+nav .lang-dropdown li:first-child a {
+    border-top-left-radius: 0.25rem/* 4px */;
+    border-top-right-radius: 0.25rem/* 4px */;
+}
+
+nav .lang-dropdown li:last-child a {
+    border-bottom-left-radius: 0.25rem/* 4px */;
+    border-bottom-right-radius: 0.25rem/* 4px */;
+}
+
 #navbar {
     position: relative;
     z-index: 9999;
+
+    
 
     div.hamburger-icon-wrapper,
     a.nav-logo {
@@ -118,54 +130,21 @@
         }
 
         .menu-list {
-            ul {
-                li {
-                    a {
-                        div.navbar-item {
-                            font-size: 2rem;
-                            margin-top: 2rem;
-                            margin-left: 1rem;
-                            font-weight: bold;
-                            border-bottom: 2px solid $color-gray;
+            .navbar-item {
+                font-size: 2rem;
+                margin-top: 2rem;
+                margin-left: 1rem;
+                font-weight: bold;
+                border-bottom: 2px solid $color-gray;
 
-                            &.active {
-                                border-bottom: 2px solid $color-main;
-                            }
-                        }
-                    }
+                &.active {
+                    border-bottom: 2px solid $color-main;
                 }
             }
 
             .lanuage-ul {
                 margin-top: 2rem;
                 margin-left: 1rem;
-            }
-        }
-    }
-
-    .language-selector {
-        #language-dropdown-menu {
-            margin-top: 15px !important;
-        }
-    
-        .lang-dropdown {
-            &:before,
-            &:after {
-                bottom: 100%;
-                border: solid transparent;
-                content: "";
-                height: 0;
-                width: 0;
-                position: absolute;
-                pointer-events: none;
-            }
-
-            &:after {
-                border-color: rgba(255, 255, 255, 0);
-                border-bottom-color: #707070;
-                border-width: 19px;
-                right: 0;
-                margin-top: 5px
             }
         }
     }

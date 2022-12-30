@@ -1,22 +1,3 @@
-<script>
-  function toggleDropdown() {
-    var x = document.getElementById("occasions-dropdown");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-  }
-
-  function toggleDropdownMobile() {
-    var x = document.getElementById("occasions-dropdown-mobile");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-</script>
 <div class="z-20 homepage-video-style">
     {{-- Orange header --}}
     <div class="swiper h-fit swiper-container-element">
@@ -34,78 +15,115 @@
         <a href="https://drostmachinehandel.com/" class="flex items-center">
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
         </a>
-
-        <div class="flex desktop-gap language-selector">
-            <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="flex items-center justify-center gap-2" type="button">
-              @if ($currentLang == 'nl')<img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> @endif
-              @if ($currentLang == 'en')<img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> @endif
-              @if ($currentLang == 'fr')<img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> @endif
-              @if ($currentLang == 'de')<img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> @endif
-              <i class="fas fa-chevron-down text-2xl"></i>
+        <div class="flex desktop-gap items-center language-selector">
+          <div class="group relative lang-dropdown">
+            <button
+              class="inline-flex items-center text-xl xl:text-2xl font-bold"
+            >
+            @if ($currentLang == 'nl')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> @endif
+            @if ($currentLang == 'en')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> @endif
+            @if ($currentLang == 'fr')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> @endif
+            @if ($currentLang == 'de')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> @endif
+              <i class="fas fa-chevron-down"></i>
             </button>
-            <!-- Dropdown menu -->
-            <div id="dropdown" class="langDropdownDesktop hidden z-10 w-fit px-2 py-1 bg-secondary lang-dropdown">
-                <ul class="py-1 text-sm text-gray-700 flex flex-col gap-3 items-center justify-center" aria-labelledby="dropdownDefault">
-                  @if ($currentLang != 'nl')
-                    <li class="flex items-center gap-2 text-white text-lg font-bold">
-                      <a class="flex items-center gap-2" href="{{ route('locale.setting', 'nl') }}">
-                        <img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> NL
-                      </a>
-                    </li>
-                  @endif
-                  @if ($currentLang != 'en')
-                    <li class="flex items-center gap-2 text-white text-lg font-bold">
-                      <a class="flex items-center gap-2" href="{{ route('locale.setting', 'en') }}">
-                        <img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> EN
-                      </a>
-                    </li>
-                  @endif
-                  @if ($currentLang != 'fr')
-                    <li class="flex items-center gap-2 text-white text-lg font-bold">
-                      <a class="flex items-center gap-2" href="{{ route('locale.setting', 'fr') }}">
-                        <img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> FR
-                      </a>
-                    </li>
-                  @endif
-                  
-                  @if ($currentLang != 'de')
-                    <li class="flex items-center gap-2 text-white text-lg font-bold">
-                      <a class="flex items-center gap-2" href="{{ route('locale.setting', 'de') }}">
-                        <img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> DE
-                      </a>
-                    </li>
-                  @endif
-                </ul>
-            </div>
+            <ul class="lang-borders absolute w-full hidden text-gray-700 pt-1 group-hover:block">
+              @if ($currentLang != 'nl')
+                <li>
+                  <a
+                    class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap"
+                    href="{{ route('locale.setting', 'nl') }}"
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> NL</a
+                  >
+                </li>
+              @endif
+              @if ($currentLang != 'en')
+                <li>
+                  <a
+                    class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap"
+                    href="{{ route('locale.setting', 'en') }}"
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> EN</a
+                  >
+                </li>
+              @endif
+              @if ($currentLang != 'fr')
+                <li>
+                  <a
+                    class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap "
+                    href="{{ route('locale.setting', 'fr') }}"
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> FR</a
+                  >
+                </li>
+              @endif
+              @if ($currentLang != 'de')
+                <li>
+                  <a
+                    class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap "
+                    href="{{ route('locale.setting', 'de') }}"
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> DE</a
+                  >
+                </li>
+              @endif
+            </ul>
+          </div>
 
-            <a href={{ route("home") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.home') }}</div></a>
-            <div class="flex flex-col relative">
-              <div onclick="toggleDropdown()" class="text-lg xl:text-2xl font-bold cursor-pointer flex items-center justify-center gap-2">
-                {{ __('content/navbar.occasions') }} <i class="fas fa-chevron-down text-2xl"></i>
-              </div>
-
-              <div id="occasions-dropdown" class="absolute mt-12 bg-secondary px-2 py-1 z-10 font-bold text-xl occasions-dropdown hidden -right-2">
-                <a class="flex gap-1 items-center" href="{{ route("voorraad") }}">
-                  @if (Request::is('voorraad')) <i class="fas fa-circle text-primary text-xs"></i> @endif
-                  {{ __('content/navbar.private-individuals') }}
-                </a>
-                
-                <a class="flex gap-1 items-center" href="{{ route("dealer-voorraad") }}">
-                  @if (Request::is('dealer/voorraad')) <i class="fas fa-circle text-primary text-xs"></i> @endif
-                  {{ __('content/navbar.traders') }}
-                </a>
-              </div>
+            <a href={{ route("home") }}><div class="text-xl xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.home') }}</div></a>
+            <div class="group inline-block relative">
+              <button
+                class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('voorraad') || Request::is('dealer/voorraad')) border-b-2 border-primary md:border-b-[4px] @endif"
+              >
+                <span class="mr-1">Occasions</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
+                <li>
+                  <a
+                    class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('voorraad')) underline decoration-primary underline-offset-2 decoration-2 @endif"
+                    href="{{ route("voorraad") }}"
+                    >{{ __('content/navbar.occasions') }}</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="rounded-b bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('dealer/voorraad')) underline decoration-primary underline-offset-2 decoration-2 @endif"
+                    href="{{ route("dealer-voorraad") }}"
+                    >{{ __('content/navbar.private-individual') }}</a
+                  >
+                </li>
+              </ul>
             </div>
-            <a href={{ route("verhuur") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('verhuur')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.rent') }}</div></a>
-            <a href={{ route("leasen") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.lease') }}</div></a>
-            <a href={{ route("contact") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.contact') }}</div></a>
+            <a href={{ route("verhuur") }}><div class="text-xl xl:text-2xl font-bold @if(Request::is('verhuur')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.rent') }}</div></a>
+            <a href={{ route("leasen") }}><div class="text-xl xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.lease') }}</div></a>
+            <a href={{ route("contact") }}><div class="text-xl xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.contact') }}</div></a>
             @if (Auth::check())
             <form action="{{ route("logout") }}" method="POST">
               @csrf
-              <button type="submit" class="text-lg xl:text-2xl font-bold">{{ __('content/navbar.logout') }}</button>
+              <button type="submit" class="text-xl xl:text-2xl font-bold">{{ __('content/navbar.logout') }}</button>
             </form>
             @else
-              <a href={{ route("dashboard") }}><div class="text-lg xl:text-2xl font-bold @if(Request::is('dashboard')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.login') }}</div></a>
+              <div class="group inline-block relative">
+                <button
+                  class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('login') || Request::is('dealer/login')) border-b-2 border-primary md:border-b-[4px] @endif"
+                >
+                  <span class="mr-1">{{ __('content/navbar.login') }}</span>
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+                <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
+                  <li>
+                    <a
+                      class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('login')) underline decoration-primary underline-offset-2 decoration-2 @endif"
+                      href="{{ route("login") }}"
+                      >{{ __('content/navbar.admin-login') }}</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="rounded-b bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('dealer/login')) underline decoration-primary underline-offset-2 decoration-2 @endif"
+                      href="{{ route("dealer-login") }}"
+                      >{{ __('content/navbar.dealer-login') }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
             @endif
           </div>
       </div>
@@ -120,49 +138,54 @@
         </a>
 
         <div class="flex gap-5 sm:gap-10 items-center">
-          <div>
-            <button id="dropdownMobileButton" data-dropdown-toggle="dropdownMobile" class="flex items-center justify-center gap-2" type="button">
-              @if ($currentLang == 'nl')<img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> @endif
-              @if ($currentLang == 'en')<img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> @endif
-              @if ($currentLang == 'fr')<img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> @endif
-              @if ($currentLang == 'de')<img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> @endif
-              <i class="fas fa-chevron-down text-2xl"></i>
+          <div class="group relative lang-dropdown z-20">
+            <button
+              class="inline-flex items-center text-2xl font-bold"
+            >
+            @if ($currentLang == 'nl')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> @endif
+            @if ($currentLang == 'en')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> @endif
+            @if ($currentLang == 'fr')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> @endif
+            @if ($currentLang == 'de')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> @endif
+              <i class="fas fa-chevron-down"></i>
             </button>
-            <!-- Dropdown menu -->
-            <div id="dropdownMobile" class="hidden langDropdownMobile z-10 w-fit px-2 py-1 bg-secondary lang-dropdown">
-                <ul class="py-1 text-sm text-gray-700 flex flex-col gap-3 items-center justify-center" aria-labelledby="langdropdownDefault">
-                  @if ($currentLang != 'nl')
-                    <li class="flex items-center gap-2 text-white text-lg font-bold">
-                      <a class="flex items-center gap-2" href="{{ route('locale.setting', 'nl') }}">
-                        <img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> NL
-                      </a>
-                    </li>
-                  @endif
-                  @if ($currentLang != 'en')
-                    <li class="flex items-center gap-2 text-white text-lg font-bold">
-                      <a class="flex items-center gap-2" href="{{ route('locale.setting', 'en') }}">
-                        <img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> EN
-                      </a>
-                    </li>
-                  @endif
-                  @if ($currentLang != 'fr')
-                    <li class="flex items-center gap-2 text-white text-lg font-bold">
-                      <a class="flex items-center gap-2" href="{{ route('locale.setting', 'fr') }}">
-                        <img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> FR
-                      </a>
-                    </li>
-                  @endif
-                  
-                  @if ($currentLang != 'de')
-                    <li class="flex items-center gap-2 text-white text-lg font-bold">
-                      <a class="flex items-center gap-2" href="{{ route('locale.setting', 'de') }}">
-                        <img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> DE
-                      </a>
-                    </li>
-                  @endif
-                </ul>
-            </div>
-            
+            <ul class="lang-borders absolute w-full hidden text-gray-700 pt-1 group-hover:block">
+              @if ($currentLang != 'nl')
+                <li>
+                  <a
+                    class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap"
+                    href="{{ route('locale.setting', 'nl') }}"
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> NL</a
+                  >
+                </li>
+              @endif
+              @if ($currentLang != 'en')
+                <li>
+                  <a
+                    class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap"
+                    href="{{ route('locale.setting', 'en') }}"
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> EN</a
+                  >
+                </li>
+              @endif
+              @if ($currentLang != 'fr')
+                <li>
+                  <a
+                    class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap "
+                    href="{{ route('locale.setting', 'fr') }}"
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> FR</a
+                  >
+                </li>
+              @endif
+              @if ($currentLang != 'de')
+                <li>
+                  <a
+                    class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap "
+                    href="{{ route('locale.setting', 'de') }}"
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> DE</a
+                  >
+                </li>
+              @endif
+            </ul>
           </div>
           <div class="hamburger-icon-wrapper">
             <div class="hamburger-wrapper">
@@ -182,24 +205,31 @@
                   <div class="navbar-item @if(Request::is('/')) active @endif">{{ __('content/navbar.home') }}</div>
                 </a>
               </li>
-              <li>
-                <a class="flex flex-col relative">
-                  <div onclick="toggleDropdownMobile()" class="navbar-item text-lg xl:text-2xl font-bold cursor-pointer flex gap-2 pb-3">
-                    {{ __('content/navbar.occasions') }} <i class="fas fa-chevron-down text-2xl"></i>
-                  </div>
-    
-                  <div id="occasions-dropdown-mobile" class="absolute mt-2 bg-secondary px-2 py-1 z-10 font-bold text-xl occasions-dropdown @if (Request::is('voorraad')) occasions-dropdown-mobile-active-voorraad @elseif (Request::is('contact')) occasions-dropdown-mobile-active-dealer  @else occasions-dropdown-mobile @endif hidden">
-                    <a class="flex gap-1 items-center" href="{{ route("voorraad") }}">
-                      @if (Request::is('voorraad')) <i class="fas fa-circle text-primary text-xs"></i> @endif
-                      {{ __('content/navbar.private-individuals') }}
-                    </a>
-                    
-                    <a class="flex gap-1 items-center" href="{{ route("dealer-voorraad") }}">
-                      @if (Request::is('dealer/voorraad')) <i class="fas fa-circle text-primary text-xs"></i> @endif
-                      {{ __('content/navbar.traders') }}
-                    </a>
-                  </div>
-                </a>
+              <li class="border-b-2 border-secondary ml-4 @if(Request::is('voorraad') || Request::is('dealer/voorraad')) !border-primary @endif">
+                <div class="group inline-block relative w-full mt-8 font-bold pb-2">
+                  <button
+                    class="inline-flex items-center text-xl xl:text-2xl font-bold"
+                  >
+                    <span class="mr-1 text-[2rem]">Occasions</span>
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
+                    <li>
+                      <a
+                        class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('voorraad')) underline decoration-primary underline-offset-2 decoration-2 @endif"
+                        href="{{ route("voorraad") }}"
+                        >{{ __('content/navbar.occasions') }}</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="rounded-b bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('dealer/voorraad')) underline decoration-primary underline-offset-2 decoration-2 @endif"
+                        href="{{ route("dealer-voorraad") }}"
+                        >{{ __('content/navbar.private-individual') }}</a
+                      >
+                    </li>
+                  </ul>
+                </div>
               </li>
               <li>
                 <a href={{ route("verhuur") }}>
@@ -216,10 +246,31 @@
                   <div class="navbar-item @if(Request::is('contact')) active @endif">{{ __('content/navbar.contact') }}</div>
                 </a>
               </li>
-              <li>
-                <a href={{ route("dashboard") }}>
-                  <div class="navbar-item @if(Request::is('dashboard')) active @endif">{{ __('content/navbar.login') }}</div>
-                </a>
+              <li class="border-b-2 border-secondary ml-4 @if(Request::is('login') || Request::is('dealer/login')) !border-primary @endif">
+                <div class="group inline-block relative w-full mt-8 font-bold pb-2">
+                  <button
+                    class="inline-flex items-center text-xl xl:text-2xl font-bold "
+                  >
+                    <span class="mr-1 text-[2rem]">{{ __('content/navbar.login') }}</span>
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
+                    <li>
+                      <a
+                        class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('login')) underline decoration-primary underline-offset-2 decoration-2 @endif"
+                        href="{{ route("login") }}"
+                        >{{ __('content/navbar.admin-login') }}</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="rounded-b bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('dealer/login')) underline decoration-primary underline-offset-2 decoration-2 @endif"
+                        href="{{ route("dealer-voorraad") }}"
+                        >{{ __('content/navbar.dealer-login') }}</a
+                      >
+                    </li>
+                  </ul>
+                </div>
               </li>
             </ul>
           </div>
