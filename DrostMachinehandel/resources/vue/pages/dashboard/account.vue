@@ -17,8 +17,6 @@ export default {
                 var icon = document.getElementById("passwordIcon")
             }
 
-            console.log('test');
-
             if (input.type === "password") {
                 input.type = "text";
                 icon.classList.remove("fa-eye");

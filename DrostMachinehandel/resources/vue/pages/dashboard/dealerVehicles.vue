@@ -60,10 +60,11 @@ export default {
 
 
 <template>
-    <div class="flex flex-row bg-black w-full h-full total-rental-wrapper">
-        <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle" extraButtonText="Ophalen" @extraButtonCallback="_handleFetchVehicles" :hasCallback="true"></dm-sidebar>
+    <div class="flex flex-col lg:flex-row p-6 gap-5 bg-gray-100 w-full h-full">
+        <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle" extraButtonText="Ophalen"
+            @extraButtonCallback="_handleFetchVehicles" :hasCallback="true"></dm-sidebar>
 
-        <div class="w-full p-6">
+        <div class="grow">
             <div
                 class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
                 <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>

@@ -8,7 +8,11 @@ import PageVehuur from './pages/dashboard/verhuur.vue';
 import PageDealerRequests from './pages/dashboard/dealerRequests.vue';
 import PageReservations from './pages/dashboard/reservations.vue'
 import PageDealerVehicles from './pages/dashboard/dealerVehicles.vue'
+<<<<<<< HEAD
 import PageAccount from './pages/dashboard/account.vue'
+=======
+import PageAccount from './pages/account.vue'
+>>>>>>> ac77cbc04f1629ff554a73d3e9105e98ad269b0c
 
 //External components
 import verhuurStore from "./store/verhuur/store.js"

@@ -9,11 +9,14 @@ return [
     'trade-in' => 'Trade-in possible',
     'home' => 'Home',
     'occasions' => 'Occasions',
-    'private-individuals' => 'Private individuals',
+    'private-individual' => 'Private individual',
     'traders' => 'Traders',
     'stock' => 'Stock',
     'lease' => 'Lease',
     'contact' => 'Contact',
     'rent' => 'Rent',
-    'login' => "Login"
+    'admin-login' => 'Admin',
+    'dealer-login' => 'Dealer',
+    'login' => 'Login',
+    'logout' => 'Logout',
 ];
