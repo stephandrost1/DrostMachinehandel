@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -43,8 +46,27 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
+        try {
+            $user = User::find($id);
+
+            if (empty($user)) {
+                throw new Exception("User with id: ${id} not found!");
+            }
+
+            return response()->json(["user" => $user], 200);
+        } catch (Exception $e) {
+            Log::alert(
+                "userController",
+                [
+                    "action" => "show",
+                    "id" => $id,
+                    "error" => $e->getMessage(),
+                ]
+            );
+            return response()->json(["message" => "er is iets fout gegaan, probeer het later opnieuw!"], 500);
+        }
     }
 
     /**

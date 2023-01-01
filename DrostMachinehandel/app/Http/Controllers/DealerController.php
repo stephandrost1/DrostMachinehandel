@@ -20,6 +20,29 @@ class DealerController extends Controller
     {
     }
 
+    public function show($id)
+    {
+        try {
+            $dealer = Dealer::select("id", "firstname", "lastname", "email", "phonenumber", "companyname", "kvknumber", "btwnumber")->with("address")->find($id);
+
+            if (empty($dealer)) {
+                throw new Exception("Dealer with id: ${id} not found!");
+            }
+
+            return response()->json(["dealer" => $dealer], 200);
+        } catch (Exception $e) {
+            Log::alert(
+                "dealerContrller",
+                [
+                    "action" => "show",
+                    "id" => $id,
+                    "error" => $e->getMessage(),
+                ]
+            );
+            return response()->json(["message" => "er is iets fout gegaan, probeer het later opnieuw!"], 500);
+        }
+    }
+
     public function create(CreateDealerRequest $request)
     {
         try {
