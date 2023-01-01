@@ -18,6 +18,37 @@ class DealerController extends Controller
 {
     public function index()
     {
+        try {
+            $user = Auth::getUser();
+
+            if (empty($user)) {
+                throw new Exception("User is not logged in!");
+            }
+
+            $id = $user->id;
+
+            if (empty($id)) {
+                throw new Exception("User id not found!");
+            }
+
+            $dealer = Dealer::select("id", "firstname", "lastname", "email", "phonenumber", "companyname", "kvknumber", "btwnumber")->with("address")->find($id);
+
+            if (empty($dealer)) {
+                throw new Exception("Dealer with id: $id not found!");
+            }
+
+            return response()->json(["dealer" => $dealer], 200);
+        } catch (Exception $e) {
+            Log::alert(
+                "dealerContrller",
+                [
+                    "action" => "show",
+                    "id" => $id,
+                    "error" => $e->getMessage(),
+                ]
+            );
+            return response()->json(["message" => "er is iets fout gegaan, probeer het later opnieuw!"], 500);
+        }
     }
 
     public function show($id)
@@ -26,7 +57,7 @@ class DealerController extends Controller
             $dealer = Dealer::select("id", "firstname", "lastname", "email", "phonenumber", "companyname", "kvknumber", "btwnumber")->with("address")->find($id);
 
             if (empty($dealer)) {
-                throw new Exception("Dealer with id: ${id} not found!");
+                throw new Exception("Dealer with id: $id not found!");
             }
 
             return response()->json(["dealer" => $dealer], 200);

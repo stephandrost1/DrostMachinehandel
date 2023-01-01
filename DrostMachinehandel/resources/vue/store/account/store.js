@@ -20,7 +20,7 @@ export default createStore({
 
     actions: {
         fetchDealer({ commit }, dealerId) {
-            axios.get(`/api/v1/dealer/${dealerId}`)
+            axios.get(`/api/v1/dealer/`)
                 .then((response) => {
                     commit("SET_DEALER", response.data.dealer);
                 })

@@ -1,19 +1,6 @@
 @extends('layouts/dashboard.dashboard')
 @section('content')
 
-<style>
-    .password-icon {
-        float: right;
-        margin-right: 15px;
-        margin-top: -30px;
-        position: relative;
-        z-index: 2;
-        color: rgb(31 41 55);
-        font-size: large;
-        cursor: pointer;
-    }
-</style>
-
 <div class="w-full h-full flex grow mt-[35px] md:mt-[40px]">
         <section class="w-full">
         <div id="main" class="main-content w-full h-full flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
@@ -23,8 +10,12 @@
                 </div>
             </div>
             
-            <div class="p-10 min-[1225px]:px-32 2xl:w-4/6">
-                <div id="page-dashboard-account"></div>
+            <div class="p-10 min-[1225px]:px-32 @if (Auth::guard('dealer')->check()) 2xl:w-4/6 @endif">
+                @if (Auth::guard('web')->check())
+                    <div id="page-dashboard-dealer-account"></div>
+                @elseif (Auth::guard('dealer')->check())
+                    <div id="page-dashboard-dealer-account"></div>
+                @endif
             </div>
         </div>
     </section>

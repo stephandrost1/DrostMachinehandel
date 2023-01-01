@@ -8,7 +8,7 @@ import PageVehuur from './pages/dashboard/verhuur.vue';
 import PageDealerRequests from './pages/dashboard/dealerRequests.vue';
 import PageReservations from './pages/dashboard/reservations.vue'
 import PageDealerVehicles from './pages/dashboard/dealerVehicles.vue'
-import PageAccount from './pages/dashboard/account.vue'
+import PageDealerAccount from './pages/dashboard/account/dealer.vue'
 
 //External components
 import verhuurStore from "./store/verhuur/store.js"
@@ -25,7 +25,7 @@ const verhuurApp = createApp(PageVehuur);
 const dealerNofiticationsApp = createApp(PageDealerRequests);
 const reservationsApp = createApp(PageReservations);
 const dealerVehiclesApp = createApp(PageDealerVehicles);
-const accountApp = createApp(PageAccount);
+const dealerAccountApp = createApp(PageDealerAccount);
 
 verhuurApp.use(verhuurStore);
 verhuurApp.use(Toaster);
@@ -36,8 +36,8 @@ dealerVehiclesApp.use(dealerVehicleStore);
 dealerNofiticationsApp.use(Toaster);
 dealerVehiclesApp.use(Toaster);
 
-accountApp.use(accountStore);
-accountApp.use(Toaster);
+dealerAccountApp.use(accountStore);
+dealerAccountApp.use(Toaster);
 
 if (document.querySelector("#page-dashboard-verhuur")) {
     verhuurApp.mount("#page-dashboard-verhuur");
@@ -55,6 +55,6 @@ if (document.querySelector("#page-dashboard-dealer-vehicles")) {
     dealerVehiclesApp.mount("#page-dashboard-dealer-vehicles");
 }
 
-if (document.querySelector("#page-dashboard-account")) {
-    accountApp.mount("#page-dashboard-account");
+if (document.querySelector("#page-dashboard-dealer-account")) {
+    dealerAccountApp.mount("#page-dashboard-dealer-account");
 }

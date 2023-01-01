@@ -100,8 +100,10 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::patch('/dealer/{id}/update', [DealerController::class, "update"]);
     Route::delete('/dealer/{id}/delete', [DealerController::class, "delete"]);
 
-    Route::get('/user/{id}', [UserController::class, "show"]);
-    Route::get('/dealer/{id}', [DealerController::class, "show"]);
+    Route::get('/user/', [UserController::class, "index"]);
+    Route::get('/users/{id}', [UserController::class, "show"]);
+    Route::get('/dealer/', [DealerController::class, "index"]);
+    Route::get('/dealers/{id}', [DealerController::class, "show"]);
 });
 
 Route::get('set-locale/{locale}', function ($locale) {
