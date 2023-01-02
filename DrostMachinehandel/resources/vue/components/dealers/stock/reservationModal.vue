@@ -17,7 +17,7 @@ export default {
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                         <div class="flex items-center gap-3">
                             <div
-                                class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                                class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
                                 <i class="fas fa-truck-pickup text-green-600"></i>
                             </div>
                             <h3 class="text-lg font-bold leading-6 text-gray-900" id="modal-title">Machine reserveren
