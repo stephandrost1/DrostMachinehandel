@@ -31,7 +31,8 @@ class UpdateDealerRequest extends FormRequest
             "phonenumber" => "required|min:10",
             "companyname" => "required",
             "kvknumber" => "required|regex:/^(\d{8})$/",
-            "email_verified_at" => "required",
+            "btwnumber" => "required|min:14",
+            "email_verified_at" => "optional",
         ];
     }
 
@@ -47,7 +48,9 @@ class UpdateDealerRequest extends FormRequest
             "phonenumber.min" => "Het opgegeven telefoonnummer is niet geldig!",
             "companyname.required" => "Het bedrijfsnaam veld is leeg!",
             "kvknumber.required" => "Het kvk nummer veld is leeg!",
+            "btwnumber.required" => "Het btw nummer veld is leeg!",
             "kvknumber.regex" => "Het opgegeven kvk nummer is niet geldig!",
+            "btwnumber.regex" => "Het opgegeven btw nummer is niet geldig!",
             "email_verified_at.required" => "Handelaar account status niet gevonden!",
         ];
     }

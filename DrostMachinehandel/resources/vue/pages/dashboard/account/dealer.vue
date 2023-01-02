@@ -7,9 +7,6 @@ export default {
                 password: false,
                 passwordRepeat: false,
             },
-            password: "",
-            passwordRepeat: "",
-            currentPassword: "",
         }
     },
 
@@ -22,69 +19,208 @@ export default {
             return this.$store.getters.getDealer;
         },
 
-        getFirstname() {
-            return this.getDealer.firstname;
+        getFirstname: {
+            get() {
+                return this.getDealer.firstname ?? "";
+            },
+            set(firstname) {
+                this.$store.commit("SET_DEALER", { ...this.getDealer, firstname })
+            }
         },
 
-        getLastname() {
-            return this.getDealer.lastname;
+        getLastname: {
+            get() {
+                return this.getDealer.lastname ?? "";
+            },
+            set(lastname) {
+                this.$store.commit("SET_DEALER", { ...this.getDealer, lastname })
+            }
         },
 
-        getEmail() {
-            return this.getDealer.email;
+        getEmail: {
+            get() {
+                return this.getDealer.email ?? "";
+            },
+            set(email) {
+                this.$store.commit("SET_DEALER", { ...this.getDealer, email })
+            }
         },
 
-        getPhonenumber() {
-            return this.getDealer.phonenumber;
+        getPhonenumber: {
+            get() {
+                return this.getDealer.phonenumber ?? "";
+            },
+            set(phonenumber) {
+                this.$store.commit("SET_DEALER", { ...this.getDealer, phonenumber })
+            }
         },
 
-        getCompanyName() {
-            return this.getDealer.companyname;
+        getCompanyName: {
+            get() {
+                return this.getDealer.companyname ?? "";
+            },
+            set(companyname) {
+                this.$store.commit("SET_DEALER", { ...this.getDealer, companyname })
+            }
         },
 
-        getKvkNumber() {
-            return this.getDealer.kvknumber;
+        getKvkNumber: {
+            get() {
+                return this.getDealer.kvknumber ?? "";
+            },
+            set(kvknumber) {
+                this.$store.commit("SET_DEALER", { ...this.getDealer, kvknumber })
+            }
         },
 
-        getBtwNumber() {
-            return this.getDealer.btwnumber;
+        getBtwNumber: {
+            get() {
+                return this.getDealer.btwnumber ?? "";
+            },
+            set(btwnumber) {
+                this.$store.commit("SET_DEALER", {...this.getDealer, btwnumber})
+            }
         },
 
-        getAddress() {
-            return this.getDealer.address;
+        getAddress: {
+            get() {
+                return this.getDealer.address ?? [];
+            },
+            set(address) {
+                this.$store.commit("SET_DEALER", { ...this.getDealer, address })
+            }
         },
 
-        getCountry() {
-            return this.getAddress ? this.getAddress["country"] : '';
+        getCountry: {
+            get() {
+                return this.getAddress.country ?? "";
+            },
+            set(country) {
+                this.$store.commit("SET_DEALER", {
+                    ...this.getDealer,
+                    address: {
+                        ...this.getDealer.address,
+                        country,
+                } })
+            }
         },
 
-        getProvince() {
-            return this.getAddress ? this.getAddress["province"] : '';
+        getProvince: {
+            get() {
+                return this.getAddress.province ?? "";
+            },
+            set(province) {
+                this.$store.commit("SET_DEALER", {
+                    ...this.getDealer,
+                    address: {
+                        ...this.getDealer.address,
+                        province,
+                    }
+                })
+            }
         },
 
-        getCity() {
-            return this.getAddress ? this.getAddress["city"] : '';
+        getCity: {
+            get() {
+                return this.getAddress.city ?? "";
+            },
+            set(city) {
+                this.$store.commit("SET_DEALER", {
+                    ...this.getDealer,
+                    address: {
+                        ...this.getDealer.address,
+                        city,
+                    }
+                })
+            }
         },
 
-        getPostalCode() {
-            return this.getAddress ? this.getAddress["postalcode"] : '';
+        getPostalCode: {
+            get() {
+                return this.getAddress.postalcode ?? "";
+            },
+            set(postalcode) {
+                this.$store.commit("SET_DEALER", {
+                    ...this.getDealer,
+                    address: {
+                        ...this.getDealer.address,
+                        postalcode,
+                    }
+                })
+            }
         },
 
-        getHouseNumber() {
-            return this.getAddress ? this.getAddress["housenumber"] : '';
+        getHouseNumber: {
+            get() {
+                return this.getAddress.housenumber ?? "";
+            },
+            set(housenumber) {
+                this.$store.commit("SET_DEALER", {
+                    ...this.getDealer,
+                    address: {
+                        ...this.getDealer.address,
+                        housenumber,
+                    }
+                })
+            }
         },
 
-        getStreetname() {
-            return this.getAddress ? this.getAddress["streetname"] : '';
+        getStreetname: {
+            get() {
+                return this.getAddress.streetname ?? "";
+            },
+            set(streetname) {
+                this.$store.commit("SET_DEALER", {
+                    ...this.getDealer,
+                    address: {
+                        ...this.getAddress,
+                        streetname,
+                    }
+                })
+            }
+        },
+
+        getPassword: {
+            get() {
+                return this.getDealer.password ?? "";
+            },
+            set(password) {
+                this.$store.commit("SET_DEALER", { ...this.getDealer, password, });
+            }
+        },
+
+        getPasswordRepeat: {
+            get() {
+                return this.getDealer.passwordRepeat ?? "";
+            },
+            set(passwordRepeat) {
+                this.$store.commit("SET_DEALER", { ...this.getDealer, passwordRepeat, });
+            }
+        },
+
+        getCurrentPassword: {
+            get() {
+                return this.getDealer.currentPassword ?? "";
+            },
+            set(currentPassword) {
+                this.$store.commit("SET_DEALER", { ...this.getDealer, currentPassword, });
+            }
         }
     },
 
     methods: {
         _handleSave() {
-
+            axios.patch(`/api/v1/dealer/${this.getDealer.id}/update`, { ...this.getDealer })
+                .then((response) => {
+                    this.$toast.success(response.data.message);
+                }).catch((error) => {
+                    this.$toast.error(error.response.data.message)
+                })
         },
 
-        togglePasswordVisibility(input) {
+        toggleInputVisibility(property) {
+            console.log("clicked")
+            this.visible[property] = !this.visible[property];
         }
     }
 }
@@ -129,24 +265,30 @@ export default {
                             <div class="block font-medium text-sm text-gray-700">Nieuw wachtwoord</div>
                             <input
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                                type="password" :v-model="password" />
-                            <i class="fas fa-eye password-icon" @click="togglePasswordVisibility()"></i>
+                                :type="visible.password ? 'text' : 'password'" v-model="getPassword" />
+                            <div class="eye-wrapper" @click="toggleInputVisibility('password')">
+                                <i class="fas fa-eye password-icon"></i>
+                            </div>
                         </div>
 
                         <div class="mt-4">
                             <div class="block font-medium text-sm text-gray-700">Nieuw wachtwoord herhalen</div>
                             <input
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                                type="password" :v-model="passwordRepeat" />
-                            <i class="fas fa-eye password-icon" @click="togglePasswordVisibility()"></i>
+                                :type="visible.passwordRepeat ? 'text' : 'password'" v-model="getPasswordRepeat" />
+                            <div class="eye-wrapper" @click="toggleInputVisibility('passwordRepeat')">
+                                <i class="fas fa-eye password-icon"></i>
+                            </div>
                         </div>
 
                         <div class="mt-4">
                             <div class="block font-medium text-sm text-gray-700">Huidig wachtwoord</div>
                             <input
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                                type="password" :v-model="currentPassword" />
-                            <i class="fas fa-eye password-icon" @click="togglePasswordVisibility()"></i>
+                                :type="visible.currentPassword ? 'text' : 'password'" v-model="getCurrentPassword" />
+                            <div class="eye-wrapper" @click="toggleInputVisibility('currentPassword')">
+                                <i class="fas fa-eye password-icon"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -159,21 +301,21 @@ export default {
                             <div class="block font-medium text-sm text-gray-700">Bedrijfsnaam</div>
                             <input
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                                type="text" :v-model="getCompanyName" />
+                                type="text" v-model="getCompanyName" />
                         </div>
 
                         <div class="mt-4">
                             <div class="block font-medium text-sm text-gray-700">Kvk nummer</div>
                             <input
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                                type="text" :v-model="getKvkNumber" />
+                                type="text" v-model="getKvkNumber" />
                         </div>
 
                         <div class="mt-4">
                             <div class="block font-medium text-sm text-gray-700">Btw nummer</div>
                             <input
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                                type="text" :v-model="getBtwNumber" />
+                                type="text" v-model="getBtwNumber" />
                         </div>
 
                         <div class="mt-4 flex gap-3 w-full items-center">
@@ -181,13 +323,13 @@ export default {
                                 <div class="block font-medium text-sm text-gray-700">Straatnaam</div>
                                 <input
                                     class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                                    type="text" id="firstname" name="firstname" :v-model="getStreetname" />
+                                    type="text" id="streetname" name="streetname" v-model="getStreetname" />
                             </div>
                             <div class="form-input-group w-1/12">
                                 <div class="block font-medium text-sm text-gray-700">Huisnummer</div>
                                 <input
                                     class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                                    type="text" id="lastname" name="firstname" :v-model="getHouseNumber" />
+                                    type="text" id="housenumber" name="housenumber" v-model="getHouseNumber" />
                             </div>
                         </div>
 
@@ -195,21 +337,21 @@ export default {
                             <div class="block font-medium text-sm text-gray-700">Postcode</div>
                             <input
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                                type="text" :v-model="getPostalCode" />
+                                type="text" v-model="getPostalCode" />
                         </div>
 
                         <div class="mt-4">
                             <div class="block font-medium text-sm text-gray-700">Provincie</div>
                             <input
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                                type="text" :v-model="getProvince" />
+                                type="text" v-model="getProvince" />
                         </div>
 
                         <div class="mt-4">
                             <div class="block font-medium text-sm text-gray-700">Land</div>
                             <input
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                                type="text" :v-model="getCountry" />
+                                type="text" v-model="getCountry" />
                         </div>
                     </div>
                 </div>

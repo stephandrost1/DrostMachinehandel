@@ -257,6 +257,7 @@ class DealerController extends Controller
             $dealer->phonenumber = $request->phonenumber;
             $dealer->companyname = $request->companyname;
             $dealer->kvknumber = $request->kvknumber;
+            $dealer->btwnumber = $request->btwnumber;
             $dealer->email_verified_at = $request->email_verified_at;
             $dealer->save();
 
