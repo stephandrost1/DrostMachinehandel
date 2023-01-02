@@ -235,9 +235,14 @@ class DealerController extends Controller
             $validated = $request->validated();
 
             $dealer = Dealer::find($request->id);
+            $dealerAddress = DealerAddress::where("dealer_id", $request->id)->get()->first();
 
             if (empty($dealer)) {
                 throw new Exception("Handelaar niet gevonden!");
+            }
+
+            if (empty($dealerAddress)) {
+                throw new Exception("Handelaar adres niet gevonden!");
             }
 
             $emailAccounts = collect(Dealer::where('email', $request->email)->whereNot('id', $request->id)->get())->toArray();
@@ -251,15 +256,30 @@ class DealerController extends Controller
                 throw new Exception("Kvk nummer is al in gebruik!");
             }
 
-            $dealer->firstname = $request->firstname;
-            $dealer->lastname = $request->lastname;
-            $dealer->email = $request->email;
-            $dealer->phonenumber = $request->phonenumber;
-            $dealer->companyname = $request->companyname;
-            $dealer->kvknumber = $request->kvknumber;
-            $dealer->btwnumber = $request->btwnumber;
-            $dealer->email_verified_at = $request->email_verified_at;
-            $dealer->save();
+            if (Auth::guard("dealer")->check() && isset($request->password) && (!isset($request->passwordRepeat) || ($request->password != $request->passwordRepeat) || !isset($request->currentPassword) || !Hash::check($request->currentPassword, $dealer->getAuthPassword()))) {
+                throw new Exception("Het huidige wachtwoord komt niet overeen met het opgegeven huidige wachtwoord!");
+            } else if (Auth::guard("dealer")->check() && isset($request->password) && isset($request->passwordRepeat) && ($request->password == $request->passwordRepeat) && (isset($request->currentPassword) || Hash::check($request->currentPassword, $dealer->getAuthPassword()))) {
+                $dealer->fill([
+                    "password" => Hash::make($request->password)
+                ])->save();
+            } else if (Auth::guard("web") && isset($request->password) && !empty($request->password)) {
+                $dealer->fill([
+                    "password" => Hash::make($request->password)
+                ])->save();
+            }
+
+            $dealer->fill([
+                "firstname" => $request->firstname,
+                "lastname" => $request->lastname,
+                "email" => $request->email,
+                "phonenumber" => $request->phonenumber,
+                "companyname" => $request->companyname,
+                "kvknumber" => $request->kvknumber,
+                "btwnumber" => $request->btwnumber,
+                "email_verified_at" => $request->email_verified_at ?? null,
+            ])->save();
+
+            $dealerAddress->fill($request->toArray()["address"])->save();
 
             return response()->json(["message" => "Handelaar is succesvol geupdate!", "status" => true], 200);
         } catch (Exception $e) {

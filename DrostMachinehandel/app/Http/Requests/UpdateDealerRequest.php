@@ -32,7 +32,17 @@ class UpdateDealerRequest extends FormRequest
             "companyname" => "required",
             "kvknumber" => "required|regex:/^(\d{8})$/",
             "btwnumber" => "required|min:14",
-            "email_verified_at" => "optional",
+            "email_verified_at" => "nullable",
+            "password" => "nullable",
+            "passwordRepeat" => "nullable|same:password",
+            "currentPassword" => "nullable",
+            "address" => "array",
+            "address.postalcode" => "required",
+            "address.city" => "required|min:1",
+            "address.country" => "required|min:1",
+            "address.housenumber" => "required|min:1",
+            "address.streetname" => "required|min:3",
+            "address.province" => "required|min:3",
         ];
     }
 
@@ -52,6 +62,7 @@ class UpdateDealerRequest extends FormRequest
             "kvknumber.regex" => "Het opgegeven kvk nummer is niet geldig!",
             "btwnumber.regex" => "Het opgegeven btw nummer is niet geldig!",
             "email_verified_at.required" => "Handelaar account status niet gevonden!",
+            "passwordRepeat.same" => "Opgegeven wachtwoorden komen niet overeen!",
         ];
     }
 }

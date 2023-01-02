@@ -10,9 +10,9 @@
                 </div>
             </div>
             
-            <div class="p-10 min-[1225px]:px-32 @if (Auth::guard('dealer')->check()) 2xl:w-4/6 @endif">
+            <div class="p-10 min-[1225px]:px-32 @if (Auth::guard('web')->check()) 2xl:w-4/6 @endif">
                 @if (Auth::guard('web')->check())
-                    <div id="page-dashboard-dealer-account"></div>
+                    <div id="page-dashboard-admin-account"></div>
                 @elseif (Auth::guard('dealer')->check())
                     <div id="page-dashboard-dealer-account"></div>
                 @endif

@@ -341,6 +341,13 @@ export default {
                         </div>
 
                         <div class="mt-4">
+                            <div class="block font-medium text-sm text-gray-700">Plaats</div>
+                            <input
+                                class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+                                type="text" v-model="getCity" />
+                        </div>
+
+                        <div class="mt-4">
                             <div class="block font-medium text-sm text-gray-700">Provincie</div>
                             <input
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"

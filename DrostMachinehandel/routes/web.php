@@ -72,7 +72,6 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     Route::get('/statistics', [DashboardController::class, "statistics"])->name("dashboard-statistics");
     Route::get('/reservations', [DashboardController::class, "reservations"])->name("dashboard-reservations");
     Route::get('/account', [DashboardController::class, "account"])->name("dashboard-account");
-    Route::post('/account', [DashboardController::class, "updateAccount"]);
     Route::get('/settings', [DashboardController::class, "settings"])->name("dashboard-settings");
     Route::get('/logout', [DashboardController::class, "logout"])->name("dashboard-logout");
 });
@@ -101,6 +100,7 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::delete('/dealer/{id}/delete', [DealerController::class, "delete"]);
 
     Route::get('/user/', [UserController::class, "index"]);
+    Route::patch('/user/{id}/update', [UserController::class, "update"]);
     Route::get('/users/{id}', [UserController::class, "show"]);
     Route::get('/dealer/', [DealerController::class, "index"]);
     Route::get('/dealers/{id}', [DealerController::class, "show"]);

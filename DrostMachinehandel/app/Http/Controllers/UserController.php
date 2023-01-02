@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
@@ -118,9 +120,43 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+        try {
+            $validated = $request->validated();
+
+            $emailAccounts = collect(User::where('email', $request->email)->whereNot('id', $request->id)->get())->toArray();
+
+            if (count($emailAccounts) > 0) {
+                throw new Exception("E-mailadres is al in gebruik!");
+            }
+
+            if ($request->password !== $request->passwordRepeat) {
+                throw new Exception("Opgegeven wachtwoorden komen niet overeen");
+            }
+
+            $user = User::find($id);
+
+            if (!Hash::check($request->password, $user->password)) {
+                throw new Exception("Opgegeven huidige wachtwoord is niet correct!");
+            }
+
+            $user->fill([
+                "name" => $request->name,
+                "email" => $request->email,
+                "password" => Hash::make($request->password),
+            ])->save();
+
+            return response()->json(["message" => "Gebruiker succesvol geupdate"], 200);
+        } catch (Exception $e) {
+            Log::emergency("UserController", [
+                "action" => "Update",
+                "id" => $id,
+                "error" => $e->getMessage()
+            ]);
+
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
+        }
     }
 
     /**
