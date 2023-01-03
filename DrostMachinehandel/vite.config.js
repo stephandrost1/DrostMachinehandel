@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/scss/dashboard.scss',
                 'resources/js/app.js',
                 'resources/vue/dashboard.js',
+                'resources/vue/app.js',
             ],
             refresh: true,
         }),

@@ -68,7 +68,12 @@ const _addContactButtons = () => {
     buyButton.href = `javascript:showContactMePopin(${vehicleId})`;
     rentButton.classList = "rent-button"
     rentButton.innerHTML = buttonsText["rent"][language] ?? "Huren";
-    rentButton.href = `javascript:showContactMePopin(${vehicleId})`;
+
+    rentButton.addEventListener("click", () => {
+        const reservationModal = document.querySelector("#svm-canvas .vue-reservation-modal");
+
+        reservationModal.classList.remove("hidden");
+    });
 
     buttonsWrapper.appendChild(buyButton);
     buttonsWrapper.appendChild(rentButton);
@@ -133,12 +138,21 @@ const _addShareButtons = () => {
     wrapper.append(shareButtonsWrapper);
 }
 
+const _addReservationModal = () => {
+    const reservationWrapper = document.createElement("div");
+    reservationWrapper.id = "page-voorraad-detail-reservation-wrapper";
+    reservationWrapper.classList = "flex items-center justify-center"
+
+    canvas.appendChild(reservationWrapper);
+}
+
 const _handleDetailPageFormatter = () => {
     _formatMachineTitle();
     _reformatSpecs();
     _addContactButtons();
     _addShareButtons();
     _handlePriceOverwritter();
+    _addReservationModal();
 }
 
 const fetchDealerPrice = async () => {
@@ -153,6 +167,12 @@ const fetchDealerPrice = async () => {
 const _handlePriceOverwritter = async () => {
     let price = canvas.querySelector("#hcontact-block #hprice .price .price_with_currency");
     const dealerVehicle = await fetchDealerPrice();
+
+    const vehicleIdElement = document.createElement("div");
+    vehicleIdElement.classList = "hidden";
+    vehicleIdElement.id = "get-vehicle-id";
+    vehicleIdElement.dataset.vehicleid = dealerVehicle.id;
+    canvas.appendChild(vehicleIdElement);
 
     price.innerHTML = new Intl.NumberFormat('nl-NL', {
         style: 'currency',

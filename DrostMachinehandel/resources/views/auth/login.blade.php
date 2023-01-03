@@ -15,7 +15,7 @@
 
           <div class="flex items-center flex-col relative">
               <span class="font-bold text-[#333333] text-3xl text-center w-full mb-10 md:mb-10">
-                  Beheerder login
+                   Login
               </span>
 
               <div class="relative w-full mb-3 z-10">

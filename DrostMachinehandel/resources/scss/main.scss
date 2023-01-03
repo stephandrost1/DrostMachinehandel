@@ -6,7 +6,7 @@
 
 @import "./pages/home.scss", "./pages/voorraad.scss", "./pages/detail.scss", "./pages/verhuur.scss", "./pages/verhuurDetail.scss", "./pages/contact.scss", "./pages/login.scss", "./pages/dealerCreate.scss";
 
-@import "./components/navbar.scss", "./components/swiper.scss", "./components/footer.scss", "./components/vehicleCard.scss";
+@import "./components/navbar.scss", "./components/swiper.scss", "./components/footer.scss", "./components/vehicleCard.scss", "./components/vue/reservationModal.scss";
 
 .langDropdownDesktop {
     margin-top: 5px !important;

@@ -25,18 +25,27 @@
                             <div class="spec-value">{{ $detail["detail_value"] }}</div>
                         </div>
                     @endforeach
-                </div>
-                <div class="price-wrapper">
-                    <div class="price">
-                        € {{$vehicle->price_per_day}},-
+                    <div class="spec">
+                        <div class="spec-type">
+                            <span class="type">Aantal beschikbaar</span>
+                            <span class="colon">:</span>
+                        </div>
+                        <div class="spec-value">{{ $vehicle->stock }}</div>
                     </div>
-                    <div class="price-btw">per Dag</div>
                 </div>
-                <div class="price-wrapper">
-                    <div class="price">
-                        € {{$vehicle->price_per_week}},-
+                <div class="price-block">
+                    <div class="price-wrapper">
+                        <div class="price">
+                            € {{$vehicle->price_per_day}},-
+                        </div>
+                        <div class="price-btw">per Dag</div>
                     </div>
-                    <div class="price-btw">per Week</div>
+                    <div class="price-wrapper">
+                        <div class="price">
+                            € {{$vehicle->price_per_week}},-
+                        </div>
+                        <div class="price-btw">per Week</div>
+                    </div>
                 </div>
                 <div class="contact-wrapper">
                     <a href="{{ route("contact") }}" class="contact-button">Contact</a>

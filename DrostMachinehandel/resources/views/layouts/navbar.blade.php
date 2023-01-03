@@ -68,25 +68,19 @@
 
             <a href={{ route("home") }}><div class="text-xl xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.home') }}</div></a>
             <div class="group inline-block relative">
-              <button
-                class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('voorraad') || Request::is('dealer/voorraad')) border-b-2 border-primary md:border-b-[4px] @endif"
-              >
+              <button class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('voorraad') || Request::is('dealer/voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">
                 <span class="mr-1">Occasions</span>
                 <i class="fas fa-chevron-down"></i>
               </button>
               <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
                 <li>
-                  <a
-                    class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('voorraad')) underline decoration-primary underline-offset-2 decoration-2 @endif"
-                    href="{{ route("voorraad") }}"
-                    >{{ __('content/navbar.occasions') }}</a
-                  >
+                  <a class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('voorraad')) underline decoration-primary underline-offset-2 decoration-2 @endif" href="{{ route("voorraad") }}">{{ __('content/navbar.private-individual') }}</a>
                 </li>
                 <li>
                   <a
                     class="rounded-b bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('dealer/voorraad')) underline decoration-primary underline-offset-2 decoration-2 @endif"
                     href="{{ route("dealer-voorraad") }}"
-                    >{{ __('content/navbar.private-individual') }}</a
+                    >{{ __('content/navbar.traders') }}</a
                   >
                 </li>
               </ul>
@@ -95,10 +89,25 @@
             <a href={{ route("leasen") }}><div class="text-xl xl:text-2xl font-bold @if(Request::is('leasen')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.lease') }}</div></a>
             <a href={{ route("contact") }}><div class="text-xl xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.contact') }}</div></a>
             @if (Auth::check())
-            <form action="{{ route("logout") }}" method="POST">
-              @csrf
-              <button type="submit" class="text-xl xl:text-2xl font-bold">{{ __('content/navbar.logout') }}</button>
-            </form>
+            {{-- todo clean this code --}}
+            <div class="group inline-block relative">
+              <button class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('voorraad') || Request::is('dealer/voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">
+                <span class="mr-1">Account</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
+                <li>
+                  <a class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('dashboard-account')) underline decoration-primary underline-offset-2 decoration-2 @endif" href="{{ route("dashboard-account") }}">{{ __('content/navbar.dashboard-account') }}</a>
+                </li>
+                <li>
+                  <form class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap" action="{{ route("logout") }}" method="POST">
+                  @csrf
+                  <button type="submit" class="font-bold">{{ __('content/navbar.logout') }}</button>
+                </form>
+                </li>
+              </ul>
+            </div>
+            
             @else
               <div class="group inline-block relative">
                 <button

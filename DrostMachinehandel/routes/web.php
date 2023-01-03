@@ -104,6 +104,8 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/users/{id}', [UserController::class, "show"]);
     Route::get('/dealer/', [DealerController::class, "index"]);
     Route::get('/dealers/{id}', [DealerController::class, "show"]);
+
+    Route::post('/vehicle/reservation', [ReservationController::class, "store"]);
 });
 
 Route::get('set-locale/{locale}', function ($locale) {

@@ -9,6 +9,7 @@ return [
     'trade-in' => 'Inruil mogelijk',
     'home' => 'Home',
     'occasions' => 'Occasions',
+    'dashboard-account' => 'Dashboard',
     'private-individual' => 'Particulier',
     'traders' => 'Handelaren',
     'stock' => 'Voorraad',

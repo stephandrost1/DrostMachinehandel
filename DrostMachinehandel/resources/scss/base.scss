@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.1.8 | MIT License | https://tailwindcss.com
+! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -30,6 +30,7 @@
 2. Prevent adjustments of font size after orientation changes in iOS.
 3. Use a more readable tab size.
 4. Use the user's configured `sans` font-family by default.
+5. Use the user's configured `sans` font-feature-settings by default.
 */
 
 html {
@@ -44,6 +45,8 @@ html {
   /* 3 */
   font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   /* 4 */
+  font-feature-settings: normal;
+  /* 5 */
 }
 
 /*
@@ -408,6 +411,12 @@ img,
 video {
   max-width: 100%;
   height: auto;
+}
+
+/* Make elements with the HTML hidden attribute stay hidden by default */
+
+[hidden] {
+  display: none;
 }
 
 [type='text'],[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select {
@@ -1166,10 +1175,6 @@ select {
   width: 2.25rem;
 }
 
-.w-12 {
-  width: 3rem;
-}
-
 .w-1\/12 {
   width: 8.333333%;
 }
@@ -1184,6 +1189,10 @@ select {
 
 .w-\[38px\] {
   width: 38px;
+}
+
+.w-12 {
+  width: 3rem;
 }
 
 .min-w-full {
@@ -1721,6 +1730,16 @@ select {
 .bg-primary-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 225 199 / var(--tw-bg-opacity));
+}
+
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
 }
 
 .bg-green-100 {
@@ -2828,20 +2847,20 @@ select {
     width: 25%;
   }
 
-  .sm\:w-full {
-    width: 100%;
-  }
-
-  .sm\:w-10 {
-    width: 2.5rem;
+  .sm\:w-5\/12 {
+    width: 41.666667%;
   }
 
   .sm\:\!w-7\/12 {
     width: 58.333333% !important;
   }
 
-  .sm\:w-5\/12 {
-    width: 41.666667%;
+  .sm\:w-full {
+    width: 100%;
+  }
+
+  .sm\:w-10 {
+    width: 2.5rem;
   }
 
   .sm\:min-w-\[440px\] {
@@ -2858,10 +2877,6 @@ select {
 
   .sm\:flex-1 {
     flex: 1 1 0%;
-  }
-
-  .sm\:flex-row {
-    flex-direction: row;
   }
 
   .sm\:items-start {
@@ -2940,6 +2955,12 @@ select {
   .sm\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+}
+
+@media (min-width: 680px) {
+  .min-\[680px\]\:flex-row {
+    flex-direction: row;
   }
 }
 
@@ -3145,6 +3166,12 @@ select {
   }
 }
 
+@media (min-width: 880px) {
+  .min-\[880px\]\:flex-row {
+    flex-direction: row;
+  }
+}
+
 @media (min-width: 1024px) {
   .lg\:order-1 {
     order: 1;
@@ -3179,6 +3206,70 @@ select {
   .lg\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
+  }
+}
+
+@media (min-width: 1150px) {
+  .min-\[1150px\]\:max-w-\[450px\] {
+    max-width: 450px;
+  }
+
+  .min-\[1150px\]\:max-w-\[290px\] {
+    max-width: 290px;
+  }
+
+  .min-\[1150px\]\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .min-\[1150px\]\:flex-row {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1225px) {
+  .min-\[1225px\]\:mb-0 {
+    margin-bottom: 0px;
+  }
+
+  .min-\[1225px\]\:table-row {
+    display: table-row;
+  }
+
+  .min-\[1225px\]\:flex-none {
+    flex: none;
+  }
+
+  .min-\[1225px\]\:overflow-hidden {
+    overflow: hidden;
+  }
+
+  .min-\[1225px\]\:rounded-none {
+    border-radius: 0px;
+  }
+
+  .min-\[1225px\]\:bg-white {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  }
+
+  .min-\[1225px\]\:p-3 {
+    padding: 0.75rem;
+  }
+
+  .min-\[1225px\]\:p-2 {
+    padding: 0.5rem;
+  }
+
+  .min-\[1225px\]\:px-32 {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+
+  .min-\[1225px\]\:shadow-lg {
+    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
 }
 
