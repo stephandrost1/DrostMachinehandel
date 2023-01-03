@@ -40,7 +40,7 @@
                 @yield('content')
             </div>
     
-            @if(!request()->is('login') && !request()->is('dealer/login'))
+            @if(!request()->is('login') && !request()->is('dealer/login') && !request()->is('dealer/create-account'))
             
                 {{-- Footer --}}
                 @include('layouts.footer', [

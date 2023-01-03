@@ -49,12 +49,14 @@ const _addContactButtons = () => {
             "en": "Rent",
             "fr": "Location",
             "de": "Miete",
-            "nl": "Huren",
+            "nl": "Contact",
         }
     }
 
     const buttonsWrapper = document.createElement("div");
-    buttonsWrapper.classList = "contact-buttons-wrapper flex justify-between";
+    buttonsWrapper.classList = "contact-buttons-wrapper flex justify-end";
+    //TODO
+    // buttonsWrapper.classList = "contact-buttons-wrapper flex justify-between";
     const buyButton = document.createElement("a");
     const rentButton = document.createElement("a");
     const language = document.querySelector('meta[name="current-lang"]').content
@@ -69,7 +71,7 @@ const _addContactButtons = () => {
     rentButton.innerHTML = buttonsText["rent"][language] ?? "Huren";
     rentButton.href = `javascript:showContactMePopin(${vehicleId})`;
 
-    buttonsWrapper.appendChild(buyButton);
+    // buttonsWrapper.appendChild(buyButton);
     buttonsWrapper.appendChild(rentButton);
     wrapper.appendChild(buttonsWrapper);
 }

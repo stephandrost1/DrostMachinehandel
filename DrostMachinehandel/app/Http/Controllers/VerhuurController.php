@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RentFilter;
+use App\Models\Reservation;
 use App\Models\Vehicle;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -31,11 +32,14 @@ class VerhuurController extends Controller
         try {
             $vehicle = Vehicle::with(["images", "details"])->find($id);
 
-            Log::alert("vehicle", [$vehicle]);
+            $vehicleReservations = Reservation::where('vehicle_id', $id)->sum('amount');
 
             if (empty($vehicle)) {
                 throw new Exception("There is no vehicle found with id: " . $id);
             }
+
+            $currentStock = $vehicle->stock - $vehicleReservations;
+            $vehicle->stock = $currentStock;
 
             return view("verhuurDetail", ["vehicle" => $vehicle]);
         } catch (Exception $e) {

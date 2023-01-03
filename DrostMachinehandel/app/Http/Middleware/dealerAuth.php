@@ -15,7 +15,9 @@ class dealerAuth extends Middleware
     protected function redirectTo($request)
     {
         if (!$request->expectsJson()) {
-            return route('dealer-login');
+            // return route('dealer-login');
+            //TODO
+            return route('login');
         }
     }
 }

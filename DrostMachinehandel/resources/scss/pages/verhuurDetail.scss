@@ -18,6 +18,9 @@
 
 .detail-wrapper {
     padding: 0 20px;
+    max-width: 1800px !important;
+    display: block;
+    margin: 0 auto;
 
     @media (min-width: 362px) {
         padding: 20px;
@@ -34,7 +37,7 @@
         .images-wrapper {
             
             @media (min-width: 1121px) {
-                flex-basis: 140%;
+                width: 70%;
             }
 
             .main-image {
@@ -46,6 +49,7 @@
             padding: 20px 0;
 
             @media (min-width: 1121px) {
+                width: 30%;
                 padding: 0 10px !important;
             }
 
@@ -96,19 +100,26 @@
                 }
             }
 
-            .price-wrapper {
-                padding: 28px 0;
-                margin: 0;
-                text-align: right;
+            .price-block {
+                display: flex;
+                flex-direction: row;
+                gap: 3rem;
+                justify-content: flex-end;
 
-                .price {
-                    font-weight: 700;
-                    font-size: 2.5rem;
-                    line-height: 2.75rem;
-                }
+                .price-wrapper {
+                    padding: 28px 0;
+                    margin: 0;
+                    text-align: right;
 
-                .price-btw {
-                    opacity: 0.5;
+                    .price {
+                        font-weight: 700;
+                        font-size: 2.5rem;
+                        line-height: 2.75rem;
+                    }
+
+                    .price-btw {
+                        opacity: 0.5;
+                    }
                 }
             }
 

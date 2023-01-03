@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-    <div class="relative z-20">
+    <div class="hidden relative z-20">
         <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity"></div>
 
         <div class="fixed inset-0 z-10 overflow-y-auto">
@@ -18,7 +18,7 @@ export default {
                         <div class="flex items-center gap-3">
                             <div
                                 class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                                <i class="fas fa-pen text-green-600"></i>
+                                <i class="fas fa-user-edit text-green-600"></i>
                             </div>
                             <h3 class="text-lg font-bold leading-6 text-gray-900" id="modal-title">Dealer bewerken
                             </h3>

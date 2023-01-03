@@ -1,84 +1,207 @@
 <script>
+import axios from 'axios';
 
 export default {
+    data() {
+        return {
+            startDate: "",
+            endDate: "",
+            currentUser: [],
+            showPopup: false,
+            errorMessage: "",
+            succesMessage: "",
+            submitButtonDisabled: false,
+        }
+    },
 
+    mounted() {
+        this.fetchUser();
+    },
+
+    computed: {
+        getVehicleName() {
+            return document.querySelector("#detailsContainer #hcontact-block .vehicleTitle").innerHTML ?? "Niet gevonden...";
+        },
+
+        getVehicleImage() {
+            const imageElement = document.querySelector("#detailsContainer .photoHolder .slick-slide img")
+
+            return imageElement.src;
+        },
+
+        getStreetname() {
+            return `${this.currentUser["address"] ? this.currentUser["address"]["streetname"] : ''} ${this.currentUser["address"] ? this.currentUser["address"]["housenumber"] : ''}`;
+        },
+
+        getPostalCode() {
+            return this.currentUser["address"] ? this.currentUser["address"]["postalcode"] : '';
+        },
+
+        getCity() {
+            return this.currentUser["address"] ? this.currentUser["address"]["city"] : '';
+        },
+
+        getCountry() {
+            return this.currentUser["address"] ? this.currentUser["address"]["country"] : '';
+        }
+    },
+
+    methods: {
+        addSlashes(string) {
+            var result = "";
+            for (var i = 0; i < string.length; i++) {
+                result += string[i];
+                if (i == 1 || i == 3) result += '/';
+            }
+            return result;
+
+        },
+
+        fetchUser() {
+            axios.get('/api/v1/dealer')
+                .then(response => {
+                    this.currentUser = response.data.dealer;
+                });
+        },
+
+        _handleSave() {
+            this.submitButtonDisabled = true;
+
+            const vehicleId = document.querySelector("#get-vehicle-id").dataset.vehicleid ?? null;
+
+            axios.post('/api/v1/vehicle/reservation', {
+                "vehicleId": vehicleId,
+                "startDate": this.startDate,
+                "endDate": this.endDate,
+            }).then((response) => {
+                this.succesMessage = response.data.message
+            }).catch((error) => {
+                this.errorMessage = error.response.data.message
+            })
+
+            setTimeout(() => {
+                if (this.succesMessage != "") {
+                    this._handleCloseModal();
+                }
+
+                this.errorMessage = "";
+                this.succesMessage = "";
+                this.submitButtonDisabled = false;
+            }, 5000);
+        },
+
+        _handleCloseModal() {
+            const reservationModal = document.querySelector("#svm-canvas .vue-reservation-modal");
+
+            reservationModal.classList.add("hidden");
+        }
+    },
+
+    watch: {
+        startDate: function (value) {
+            const date = value.replace(/[^0-9]/g, "");
+
+            this.startDate = this.addSlashes(date.substr(0, 8));
+        },
+
+        endDate: function (value) {
+            const date = value.replace(/[^0-9]/g, "");
+
+            this.endDate = this.addSlashes(date.substr(0, 8));
+        }
+    }
 }
 
 </script>
 
 <template>
-    <div class="relative z-20">
+    <div class="relative z-20 vue-reservation-modal">
         <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity"></div>
 
         <div class="fixed inset-0 z-10 overflow-y-auto">
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div
-                    class="relative transform overflow-hidden rounded-lg bg-white border-2 border-primary text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                                <i class="fas fa-truck-pickup text-green-600"></i>
-                            </div>
-                            <h3 class="text-lg font-bold leading-6 text-gray-900" id="modal-title">Machine reserveren
-                            </h3>
+            <div class="parent w-full h-full">
+                <div class="modal-wrapper">
+                    <div class="error-message bg-red-500" v-if="errorMessage !== ''">
+                        <p class="message">{{ errorMessage }}</p>
+                    </div>
+                    <div class="error-message bg-green-500" v-if="succesMessage !== ''">
+                        <p class="message">{{ succesMessage }}</p>
+                    </div>
+                    <div @click="_handleCloseModal" class="cursor-pointer close-icon">
+                        <div class="icon">
+                            <div class="mark">x</div>
                         </div>
-                        <div class="sm:flex sm:items-start">
-                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left grow">
-
-                                <div class="mt-2 flex flex-col gap-5">
-                                    <div class="flex items-center justify-between">
-                                        <div class="font-bold">Bericht:</div>
-                                        <textarea placeholder="Type hier uw bericht..." v-model="content"
-                                            @change="_handleInput" rows="2"
-                                            class="w-1/2 sm:!w-7/12 rounded-lg border-2 border-primary pl-2"></textarea>
+                    </div>
+                    <div class="modal-title">
+                        <h1>Machine reserveren</h1>
+                    </div>
+                    <div class="selected-vehicle">
+                        <div class="input-wrapper">
+                            <div class="label">
+                                <p class="label-text">Geselecteerde machine:</p>
+                            </div>
+                            <input readonly v-model="getVehicleName" class="selected-vehicle" type="text">
+                            <div class="icon">
+                                <img :src="getVehicleImage" alt="selected vehicle image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <div class="date-wrapper">
+                            <div class="fake-input-label">
+                                <p class="input-label-text">Datum:</p>
+                            </div>
+                            <div class="fake-input">
+                                <p class="from">Van</p>
+                                <input type="text" class="from-input input" v-model="startDate">
+                                <p class="to">Tot</p>
+                                <input type="text" class="to-input input" v-model="endDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="header">
+                            <h2>Uw gegevens</h2>
+                        </div>
+                        <div class="body">
+                            <div class="group">
+                                <div class="streetname">
+                                    <div class="label">
+                                        <p class="label-text">Straat & huisnummer:</p>
                                     </div>
-                                    <div class="flex items-center justify-between">
-                                        <div class="font-bold">Aantal:</div>
-                                        <input placeholder="Bijv. 5"
-                                            class="w-1/2 sm:!w-7/12 h-12 rounded-lg border-2 border-primary pl-2 focus:ring-0 focus:border-primary"
-                                            type="text" id="amount" />
+                                    <input type="text" readonly class="item-input" v-model="getStreetname">
+                                </div>
+                                <div class="postalcode">
+                                    <div class="label">
+                                        <p class="label-text">Postcode</p>
                                     </div>
-                                    <div class="flex flex-row items-start sm:items-center justify-between">
-                                        <div class="font-bold">Datum:</div>
-                                        <div class="flex flex-col sm:flex-row gap-3">
-                                            <div class="flex items-center gap-2 sm:block">
-                                                <div>Van:</div>
-                                                <input
-                                                    class="h-12 rounded-lg border-2 border-primary pl-2 focus:ring-0 focus:border-primary"
-                                                    type="date" id="from-date" />
-                                            </div>
-                                            <div class="flex items-center gap-2 sm:block">
-                                                <div>Tot:</div>
-                                                <input
-                                                    class="h-12 rounded-lg border-2 border-primary pl-2 focus:ring-0 focus:border-primary"
-                                                    type="date" id="until-date" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <div class="font-bold">Postcode:</div>
-                                        <input placeholder="Bijv. 3911VE"
-                                            class="w-1/2 sm:!w-7/12 h-12 rounded-lg border-2 border-primary pl-2 focus:ring-0 focus:border-primary"
-                                            type="text" id="postalcode" />
-                                    </div>
-
-
-
-                                    <div class="flex justify-end items-center gap-5">
-                                        <div>
-                                            <div
-                                                class="cursor-pointer flex w-min rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200 text-red-500 font-bold">
-                                                Annuleren</div>
-                                        </div>
-                                        <div>
-                                            <div
-                                                class="cursor-pointer flex w-min rounded-lg shadow-xl py-2 px-5 border-2 border-green-500 bg-green-200 text-green-500 font-bold">
-                                                Aanvragen</div>
-                                        </div>
-                                    </div>
+                                    <input type="text" readonly class="item-input" v-model="getPostalCode">
                                 </div>
                             </div>
+                            <div class="group">
+                                <div class="city">
+                                    <div class="label">
+                                        <p class="label-text">Woonplaats:</p>
+                                    </div>
+                                    <input type="text" readonly class="item-input" v-model="getCity">
+                                </div>
+                                <div class="country">
+                                    <div class="label">
+                                        <p class="label-text">Land</p>
+                                    </div>
+                                    <input type="text" readonly class="item-input" v-model="getCountry">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <p>Wanneer u op reserveren klikt zal u een bevestigingsmail krijgen met daarin de gegevens
+                                van de reservering!</p>
+                        </div>
+                    </div>
+                    <div class="submit">
+                        <div class="submit-button">
+                            <button @click="_handleSave" :disabled="submitButtonDisabled" class="button">Machine
+                                reserveren</button>
                         </div>
                     </div>
                 </div>

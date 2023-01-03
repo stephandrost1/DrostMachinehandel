@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="text-center mt-10 font-bold">
-                    <a class="text-[#666666] flex items-center" href="#">
+                    <a class="text-[#666666] flex items-center" href="{{ route('dealer-create') }}">
                         <span>Account aanmaken</span>
                         <i class="fas fa-long-arrow-alt-right ml-2"></i>
                     </a>

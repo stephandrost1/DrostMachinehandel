@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DealerVehicle;
 use App\Models\Reservation;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ReservationController extends Controller
 {
@@ -64,5 +66,39 @@ class ReservationController extends Controller
                             : ($page >= $maxPages ? [$maxPages - 2, $maxPages - 1, $maxPages]
                                 // Otherwise, return the three pages centered around the current page
                                 : [$page - 1, $page, $page + 1])))));
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            Log::emergency("reservation", [$request->toArray()]);
+
+            if (empty($request->vehicleId)) {
+                throw new Exception("Vehicle id niet gevonden!");
+            }
+
+            $vehicle = DealerVehicle::find($request->vehicleId);
+
+            if (empty($vehicle)) {
+                throw new Exception("Vehicle niet gevonden!");
+            }
+
+            if (empty($request->startDate)) {
+                return response()->json(["message" => "Er is geen geldige startdatum ingevuld!"], 500);
+            }
+
+            if (empty($request->endDate)) {
+                return response()->json(["message" => "Er is geen geldige einddatum ingevuld!"], 500);
+            }
+
+            return response()->json(["message" => "Reservering is succesvol aangemaakt!"], 200);
+        } catch (Exception $e) {
+            Log::emergency("ReservationController", [
+                "error" => $e->getMessage(),
+                "request" => $request->toArray(),
+            ]);
+
+            return response()->json(["message" => "Er is iets fout gegaan, probeer het later opnieuw!"], 500);
+        }
     }
 }
