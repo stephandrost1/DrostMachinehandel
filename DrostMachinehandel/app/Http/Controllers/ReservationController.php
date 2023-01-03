@@ -71,8 +71,6 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         try {
-            Log::emergency("reservation", [$request->toArray()]);
-
             if (empty($request->vehicleId)) {
                 throw new Exception("Vehicle id niet gevonden!");
             }

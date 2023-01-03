@@ -176,7 +176,7 @@ class DealerController extends Controller
         }
     }
 
-    public function deactive($id)
+    public function deactivate($id)
     {
         try {
             $dealer = Dealer::find($id);
@@ -194,7 +194,7 @@ class DealerController extends Controller
         }
     }
 
-    public function active($id)
+    public function activate($id)
     {
         try {
             $dealer = Dealer::find($id);

@@ -10,7 +10,7 @@ return [
     'Contact' => 'Contact',
     'Login' => 'Login',
     'Dashboard' => 'Dashboard',
-    'MachineDetail' => 'Machine Details',
+    'voorraad-detail' => 'Machine Details',
     'Dashboard-payments' => 'Payments',
     'Dashboard-tasks' => 'Tasks',
     'Dashboard-messages' => 'Messages',

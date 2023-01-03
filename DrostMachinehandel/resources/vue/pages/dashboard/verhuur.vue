@@ -49,14 +49,6 @@ export default {
             await this.$store.dispatch("fetchVehicleById", vehicleId);
             this.isFetchingData = false;
         },
-
-        // _handleMachineDeleteReject() {
-        //     this.deleteMachineModal.isOpen = false;
-        // },
-
-        // _handleMachineDeleteAccept() {
-        //     this.deleteMachineModal.isOpen = false;
-        // }
     }
 }
 </script>
@@ -67,8 +59,7 @@ export default {
         <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"></dm-sidebar>
 
         <div class="grow">
-            <div
-                class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
+            <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
                 <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>
                 <dm-vehicle-loader v-if="isFetchingVehicle"></dm-vehicle-loader>
                 <dm-no-vehicle-selected v-if="!hasSelectedVehicle && !isFetchingVehicle"></dm-no-vehicle-selected>

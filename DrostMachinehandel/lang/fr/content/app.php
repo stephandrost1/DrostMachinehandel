@@ -10,7 +10,7 @@ return [
     'Contact' => 'Contact',
     'Login' => 'Connexion',
     'Dashboard' => 'Tableau de bord',
-    'MachineDetail' => `Détails de l'appareil`,
+    'voorraad-detail' => `Détails de l'appareil`,
     'Dashboard-payments' => 'Paiements',
     'Dashboard-tasks' => 'Tâches',
     'Dashboard-messages' => 'Messages',

@@ -39,6 +39,7 @@ export default {
             formData.append("file", file);
             formData.append("vehicleId", this.getVehicleId);
 
+            //TODO replace url
             return await axios.post("vehicles/images/upload", formData).then(response => {
                 return response.data;
             }).catch((error) => {
