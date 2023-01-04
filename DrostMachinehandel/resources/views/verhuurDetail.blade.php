@@ -9,6 +9,8 @@
       </div>
 
     <div class="detail-wrapper">
+        <div id="get-vehicle-id" class="hidden" data-vehicleid="{{$vehicle->id}}"></div>
+        <div class="reservation-popup" id="reservation-popup-rent-detail"></div>
         <div class="images-specs-wrapper">
             <div class="images-wrapper">
                 <img class="main-image" src="{{ !empty($vehicle->images[0]) ? $vehicle->images[0]["image_location"].$vehicle->images[0]["image_name"].".".$vehicle->images[0]["image_type"] : '/img/errors/no_image_placeholder.png'  }}">
@@ -35,19 +37,20 @@
                 </div>
                 <div class="price-block">
                     <div class="price-wrapper">
-                        <div class="price">
+                        <div class="price price-per-day">
                             € {{$vehicle->price_per_day}},-
                         </div>
                         <div class="price-btw">per Dag</div>
                     </div>
                     <div class="price-wrapper">
-                        <div class="price">
+                        <div class="price price-per-week">
                             € {{$vehicle->price_per_week}},-
                         </div>
                         <div class="price-btw">per Week</div>
                     </div>
                 </div>
                 <div class="contact-wrapper">
+                    <div class="contact-button">Reserveren</div>
                     <a href="{{ route("contact") }}" class="contact-button">Contact</a>
                 </div>
                 <div class="share-wrapper">

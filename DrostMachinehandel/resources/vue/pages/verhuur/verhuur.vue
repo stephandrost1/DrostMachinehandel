@@ -1,7 +1,7 @@
 <script>
-import activeFilterVue from '../components/verhuur/home/filters/activeFilter.vue';
-import filterVue from '../components/verhuur/home/filters/filterGroup.vue';
-import vehicleVue from '../components/verhuur/home/vehicle.vue';
+import activeFilterVue from '../../components/verhuur/home/filters/activeFilter.vue';
+import filterVue from '../../components/verhuur/home/filters/filterGroup.vue';
+import vehicleVue from '../../components/verhuur/home/vehicle.vue';
 
 export default {
     components: {

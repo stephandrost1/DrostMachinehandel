@@ -262,7 +262,7 @@ class DealerController extends Controller
                 $dealer->fill([
                     "password" => Hash::make($request->password)
                 ])->save();
-            } else if (Auth::guard("web") && isset($request->password) && !empty($request->password)) {
+            } else if (Auth::guard("user") && isset($request->password) && !empty($request->password)) {
                 $dealer->fill([
                     "password" => Hash::make($request->password)
                 ])->save();

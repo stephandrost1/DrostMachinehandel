@@ -6,8 +6,8 @@ import { createApp } from 'vue'
 import Toaster from '../../node_modules/@meforma/vue-toaster';
 
 //Base page
-import PageVehuur from './pages/verhuur.vue';
-import PageDealerDetail from "./pages/dealer/detail.vue";
+import PageVehuur from './pages/verhuur/verhuur.vue';
+import PageRentDetail from "./pages/verhuur/detail.vue";
 
 //External components
 import verhuurStore from "./store/verhuur/home/store.js"
@@ -16,7 +16,7 @@ window._ = _;
 window.axios = axios;
 
 const verhuurApp = createApp(PageVehuur);
-const DealerDetailApp = createApp(PageDealerDetail);
+const RentDetailApp = createApp(PageRentDetail);
 
 verhuurApp.use(verhuurStore);
 
@@ -24,20 +24,19 @@ if (document.querySelector("#page-verhuur-app")) {
     verhuurApp.mount("#page-verhuur-app");
 }
 
-function mountDealerDetailApp() {
-    if (document.querySelector("#page-voorraad-detail-reservation-wrapper")) {
-        DealerDetailApp.mount("#page-voorraad-detail-reservation-wrapper");
-
+function mountRentDetailApp() {
+    if (document.querySelector("#reservation-popup-rent-detail")) {
+        RentDetailApp.mount("#reservation-popup-rent-detail");
         return;
     }
 
     // Try again in 1 second, but stop after 30 tries
     if (count < 30) {
-        setTimeout(mountDealerDetailApp, 1000);
+        setTimeout(mountRentDetailApp, 1000);
         count++;
     }
 }
 
 var count = 0;
-mountDealerDetailApp();
+mountRentDetailApp();
 

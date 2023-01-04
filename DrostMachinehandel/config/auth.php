@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'dealer',
+        'passwords' => 'dealers',
     ],
 
     /*
@@ -36,7 +36,7 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'user' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
@@ -95,8 +95,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'dealers' => [
+            'provider' => 'dealers',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

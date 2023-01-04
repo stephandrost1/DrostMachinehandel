@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateReservationRequest;
 use App\Models\DealerVehicle;
 use App\Models\Reservation;
+use App\Models\ReservationDate;
+use App\Models\Vehicle;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -68,26 +71,31 @@ class ReservationController extends Controller
                                 : [$page - 1, $page, $page + 1])))));
     }
 
-    public function store(Request $request)
+    public function store(CreateReservationRequest $request)
     {
         try {
-            if (empty($request->vehicleId)) {
-                throw new Exception("Vehicle id niet gevonden!");
-            }
+            $validation = $request->validated();
 
-            $vehicle = DealerVehicle::find($request->vehicleId);
+            $vehicle = Vehicle::find($request->vehicleId);
 
             if (empty($vehicle)) {
                 throw new Exception("Vehicle niet gevonden!");
             }
 
-            if (empty($request->startDate)) {
-                return response()->json(["message" => "Er is geen geldige startdatum ingevuld!"], 500);
-            }
+            $startDate = $request->startDate;
+            $endDate = $request->endDate;
 
-            if (empty($request->endDate)) {
-                return response()->json(["message" => "Er is geen geldige einddatum ingevuld!"], 500);
-            }
+            $reservations = ReservationDate::where('startDate', '<=', $endDate)
+                ->where('endDate', '>=', $startDate)
+                ->orWhere(function ($query) use ($startDate, $endDate) {
+                    $query->where('startDate', '>=', $startDate)
+                        ->where('startDate', '<=', $endDate)
+                        ->orWhere('endDate', '>=', $startDate)
+                        ->where('endDate', '<=', $endDate);
+                })
+                ->get()->toArray();
+
+            Log::debug("reservations", [$reservations]);
 
             return response()->json(["message" => "Reservering is succesvol aangemaakt!"], 200);
         } catch (Exception $e) {
