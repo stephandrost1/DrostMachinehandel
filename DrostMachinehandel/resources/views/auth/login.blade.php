@@ -57,13 +57,6 @@
                   </span>
                   
               </div>
-
-              <div class="text-center mt-10 font-bold">
-                  <a class="text-[#666666] flex items-center" href="#">
-                      <span>Account aanmaken</span>
-                      <i class="fas fa-long-arrow-alt-right ml-2"></i>
-                  </a>
-              </div>
           </div>
       </div>
   </form>

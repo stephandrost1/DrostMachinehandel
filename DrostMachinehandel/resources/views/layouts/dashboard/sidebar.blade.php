@@ -29,6 +29,11 @@
                             </a>
                         </li>
                         <li class="mr-3 flex-1">
+                            <a href="#" class="@if(Request::is('dashboard/maintenance')) border-primary text-primary @else border-gray-800 @endif flex items-center gap-2 block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white hover:border-white border-b-2">
+                                <i class="fas fa-wrench"></i><span class="pb-1 md:pb-0 text-xs md:text-base block md:inline-block">Onderhoud</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
                             <a href="{{ route("dashboard-account") }}" class="@if(Request::is('dashboard/account')) border-primary text-primary @else border-gray-800 @endif flex items-center gap-2 block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white hover:border-white border-b-2">
                                 <i class="fas fa-user"></i></i><span class="pb-1 md:pb-0 text-xs md:text-base block md:inline-block">Account</span>
                             </a>
