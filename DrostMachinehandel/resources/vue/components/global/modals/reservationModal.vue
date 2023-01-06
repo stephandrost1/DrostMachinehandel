@@ -91,7 +91,7 @@ export default {
         },
 
         fetchUser() {
-            axios.get('/api/v1/dealer')
+            axios.get('/api/v2/dealer')
                 .then(response => {
                     this.currentUser = response.data.dealer;
                 });
@@ -102,7 +102,7 @@ export default {
 
             const vehicleId = document.querySelector("#get-vehicle-id").dataset.vehicleid ?? null;
 
-            axios.post('/api/v1/vehicle/reservation', {
+            axios.post('/api/v2/vehicle/reservation', {
                 "vehicleId": vehicleId,
                 "startDate": this.startDate,
                 "endDate": this.endDate,
@@ -126,7 +126,7 @@ export default {
         },
 
         _handleCloseModal() {
-            const reservationModal = document.querySelector(".reservation-popup-rent-detail");
+            const reservationModal = document.querySelector("#reservation-popup-rent-detail");
 
             reservationModal.classList.add("hidden");
         },
@@ -348,7 +348,7 @@ export default {
                                 </div>
                             </div>
                             <div class="alerts" v-if="errorMessage !== '' || succesMessage !== ''" :class="{ 'bg-red-500': errorMessage !== '', 'bg-green-500': succesMessage !== '' }">
-                                <p class="alert-text">{{ errorMessage ?? succesMessage }}</p>
+                                <p class="alert-text">{{ errorMessage ? errorMessage : succesMessage }}</p>
                             </div>
                             <div class="footer">
                                 <div class="alert">

@@ -12,8 +12,10 @@ class Reservation extends Model
 
     protected $fillable = [
         "dealer_id",
+        "auth_type",
         "vehicle_id",
         "distance",
+        "duration",
         "amount",
         "reservation_accepted_at"
     ];

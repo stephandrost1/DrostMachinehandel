@@ -67,7 +67,6 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
 
 Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::prefix("/vehicles")->group(function () {
-        Route::get('/', [VehicleController::class, "index"]);
         Route::get("/views", [VehicleController::class, "vehicleViews"]);
         Route::get("/{id}", [VehicleController::class, "show"]);
         Route::delete("/{id}/delete", [VehicleController::class, "destroy"]);
@@ -93,7 +92,6 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
             Route::get('/fetch', [DealerVehicleController::class, "fetchVehicles"]);
         });
 
-        Route::get('/', [DealerController::class, "index"]);
         Route::get('/{id}', [DealerController::class, "show"]);
         Route::get('/vehicle', [DealerVehicleController::class, "getById"])->where("svm", '[a-zA-Z0-9/_-]+');
         Route::get('/pending', [DealerController::class, "getPending"]);
@@ -103,7 +101,6 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::get('/reservations/{page}', [ReservationController::class, "index"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
-    Route::get('/filters', [FilterController::class, "index"]);
 
     Route::prefix("/user")->group(function () {
         Route::get('/', [UserController::class, "index"]);
@@ -112,7 +109,13 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     });
 
     //Todo check url name 
+});
+
+Route::prefix('/api/v2')->group(function () {
     Route::post('/vehicle/reservation', [ReservationController::class, "store"]);
+    Route::get('/vehicles', [VehicleController::class, "index"]);
+    Route::get('/filters', [FilterController::class, "index"]);
+    Route::get('dealer/', [DealerController::class, "index"]);
 });
 
 Route::get('set-locale/{locale}', function ($locale) {

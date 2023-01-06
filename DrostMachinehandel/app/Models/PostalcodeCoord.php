@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ReservationDate extends Model
+class PostalcodeCoord extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "reservation_id",
-        "startDate",
-        "endDate"
+        "postal_code",
+        "lat",
+        "long",
     ];
 }

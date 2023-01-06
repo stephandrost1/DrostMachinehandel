@@ -21,7 +21,7 @@ class DealerController extends Controller
         try {
             $user = Auth::getUser();
 
-            if (empty($user)) {
+            if (empty($user) || is_null($user)) {
                 throw new Exception("User is not logged in!");
             }
 
@@ -43,11 +43,11 @@ class DealerController extends Controller
                 "dealerContrller",
                 [
                     "action" => "show",
-                    "id" => $id,
+                    "id" => $id ?? "id not found! user might not been logged in",
                     "error" => $e->getMessage(),
                 ]
             );
-            return response()->json(["message" => "er is iets fout gegaan, probeer het later opnieuw!"], 500);
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
         }
     }
 
