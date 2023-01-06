@@ -8,23 +8,35 @@
     }
 
     .parent {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        background-color: rgba($color-secondary, 0.5);
+        @media screen and (min-width: 650px) {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
 
         .modal-wrapper {
             position: relative;
             background: $color-white;
             box-shadow: 12px 12px 8px rgba(0, 0, 0, 0.25);
             border-radius: 25px;
-            width: 800px;
-            height: fit-content;
-            padding: 39px 69px;
+            padding: 18px 32px;
+            margin: 20px !important;
+
+            @media screen and (min-width: 650px) and (min-height: 500px) {
+                margin: 0px !important;
+                padding: 39px 69px;
+            }
+
 
             .error-message {
                 padding: 0.25rem 1rem;
                 width: 90%;
+                font-weight: bold;
+                border-radius: 5px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                -ms-border-radius: 5px;
+                -o-border-radius: 5px;
             }
 
             .close-icon {
@@ -47,6 +59,7 @@
                         display: flex !important;
                         align-items: center !important;
                         justify-content: center !important;
+                        margin-bottom: 4px !important;
                     }
                 }
             }
@@ -86,6 +99,10 @@
                         padding-left: 3.5rem;
                         font-size: 20px !important;
                         font-weight: 600 !important;
+
+                        .label-text {
+                            display: none !important;
+                        }
                     }
 
                     .icon {
@@ -103,9 +120,16 @@
             }
 
             .group {
-                margin-bottom: 30px !important;
                 display: flex !important;
                 justify-content: space-between !important;
+                flex-direction: column;
+                gap: 15px;
+
+                @media screen and (min-width: 740px) {
+                    flex-direction: row;
+                    gap: 0px;
+                    margin-bottom: 30px !important;
+                }
 
                 .date-wrapper {
                     width: 100%;
@@ -130,7 +154,14 @@
                         display: flex !important;
                         align-items: center !important;
                         justify-content: space-around !important;
-                        height: 56px !important;
+                        height: auto !important;
+                        flex-direction: column !important;
+                        padding: 5px;
+
+                        @media screen and (min-width: 500px) {
+                            height: 56px !important;
+                            flex-direction: row !important;
+                        }
 
                         .from, .to {
                             color: $color-main !important;
@@ -144,7 +175,11 @@
                             text-align: center !important;
                             letter-spacing: 2px;
                             font-weight: 600 !important;
-                            width: 130px !important;
+                            width: 100px !important;
+
+                            @media screen and (min-width: 650px) {
+                                width: 130px !important;
+                            }
                         }
                     }
                 }
@@ -166,8 +201,12 @@
                         
                         .streetname, .city, .postalcode, .country {
                             position: relative;
-                            width: 60%;
+                            width: 100% !important;
                             margin-right: 26px !important;
+
+                            @media screen and (min-width: 740px) {
+                                width: 60% !important;
+                            }
 
                             .label {
                                 z-index: 10;
@@ -193,8 +232,12 @@
                             }
                         }
 
-                        .postalcode, .country {
-                            width: 40% !important;
+                        .postalcode, .streetname {
+                            width: 100% !important;
+
+                            @media screen and (min-width: 740px) {
+                                width: 40% !important;
+                            }
                         }
                     }
                 }
@@ -202,7 +245,10 @@
                 .footer {
                     p {
                         color: $color-black !important;
-                        width: 450px !important;
+                        
+                        @media screen and (min-width: 650px) {
+                            width: 450px !important;
+                        }
                     }
                 }
             }

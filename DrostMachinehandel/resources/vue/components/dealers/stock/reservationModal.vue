@@ -116,93 +116,91 @@ export default {
 
 <template>
     <div class="relative z-20 vue-reservation-modal">
-        <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity"></div>
+        <div class="fixed inset-0 bg-secondary bg-opacity-75 transition-opacity"></div>
 
-        <div class="fixed inset-0 z-10 overflow-y-auto">
-            <div class="parent w-full h-full">
-                <div class="modal-wrapper">
-                    <div class="error-message bg-red-500" v-if="errorMessage !== ''">
-                        <p class="message">{{ errorMessage }}</p>
+        <div class="fixed inset-0 z-10 overflow-y-auto parent">
+            <div class="modal-wrapper">
+                <div class="error-message bg-red-500" v-if="errorMessage !== ''">
+                    <p class="message">{{ errorMessage }}</p>
+                </div>
+                <div class="error-message bg-green-500" v-if="succesMessage !== ''">
+                    <p class="message">{{ succesMessage }}</p>
+                </div>
+                <div @click="_handleCloseModal" class="cursor-pointer close-icon">
+                    <div class="icon">
+                        <div class="mark">x</div>
                     </div>
-                    <div class="error-message bg-green-500" v-if="succesMessage !== ''">
-                        <p class="message">{{ succesMessage }}</p>
-                    </div>
-                    <div @click="_handleCloseModal" class="cursor-pointer close-icon">
+                </div>
+                <div class="modal-title">
+                    <h1>Machine reserveren</h1>
+                </div>
+                <div class="selected-vehicle">
+                    <div class="input-wrapper">
+                        <div class="label">
+                            <p class="label-text">Geselecteerde machine:</p>
+                        </div>
+                        <input readonly v-model="getVehicleName" class="selected-vehicle" type="text">
                         <div class="icon">
-                            <div class="mark">x</div>
+                            <img :src="getVehicleImage" alt="selected vehicle image">
                         </div>
                     </div>
-                    <div class="modal-title">
-                        <h1>Machine reserveren</h1>
-                    </div>
-                    <div class="selected-vehicle">
-                        <div class="input-wrapper">
-                            <div class="label">
-                                <p class="label-text">Geselecteerde machine:</p>
-                            </div>
-                            <input readonly v-model="getVehicleName" class="selected-vehicle" type="text">
-                            <div class="icon">
-                                <img :src="getVehicleImage" alt="selected vehicle image">
-                            </div>
+                </div>
+                <div class="group">
+                    <div class="date-wrapper">
+                        <div class="fake-input-label">
+                            <p class="input-label-text">Datum:</p>
+                        </div>
+                        <div class="fake-input">
+                            <p class="from">Van</p>
+                            <input type="text" class="from-input input" v-model="startDate">
+                            <p class="to">Tot</p>
+                            <input type="text" class="to-input input" v-model="endDate">
                         </div>
                     </div>
-                    <div class="group">
-                        <div class="date-wrapper">
-                            <div class="fake-input-label">
-                                <p class="input-label-text">Datum:</p>
-                            </div>
-                            <div class="fake-input">
-                                <p class="from">Van</p>
-                                <input type="text" class="from-input input" v-model="startDate">
-                                <p class="to">Tot</p>
-                                <input type="text" class="to-input input" v-model="endDate">
-                            </div>
-                        </div>
+                </div>
+                <div class="section">
+                    <div class="header">
+                        <h2>Uw gegevens</h2>
                     </div>
-                    <div class="section">
-                        <div class="header">
-                            <h2>Uw gegevens</h2>
-                        </div>
-                        <div class="body">
-                            <div class="group">
-                                <div class="streetname">
-                                    <div class="label">
-                                        <p class="label-text">Straat & huisnummer:</p>
-                                    </div>
-                                    <input type="text" readonly class="item-input" v-model="getStreetname">
+                    <div class="body">
+                        <div class="group">
+                            <div class="country">
+                                <div class="label">
+                                    <p class="label-text">Land</p>
                                 </div>
-                                <div class="postalcode">
-                                    <div class="label">
-                                        <p class="label-text">Postcode</p>
-                                    </div>
-                                    <input type="text" readonly class="item-input" v-model="getPostalCode">
-                                </div>
+                                <input type="text" readonly class="item-input" v-model="getCountry">
                             </div>
-                            <div class="group">
-                                <div class="city">
-                                    <div class="label">
-                                        <p class="label-text">Woonplaats:</p>
-                                    </div>
-                                    <input type="text" readonly class="item-input" v-model="getCity">
+                            <div class="postalcode">
+                                <div class="label">
+                                    <p class="label-text">Postcode</p>
                                 </div>
-                                <div class="country">
-                                    <div class="label">
-                                        <p class="label-text">Land</p>
-                                    </div>
-                                    <input type="text" readonly class="item-input" v-model="getCountry">
-                                </div>
+                                <input type="text" readonly class="item-input" v-model="getPostalCode">
                             </div>
                         </div>
-                        <div class="footer">
-                            <p>Wanneer u op reserveren klikt zal u een bevestigingsmail krijgen met daarin de gegevens
-                                van de reservering!</p>
+                        <div class="group">
+                            <div class="city">
+                                <div class="label">
+                                    <p class="label-text">Woonplaats:</p>
+                                </div>
+                                <input type="text" readonly class="item-input" v-model="getCity">
+                            </div>
+                            <div class="streetname">
+                                <div class="label">
+                                    <p class="label-text">Straat & huisnummer:</p>
+                                </div>
+                                <input type="text" readonly class="item-input" v-model="getStreetname">
+                            </div>
                         </div>
                     </div>
-                    <div class="submit">
-                        <div class="submit-button">
-                            <button @click="_handleSave" :disabled="submitButtonDisabled" class="button">Machine
-                                reserveren</button>
-                        </div>
+                    <div class="footer">
+                        <p>Wanneer u op reserveren klikt zal u een bevestigingsmail krijgen met daarin de gegevens
+                            van de reservering!</p>
+                    </div>
+                </div>
+                <div class="submit">
+                    <div class="submit-button">
+                        <button @click="_handleSave" :disabled="submitButtonDisabled" class="button">Machine
+                            reserveren</button>
                     </div>
                 </div>
             </div>

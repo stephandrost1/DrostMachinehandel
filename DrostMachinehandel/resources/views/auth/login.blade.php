@@ -34,7 +34,7 @@
 
               @if (Session::has('errors'))
                   <div class="text-red-500 rounded">
-                      <ul>
+                      <ul class="text-center">
                           @foreach (Session::get('errors')->all() as $error)
                               <li>{{ $error }}</li>
                           @endforeach

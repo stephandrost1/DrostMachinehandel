@@ -100,7 +100,7 @@
                   <a class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('dashboard-account')) underline decoration-primary underline-offset-2 decoration-2 @endif" href="{{ route("dashboard-account") }}">{{ __('content/navbar.dashboard-account') }}</a>
                 </li>
                 <li>
-                  <form class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap" action="{{ route("logout") }}" method="POST">
+                  <form class="rounded-b bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap" action="{{ route("logout") }}" method="POST">
                   @csrf
                   <button type="submit" class="font-bold">{{ __('content/navbar.logout') }}</button>
                 </form>
