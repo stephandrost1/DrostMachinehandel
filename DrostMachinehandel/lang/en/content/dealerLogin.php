@@ -1,15 +1,13 @@
 <?php
 
-// lang/en/content/login.php
+// lang/en/content/dealerLogin.php
 
 return [
     'logon' => 'Sign in',
-    'subtext-admin' => 'Log in as administrator',
-    'subtext-dealer' => "Log in as a dealer",
+    'subtext' => 'Log in as administrator',
     'login' => 'Login',
     'email' => 'E-mail',
     'password' => 'Password',
     'email/password' => 'Email / Password',
     'forgot' => 'Forgot',
-    'create-account' => 'Create an account',
 ];

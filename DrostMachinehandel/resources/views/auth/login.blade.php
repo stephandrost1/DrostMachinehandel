@@ -14,19 +14,25 @@
           </div>
 
           <div class="flex items-center flex-col relative">
-              <span class="font-bold text-[#333333] text-3xl text-center w-full mb-10 md:mb-10">
-                   Login
+              <span class="font-bold text-[#333333] text-3xl text-center w-full mb-10 md:mb-10 flex flex-col gap-1">
+                   <span>
+                        {{ __('content/login.logon') }}
+                    </span>
+                   <span class="text-[#999999] text-base">
+                        {{ __('content/login.subtext-admin') }}
+                  </span>
               </span>
+              
 
               <div class="relative w-full mb-3 z-10">
-                  <input class="placeholder:text-[#999999] focus:ring-primary border-none font-bold text-[#666666] block w-full bg-[#e6e6e6] h-12 rounded-2xl px-10 py-5 relative" type="text" name="email" placeholder="Email">
+                  <input class="placeholder:text-[#999999] focus:ring-primary border-none font-bold text-[#666666] block w-full bg-[#e6e6e6] h-12 rounded-2xl px-10 py-5 relative" type="text" name="email" placeholder="{{ __('content/login.email') }}">
                   <span class="flex items-center absolute rounded-xl bottom-0 left-0 h-full pl-5">
                       <i class="fa fa-envelope text-[#666666] fa-sm"></i>
                   </span>
               </div>
 
               <div class="relative w-full mb-3 z-10">
-                  <input class="placeholder:text-[#999999] focus:ring-primary border-none font-bold text-[#666666] block w-full bg-[#e6e6e6] h-12 rounded-2xl px-10 py-5 relative" type="password" name="password" placeholder="Password">
+                  <input class="placeholder:text-[#999999] focus:ring-primary border-none font-bold text-[#666666] block w-full bg-[#e6e6e6] h-12 rounded-2xl px-10 py-5 relative" type="password" name="password" placeholder="{{ __('content/login.password') }}">
                   <span class="flex items-center absolute rounded-xl bottom-0 left-0 h-full pl-5">
                       <i class="fa fa-lock text-[#666666] fa-sm"></i>
                   </span>
@@ -44,19 +50,29 @@
               
               <div class="w-full flex justify-center mt-1 md:mt-5">
                   <button type="submit" class="w-full h-5 rounded-2xl bg-primary flex justify-center items-center px-0 py-6 font-bold">
-                      Inloggen
+                    {{ __('content/login.login') }}
                   </button>
               </div>
 
-              <div class="text-center mt-2 font-bold">
-                  <a class="text-[#666666]" href="#">
-                      Gebruikersnaam / Wachtwoord
-                  </a>
-                  <span class="text-[#999999]">
-                      vergeten?
-                  </span>
-                  
-              </div>
+                @if (App::getLocale() == 'en')
+                    <div class="text-center mt-2 font-bold">
+                        <span class="text-[#999999]">
+                            {{ __('content/login.forgot') }}
+                        </span>
+                        <a class="text-[#666666]" href="#">
+                            {{ __('content/login.email/password') }}?
+                        </a>
+                    </div>
+                @else 
+                    <div class="text-center mt-2 font-bold">
+                        <a class="text-[#666666]" href="#">
+                        {{ __('content/login.email/password') }}
+                        </a>
+                        <span class="text-[#999999]">
+                        {{ __('content/login.forgot') }}?
+                        </span>
+                    </div>
+                @endif
           </div>
       </div>
   </form>

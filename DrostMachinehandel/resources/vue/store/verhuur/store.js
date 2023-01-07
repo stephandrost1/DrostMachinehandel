@@ -177,7 +177,7 @@ export default createStore({
 
     actions: {
         async fetchVehicles({ commit }) {
-            await axios.get('/api/v1/vehicles')
+            await axios.get('/api/v2/vehicles')
                 .then((response) => {
                     commit("SET_VEHICLES", response.data.vehicles);
                 })
@@ -195,7 +195,7 @@ export default createStore({
         },
 
         async fetchFilters({ commit }) {
-            await axios.get('/api/v1/filters')
+            await axios.get('/api/v2/filters')
                 .then((response) => {
                     response.data.filters.forEach(filter => {
                         commit("ADD_FILTER", filter);

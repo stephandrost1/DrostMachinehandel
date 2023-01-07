@@ -52,14 +52,14 @@ export default createStore({
 
     actions: {
         async fetchVehicles({ commit }) {
-            await axios.get('/api/v1/vehicles')
+            await axios.get('/api/v2/vehicles')
                 .then((response) => {
                     commit("SET_VEHICLES", response.data.vehicles);
                 })
         },
 
         async fetchFilters({ commit }) {
-            await axios.get('/api/v1/filters')
+            await axios.get('/api/v2/filters')
                 .then((response) => {
                     commit("SET_FILTERS", response.data.filters);
                 });

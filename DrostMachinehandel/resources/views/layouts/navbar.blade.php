@@ -69,7 +69,7 @@
             <a href={{ route("home") }}><div class="text-xl xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.home') }}</div></a>
             <div class="group inline-block relative">
               <button class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('voorraad') || Request::is('dealer/voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">
-                <span class="mr-1">Occasions</span>
+                <span class="mr-1">{{ __('content/navbar.occasions') }}</span>
                 <i class="fas fa-chevron-down"></i>
               </button>
               <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
@@ -92,7 +92,7 @@
             {{-- todo clean this code --}}
             <div class="group inline-block relative">
               <button class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('voorraad') || Request::is('dealer/voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">
-                <span class="mr-1">Account</span>
+                <span class="mr-1">{{  __('content/navbar.account') }}</span>
                 <i class="fas fa-chevron-down"></i>
               </button>
               <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
@@ -219,7 +219,7 @@
                   <button
                     class="inline-flex items-center text-xl xl:text-2xl font-bold"
                   >
-                    <span class="mr-1 text-[2rem]">Occasions</span>
+                    <span class="mr-1 text-[2rem]">{{ __('content/navbar.occasions') }}</span>
                     <i class="fas fa-chevron-down"></i>
                   </button>
                   <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
@@ -261,7 +261,7 @@
                     <button
                       class="inline-flex items-center text-xl xl:text-2xl font-bold "
                     >
-                      <span class="mr-1 text-[2rem]">Account</span>
+                      <span class="mr-1 text-[2rem]">{{  __('content/navbar.account') }}</span>
                       <i class="fas fa-chevron-down"></i>
                     </button>
                     <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">

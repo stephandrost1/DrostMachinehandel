@@ -158,6 +158,6 @@ const _handleCanvasListener = (targetNode) => {
     observer.observe(targetNode, config);
 }
 
-if (canvas && document.body.classList.contains("page-machineDetail")) {
+if (canvas && document.body.classList.contains("page-voorraad-detail")) {
     _handleCanvasListener(canvas);
 }
