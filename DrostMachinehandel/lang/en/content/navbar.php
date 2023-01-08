@@ -15,6 +15,8 @@ return [
     'lease' => 'Lease',
     'contact' => 'Contact',
     'rent' => 'Rent',
+    'account' => 'Account',
+    'dashboard' => 'Tableau de bord',
     'admin-login' => 'Admin',
     'dealer-login' => 'Dealer',
     'login' => 'Login',

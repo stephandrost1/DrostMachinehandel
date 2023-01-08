@@ -16,6 +16,8 @@ return [
     'lease' => 'Leasen',
     'contact' => 'Contact',
     'rent' => 'Verhuur',
+    'account' => 'Account',
+    'dashboard' => 'Dashboard',
     'admin-login' => 'Beheerder',
     'dealer-login' => 'Dealer',
     'login' => 'Inloggen',

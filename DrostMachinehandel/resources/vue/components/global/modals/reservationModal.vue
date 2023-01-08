@@ -61,7 +61,7 @@ export default {
                 this.user.streetname = splittedValue[0] ? splittedValue[0].trim() : '';
 
                 splittedValue.shift();
-                
+
                 this.user.housenumber = splittedValue.join("") ?? '';
             }
         },
@@ -160,7 +160,7 @@ export default {
             }
 
             const date = event.target.value.replace(/[^0-9]/g, "");
-     
+
             this.endDate = this.addSlashes(date.substr(0, 8));
         }
     },
@@ -175,11 +175,12 @@ export default {
 </script>
 
 <template>
+
     <div class="relative z-20 vue-reservation-modal">
         <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity"></div>
 
         <div class="fixed inset-0 z-10 overflow-y-auto">
-            <div class="parent w-full h-full">
+            <div class="parent">
                 <div class="modal-wrapper">
                     <!-- <div class="message">
                         <div class="error-message bg-red-500" v-if="errorMessage !== ''">
@@ -189,21 +190,57 @@ export default {
                             <p class="message">{{ succesMessage }}</p>
                         </div>
                     </div> -->
-                    <div class="header">
-                        <div @click="_handleCloseModal" class="cursor-pointer close-icon">
-                            <div class="icon">
-                                <div class="mark">x</div>
+                    <div class="header-wrapper">
+                        <div class="header">
+                            <div class="title">
+                                <h1>Machine reserveren</h1>
                             </div>
-                        </div>
-                        <div class="modal-title">
-                            <h1>Machine reserveren</h1>
+                            <div class="close-modal" @click="_handleCloseModal">
+                                X
+                            </div>
                         </div>
                     </div>
                     <div class="body">
                         <div class="col-left">
+                            <div class="basket">
+                                <div class="basket-header">
+                                    <h1>Geselecteerde machine:</h1>
+                                </div>
+                                <div class="basket-item">
+                                    <div class="item-col-left item-col">
+                                        <div class="item-logo">
+                                            <img :src="getVehicleImage" alt="selected vehicle image" />
+                                        </div>
+                                    </div>
+                                    <div class="item-col-right item-col">
+                                        <div class="item-name">
+                                            <p>{{ getVehicleName }}</p>
+                                        </div>
+                                        <div class="item-border"></div>
+                                        <div class="item-prices">
+                                            <div class="price">
+                                                <div class="name">
+                                                    <p class="title">Prijs per dag:</p>
+                                                </div>
+                                                <div class="value">
+                                                    <p class="title">{{ getPricePerDay }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="price">
+                                                <div class="name">
+                                                    <p class="title">Prijs per week:</p>
+                                                </div>
+                                                <div class="value">
+                                                    <p class="title">{{ getPricePerWeek }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="column">
-                                    <div class="item">
+                                    <div class="item amount">
                                         <div class="label">
                                             <p class="label-text">Aantal:</p>
                                         </div>
@@ -214,14 +251,20 @@ export default {
                                             <p class="label-text">Datum:</p>
                                         </div>
                                         <div class="date-input-wrapper">
-                                            <div class="label-input">
-                                                <p class="label-text">Van</p>
+                                            <div class="date-start">
+                                                <div class="label-input">
+                                                    <p class="label-text">Van</p>
+                                                </div>
+                                                <input type="text" class="start-date date-input" v-model="startDate"
+                                                    @input="onStartDateKeyDown" :placeholder="getDatePlaceHolder">
                                             </div>
-                                            <input type="text" class="start-date date-input" v-model="startDate" @input="onStartDateKeyDown" :placeholder="getDatePlaceHolder">
-                                            <div class="label-input">
-                                                <p class="label-text">Tot</p>
+                                            <div class="date-end">
+                                                <div class="label-input">
+                                                    <p class="label-text">Tot</p>
+                                                </div>
+                                                <input type="text" class="end-date date-input" v-model="endDate"
+                                                    @input="onEndDateKeyDown" :placeholder="getDatePlaceHolder">
                                             </div>
-                                            <input type="text" class="end-date date-input" v-model="endDate" @input="onEndDateKeyDown" :placeholder="getDatePlaceHolder">
                                         </div>
                                     </div>
                                 </div>
@@ -230,12 +273,13 @@ export default {
                                 <div class="row-header column">
                                     <h1>Uw gegevens:</h1>
                                 </div>
-                                <div class="column">
+                                <div class="column name">
                                     <div class="item">
                                         <div class="label">
                                             <p class="label-text">Voornaam:</p>
                                         </div>
-                                        <input type="text" v-model="user.firstname" placeholder="John" class="form-input firstname">
+                                        <input type="text" v-model="user.firstname" placeholder="John"
+                                            class="form-input firstname">
                                     </div>
                                     <div class="item">
                                         <div class="label">
@@ -247,7 +291,8 @@ export default {
                                         <div class="label">
                                             <p class="label-text">Achternaam:</p>
                                         </div>
-                                        <input type="text" v-model="user.lastname" placeholder="Doe" class="form-input lastname">
+                                        <input type="text" v-model="user.lastname" placeholder="Doe"
+                                            class="form-input lastname">
                                     </div>
                                 </div>
                             </div>
@@ -257,13 +302,15 @@ export default {
                                         <div class="label">
                                             <p class="label-text">E-mailadres:</p>
                                         </div>
-                                        <input type="email" v-model="user.email" placeholder="John@doe.nl" class="form-input email">
+                                        <input type="email" v-model="user.email" placeholder="John@doe.nl"
+                                            class="form-input email">
                                     </div>
                                     <div class="item">
                                         <div class="label">
                                             <p class="label-text">Telefoonnummer:</p>
                                         </div>
-                                        <input type="text" v-model="user.phonenumber" placeholder="0612345678" class="form-input phonenumber">
+                                        <input type="text" v-model="user.phonenumber" placeholder="0612345678"
+                                            class="form-input phonenumber">
                                     </div>
                                 </div>
                             </div>
@@ -271,16 +318,17 @@ export default {
                                 <div class="column">
                                     <div class="item">
                                         <div class="label">
-                                            <p class="label-text">Straat & huisnummer:</p>
+                                            <p class="label-text">Land:</p>
                                         </div>
-                                        <input type="email" v-model="userStreetHouseNumer" placeholder="Voorbeeldstraat 1"
-                                            class="form-input street-and-housenumber">
+                                        <input type="text" v-model="user.country" placeholder="Nederland"
+                                            class="form-input country">
                                     </div>
                                     <div class="item">
                                         <div class="label">
                                             <p class="label-text">Postcode:</p>
                                         </div>
-                                        <input type="text" v-model="user.postalcode" placeholder="10000AA" class="form-input postalcode">
+                                        <input type="text" v-model="user.postalcode" placeholder="10000AA"
+                                            class="form-input postalcode">
                                     </div>
                                 </div>
                             </div>
@@ -290,27 +338,29 @@ export default {
                                         <div class="label">
                                             <p class="label-text">Woonplaats:</p>
                                         </div>
-                                        <input type="email" v-model="user.city" placeholder="Amsterdam" class="form-input city">
+                                        <input type="email" v-model="user.city" placeholder="Amsterdam"
+                                            class="form-input city">
                                     </div>
                                     <div class="item">
                                         <div class="label">
-                                            <p class="label-text">Land:</p>
+                                            <p class="label-text">Straat & huisnummer:</p>
                                         </div>
-                                        <input type="text" v-model="user.country" placeholder="Nederland" class="form-input country">
+                                        <input type="email" v-model="userStreetHouseNumer"
+                                            placeholder="Voorbeeldstraat 1" class="form-input street-and-housenumber">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="row-header column">
-                                    <h1>Bedrijfsgegevens: (Optioneel)</h1>
+                                    <h1>Bedrijfsgegevens: &nbsp; (Optioneel)</h1>
                                 </div>
                                 <div class="column">
                                     <div class="item">
                                         <div class="label">
                                             <p class="label-text">Bedrijfsnaam:</p>
                                         </div>
-                                        <input type="text" v-model="user.company.name" placeholder="Voorbeeld bedrijfsnaam"
-                                            class="form-input companyname">
+                                        <input type="text" v-model="user.company.name"
+                                            placeholder="Voorbeeld bedrijfsnaam" class="form-input companyname">
                                     </div>
                                     <div class="item">
                                         <div class="label">
@@ -359,12 +409,14 @@ export default {
                                     </div>
                                 </div>
                             </div>
-                            <div class="alerts" v-if="errorMessage !== '' || succesMessage !== ''" :class="{ 'bg-red-500': errorMessage !== '', 'bg-green-500': succesMessage !== '' }">
-                                <p class="alert-text">{{ errorMessage ? errorMessage : succesMessage }}</p>
+                            <div class="alerts" v-if="errorMessage !== '' || succesMessage !== ''"
+                                :class="{ 'bg-red-500': errorMessage !== '', 'bg-green-500': succesMessage !== '' }">
+                                <p class="alert-text">{{ errorMessage? errorMessage: succesMessage }}</p>
                             </div>
                             <div class="footer">
                                 <div class="alert">
-                                    <p>Wanneer u op reserveren klikt zal u een bevestigingsmail krijgen met daarin de gegevens van de reservering!</p>
+                                    <p>Wanneer u op reserveren klikt zal u een bevestigingsmail krijgen met daarin de
+                                        gegevens van de reservering!</p>
                                 </div>
                                 <div @click="_handleSave" class="submit-form cursor-pointer">
                                     <p class="title">Machine reserveren</p>

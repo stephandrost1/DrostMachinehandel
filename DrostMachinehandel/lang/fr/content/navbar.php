@@ -15,6 +15,7 @@ return [
     'lease' => 'Louer',
     'contact' => 'Contact',
     'rent' => 'Location',
+    'account' => 'Compte',
     'admin-login' => 'Administrateur',
     'dealer-login' => 'Revendeur',
     'login' => 'Connexion',

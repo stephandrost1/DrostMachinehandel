@@ -13,7 +13,13 @@
     <nav style="background-color: rgba(0, 0, 0, 0.6);" class="desktop-visibility py-5">
       <div class="flex flex-wrap justify-between justify-content-end items-center mx-12 xl:mx-16">
         <a href="https://drostmachinehandel.com/" class="flex items-center">
+          @if (Request::is('verhuur') || Request::is('verhuur/*'))
+            <img src="{{ asset('/img/logo-verhuur.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
+          @else
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
+          @endif
+            
+            
         </a>
         <div class="flex desktop-gap items-center language-selector">
           <div class="group relative lang-dropdown">
@@ -69,7 +75,7 @@
             <a href={{ route("home") }}><div class="text-xl xl:text-2xl font-bold @if(Request::is('/')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.home') }}</div></a>
             <div class="group inline-block relative">
               <button class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('voorraad') || Request::is('dealer/voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">
-                <span class="mr-1">Occasions</span>
+                <span class="mr-1">{{ __('content/navbar.occasions') }}</span>
                 <i class="fas fa-chevron-down"></i>
               </button>
               <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
@@ -91,7 +97,7 @@
             @if (Auth::check())
             {{-- todo clean this code --}}
               <div class="group inline-block relative">
-                <button class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('voorraad') || Request::is('dealer/voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">
+                <button class="inline-flex items-center text-xl xl:text-2xl font-bold">
                   <span class="mr-1">Account</span>
                   <i class="fas fa-chevron-down"></i>
                 </button>
@@ -120,7 +126,11 @@
       <div class="flex flex-wrap justify-between justify-content-end items-center mx-8">
         <a href="https://drostmachinehandel.com/" class="nav-logo 
          flex items-center">
+          @if (Request::is('verhuur') || Request::is('verhuur/*'))
+            <img src="{{ asset('/img/logo-verhuur.png') }}" class="mr-3 h-12 md:h-16 navbar-logo" alt="logo-verhuur" />
+          @else
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16 navbar-logo" alt="logo" />
+          @endif
         </a>
 
         <div class="flex gap-5 sm:gap-10 items-center">
@@ -196,7 +206,7 @@
                   <button
                     class="inline-flex items-center text-xl xl:text-2xl font-bold"
                   >
-                    <span class="mr-1 text-[2rem]">Occasions</span>
+                    <span class="mr-1 text-[2rem]">{{ __('content/navbar.occasions') }}</span>
                     <i class="fas fa-chevron-down"></i>
                   </button>
                   <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
@@ -238,7 +248,7 @@
                     <button
                       class="inline-flex items-center text-xl xl:text-2xl font-bold "
                     >
-                      <span class="mr-1 text-[2rem]">Account</span>
+                      <span class="mr-1 text-[2rem]">{{  __('content/navbar.account') }}</span>
                       <i class="fas fa-chevron-down"></i>
                     </button>
                     <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">

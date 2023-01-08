@@ -13,22 +13,29 @@
         .content-block-homepage-inner {
             width: calc(100% - 5vw);
 
-            @media screen and (min-width: 768px) {
-                width: 50%;
+            @media screen and (min-width: 768px) and (min-height: 730px) {
+                width: 55%;
             }
 
-            .content-buttons-wrapper {
-                justify-content: space-between;
-                @media screen and (min-width: 768px) {
-                    justify-content: unset;
-                    gap: 2rem;
-                }
+            @media screen and (min-width: 1550px) {
+                width: 35%;
+            }
 
-                button.cta-button {
-                    margin-top: 1rem;
+            .content-block-subtitle {
+                display: none;
+
+                @media screen and (min-height: 560px) {
+                    display: block;
                 }
             }
         }   
+    }
+
+    .content-contact-wrapper {
+        display: none;
+        @media screen and (min-width: 768px) and (min-height: 570px) {
+            display: block;
+        }
     }
 
     .homepage-video-style {

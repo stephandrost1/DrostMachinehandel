@@ -3,8 +3,13 @@
 // lang/de/content/login.php
 
 return [
+    'logon' => 'Einloggen',
+    'subtext-admin' => 'Melden Sie sich als Administrator an',
+    'subtext-dealer' => "Melden Sie sich als Händler an",
     'login' => 'Anmeldung',
-    'email' => 'Email',
+    'email' => 'E-Mail-Addresse',
     'password' => 'Passwort',
-    'email/password' => '',
+    'email/password' => 'E-Mail / Passwort',
+    'forgot' => 'vergessen',
+    'create-account' => 'Ein Konto erstellen',
 ];

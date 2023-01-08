@@ -47,9 +47,11 @@ Route::middleware(['locale'])->group((function () {
 }));
 
 Route::prefix("/dealer")->group(function () {
-    Route::get('/create-account', [DashboardController::class, "dealerCreate"])->name("dealer-create");
-    Route::get('/login', [AuthSessionController::class, 'createDealer'])->name("dealer-login");
-    Route::post('/login', [AuthSessionController::class, 'storeDealer'])->name("dealer-login-action");
+    Route::middleware(['locale'])->group(function () {
+        Route::get('/create-account', [DashboardController::class, "dealerCreate"])->name("dealer-create");
+        Route::get('/login', [AuthSessionController::class, 'createDealer'])->name("dealer-login");
+        Route::post('/login', [AuthSessionController::class, 'storeDealer'])->name("dealer-login-action");
+    });
 
     Route::middleware(['dealerAuth', 'verified', 'locale'])->group(function () {
         Route::get('/voorraad', [DealerVehicleController::class, 'show'])->name("dealer-voorraad");

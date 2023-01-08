@@ -226,6 +226,10 @@
     }
 
     #svm-canvas {
+        #pageSidebar {
+            z-index: 10 !important;
+        }
+
         @media screen and (min-width: 949px) {
             #pageContainer {
                 display: flex !important;

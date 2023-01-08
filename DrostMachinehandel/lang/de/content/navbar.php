@@ -15,6 +15,8 @@ return [
     'lease' => 'Mieten',
     'contact' => 'Kontakt',
     'rent' => 'Vermietung',
+    'account' => 'Konte',
+    'dashboard' => 'Dashboard',
     'admin-login' => 'Administrator',
     'dealer-login' => 'Händler',
     'login' => 'Anmeldung',
