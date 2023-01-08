@@ -19,7 +19,15 @@
     
             {{-- Required custom scss and js --}}
             @vite(['resources/scss/main.scss', 'resources/js/app.js', 'resources/vue/app.js'])
-          
+          <!-- Google tag (gtag.js) -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-0M0FRQHFGJ"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'G-0M0FRQHFGJ');
+            </script>
             <script type="text/javascript">
                 (function(){h=document.getElementsByTagName('head')[0];s=document.createElement('script');
                 s.type='text/javascript';s.src="https://www.voorraadmodule.nl/js/svm.js?t="+Date.now();s.onload=function(){

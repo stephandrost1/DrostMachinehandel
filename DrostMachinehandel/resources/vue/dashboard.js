@@ -18,7 +18,7 @@ import dealerVehicleStore from "./store/dealers/vehicles/store.js"
 import dealerAccountStore from "./store/account/dealer/store.js"
 import adminAccountStore from "./store/account/admin/store.js"
 
-import Toaster from '../../node_modules/@meforma/vue-toaster';
+import Toaster from '@meforma/vue-toaster';
 
 window._ = _;
 window.axios = axios;
@@ -40,7 +40,6 @@ dealerAccountApp.use(dealerAccountStore);
 
 dealerNofiticationsApp.use(Toaster);
 dealerVehiclesApp.use(Toaster);
-dealerAccountApp.use(Toaster);
 dealerAccountApp.use(Toaster);
 adminAccountApp.use(Toaster);
 

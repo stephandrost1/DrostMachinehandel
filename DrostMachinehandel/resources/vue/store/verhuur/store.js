@@ -184,7 +184,7 @@ export default createStore({
         },
 
         async fetchVehicleById({ commit }, id) {
-            await axios.get(`/api/v1/vehicle/${id}`)
+            await axios.get(`/api/v1/vehicles/${id}`)
                 .then((response) => {
                     commit("SET_SELECTED_VEHICLE", response.data.vehicle);
 

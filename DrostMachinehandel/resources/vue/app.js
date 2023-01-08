@@ -1,13 +1,12 @@
 //Modules
-import _ from "lodash";
+import _, { create } from "lodash";
 import axios from "axios";
 import { createApp } from 'vue'
 
-import Toaster from '../../node_modules/@meforma/vue-toaster';
-
 //Base page
 import PageVehuur from './pages/verhuur/verhuur.vue';
-import PageRentDetail from "./pages/verhuur/detail.vue";
+import PageRentDetailReservationForm from "./pages/verhuur/detail/reservation-form.vue";
+import ImageSlider from "./pages/verhuur/detail/images-slider.vue";
 
 //External components
 import verhuurStore from "./store/verhuur/home/store.js"
@@ -16,7 +15,8 @@ window._ = _;
 window.axios = axios;
 
 const verhuurApp = createApp(PageVehuur);
-const RentDetailApp = createApp(PageRentDetail);
+const RentDetailReservationFormApp = createApp(PageRentDetailReservationForm);
+const ImageSliderApp = createApp(ImageSlider);
 
 verhuurApp.use(verhuurStore);
 
@@ -24,9 +24,13 @@ if (document.querySelector("#page-verhuur-app")) {
     verhuurApp.mount("#page-verhuur-app");
 }
 
+if (document.querySelector("#dm-images-slider-app")) {
+    ImageSliderApp.mount("#dm-images-slider-app");
+}
+
 function mountRentDetailApp() {
     if (document.querySelector("#reservation-popup-rent-detail")) {
-        RentDetailApp.mount("#reservation-popup-rent-detail");
+        RentDetailReservationFormApp.mount("#reservation-popup-rent-detail");
         return;
     }
 

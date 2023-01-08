@@ -90,49 +90,26 @@
             <a href={{ route("contact") }}><div class="text-xl xl:text-2xl font-bold @if(Request::is('contact')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.contact') }}</div></a>
             @if (Auth::check())
             {{-- todo clean this code --}}
-            <div class="group inline-block relative">
-              <button class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('voorraad') || Request::is('dealer/voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">
-                <span class="mr-1">Account</span>
-                <i class="fas fa-chevron-down"></i>
-              </button>
-              <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
-                <li>
-                  <a class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('dashboard-account')) underline decoration-primary underline-offset-2 decoration-2 @endif" href="{{ route("dashboard-account") }}">{{ __('content/navbar.dashboard-account') }}</a>
-                </li>
-                <li>
-                  <form class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap" action="{{ route("logout") }}" method="POST">
-                  @csrf
-                  <button type="submit" class="font-bold">{{ __('content/navbar.logout') }}</button>
-                </form>
-                </li>
-              </ul>
-            </div>
-            
-            @else
               <div class="group inline-block relative">
-                <button
-                  class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('login') || Request::is('dealer/login')) border-b-2 border-primary md:border-b-[4px] @endif"
-                >
-                  <span class="mr-1">{{ __('content/navbar.login') }}</span>
+                <button class="inline-flex items-center text-xl xl:text-2xl font-bold @if(Request::is('voorraad') || Request::is('dealer/voorraad')) border-b-2 border-primary md:border-b-[4px] @endif">
+                  <span class="mr-1">Account</span>
                   <i class="fas fa-chevron-down"></i>
                 </button>
                 <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
                   <li>
-                    <a
-                      class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('login')) underline decoration-primary underline-offset-2 decoration-2 @endif"
-                      href="{{ route("login") }}"
-                      >{{ __('content/navbar.admin-login') }}</a
-                    >
+                    <a class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('dashboard-account')) underline decoration-primary underline-offset-2 decoration-2 @endif" href="{{ route("dashboard-account") }}">{{ __('content/navbar.dashboard-account') }}</a>
                   </li>
                   <li>
-                    <a
-                      class="rounded-b bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('dealer/login')) underline decoration-primary underline-offset-2 decoration-2 @endif"
-                      href="{{ route("dealer-login") }}"
-                      >{{ __('content/navbar.dealer-login') }}</a
-                    >
+                    <form class="rounded-b bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap" action="{{ route("logout") }}" method="POST">
+                    @csrf
+                    <button type="submit" class="font-bold">{{ __('content/navbar.logout') }}</button>
+                  </form>
                   </li>
                 </ul>
               </div>
+            
+            @else
+              <a href={{ route("login") }}><div class="text-xl xl:text-2xl font-bold @if(Request::is('login')) border-b-2 border-primary md:border-b-[4px] @endif">{{ __('content/navbar.login') }}</div></a>
             @endif
           </div>
       </div>

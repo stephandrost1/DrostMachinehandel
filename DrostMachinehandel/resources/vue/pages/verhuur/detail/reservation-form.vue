@@ -1,5 +1,5 @@
 <script>
-import reservationModalVue from '../../components/global/modals/reservationModal.vue';
+import reservationModalVue from '../../../components/global/modals/reservationModal.vue';
 
 export default {
     components: {

@@ -47,21 +47,6 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Handle an incoming authentication request.
-     *
-     * @param  \App\Http\Requests\Auth\LoginRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function storeDealer(LoginRequest $request)
-    {
-        $request->authenticateDealer();
-
-        $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::DEALER_VOORRAAD);
-    }
-
-    /**
      * Destroy an authenticated session.
      *
      * @param  \Illuminate\Http\Request  $request

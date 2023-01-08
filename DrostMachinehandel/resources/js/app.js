@@ -17,3 +17,7 @@ import './voorraad/detail';
 //Voorraad dealers page
 import './voorraad/dealers/api';
 import './voorraad/dealers/detail';
+
+
+//Verhuur page 
+import './verhuur/detail';

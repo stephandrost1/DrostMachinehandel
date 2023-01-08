@@ -110,7 +110,7 @@ export default {
         },
 
         _handleDeleteVehicleButton() {
-            axios.delete(`/api/v1/vehicle/${this.getVehicle.id}/delete`)
+            axios.delete(`/api/v1/vehicles/${this.getVehicle.id}/delete`)
                 .then((response) => {
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
@@ -131,10 +131,12 @@ export default {
                 images: this.getVehicleImages
             }
 
-            axios.patch(`/api/v1/vehicle/${this.getVehicle.id}/update`, vehicleData)
+            axios.patch(`/api/v1/vehicles/${this.getVehicle.id}/update`, vehicleData)
                 .then((response) => {
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
+                    console.log(error)
+                    console.log("error ^^^")
                     this.$toast.error(error.response.data.message)
                 })
 

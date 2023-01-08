@@ -7,6 +7,7 @@ use App\Http\Requests\CreateDealerRequest;
 use App\Http\Requests\UpdateDealerRequest;
 use App\Models\Dealer;
 use App\Models\DealerAddress;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Exception;
 use Illuminate\Support\Facades\Hash;
@@ -19,13 +20,17 @@ class DealerController extends Controller
     public function index()
     {
         try {
-            $user = Auth::getUser();
-
-            if (empty($user) || is_null($user)) {
+            if (!Auth::user()) {
                 throw new Exception("User is not logged in!");
             }
 
-            $id = $user->id;
+            $user = User::find(Auth::id());
+
+            if (!$user->hasRole("Dealer")) {
+                throw new Exception("User has not the correct roles");
+            }
+
+            $id = Auth::id();
 
             if (empty($id)) {
                 throw new Exception("User id not found!");

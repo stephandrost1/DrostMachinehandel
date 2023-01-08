@@ -40,7 +40,7 @@ export default {
             formData.append("vehicleId", this.getVehicleId);
 
             //TODO replace url
-            return await axios.post("vehicles/images/upload", formData).then(response => {
+            return await axios.post("/api/v1/vehicles/images/upload", formData).then(response => {
                 return response.data;
             }).catch((error) => {
                 return false;

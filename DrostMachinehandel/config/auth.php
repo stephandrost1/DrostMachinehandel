@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'dealer',
-        'passwords' => 'dealers',
+        'guard' => 'user',
+        'passwords' => 'users',
     ],
 
     /*
@@ -40,10 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'dealer' => [
-            'driver' => 'session',
-            'provider' => 'dealers'
-        ]
     ],
 
     /*
@@ -68,15 +64,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'dealers' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Dealer::class,
-        ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
@@ -95,8 +82,8 @@ return [
     */
 
     'passwords' => [
-        'dealers' => [
-            'provider' => 'dealers',
+        'users' => [
+            'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

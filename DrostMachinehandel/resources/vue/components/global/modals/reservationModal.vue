@@ -4,23 +4,23 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            startDate: "10/01/2023",
-            endDate: "15/01/2023",
+            startDate: "",
+            endDate: "",
             amount: "1",
             user: {
-                firstname: "henrik",
+                firstname: "",
                 insertion: "",
-                lastname: "hannewijk",
-                email: "henrikH2004@hotmail.com",
-                phonenumber: "0624141779",
-                streetname: "pelikaanstraat",
-                housenumber: "12",
-                postalcode: "3903AH",
-                city: "Veenendaal",
-                country: "Nederland",
+                lastname: "",
+                email: "",
+                phonenumber: "",
+                streetname: "",
+                housenumber: "",
+                postalcode: "",
+                city: "",
+                country: "",
                 company: {
-                    name: "Hhannewijk",
-                    kvknumber: "0987654321",
+                    name: "",
+                    kvknumber: "",
                 }
             },
             showPopup: false,
@@ -93,7 +93,19 @@ export default {
         fetchUser() {
             axios.get('/api/v2/dealer')
                 .then(response => {
-                    this.currentUser = response.data.dealer;
+                    const dealer = response.data.dealer;
+                    this.user.firstname = dealer.firstname;
+                    this.user.lastname = dealer.lastname;
+                    this.user.email = dealer.email;
+                    this.user.phonenumber = dealer.phonenumber;
+                    this.user.company.name = dealer.companyname;
+                    this.user.company.kvknumber = dealer.kvknumber;
+                    this.user.streetname = dealer.address.streetname;
+                    this.user.housenumber = dealer.address.housenumber;
+                    this.user.postalcode = dealer.address.postalcode;
+                    this.user.city = dealer.address.city;
+                    this.user.country = dealer.address.country;
+                    // this.user = response.data.dealer;
                 });
         },
 

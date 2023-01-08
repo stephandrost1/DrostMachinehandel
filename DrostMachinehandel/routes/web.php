@@ -36,6 +36,10 @@ Route::middleware(['locale'])->group((function () {
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
     Route::post('/contact', [ContactController::class, 'submitRequest'])->name('contact');
 
+    Route::get('/404', function () {
+        return view("errors.404");
+    })->name("404");
+
     Route::prefix("/verhuur")->group(function () {
         Route::get('/', [VerhuurController::class, 'index'])->name('verhuur');
         Route::get('/detail/{id}/{name}', [VerhuurController::class, 'verhuurDetail'])->name('verhuurDetail');
@@ -54,14 +58,17 @@ Route::prefix("/dealer")->group(function () {
 });
 
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name("dashboard");
-    Route::get('/verhuur', [DashboardController::class, "verhuur"])->name("dashboard-verhuur");
-    Route::get('/vehicles', [DashboardController::class, "vehicles"])->name("dashboard-vehicles");
-    Route::get('/dealers', [DashboardController::class, "dealerRequests"])->name("dashboard-dealers");
-    Route::get('/statistics', [DashboardController::class, "statistics"])->name("dashboard-statistics");
-    Route::get('/reservations', [DashboardController::class, "reservations"])->name("dashboard-reservations");
+    Route::middleware(['role:Admin'])->group(function () {
+        Route::get('/settings', [DashboardController::class, "settings"])->name("dashboard-settings");
+        Route::get('/', [DashboardController::class, 'index'])->name("dashboard");
+        Route::get('/verhuur', [DashboardController::class, "verhuur"])->name("dashboard-verhuur");
+        Route::get('/vehicles', [DashboardController::class, "vehicles"])->name("dashboard-vehicles");
+        Route::get('/dealers', [DashboardController::class, "dealerRequests"])->name("dashboard-dealers");
+        Route::get('/statistics', [DashboardController::class, "statistics"])->name("dashboard-statistics");
+        Route::get('/reservations', [DashboardController::class, "reservations"])->name("dashboard-reservations");
+    });
+
     Route::get('/account', [DashboardController::class, "account"])->name("dashboard-account");
-    Route::get('/settings', [DashboardController::class, "settings"])->name("dashboard-settings");
     Route::get('/logout', [DashboardController::class, "logout"])->name("dashboard-logout");
 });
 

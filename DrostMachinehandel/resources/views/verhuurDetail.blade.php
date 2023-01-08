@@ -10,10 +10,15 @@
 
     <div class="detail-wrapper">
         <div id="get-vehicle-id" class="hidden" data-vehicleid="{{$vehicle->id}}"></div>
-        <div class="reservation-popup" id="reservation-popup-rent-detail"></div>
+        <div class="reservation-popup hidden" id="reservation-popup-rent-detail"></div>
         <div class="images-specs-wrapper">
             <div class="images-wrapper">
-                <img class="main-image" src="{{ !empty($vehicle->images[0]) ? $vehicle->images[0]["image_location"].$vehicle->images[0]["image_name"].".".$vehicle->images[0]["image_type"] : '/img/errors/no_image_placeholder.png'  }}">
+                <div class="main-image-wrapper">
+                    <img class="main-image" src="{{ !empty($vehicle->images[0]) ? $vehicle->images[0]["image_location"].$vehicle->images[0]["image_name"].".".$vehicle->images[0]["image_type"] : '/img/errors/no_image_placeholder.png'  }}">
+                </div>
+                <div class="slider-wrapper">
+                    <div id="dm-images-slider-app"></div>
+                </div>
             </div>
             <div class="specs-wrapper">
                 <div class="vehicle-title">{{ $vehicle->vehicle_name }}</div>
@@ -50,7 +55,7 @@
                     </div>
                 </div>
                 <div class="contact-wrapper">
-                    <div class="contact-button">Reserveren</div>
+                    <div class="contact-button cursor-pointer reserve-button">Reserveren</div>
                     <a href="{{ route("contact") }}" class="contact-button">Contact</a>
                 </div>
                 <div class="share-wrapper">
