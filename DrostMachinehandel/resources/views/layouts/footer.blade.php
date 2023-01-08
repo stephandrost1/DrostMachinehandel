@@ -26,7 +26,12 @@
 
         <div class="logo-wrapper">
             <div class="logo">
-                <img src="{{ asset('/img/logo.png') }}" class="footer-logo" alt="logo" />
+                
+                @if (Request::is('verhuur') || Request::is('verhuur/*'))
+                    <img src="{{ asset('/img/logo-verhuur.png') }}" class="footer-logo" alt="logo-verhuur" />
+                @else
+                    <img src="{{ asset('/img/logo.png') }}" class="footer-logo" alt="logo" />
+                @endif
             </div>
         </div>
     </div>

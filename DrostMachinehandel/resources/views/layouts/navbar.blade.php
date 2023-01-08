@@ -13,7 +13,13 @@
     <nav style="background-color: rgba(0, 0, 0, 0.6);" class="desktop-visibility py-5">
       <div class="flex flex-wrap justify-between justify-content-end items-center mx-12 xl:mx-16">
         <a href="https://drostmachinehandel.com/" class="flex items-center">
+          @if (Request::is('verhuur') || Request::is('verhuur/*'))
+            <img src="{{ asset('/img/logo-verhuur.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
+          @else
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
+          @endif
+            
+            
         </a>
         <div class="flex desktop-gap items-center language-selector">
           <div class="group relative lang-dropdown">
@@ -143,7 +149,11 @@
       <div class="flex flex-wrap justify-between justify-content-end items-center mx-8">
         <a href="https://drostmachinehandel.com/" class="nav-logo 
          flex items-center">
+          @if (Request::is('verhuur') || Request::is('verhuur/*'))
+            <img src="{{ asset('/img/logo-verhuur.png') }}" class="mr-3 h-12 md:h-16 navbar-logo" alt="logo-verhuur" />
+          @else
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16 navbar-logo" alt="logo" />
+          @endif
         </a>
 
         <div class="flex gap-5 sm:gap-10 items-center">
