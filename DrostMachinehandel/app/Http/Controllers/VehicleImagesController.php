@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RentVehicleImage;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -35,5 +36,16 @@ class VehicleImagesController extends Controller
         $fileExtension = $file->getClientOriginalExtension();
 
         return md5(date('Y-m-d H:i:s:u')) . "." . $fileExtension;
+    }
+
+    public function getByVehicleId($id)
+    {
+        try {
+            $images = RentVehicleImage::where("vehicle_id", $id)->get();
+
+            return response()->json(["images" => $images], 200);
+        } catch (Exception $e) {
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
+        }
     }
 }

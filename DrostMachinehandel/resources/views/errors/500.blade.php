@@ -16,7 +16,7 @@
 
         <img src="{{ asset('/img/errors/505.png') }}" class="lg:w-4/12" alt="logo" />
   
-        <h1 class="font-bold text-5xl text-center">Er zijn op dit moment problemen <br> met de servers!</h1>
+        <h1 class="font-bold text-5xl text-center">Er is aan onze kant iets fout gegaan! <br> Probeer het later opnieuw.</h1>
 
     </div>
     

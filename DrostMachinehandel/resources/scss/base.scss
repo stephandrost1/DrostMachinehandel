@@ -1256,16 +1256,16 @@ select {
   max-width: 72rem;
 }
 
+.max-w-\[250px\] {
+  max-width: 250px;
+}
+
 .max-w-7xl {
   max-width: 80rem;
 }
 
 .max-w-\[350px\] {
   max-width: 350px;
-}
-
-.max-w-\[250px\] {
-  max-width: 250px;
 }
 
 .max-w-\[300px\] {
@@ -1862,6 +1862,18 @@ select {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-red-500 {
+  --tw-gradient-from: #ef4444;
+  --tw-gradient-to: rgb(239 68 68 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-green-500 {
+  --tw-gradient-from: #22c55e;
+  --tw-gradient-to: rgb(34 197 94 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .to-gray-800 {
   --tw-gradient-to: #1f2937;
 }
@@ -1896,6 +1908,14 @@ select {
 
 .to-primary-200 {
   --tw-gradient-to: #fee1c7;
+}
+
+.to-red-200 {
+  --tw-gradient-to: #fecaca;
+}
+
+.to-green-200 {
+  --tw-gradient-to: #bbf7d0;
 }
 
 .fill-primary {
@@ -1941,6 +1961,10 @@ select {
 
 .p-\[2px\] {
   padding: 2px;
+}
+
+.p-3 {
+  padding: 0.75rem;
 }
 
 .px-4 {
@@ -2386,10 +2410,6 @@ select {
 
 .underline-offset-2 {
   text-underline-offset: 2px;
-}
-
-.underline-offset-4 {
-  text-underline-offset: 4px;
 }
 
 .antialiased {
@@ -3210,16 +3230,8 @@ select {
     max-width: 450px;
   }
 
-  .min-\[1150px\]\:max-w-\[290px\] {
-    max-width: 290px;
-  }
-
   .min-\[1150px\]\:max-w-\[350px\] {
     max-width: 350px;
-  }
-
-  .min-\[1150px\]\:basis-2\/12 {
-    flex-basis: 16.666667%;
   }
 
   .min-\[1150px\]\:basis-3\/12 {

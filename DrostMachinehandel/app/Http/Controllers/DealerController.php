@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\CreateDealerRequest;
 use App\Http\Requests\UpdateDealerRequest;
 use App\Models\Dealer;
 use App\Models\DealerAddress;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +24,7 @@ class DealerController extends Controller
 
             $user = User::find(Auth::id());
 
-            if (!$user->hasRole("Dealer")) {
+            if (!$user->hasRole(["Dealer"])) {
                 throw new Exception("User has not the correct roles");
             }
 

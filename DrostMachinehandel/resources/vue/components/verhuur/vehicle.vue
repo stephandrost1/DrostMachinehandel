@@ -135,8 +135,6 @@ export default {
                 .then((response) => {
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
-                    console.log(error)
-                    console.log("error ^^^")
                     this.$toast.error(error.response.data.message)
                 })
 

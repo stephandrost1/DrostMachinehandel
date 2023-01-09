@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\UserAddress;
+use App\Models\UserCompany;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,22 +22,14 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $user = Auth::getUser();
-
-            if (empty($user)) {
+            if (!Auth::user()) {
                 throw new Exception("User is not logged in!");
             }
 
-            $id = $user->id;
-
-            if (empty($id)) {
-                throw new Exception("User id not found!");
-            }
-
-            $user = User::find($id);
+            $user = User::with('address', 'company')->find(Auth::id());
 
             if (empty($user)) {
-                throw new Exception("User with id: $id not found!");
+                throw new Exception("User not found!");
             }
 
             return response()->json(["user" => $user], 200);
@@ -44,12 +38,58 @@ class UserController extends Controller
                 "userController",
                 [
                     "action" => "show",
-                    "id" => $id,
+                    "user" => Auth::user(),
                     "error" => $e->getMessage(),
                 ]
             );
             return response()->json(["message" => "er is iets fout gegaan, probeer het later opnieuw!"], 500);
         }
+    }
+
+    public function pager($pageId, Request $request)
+    {
+        try {
+            $searchQuery = '%' . $request->s . '%';
+
+            $users = User::with('address', 'company')
+                ->where('name', 'like', $searchQuery)
+                ->orWhere('email', 'like', $searchQuery)
+                ->orWhereHas('company', function ($query) use ($searchQuery) {
+                    $query->where('name', 'like', $searchQuery)
+                        ->orWhere('kvknumber', 'like', $searchQuery);
+                })
+                ->orderBy('email_verified_at')
+                ->get()->toArray();
+
+            $pages = array_chunk($users, 15);
+
+            return response()->json([
+                "users" => $pages[$pageId - 1] ?? [],
+                "pages" => $this->getPageNumbers(count($pages), $pageId),
+                "maxPages" => count($pages),
+                "status" => true
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage(), "status" => true], 400);
+        }
+    }
+
+    public function getPageNumbers(int $maxPages, int $page): array
+    {
+        // If the maximum number of pages is 0, return empty array
+        return $maxPages == 0 ? []
+            // If the maximum number of pages is 1, return just that page
+            : ($maxPages == 1 ? [1]
+                // If the maximum number of pages is 2, return the first two pages
+                : ($maxPages == 2 ? [1, 2]
+                    // If the maximum number of pages is 3, return the first three pages
+                    : ($maxPages == 3 ? [1, 2, 3]
+                        // If the current page is the first or second page, return the next three pages
+                        : ($page <= 1 ? [$page, $page + 1, $page + 2]
+                            // If the current page is the last or second-to-last page, return the previous three pages
+                            : ($page >= $maxPages ? [$maxPages - 2, $maxPages - 1, $maxPages]
+                                // Otherwise, return the three pages centered around the current page
+                                : [$page - 1, $page, $page + 1])))));
     }
 
     /**
@@ -145,7 +185,11 @@ class UserController extends Controller
                 "name" => $request->name,
                 "email" => $request->email,
                 "password" => Hash::make($request->password),
+                "phonenumber" => $request->phonenumber
             ])->save();
+
+            $this->updateUserCompany($id, $request);
+            $this->updateUserAddress($id, $request);
 
             return response()->json(["message" => "Gebruiker succesvol geupdate"], 200);
         } catch (Exception $e) {
@@ -159,6 +203,36 @@ class UserController extends Controller
         }
     }
 
+    private function updateUserCompany(string $id, $request)
+    {
+        try {
+            $userCompany = UserCompany::where("user_id", $id)->get()->first();
+
+            if (empty($userCompany)) {
+                return;
+            }
+
+            $userCompany->fill($request->toArray()["company"])->save();
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    private function updateUserAddress(string $id, $request)
+    {
+        try {
+            $UserAddress = UserAddress::where("user_id", $id)->get()->first();
+
+            if (empty($UserAddress)) {
+                return;
+            }
+
+            $UserAddress->fill($request->toArray()["address"])->save();
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -167,6 +241,18 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $dealer = User::find($id);
+
+            if (empty($dealer)) {
+                throw new Exception("Handelaar niet gevonden!");
+            }
+
+            $dealer->delete();
+
+            return response()->json(["message" => "Handelaar is succesvol verwijderd", "status" => true], 200);
+        } catch (Exception $e) {
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage(), "status" => true], 400);
+        }
     }
 }

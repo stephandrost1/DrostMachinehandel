@@ -6,8 +6,7 @@
 <div class="content-wrapper flex justify-center">
   <form action="{{ route("login") }}" method="POST">
       @csrf
-
-      
+    <input type="hidden" name="from_login_form" value="{{ $login ?? '1' }}">  
       <div class="flex flex-col md:flex-row md:gap-20 md:justify-center bg-white rounded-xl mt-12 px-5 py-20 md:px-10 md:py-24">
           <div class="hidden md:flex items-center">
               <img src="{{ asset('img/login-image.png') }}" alt="IMG">
