@@ -13,16 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dealer_addresses', function (Blueprint $table) {
+        Schema::create('user_addresses', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id");
             $table->string("country");
             $table->string("province");
             $table->string("city");
             $table->string("streetname");
             $table->string("housenumber");
             $table->string("postalcode");
-            $table->string("dealer_id");
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dealer_adresses');
+        Schema::dropIfExists('user_addresses');
     }
 };

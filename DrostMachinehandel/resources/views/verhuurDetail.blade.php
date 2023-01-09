@@ -18,6 +18,7 @@
                 </div>
                 <div class="slider-wrapper">
                     <div id="dm-images-slider-app"></div>
+                    <div id="vehicle-id" data-vehicleid="{{ $vehicle->id }}"></div>
                 </div>
             </div>
             <div class="specs-wrapper">

@@ -39,8 +39,11 @@ Route::middleware(['locale'])->group((function () {
     Route::get('/404', function () {
         return view("errors.404");
     })->name("404");
+    Route::get('/500', function () {
+        return view("errors.500");
+    })->name("500");
 
-    Route::prefix("/verhuur")->group(function () {
+    Route::prefix("/verhuur")->middleware(['role:Dealer|Admin', 'verified'])->group(function () {
         Route::get('/', [VerhuurController::class, 'index'])->name('verhuur');
         Route::get('/detail/{id}/{name}', [VerhuurController::class, 'verhuurDetail'])->name('verhuurDetail');
     });
@@ -53,7 +56,7 @@ Route::prefix("/dealer")->group(function () {
         Route::post('/login', [AuthSessionController::class, 'storeDealer'])->name("dealer-login-action");
     });
 
-    Route::middleware(['dealerAuth', 'verified', 'locale'])->group(function () {
+    Route::middleware(['role:Dealer', 'verified', 'locale'])->group(function () {
         Route::get('/voorraad', [DealerVehicleController::class, 'show'])->name("dealer-voorraad");
         Route::get('/voorraad/machine', [DealerVehicleController::class, 'detail'])->name("dealer-voorraad-detail");
     });
@@ -83,14 +86,15 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
         Route::post("/images/upload", [VehicleImagesController::class, "create"]);
     });
 
-    Route::prefix("/dealers")->group(function () {
+    Route::prefix("/users")->group(function () {
+        Route::get("/", [UserController::class, "index"]);
         Route::get('/pending', [DealerController::class, "getPending"]);
         Route::get('/active', [DealerController::class, "getActive"]);
         Route::patch('/{id}/activate', [DealerController::class, "activate"]);
         Route::patch('/{id}/deactivate', [DealerController::class, "deactivate"]);
         Route::patch('/{id}/update', [DealerController::class, "update"]);
-        Route::delete('/{id}/delete', [DealerController::class, "delete"]);
-        Route::get('/page/{pageId}', [DealerController::class, "getAll"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
+        Route::delete('/{id}/delete', [UserController::class, "delete"]);
+        Route::get('/page/{pageId}', [UserController::class, "pager"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
     });
 
     Route::prefix("/dealer")->group(function () {
@@ -125,6 +129,7 @@ Route::prefix('/api/v2')->group(function () {
     Route::get('/vehicles', [VehicleController::class, "index"]);
     Route::get('/filters', [FilterController::class, "index"]);
     Route::get('dealer/', [DealerController::class, "index"]);
+    Route::get("/vehicle/{id}/images", [VehicleImagesController::class, "getByVehicleId"]);
 });
 
 Route::get('set-locale/{locale}', function ($locale) {

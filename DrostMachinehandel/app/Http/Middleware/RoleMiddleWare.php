@@ -17,12 +17,11 @@ class RoleMiddleWare
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        Log::emergency("UserRole", [
-            "Admin" => $request->user()->hasRole("Admin"),
-            "Dealer" => $request->user()->hasRole("Dealer"),
-        ]);
+        if (empty($request->user())) {
+            return redirect()->route("login");
+        }
 
-        if (!$request->user()->hasRole($role)) {
+        if (!$request->user()->hasRole(explode('|', $role))) {
             return redirect()->route("404");
         }
 

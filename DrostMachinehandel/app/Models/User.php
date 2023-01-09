@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -45,15 +46,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function hasRole(string $role): bool
+    public function hasRole(array $roles): bool
     {
-        return $this->roles()
-            ->where('name', $role)
-            ->exists();
+        return $this->roles()->whereIn('name', $roles)->exists();
     }
 
     public function roles()
     {
         return $this->hasOne(UserRole::class, 'id', 'role_id');
+    }
+
+    public function address()
+    {
+        return $this->hasOne(UserAddress::class);
+    }
+
+    public function company()
+    {
+        return $this->hasOne(UserCompany::class);
     }
 }
