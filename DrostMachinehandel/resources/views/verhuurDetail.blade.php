@@ -15,6 +15,9 @@
             <div class="images-wrapper">
                 <div class="main-image-wrapper">
                     <img class="main-image" src="{{ !empty($vehicle->images[0]) ? $vehicle->images[0]["image_location"].$vehicle->images[0]["image_name"].".".$vehicle->images[0]["image_type"] : '/img/errors/no_image_placeholder.png'  }}">
+
+                    <div class="prev"><i class="fas fa-chevron-left fa-xs"></i></div>
+                    <div class="next"><i class="fas fa-chevron-right fa-xs"></i></div>
                 </div>
                 <div class="slider-wrapper">
                     <div id="dm-images-slider-app"></div>
