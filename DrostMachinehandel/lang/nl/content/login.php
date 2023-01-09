@@ -4,12 +4,11 @@
 
 return [
     'logon' => 'Inloggen',
-    'subtext-admin' => 'Log in als beheerder',
-    'subtext-dealer' => 'Log in als dealer',
+    'subtext' => 'Log in met uw e-mailadres en wachtwoord',
     'login' => 'Inloggen',
     'email' => 'E-mailadres',
     'password' => 'Wachtwoord',
     'email/password' => 'E-mail / Wachtwoord',
     'forgot' => 'vergeten',
-    'create-account' => 'Account aanmaken',
+    'create-account' => 'Dealer account aanmaken',
 ];

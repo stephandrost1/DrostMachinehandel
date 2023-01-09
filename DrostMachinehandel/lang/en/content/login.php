@@ -4,12 +4,11 @@
 
 return [
     'logon' => 'Sign in',
-    'subtext-admin' => 'Log in as administrator',
-    'subtext-dealer' => "Log in as a dealer",
+    'subtext' => 'Log in with your email and password',
     'login' => 'Login',
     'email' => 'E-mail',
     'password' => 'Password',
     'email/password' => 'Email / Password',
     'forgot' => 'Forgot',
-    'create-account' => 'Create an account',
+    'create-account' => 'Create a Dealer account',
 ];

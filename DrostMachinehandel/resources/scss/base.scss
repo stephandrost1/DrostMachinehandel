@@ -1268,6 +1268,10 @@ select {
   max-width: 250px;
 }
 
+.max-w-\[300px\] {
+  max-width: 300px;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -2384,6 +2388,10 @@ select {
   text-underline-offset: 2px;
 }
 
+.underline-offset-4 {
+  text-underline-offset: 4px;
+}
+
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -3204,6 +3212,18 @@ select {
 
   .min-\[1150px\]\:max-w-\[290px\] {
     max-width: 290px;
+  }
+
+  .min-\[1150px\]\:max-w-\[350px\] {
+    max-width: 350px;
+  }
+
+  .min-\[1150px\]\:basis-2\/12 {
+    flex-basis: 16.666667%;
+  }
+
+  .min-\[1150px\]\:basis-3\/12 {
+    flex-basis: 25%;
   }
 
   .min-\[1150px\]\:grid-cols-2 {

@@ -45,7 +45,7 @@ export default {
 
 
 <template>
-    <div class="basis-4/12 h-fit flex">
+    <div class="basis-4/12 min-[1150px]:basis-3/12 h-fit flex">
         <div
             class="bg-gradient-to-b w-full from-primary flex flex-col xl:flex-row items-start gap-5 justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
             <div id="select-rent-vehicle-wrapper"
@@ -61,9 +61,11 @@ export default {
                     </div>
                 </div>
             </div>
-            <div v-if="hasCallback" class="rent-vehicle-options-wrapper bg-primary-200 border-2 border-primary-500 rounded-lg p-5">
+            <div v-if="hasCallback"
+                class="rent-vehicle-options-wrapper bg-primary-200 border-2 border-primary-500 rounded-lg p-5">
                 <div class="rent-vehicle-options flex flex-col gap-5">
-                    <div @click="_handleExtraButton" class="flex rounded-lg justify-center shadow-xl py-2 px-5 border-2 border-blue-500 bg-blue-200 text-blue-500 hover:text-white hover:bg-blue-500 duration-200 hover:border-blue-200">
+                    <div @click="_handleExtraButton"
+                        class="flex rounded-lg justify-center shadow-xl py-2 px-5 border-2 border-blue-500 bg-blue-200 text-blue-500 hover:text-white hover:bg-blue-500 duration-200 hover:border-blue-200">
                         <button class="font-bold">{{ extraButtonText }}</button>
                     </div>
                 </div>
