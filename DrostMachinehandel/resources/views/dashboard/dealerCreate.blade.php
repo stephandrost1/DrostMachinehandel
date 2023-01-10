@@ -149,7 +149,7 @@
                     <span class="text-[#999999]">
                         {{ __('content/signup.do-you-already-have-an') }}
                     </span>
-                    <a class="text-[#666666]" href="{{ route('dealer-login') }}">
+                    <a class="text-[#666666]" href="{{ route('login') }}">
                         {{ __('content/signup.account') }}?
                     </a>
                 </div>

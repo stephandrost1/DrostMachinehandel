@@ -17,6 +17,9 @@
                    <span>
                         {{ __('content/login.logon') }}
                     </span>
+                   <span class="text-[#999999] text-base max-w-[250px]">
+                        {{ __('content/login.subtext') }}
+                  </span>
               </span>
               
 
@@ -38,7 +41,7 @@
                   <div class="text-red-500 rounded">
                       <ul class="text-center">
                           @foreach (Session::get('errors')->all() as $error)
-                              <li>{{ $error }}</li>
+                              <li class="max-w-[250px]">{{ $error }}</li>
                           @endforeach
                       </ul>
                   </div>
@@ -55,13 +58,13 @@
                         <span class="text-[#999999]">
                             {{ __('content/login.forgot') }}
                         </span>
-                        <a class="text-[#666666]" href="#">
+                        <a class="text-[#666666] underline underline-offset-2" href="#">
                             {{ __('content/login.email/password') }}?
                         </a>
                     </div>
                 @else 
                     <div class="text-center mt-2 font-bold">
-                        <a class="text-[#666666]" href="#">
+                        <a class="text-[#666666] underline underline-offset-2" href="#">
                         {{ __('content/login.email/password') }}
                         </a>
                         <span class="text-[#999999]">
@@ -69,6 +72,13 @@
                         </span>
                     </div>
                 @endif
+
+                <div class="text-center mt-10 font-bold">
+                    <a class="text-[#666666] flex items-center" href="{{ route('dealer-create') }}">
+                        <span>{{ __('content/login.create-account') }}</span>
+                        <i class="fas fa-long-arrow-alt-right ml-2"></i>
+                    </a>
+                </div>
           </div>
       </div>
   </form>
