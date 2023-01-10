@@ -91,9 +91,9 @@ export default {
         },
 
         fetchUser() {
-            axios.get('/api/v2/dealer')
+            axios.get('/api/v1/user')
                 .then(response => {
-                    const dealer = response.data.dealer;
+                    const dealer = response.data.user;
                     this.user.firstname = dealer.firstname;
                     this.user.lastname = dealer.lastname;
                     this.user.email = dealer.email;

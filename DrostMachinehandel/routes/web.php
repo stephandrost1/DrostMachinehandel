@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\App;
 */
 
 Route::middleware(['locale'])->group((function () {
+    //GET
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/voorraad', [VoorraadController::class, 'index'])->name('voorraad');
     Route::get('/voorraad/machine', [VoorraadController::class, 'detail'])->name('voorraad-detail');
@@ -44,6 +45,7 @@ Route::middleware(['locale'])->group((function () {
     })->name("500");
 
     Route::prefix("/verhuur")->middleware(['role:Dealer|Admin', 'verified'])->group(function () {
+        //GET
         Route::get('/', [VerhuurController::class, 'index'])->name('verhuur');
         Route::get('/detail/{id}/{name}', [VerhuurController::class, 'verhuurDetail'])->name('verhuurDetail');
     });
@@ -51,12 +53,16 @@ Route::middleware(['locale'])->group((function () {
 
 Route::prefix("/dealer")->group(function () {
     Route::middleware(['locale'])->group(function () {
+        //GET
         Route::get('/create-account', [DashboardController::class, "dealerCreate"])->name("dealer-create");
         Route::get('/login', [AuthSessionController::class, 'createDealer'])->name("dealer-login");
+
+        //POST
         Route::post('/login', [AuthSessionController::class, 'storeDealer'])->name("dealer-login-action");
     });
 
-    Route::middleware(['role:Dealer', 'verified', 'locale'])->group(function () {
+    Route::middleware(['role:Dealer|Admin', 'verified', 'locale'])->group(function () {
+        //GET
         Route::get('/voorraad', [DealerVehicleController::class, 'show'])->name("dealer-voorraad");
         Route::get('/voorraad/machine', [DealerVehicleController::class, 'detail'])->name("dealer-voorraad-detail");
     });
@@ -64,6 +70,7 @@ Route::prefix("/dealer")->group(function () {
 
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['role:Admin'])->group(function () {
+        //GET
         Route::get('/settings', [DashboardController::class, "settings"])->name("dashboard-settings");
         Route::get('/', [DashboardController::class, 'index'])->name("dashboard");
         Route::get('/verhuur', [DashboardController::class, "verhuur"])->name("dashboard-verhuur");
@@ -73,63 +80,75 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
         Route::get('/reservations', [DashboardController::class, "reservations"])->name("dashboard-reservations");
     });
 
+    //GET
     Route::get('/account', [DashboardController::class, "account"])->name("dashboard-account");
     Route::get('/logout', [DashboardController::class, "logout"])->name("dashboard-logout");
 });
 
 Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::prefix("/vehicles")->group(function () {
+        //GET
         Route::get("/views", [VehicleController::class, "vehicleViews"]);
         Route::get("/{id}", [VehicleController::class, "show"]);
+
+        //DELETE
         Route::delete("/{id}/delete", [VehicleController::class, "destroy"]);
+
+        //PATCH
         Route::patch('/{id}/update', [VehicleController::class, "update"]);
+
+        //POST
         Route::post("/images/upload", [VehicleImagesController::class, "create"]);
     });
 
     Route::prefix("/users")->group(function () {
+        //GET
         Route::get("/", [UserController::class, "index"]);
-        Route::get('/pending', [DealerController::class, "getPending"]);
-        Route::get('/active', [DealerController::class, "getActive"]);
-        Route::patch('/{id}/activate', [DealerController::class, "activate"]);
-        Route::patch('/{id}/deactivate', [DealerController::class, "deactivate"]);
-        Route::patch('/{id}/update', [DealerController::class, "update"]);
-        Route::delete('/{id}/delete', [UserController::class, "delete"]);
         Route::get('/page/{pageId}', [UserController::class, "pager"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
+
+        //PATCH
+        Route::patch('/{id}/activate', [UserController::class, "activate"]);
+        Route::patch('/{id}/deactivate', [UserController::class, "deactivate"]);
+        Route::patch('/{id}/update', [UserController::class, "update"]);
+
+        //DELETE
+        Route::delete('/{id}/delete', [UserController::class, "delete"]);
     });
 
     Route::prefix("/dealer")->group(function () {
         Route::prefix("/vehicles")->group(function () {
+            //GET
             Route::get('/', [DealerVehicleController::class, "index"])->where("svm", '[a-zA-Z0-9/_-]+');
-            Route::post('/create', [DealerController::class, "create"])->name("dealer-create-request");
-            Route::get('/{id}/update', [DealerVehicleController::class, "update"]);
             Route::get('/fetch', [DealerVehicleController::class, "fetchVehicles"]);
         });
 
-        Route::get('/{id}', [DealerController::class, "show"]);
+        //GET
         Route::get('/vehicle', [DealerVehicleController::class, "getById"])->where("svm", '[a-zA-Z0-9/_-]+');
-        Route::get('/pending', [DealerController::class, "getPending"]);
-        Route::get('/active', [DealerController::class, "getActive"]);
-        Route::patch('/{id}/activate', [DealerController::class, "activate"]);
-        Route::patch('/{id}/deactivate', [DealerController::class, "deactivate"]);
     });
 
+    //GET
     Route::get('/reservations/{page}', [ReservationController::class, "index"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
 
     Route::prefix("/user")->group(function () {
+        //GET
         Route::get('/', [UserController::class, "index"]);
-        Route::patch('/{id}/update', [UserController::class, "update"]);
         Route::get('/{id}', [UserController::class, "show"]);
+
+        //Patch
+        Route::patch('/{id}/update', [UserController::class, "update"]);
     });
 
     //Todo check url name 
 });
 
 Route::prefix('/api/v2')->group(function () {
-    Route::post('/vehicle/reservation', [ReservationController::class, "store"]);
+    //GET
     Route::get('/vehicles', [VehicleController::class, "index"]);
     Route::get('/filters', [FilterController::class, "index"]);
-    Route::get('dealer/', [DealerController::class, "index"]);
     Route::get("/vehicle/{id}/images", [VehicleImagesController::class, "getByVehicleId"]);
+
+    //POST
+    Route::post('/vehicle/reservation', [ReservationController::class, "store"]);
 });
 
 Route::get('set-locale/{locale}', function ($locale) {

@@ -48,21 +48,6 @@ class UpdateDealerRequest extends FormRequest
 
     public function messages()
     {
-        return [
-            "id.required" => "Handelaar id niet gevonden!",
-            "firstname.required" => "Het voornaam veld is leeg!",
-            "lastname.required" => "Het achternaam veld is leeg!",
-            "email.required" => "Het E-mailadres veld is leeg!",
-            "email.email" => "Opgegeven E-mailadres is niet geldig",
-            "phonenumber.required" => "Het voornaam veld is leeg!",
-            "phonenumber.min" => "Het opgegeven telefoonnummer is niet geldig!",
-            "companyname.required" => "Het bedrijfsnaam veld is leeg!",
-            "kvknumber.required" => "Het kvk nummer veld is leeg!",
-            "btwnumber.required" => "Het btw nummer veld is leeg!",
-            "kvknumber.regex" => "Het opgegeven kvk nummer is niet geldig!",
-            "btwnumber.regex" => "Het opgegeven btw nummer is niet geldig!",
-            "email_verified_at.required" => "Handelaar account status niet gevonden!",
-            "passwordRepeat.same" => "Opgegeven wachtwoorden komen niet overeen!",
-        ];
+        return [];
     }
 }

@@ -20,9 +20,14 @@ class Reservation extends Model
         "reservation_accepted_at"
     ];
 
-    public function dealer()
+    public function user()
     {
-        return $this->hasOne(Dealer::class, 'id', 'dealer_id');
+        return $this->hasOne(User::class, 'id', 'dealer_id');
+    }
+
+    public function guestUser()
+    {
+        return $this->hasOne(GuestUser::class, 'id', 'dealer_id');
     }
 
     public function vehicle()

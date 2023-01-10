@@ -55,7 +55,7 @@ const _addContactButtons = () => {
     }
 
     const buttonsWrapper = document.createElement("div");
-    buttonsWrapper.classList = "contact-buttons-wrapper flex justify-between";
+    buttonsWrapper.classList = "contact-buttons-wrapper flex justify-end";
     const buyButton = document.createElement("a");
     const rentButton = document.createElement("a");
     const language = document.querySelector('meta[name="current-lang"]').content
@@ -76,7 +76,6 @@ const _addContactButtons = () => {
     });
 
     buttonsWrapper.appendChild(buyButton);
-    buttonsWrapper.appendChild(rentButton);
     wrapper.appendChild(buttonsWrapper);
 }
 

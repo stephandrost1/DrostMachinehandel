@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Models\UserAddress;
 use App\Models\UserCompany;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -93,16 +94,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -140,17 +131,6 @@ class UserController extends Controller
             );
             return response()->json(["message" => "er is iets fout gegaan, probeer het later opnieuw!"], 500);
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -253,6 +233,58 @@ class UserController extends Controller
             return response()->json(["message" => "Handelaar is succesvol verwijderd", "status" => true], 200);
         } catch (Exception $e) {
             return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage(), "status" => true], 400);
+        }
+    }
+
+    public function activate($id)
+    {
+        try {
+            $user = User::find($id);
+
+            if (empty($user)) {
+                throw new Exception("Gebruiker niet gevonden!");
+            }
+
+            $user->update([
+                "email_verified_at" => Carbon::now()
+            ]);
+
+            return response()->json(["message" => "Gebruiker succesvol geactiveerd!"]);
+        } catch (Exception $e) {
+
+            Log::emergency("UserController", [
+                "id" => $id,
+                "error" => $e->getMessage(),
+                "function" => "activate"
+            ]);
+
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
+        }
+    }
+
+    public function deactivate($id)
+    {
+        try {
+            $user = User::find($id);
+
+            if (empty($user)) {
+                throw new Exception("Gebruiker niet gevonden!");
+            }
+
+            $user->update([
+                "email_verified_at" => null
+            ]);
+
+            return response()->json(["message" => "Gebruiker succesvol gedeactiveerd!"]);
+        } catch (Exception $e) {
+
+            Log::emergency("UserController", [
+                "id" => $id,
+                "error" => $e->getMessage(),
+                "function" => "deactivate"
+            ]);
+
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
         }
     }
 }

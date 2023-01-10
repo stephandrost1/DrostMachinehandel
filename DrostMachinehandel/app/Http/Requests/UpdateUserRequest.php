@@ -38,8 +38,7 @@ class UpdateUserRequest extends FormRequest
 
         return [
             "id" => "required",
-            "firstname" => "required",
-            "lastname" => "required",
+            "name" => "required",
             "email" => "required|email",
             "phonenumber" => "required|min:10",
             "email_verified_at" => "nullable",

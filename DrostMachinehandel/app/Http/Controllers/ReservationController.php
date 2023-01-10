@@ -12,6 +12,7 @@ use App\Models\PostalcodeCoord;
 use App\Models\PostalcodeDistance;
 use App\Models\Reservation;
 use App\Models\ReservationDate;
+use App\Models\User;
 use App\Models\Vehicle;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -28,27 +29,34 @@ class ReservationController extends Controller
         try {
             $searchQuery = '%' . $request->s . '%';
 
-            $reservations = Reservation::with('dealer.address', 'vehicle')
-                ->whereHas('dealer', function ($query) use ($searchQuery) {
-                    $query->where('firstname', 'like', "%$searchQuery%")
-                        ->orWhere('lastname', 'like', "%$searchQuery%")
-                        ->orWhere('email', 'like', "%$searchQuery%")
-                        ->orWhere('companyname', 'like', "%$searchQuery%")
-                        ->orWhere('kvknumber', 'like', "%$searchQuery%")
-                        ->orWhereHas('address', function ($query) use ($searchQuery) {
-                            $query->where('country', 'like', "%$searchQuery%")
-                                ->orWhere('province', 'like', "%$searchQuery%")
-                                ->orWhere('city', 'like', "%$searchQuery%")
-                                ->orWhere('streetname', 'like', "%$searchQuery%")
-                                ->orWhere('housenumber', 'like', "%$searchQuery%")
-                                ->orWhere('postalcode', 'like', "%$searchQuery%");
+            $authReservations = Reservation::where("auth_type", "Auth")
+                ->where(function ($query) use ($searchQuery) {
+                    $query->whereHas("user", function ($query) use ($searchQuery) {
+                        $query->where(function ($query) use ($searchQuery) {
+                            $query->where('name', 'like', "%$searchQuery%")
+                                ->orWhere('email', 'like', "%$searchQuery%")
+                                ->orWhere('phonenumber', 'like', "%$searchQuery%")
+                                ->orWhereHas('address', function ($query) use ($searchQuery) {
+                                    $query->where('country', 'like', "%$searchQuery%")
+                                        ->orWhere('province', 'like', "%$searchQuery%")
+                                        ->orWhere('city', 'like', "%$searchQuery%")
+                                        ->orWhere('streetname', 'like', "%$searchQuery%")
+                                        ->orWhere('housenumber', 'like', "%$searchQuery%")
+                                        ->orWhere('postalcode', 'like', "%$searchQuery%");
+                                })->orWhereHas('company', function ($query) use ($searchQuery) {
+                                    $query->where('name', 'like', "%$searchQuery%")
+                                        ->orWhere('kvknumber', 'like', "%$searchQuery%")
+                                        ->orWhere('btwnumber', 'like', "%$searchQuery%");
+                                });
                         });
+                    })->orWhereHas('vehicle', function ($query) use ($searchQuery) {
+                        $query->where('vehicle_name', 'like', "%$searchQuery%");
+                    });
                 })
-                ->orWhereHas('vehicle', function ($query) use ($searchQuery) {
-                    $query->where('vehicle_name', 'like', "%$searchQuery%");
-                })
-                ->get()
-                ->toArray();
+                ->with(['user.address', 'user.company', 'vehicle'])->get();
+
+            $guestReservations = Reservation::where('auth_type', 'Guest')->with(['guestUser', 'vehicle'])->get();
+            $reservations = $authReservations->concat($guestReservations)->toArray();
 
             $pages = array_chunk($reservations, 15);
 
@@ -131,7 +139,7 @@ class ReservationController extends Controller
             }
 
             if (Auth::check()) {
-                $user = Dealer::find($this->getUsersAccountId($request));
+                $user = User::find($this->getUsersAccountId($request));
             } else {
                 $user = GuestUser::find($this->getUsersAccountId($request));
             }
