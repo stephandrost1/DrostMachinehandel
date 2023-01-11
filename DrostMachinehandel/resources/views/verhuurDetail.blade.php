@@ -12,17 +12,9 @@
         <div id="get-vehicle-id" class="hidden" data-vehicleid="{{$vehicle->id}}"></div>
         <div class="reservation-popup hidden" id="reservation-popup-rent-detail"></div>
         <div class="images-specs-wrapper">
-            <div class="images-wrapper">
-                <div class="main-image-wrapper">
-                    <img class="main-image" src="{{ !empty($vehicle->images[0]) ? $vehicle->images[0]["image_location"].$vehicle->images[0]["image_name"].".".$vehicle->images[0]["image_type"] : '/img/errors/no_image_placeholder.png'  }}">
-
-                    <div class="prev"><i class="fas fa-chevron-left fa-xs"></i></div>
-                    <div class="next"><i class="fas fa-chevron-right fa-xs"></i></div>
-                </div>
-                <div class="slider-wrapper">
-                    <div id="dm-images-slider-app"></div>
-                    <div id="vehicle-id" data-vehicleid="{{ $vehicle->id }}"></div>
-                </div>
+            <div class="images-wrapper select-none">
+                <div id="dm-images-slider-app"></div>
+                <div id="vehicle-id" data-vehicleid="{{ $vehicle->id }}"></div>
             </div>
             <div class="specs-wrapper">
                 <div class="vehicle-title">{{ $vehicle->vehicle_name }}</div>

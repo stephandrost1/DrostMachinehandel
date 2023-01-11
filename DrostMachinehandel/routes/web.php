@@ -44,7 +44,7 @@ Route::middleware(['locale'])->group((function () {
         return view("errors.500");
     })->name("500");
 
-    Route::prefix("/verhuur")->middleware(['role:Dealer|Admin', 'verified'])->group(function () {
+    Route::prefix("/verhuur")->group(function () {
         //GET
         Route::get('/', [VerhuurController::class, 'index'])->name('verhuur');
         Route::get('/detail/{id}/{name}', [VerhuurController::class, 'verhuurDetail'])->name('verhuurDetail');
