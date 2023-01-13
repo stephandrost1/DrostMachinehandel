@@ -46,6 +46,7 @@ export default defineComponent({
                     mainImageSrc.value = swiperObj.value.slides[0].querySelector(".image-class").src;
                 })
         }
+        
         const onSlideChange = (e) => {
             mainImageSrc.value = e.slides[e.activeIndex].querySelector(".image-class").src;
         };

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Models\UserAddress;
@@ -99,9 +100,38 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+        try {
+            $validator = $request->validated();
+
+            $user = User::create([
+                "name" => $request->firstname + ' ' + $request->lastname,
+                "email" => $request->email,
+                "phonenumber" => $request->phonenumber,
+                "password" => Hash::make($request->password),
+                "role_id" => "1"
+            ])->save();
+
+            $userAddress = UserAddress::create([
+                "user_id" => $user->id,
+                "country" => $request->country,
+                "province" => $request->province,
+                "city" => $request->city,
+                "streetname" => $request->streetname,
+                "housenumer" => $request->housenumber,
+                "postalcode" => $request->postalcode,
+            ])->save();
+
+            $userCompany = UserCompany::create([
+                "user_id" => $user->id,
+                "name" => $request->companyname,
+                "kvknumber" => $request->kvknumber,
+                "btwnumber" => $request->btwnumber,
+            ]);
+        } catch (Exception $e) {
+            redirect()->back()->withErrors($e->getMessage())->withInput();
+        }
     }
 
     /**

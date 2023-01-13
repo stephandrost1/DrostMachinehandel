@@ -93,7 +93,7 @@
                     </div>
                     <div class="flex flex-col sm:flex-row gap-3">
                         <div class="relative w-full z-10">
-                            <input class="placeholder:text-[#999999] focus:ring-primary border-none font-bold text-[#666666] block w-full bg-[#e6e6e6] h-12 rounded-2xl px-10 py-5 relative" type="text" name="company" placeholder="{{ __('content/signup.company') }}">
+                            <input class="placeholder:text-[#999999] focus:ring-primary border-none font-bold text-[#666666] block w-full bg-[#e6e6e6] h-12 rounded-2xl px-10 py-5 relative" type="text" name="companyname" placeholder="{{ __('content/signup.company') }}">
                             <span class="flex items-center absolute rounded-xl bottom-0 left-0 h-full pl-5">
                                 <i class="fas fa-building text-[#666666] fa-sm"></i>
                             </span>

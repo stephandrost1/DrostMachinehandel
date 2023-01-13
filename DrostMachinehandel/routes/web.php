@@ -51,17 +51,14 @@ Route::middleware(['locale'])->group((function () {
     });
 }));
 
-Route::prefix("/dealer")->group(function () {
-    Route::middleware(['locale'])->group(function () {
-        //GET
-        Route::get('/create-account', [DashboardController::class, "dealerCreate"])->name("dealer-create");
-        Route::get('/login', [AuthSessionController::class, 'createDealer'])->name("dealer-login");
+Route::prefix("/dealer")->middleware(['locale'])->group(function () {
+    //GET
+    Route::get('/create-account', [DashboardController::class, "dealerCreate"])->name("dealer-create");
 
-        //POST
-        Route::post('/login', [AuthSessionController::class, 'storeDealer'])->name("dealer-login-action");
-    });
+    //POST
+    Route::post('/login', [UserController::class, 'store'])->name("dealer-create-request");
 
-    Route::middleware(['role:Dealer|Admin', 'verified', 'locale'])->group(function () {
+    Route::middleware(['role:Dealer|Admin', 'verified'])->group(function () {
         //GET
         Route::get('/voorraad', [DealerVehicleController::class, 'show'])->name("dealer-voorraad");
         Route::get('/voorraad/machine', [DealerVehicleController::class, 'detail'])->name("dealer-voorraad-detail");
