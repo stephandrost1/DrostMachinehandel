@@ -37,6 +37,13 @@
                   </span>
               </div>
 
+            @if(session()->has('success'))
+                <div class="text-green-500 rounded">
+                      <ul class="text-center">
+                            <p class="max-w-[250px]">{{ session()->get('success') }}</p>
+                      </ul>
+                  </div>
+            @endif
               @if (Session::has('errors'))
                   <div class="text-red-500 rounded">
                       <ul class="text-center">

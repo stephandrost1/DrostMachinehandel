@@ -21,8 +21,6 @@ class RoleMiddleWare
             return redirect()->route("login");
         }
 
-        Log::debug("roles", [explode("|", $role)]);
-
         if (!$request->user()->hasRole(explode('|', $role))) {
             return redirect()->route("404");
         }

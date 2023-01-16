@@ -187,12 +187,12 @@
                                 .amount {
                                     flex-basis: 30%;
 
-                                    .amount {
-                                        @media screen and (min-width: 560px) {
-                                            padding-bottom: 18px;
-                                            padding-top: 18px;
-                                        }
-                                    }
+                                    // .amount {
+                                    //     @media screen and (min-width: 560px) {
+                                    //         padding-bottom: 18px;
+                                    //         padding-top: 18px;
+                                    //     }
+                                    // }
                                 }
 
                                 .item {
@@ -231,15 +231,12 @@
                                             align-items: center !important;
                                             justify-content: space-around !important;
                                             width: 100% !important;
-                                            padding-top: 8px;
-                                            padding-bottom: 8px;
 
                                             @media screen and (min-width: 470px) {
                                                 flex-direction: row !important;
                                             }
 
                                             .date-start, .date-end {
-                                                margin-top: 10px;
                                                 display: flex !important;
                                                 gap: 15px !important;
                                                 align-items: center !important;

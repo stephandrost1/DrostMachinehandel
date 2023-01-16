@@ -42,8 +42,12 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        if (!$request->user()->hasVerifiedEmail()) {
+            Auth::logout();
+            return redirect()->route("login")->withErrors("Uw account is nog niet geactiveerd, dit kan even duren!")->withInput();
+        }
 
+        $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

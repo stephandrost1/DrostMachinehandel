@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Log;
 
 class Reservation extends Model
 {
@@ -33,5 +34,12 @@ class Reservation extends Model
     public function vehicle()
     {
         return $this->hasOne(Vehicle::class, 'id', 'vehicle_id');
+    }
+
+    protected $appends = ['user'];
+
+    public function getUserAttribute()
+    {
+        return $this->guestUser;
     }
 }

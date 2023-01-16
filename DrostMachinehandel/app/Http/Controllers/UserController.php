@@ -106,12 +106,12 @@ class UserController extends Controller
             $validator = $request->validated();
 
             $user = User::create([
-                "name" => $request->firstname + ' ' + $request->lastname,
+                "name" => $request->firstname . ' ' . $request->lastname,
                 "email" => $request->email,
                 "phonenumber" => $request->phonenumber,
                 "password" => Hash::make($request->password),
                 "role_id" => "1"
-            ])->save();
+            ]);
 
             $userAddress = UserAddress::create([
                 "user_id" => $user->id,
@@ -119,7 +119,7 @@ class UserController extends Controller
                 "province" => $request->province,
                 "city" => $request->city,
                 "streetname" => $request->streetname,
-                "housenumer" => $request->housenumber,
+                "housenumber" => $request->housenumber,
                 "postalcode" => $request->postalcode,
             ])->save();
 
@@ -129,8 +129,11 @@ class UserController extends Controller
                 "kvknumber" => $request->kvknumber,
                 "btwnumber" => $request->btwnumber,
             ]);
+
+            session()->flash('success', 'Uw account is succesvol aangemaakt!');
+            return redirect()->route("login");
         } catch (Exception $e) {
-            redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->withErrors($e->getMessage())->withInput();
         }
     }
 

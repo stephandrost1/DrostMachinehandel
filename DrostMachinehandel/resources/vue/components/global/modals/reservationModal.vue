@@ -8,9 +8,7 @@ export default {
             endDate: "",
             amount: "1",
             user: {
-                firstname: "",
-                insertion: "",
-                lastname: "",
+                name: "",
                 email: "",
                 phonenumber: "",
                 streetname: "",
@@ -93,20 +91,22 @@ export default {
         fetchUser() {
             axios.get('/api/v1/user')
                 .then(response => {
-                    const dealer = response.data.user;
-                    this.user.firstname = dealer.firstname;
-                    this.user.lastname = dealer.lastname;
-                    this.user.email = dealer.email;
-                    this.user.phonenumber = dealer.phonenumber;
-                    this.user.company.name = dealer.companyname;
-                    this.user.company.kvknumber = dealer.kvknumber;
-                    this.user.streetname = dealer.address.streetname;
-                    this.user.housenumber = dealer.address.housenumber;
-                    this.user.postalcode = dealer.address.postalcode;
-                    this.user.city = dealer.address.city;
-                    this.user.country = dealer.address.country;
+                    const user = response.data.user;
+                    this.user.name = user.user.name;
+                    this.user.email = user.user.email;
+                    this.user.phonenumber = user.user.phonenumber;
+                    this.user.company.name = user.company.name;
+                    this.user.company.kvknumber = user.company.kvknumber;
+                    this.user.streetname = user.address.streetname;
+                    this.user.housenumber = user.address.housenumber;
+                    this.user.postalcode = user.address.postalcode;
+                    this.user.city = user.address.city;
+                    this.user.country = user.address.country;
                     // this.user = response.data.dealer;
-                });
+                })
+                .catch((error) => {
+                    console.log(error.response.data.message)
+                })
         },
 
         _handleSave() {
@@ -195,9 +195,7 @@ export default {
                             <div class="title">
                                 <h1>Machine reserveren</h1>
                             </div>
-                            <div class="close-modal" @click="_handleCloseModal">
-                                X
-                            </div>
+                            <div class="cursor-pointer close-modal" @click="_handleCloseModal">X</div>
                         </div>
                     </div>
                     <div class="body">
@@ -278,21 +276,8 @@ export default {
                                         <div class="label">
                                             <p class="label-text">Voornaam:</p>
                                         </div>
-                                        <input type="text" v-model="user.firstname" placeholder="John"
+                                        <input type="text" v-model="user.name" placeholder="John Doe"
                                             class="form-input firstname">
-                                    </div>
-                                    <div class="item">
-                                        <div class="label">
-                                            <p class="label-text">Tussenvoegsel:</p>
-                                        </div>
-                                        <input type="text" v-model="user.insertion" class="form-input insertion">
-                                    </div>
-                                    <div class="item">
-                                        <div class="label">
-                                            <p class="label-text">Achternaam:</p>
-                                        </div>
-                                        <input type="text" v-model="user.lastname" placeholder="Doe"
-                                            class="form-input lastname">
                                     </div>
                                 </div>
                             </div>

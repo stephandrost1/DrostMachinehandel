@@ -3,22 +3,25 @@
 export default {
     props: ["reservation"],
 
-    data() {
-        return {
-        }
-    },
-
     computed: {
         getReservationName() {
-            return `${this.reservation.dealer.firstname} ${this.reservation.dealer.lastname}`;
+            return this.reservation.user.name ?? `${this.reservation.user.firstname} ${this.reservation.user.lastname}`;
         },
 
         getReservationEmail() {
-            return this.reservation.dealer.email;
+            return this.reservation.user.email;
         },
 
         getReservationDistance() {
-            return this.reservation.distance;
+            if (parseInt(this.reservation.distance) <= 10) {
+                return `€0 (${this.reservation.distance}km)`;
+            } else if (parseInt(this.reservation.distance) <= 25) {
+                return `€50 (${this.reservation.distance}km)`;
+            } else if (parseInt(this.reservation.distance) < 70) {
+                return `€90 (${this.reservation.distance}km)`;
+            }
+
+            return `Aanvraag (${this.reservation.distance}km)`;
         },
 
         getReservationVehicleLink() {

@@ -56,7 +56,7 @@ Route::prefix("/dealer")->middleware(['locale'])->group(function () {
     Route::get('/create-account', [DashboardController::class, "dealerCreate"])->name("dealer-create");
 
     //POST
-    Route::post('/login', [UserController::class, 'store'])->name("dealer-create-request");
+    Route::post('/create-account', [UserController::class, 'store'])->name("dealer-create-request");
 
     Route::middleware(['role:Dealer|Admin', 'verified'])->group(function () {
         //GET
