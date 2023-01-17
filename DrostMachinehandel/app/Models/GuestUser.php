@@ -16,4 +16,14 @@ class GuestUser extends Model
         "email",
         "phonenumber"
     ];
+
+    public function address()
+    {
+        return $this->hasOne(GuestUserAddress::class, 'guest_user_id', 'id');
+    }
+
+    public function company()
+    {
+        return $this->hasOne(GuestUserCompany::class, 'guest_user_id', 'id');
+    }
 }

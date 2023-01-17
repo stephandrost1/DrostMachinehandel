@@ -20,6 +20,7 @@ use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ReservationController extends Controller
@@ -37,10 +38,7 @@ class ReservationController extends Controller
                                 ->orWhere('email', 'like', "%$searchQuery%")
                                 ->orWhere('phonenumber', 'like', "%$searchQuery%")
                                 ->orWhereHas('address', function ($query) use ($searchQuery) {
-                                    $query->where('country', 'like', "%$searchQuery%")
-                                        ->orWhere('province', 'like', "%$searchQuery%")
-                                        ->orWhere('city', 'like', "%$searchQuery%")
-                                        ->orWhere('streetname', 'like', "%$searchQuery%")
+                                    $query->where('streetname', 'like', "%$searchQuery%")
                                         ->orWhere('housenumber', 'like', "%$searchQuery%")
                                         ->orWhere('postalcode', 'like', "%$searchQuery%");
                                 })->orWhereHas('company', function ($query) use ($searchQuery) {
@@ -53,12 +51,36 @@ class ReservationController extends Controller
                         $query->where('vehicle_name', 'like', "%$searchQuery%");
                     });
                 })
-                ->with(['user.address', 'user.company', 'vehicle'])->get();
+                ->with(['user.address', 'user.company', 'vehicle', 'dates'])->withTrashed()->get();
 
-            $guestReservations = Reservation::where('auth_type', 'Guest')->with(['guestUser', 'vehicle'])->get();
+            $guestReservations = Reservation::where('auth_type', 'Guest')->where(function ($query) use ($searchQuery) {
+                $query->whereHas("guestUser", function ($query) use ($searchQuery) {
+                    $query->where(function ($query) use ($searchQuery) {
+                        $query->where(DB::raw("CONCAT(firstname, ' ', lastname)"), 'like', "%$searchQuery%")
+                            ->orWhere('email', 'like', "%$searchQuery%")
+                            ->orWhere('phonenumber', 'like', "%$searchQuery%")
+                            ->orWhereHas('address', function ($query) use ($searchQuery) {
+                                $query->where('streetname', 'like', "%$searchQuery%")
+                                    ->orWhere('housenumber', 'like', "%$searchQuery%")
+                                    ->orWhere('postalcode', 'like', "%$searchQuery%");
+                            })->orWhereHas('company', function ($query) use ($searchQuery) {
+                                $query->where('companyname', 'like', "%$searchQuery%")
+                                    ->orWhere('kvknumber', 'like', "%$searchQuery%");
+                            });
+                    });
+                })->orWhereHas('vehicle', function ($query) use ($searchQuery) {
+                    $query->where('vehicle_name', 'like', "%$searchQuery%");
+                });
+            })->with(['guestUser.address', 'guestUser.company', 'vehicle', 'dates'])->withTrashed()->get();
+
             $reservations = $authReservations->concat($guestReservations)->toArray();
 
-            $pages = array_chunk($reservations, 15);
+            $sortedReservations = collect($reservations)->sortBy(function ($reservation) {
+                $startDate = new DateTime($reservation["dates"]["startDate"]);
+                return ($startDate >= new DateTime()) ? 0 : $startDate->diff(new DateTime())->days;
+            })->toArray();
+
+            $pages = array_chunk($sortedReservations, 15);
 
             return response()->json([
                 "reservations" => $pages[$pageId - 1] ?? [],
@@ -231,7 +253,6 @@ class ReservationController extends Controller
         $postalCodeCoords = PostalcodeCoord::where("postal_code",  $postalCode)->first();
         $homePostalCode = PostalcodeCoord::where("postal_code", SettingsController::fetchSetting("homePostalCode"))->first();
 
-
         if (empty($homePostalCode)) {
             Log::emergency("home postalcode not found", [
                 "controller" => "reservationController"
@@ -358,5 +379,44 @@ class ReservationController extends Controller
         return collect($items)->map(function ($item) {
             return Reservation::find($item["reservation_id"]);
         })->filter()->sum("amount");
+    }
+
+    public function accept($id)
+    {
+        try {
+            $reservation = Reservation::find($id);
+
+            $reservation->fill([
+                "status" => Carbon::now(),
+                "deleted_at" => null
+            ])->save();
+
+            return response()->json(["message" => "Reservering succesvol geaccepteerd"], 200);
+        } catch (Exception $e) {
+            Log::alert("ReservationController", [
+                "action" => "delete",
+                "id" => $id,
+                "error" => $e->getMessage()
+            ]);
+
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            Reservation::find($id)->delete();
+
+            return response()->json(["message" => "Reservering succesvol afgewezen"], 200);
+        } catch (Exception $e) {
+            Log::alert("ReservationController", [
+                "action" => "delete",
+                "id" => $id,
+                "error" => $e->getMessage()
+            ]);
+
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
+        }
     }
 }

@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reservations', function (Blueprint $table) {
-            $table->id();
-            $table->string("dealer_id");
-            $table->string("vehicle_id");
-            $table->string("distance");
-            $table->integer("amount");
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('reservations', function (Blueprint $table) {
+            $table->timestamp("status")->nullable()->after("reservation_accepted_at");
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reservations');
+        Schema::table('reservations', function (Blueprint $table) {
+            //
+        });
     }
 };

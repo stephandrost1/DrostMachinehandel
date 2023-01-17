@@ -40,6 +40,11 @@ export default {
                     this.pages = response.data.pages;
                     this.maxPages = response.data.maxPages;
                 })
+        },
+
+        _handlePagerClick(page) {
+            this.currentPage = page;
+            this.fetchRequests(this.searchQuery);
         }
     },
 
@@ -78,14 +83,13 @@ th:not(:last-child) {
 }
 </style>
 
-
 <template>
     <div class="py-9 px-1 sm:px-10 min-[1225px]:px-32">
         <div class="flex justify-between">
             <div>
                 <div class="filter-on-name w-fit">
                     <div class="flex items-center relative">
-                        <input v-model="searchKey" type="text"
+                        <input v-model="searchQuery" type="text"
                             class="searcher focus:ring-0 focus:border-primary h-10 border-2 rounded-md border-primary"
                             placeholder="Zoeken...">
                         <i class="fas fa-search absolute text-primary right-2 pointer-events-none"></i>
@@ -104,6 +108,8 @@ th:not(:last-child) {
                         <th class="p-2 min-[1225px]:p-3 text-left">Leverprijs</th>
                         <th class="p-2 min-[1225px]:p-3 text-left">Machine</th>
                         <th class="p-2 min-[1225px]:p-3 text-left">Tijd</th>
+                        <th class="p-2 min-[1225px]:p-3 text-left">Datum</th>
+                        <th class="p-2 min-[1225px]:p-3 text-left">Status</th>
                         <th class="p-2 min-[1225px]:p-3 text-left">Acties</th>
                     </tr>
                 </thead>
@@ -114,21 +120,21 @@ th:not(:last-child) {
             </table>
 
             <div class="flex gap-2 justify-end">
-                <div @click="_handlePagerClick(1)" v-if="(page !== 1)"
+                <div @click="_handlePagerClick(1)" v-if="(this.currentPage != 1)"
                     class="flex font-bold justify-center items-center border-2 border-primary w-9 h-9 rounded-xl cursor-pointer">
-                    <i class="fas fa-angle-double-left"
-                        :class="[this.page == page ? 'text-primary' : 'text-white']"></i>
+                    <i class="fas fa-angle-double-left text-primary"></i>
                 </div>
                 <div class="flex font-bold justify-center items-center border-2 border-primary w-9 h-9 rounded-xl cursor-pointer"
-                    :class="[this.page == page ? 'bg-primary' : 'bg-transparent']" :key="index"
-                    v-for="page, index in getPager">
-                    <div :class="[this.page == page ? 'text-white' : 'text-primary']" @click="_handlePagerClick(page)">
+                    :key="index"
+                    v-for="page, index in getPager"
+                    :class="[this.currentPage == page ? 'bg-primary' : 'bg-transparent']"
+                >
+                    <div :class="[this.currentPage == page ? 'text-white' : 'text-primary']" @click="_handlePagerClick(page)">
                         {{ page }}</div>
                 </div>
-                <div @click="_handlePagerClick(getPages)" v-if="(page !== getPages)"
+                <div @click="_handlePagerClick(getPages)" v-if="(this.currentPage != maxPages)"
                     class="flex justify-center items-center border-2 border-primary w-9 h-9 rounded-xl cursor-pointer">
-                    <i class="fas fa-angle-double-right"
-                        :class="[this.page == page ? 'text-primary' : 'text-white']"></i>
+                    <i class="fas fa-angle-double-right text-primary"></i>
                 </div>
             </div>
         </div>

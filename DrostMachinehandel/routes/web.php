@@ -7,7 +7,6 @@ use App\Http\Controllers\VoorraadController;
 use App\Http\Controllers\LeasenController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DealerController;
 use App\Http\Controllers\DealerVehicleController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ReservationController;
@@ -15,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleImagesController;
 use App\Http\Controllers\VerhuurController;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\App;
 
 /*
@@ -123,8 +123,13 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
         Route::get('/vehicle', [DealerVehicleController::class, "getById"])->where("svm", '[a-zA-Z0-9/_-]+');
     });
 
-    //GET
-    Route::get('/reservations/{page}', [ReservationController::class, "index"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
+    Route::prefix("/reservations")->group(function () {
+        //GET
+        Route::get('/{page}', [ReservationController::class, "index"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
+
+        Route::patch("/{id}/accept", [ReservationController::class, "accept"]);
+        Route::delete("/{id}/delete", [ReservationController::class, "delete"]);
+    });
 
     Route::prefix("/user")->group(function () {
         //GET

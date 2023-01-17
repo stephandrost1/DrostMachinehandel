@@ -18,8 +18,15 @@ class Reservation extends Model
         "distance",
         "duration",
         "amount",
-        "reservation_accepted_at"
+        "status"
     ];
+
+    protected $appends = ['user'];
+
+    public function getUserAttribute()
+    {
+        return $this->guestUser;
+    }
 
     public function user()
     {
@@ -36,10 +43,8 @@ class Reservation extends Model
         return $this->hasOne(Vehicle::class, 'id', 'vehicle_id');
     }
 
-    protected $appends = ['user'];
-
-    public function getUserAttribute()
+    public function dates()
     {
-        return $this->guestUser;
+        return $this->hasOne(ReservationDate::class, 'reservation_id', 'id');
     }
 }
