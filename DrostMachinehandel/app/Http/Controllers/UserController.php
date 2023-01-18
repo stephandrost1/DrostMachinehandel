@@ -53,7 +53,7 @@ class UserController extends Controller
         try {
             $searchQuery = '%' . $request->s . '%';
 
-            $users = User::with('address', 'company')
+            $users = User::where("role_id", "1")->with('address', 'company')
                 ->where('name', 'like', $searchQuery)
                 ->orWhere('email', 'like', $searchQuery)
                 ->orWhereHas('company', function ($query) use ($searchQuery) {
@@ -61,6 +61,7 @@ class UserController extends Controller
                         ->orWhere('kvknumber', 'like', $searchQuery);
                 })
                 ->orderBy('email_verified_at')
+                ->withTrashed()
                 ->get()->toArray();
 
             $pages = array_chunk($users, 15);

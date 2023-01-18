@@ -52,9 +52,9 @@ export default createStore({
 
     actions: {
         async fetchDealers({ commit }, searchData) {
-            await axios.get(`/api/v1/dealers/page/${searchData.page ? searchData.page : searchData}${searchData.s ? `?s=${searchData.s}` : ''}`)
+            await axios.get(`/api/v1/users/page/${searchData.page ? searchData.page : searchData}${searchData.s ? `?s=${searchData.s}` : ''}`)
                 .then((response) => {
-                    commit("SET_DEALERS", response.data.dealers);
+                    commit("SET_DEALERS", response.data.users);
                     commit("SET_PAGES", response.data.pages);
                     commit("SET_MAX_PAGES", response.data.maxPages);
                 })

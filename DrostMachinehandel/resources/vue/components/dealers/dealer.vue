@@ -1,34 +1,65 @@
 <script>
 
 export default {
-    props: ["dealer"],
+    props: {
+        dealer: {
+            required: true,
+            type: Object
+        }
+    },
 
     data() {
         return {
             edit: false,
-            nDealer: []
+            nDealer: Object.assign({}, this.dealer),
         }
     },
 
-    mounted() {
-        this.nDealer = this.dealer;
-    },
-
     computed: {
-        getDealerName() {
-            return `${this.dealer.firstname} ${this.dealer.lastname}`;
-        },
-
         dealerIsActive() {
             return !_.isNull(this.dealer.email_verified_at);
+        },
+
+        getDealerStatus() {
+            if (!_.isNull(this.dealer.deleted_at)) {
+                return "Verwijderd";
+            } else if (!_.isNull(this.dealer.email_verified_at)) {
+                return "Actief";
+            } else if (_.isNull(this.dealer.email_verified_at)) {
+                return "Inactief"
+            }
+
+            return "Error"
+        },
+
+        getDealerStatusClass() {
+            if (!_.isNull(this.dealer.deleted_at)) {
+                return "bg-red-500"
+            } else if (!_.isNull(this.dealer.email_verified_at)) {
+                return "bg-green-500";
+            } else if (_.isNull(this.dealer.email_verified_at)) {
+                return "bg-orange-500"
+            }
+
+            return "bg-blue-500"
+        },
+
+        getTimeStamp() {
+            const dt = new Date();
+            const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr);
+
+            return `${padL(dt.getMonth() + 1)}/${padL(dt.getDate())}/${dt.getFullYear()} ${padL(dt.getHours())}:${padL(dt.getMinutes())}:${padL(dt.getSeconds())}`;
         }
     },
 
     methods: {
         _handleDelete() {
-            this.$store.commit("REMOVE_DEALER", this.dealer.id);
+            this.$store.commit("UPDATE_DEALER", {
+                ...this.dealer,
+                deleted_at: this.getTimeStamp,
+            });
 
-            axios.delete(`/api/v1/dealer/${this.dealer.id}/delete`)
+            axios.delete(`/api/v1/users/${this.dealer.id}/delete`)
                 .then((response) => {
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
@@ -37,15 +68,12 @@ export default {
         },
 
         _handleEnable() {
-            const dt = new Date();
-            const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr);
-
             this.$store.commit("UPDATE_DEALER", {
                 ...this.dealer,
-                email_verified_at: `${padL(dt.getMonth() + 1)}/${padL(dt.getDate())}/${dt.getFullYear()} ${padL(dt.getHours())}:${padL(dt.getMinutes())}:${padL(dt.getSeconds())}`
+                email_verified_at: this.getTimeStamp
             });
 
-            axios.patch(`/api/v1/dealer/${this.dealer.id}/active`)
+            axios.patch(`/api/v1/users/${this.dealer.id}/activate`)
                 .then((response) => {
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
@@ -59,7 +87,7 @@ export default {
                 email_verified_at: null
             });
 
-            axios.patch(`/api/v1/dealer/${this.dealer.id}/deactive`)
+            axios.patch(`/api/v1/users/${this.dealer.id}/deactivate`)
                 .then((response) => {
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
@@ -76,7 +104,7 @@ export default {
 
             this.$store.commit("UPDATE_DEALER", this.nDealer);
 
-            axios.patch(`/api/v1/dealer/${this.dealer.id}/update`, this.nDealer)
+            axios.patch(`/api/v1/users/${this.dealer.id}/update`, this.nDealer)
                 .then((response) => {
                     this.$toast.success(response.data.message);
                 }).catch((error) => {
@@ -90,42 +118,40 @@ export default {
 <template>
     <tr class="flex flex-col flex-no wrap min-[1225px]:table-row mb-2 min-[1225px]:mb-0">
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
-            <p v-if="!edit">{{ getDealerName }}</p>
+            <p v-if="!edit">{{ dealer.name }}</p>
             <div v-if="edit" class="edit-name editable flex gap-4">
-                <input class="w-1/2 border-2 border-primary rounded-lg py-2 px-1" v-model="nDealer.firstname" />
-                <input class="w-1/2" v-model="nDealer.lastname" />
+                <input class="border-2 border-primary rounded pl-2 py-2 w-full" v-model="nDealer.name" />
             </div>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
             <p v-if="!edit">{{ dealer.email }}</p>
             <div v-if="edit" class="edit-email editable ">
-                <input v-model="nDealer.email" />
+                <input class="border-2 border-primary rounded pl-2 py-2 w-full" v-model="nDealer.email" />
             </div>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
             <p v-if="!edit">{{ dealer.phonenumber }}</p>
             <div v-if="edit" class="edit-phonenumber">
-                <input v-model="nDealer.phonenumber" />
+                <input class="border-2 border-primary rounded pl-2 py-2 w-full" v-model="nDealer.phonenumber" />
             </div>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
-            <p v-if="!edit">{{ dealer.companyname }}</p>
+            <p v-if="!edit">{{ dealer.company ? dealer.company.name : "Niet gevonden..." }}</p>
             <div v-if="edit" class="edit-companyname editable">
-                <input v-model="nDealer.companyname" />
+                <input class="border-2 border-primary rounded pl-2 py-2 w-full" v-model="nDealer.company.name" />
             </div>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
-            <p v-if="!edit">{{ dealer.kvknumber }}</p>
+            <p v-if="!edit">{{ dealer.company ? dealer.company.kvknumber : "Niet gevonden..." }}</p>
             <div v-if="edit" class="edit-kvknumber editable">
-                <input v-model="nDealer.kvknumber" />
+                <input class="border-2 border-primary rounded pl-2 py-2 w-full" v-model="nDealer.company.kvknumber" />
             </div>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate"
             :class="[dealerIsActive ? 'active' : 'inactive']">
-            <p class="w-min rounded-md p-[2px] min-[1225px]:p-2 font-bold"
-                :class="[dealerIsActive ? 'text-green-500 bg-green-200' : 'text-red-500 bg-red-200']">{{
-                        dealerIsActive ?
-                            "Actief" : "Inactief"
+            <p class="w-min text-white rounded-md p-[2px] min-[1225px]:p-2 font-bold"
+                :class="getDealerStatusClass">{{
+                    getDealerStatus
                 }}</p>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">

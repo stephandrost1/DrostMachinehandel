@@ -109,7 +109,7 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
         Route::patch('/{id}/update', [UserController::class, "update"]);
 
         //DELETE
-        Route::delete('/{id}/delete', [UserController::class, "delete"]);
+        Route::delete('/{id}/delete', [UserController::class, "destroy"]);
     });
 
     Route::prefix("/dealer")->group(function () {
