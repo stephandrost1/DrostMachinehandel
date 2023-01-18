@@ -107,6 +107,7 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
         Route::patch('/{id}/activate', [UserController::class, "activate"]);
         Route::patch('/{id}/deactivate', [UserController::class, "deactivate"]);
         Route::patch('/{id}/update', [UserController::class, "update"]);
+        Route::patch('dealer/{id}/update', [UserController::class, "updateDealer"]);
 
         //DELETE
         Route::delete('/{id}/delete', [UserController::class, "destroy"]);
@@ -139,8 +140,6 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
         //Patch
         Route::patch('/{id}/update', [UserController::class, "update"]);
     });
-
-    //Todo check url name 
 });
 
 Route::prefix('/api/v2')->group(function () {

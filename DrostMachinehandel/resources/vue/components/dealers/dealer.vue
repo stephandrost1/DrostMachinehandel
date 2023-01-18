@@ -10,7 +10,6 @@ export default {
 
     data() {
         return {
-            edit: false,
             nDealer: Object.assign({}, this.dealer),
         }
     },
@@ -96,21 +95,8 @@ export default {
         },
 
         _handleEdit() {
-            this.edit = true;
+            this.$store.commit("SET_EDIT_DEALER", this.dealer);
         },
-
-        _handleSave() {
-            this.edit = false;
-
-            this.$store.commit("UPDATE_DEALER", this.nDealer);
-
-            axios.patch(`/api/v1/users/${this.dealer.id}/update`, this.nDealer)
-                .then((response) => {
-                    this.$toast.success(response.data.message);
-                }).catch((error) => {
-                    this.$toast.error(error.response.data.message);
-                })
-        }
     },
 }
 
@@ -118,34 +104,19 @@ export default {
 <template>
     <tr class="flex flex-col flex-no wrap min-[1225px]:table-row mb-2 min-[1225px]:mb-0">
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
-            <p v-if="!edit">{{ dealer.name }}</p>
-            <div v-if="edit" class="edit-name editable flex gap-4">
-                <input class="border-2 border-primary rounded pl-2 py-2 w-full" v-model="nDealer.name" />
-            </div>
+            <p>{{ dealer.name }}</p>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
-            <p v-if="!edit">{{ dealer.email }}</p>
-            <div v-if="edit" class="edit-email editable ">
-                <input class="border-2 border-primary rounded pl-2 py-2 w-full" v-model="nDealer.email" />
-            </div>
+            <p>{{ dealer.email }}</p>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
-            <p v-if="!edit">{{ dealer.phonenumber }}</p>
-            <div v-if="edit" class="edit-phonenumber">
-                <input class="border-2 border-primary rounded pl-2 py-2 w-full" v-model="nDealer.phonenumber" />
-            </div>
+            <p>{{ dealer.phonenumber }}</p>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
-            <p v-if="!edit">{{ dealer.company ? dealer.company.name : "Niet gevonden..." }}</p>
-            <div v-if="edit" class="edit-companyname editable">
-                <input class="border-2 border-primary rounded pl-2 py-2 w-full" v-model="nDealer.company.name" />
-            </div>
+            <p>{{ dealer.company ? dealer.company.name : "Niet gevonden..." }}</p>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate">
-            <p v-if="!edit">{{ dealer.company ? dealer.company.kvknumber : "Niet gevonden..." }}</p>
-            <div v-if="edit" class="edit-kvknumber editable">
-                <input class="border-2 border-primary rounded pl-2 py-2 w-full" v-model="nDealer.company.kvknumber" />
-            </div>
+            <p>{{ dealer.company ? dealer.company.kvknumber : "Niet gevonden..." }}</p>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3 truncate"
             :class="[dealerIsActive ? 'active' : 'inactive']">
@@ -165,11 +136,8 @@ export default {
                 <div @click="_handleDisable" v-if="dealerIsActive" class="disable text-orange-500 cursor-pointer">
                     <i class="fas fa-ban"></i>
                 </div>
-                <div @click="_handleEdit" v-if="!edit" class="edit text-blue-500 cursor-pointer">
+                <div @click="_handleEdit" class="edit text-blue-500 cursor-pointer">
                     <i class="fas fa-edit"></i>
-                </div>
-                <div @click="_handleSave" v-if="edit" class="edit text-blue-500 cursor-pointer">
-                    <i class="fas fa-save"></i>
                 </div>
             </div>
         </td>

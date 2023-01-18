@@ -60,8 +60,9 @@ class UserController extends Controller
                     $query->where('name', 'like', $searchQuery)
                         ->orWhere('kvknumber', 'like', $searchQuery);
                 })
+                ->orderBy("deleted_at")
                 ->orderBy('email_verified_at')
-                ->withTrashed()
+                // ->withTrashed()
                 ->get()->toArray();
 
             $pages = array_chunk($users, 15);
@@ -164,6 +165,48 @@ class UserController extends Controller
                 ]
             );
             return response()->json(["message" => "er is iets fout gegaan, probeer het later opnieuw!"], 500);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateDealer(Request $request, $id)
+    {
+        //TODO CREATE A CUSTOM REQUEST AND VALIDATE IT
+        try {
+            // $validated = $request->validated();
+
+            $emailAccounts = collect(User::where('email', $request->email)->whereNot('id', $request->id)->get())->toArray();
+
+            if (count($emailAccounts) > 0) {
+                throw new Exception("E-mailadres is al in gebruik!");
+            }
+
+            $user = User::find($id);
+
+            $user->fill([
+                "name" => $request->name,
+                "email" => $request->email,
+                "phonenumber" => $request->phonenumber
+            ])->save();
+
+            $this->updateUserCompany($id, $request);
+            $this->updateUserAddress($id, $request);
+
+            return response()->json(["message" => "Gebruiker succesvol geupdate"], 200);
+        } catch (Exception $e) {
+            Log::emergency("UserController", [
+                "action" => "Update",
+                "id" => $id,
+                "error" => $e->getMessage()
+            ]);
+
+            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
         }
     }
 

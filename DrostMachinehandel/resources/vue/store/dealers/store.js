@@ -1,9 +1,11 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import _ from "lodash";
 
 export default createStore({
     state: {
         dealers: [],
+        editDealer: [],
         pages: [],
         maxPages: 1,
     },
@@ -11,6 +13,10 @@ export default createStore({
     getters: {
         getDealers(state) {
             return state.dealers;
+        },
+
+        getEditDealer(state) {
+            return state.editDealer;
         },
 
         getPages(state) {
@@ -25,6 +31,10 @@ export default createStore({
     mutations: {
         SET_DEALERS(state, dealers) {
             state.dealers = dealers;
+        },
+
+        SET_EDIT_DEALER(state, dealer) {
+            state.editDealer = dealer;
         },
 
         SET_PAGES(state, pages) {
@@ -59,5 +69,22 @@ export default createStore({
                     commit("SET_MAX_PAGES", response.data.maxPages);
                 })
         },
+
+        async updateDealer({ commit }, dealer) {
+            commit("SET_EDIT_DEALER", []);
+
+            if (_.isEmpty(dealer)) {
+                return;
+            }
+
+            commit("UPDATE_DEALER", dealer);
+
+            axios.patch(`/api/v1/users/dealer/${dealer.id}/update`, dealer)
+                .then((response) => {
+                    this.$toast.success(response.data.message);
+                }).catch((error) => {
+                    this.$toast.error(error.response.data.message);
+                })
+        }
     }
 })
