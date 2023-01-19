@@ -1,0 +1,112 @@
+.vue-maintenance {
+    .sidebar {
+        width: 25% !important;
+    }
+
+    .content {
+        width: 75% !important;
+    }
+
+    .vue-maintenance-vehicle {
+        .wrapper {
+            display: flex;
+            gap: 2rem;
+
+            .column-left {
+                width: 30%;
+                position: relative;
+
+                .vehicle-item {
+                    display: flex;
+
+                    .name  {
+                        font-size: 1.05rem;
+                        font-weight: bold;
+                        width: 50%;
+                    }    
+
+                    .value {
+                        font-size: 1rem;
+                    }
+                }
+            }
+
+            .column-right {
+                width: 70%;
+
+                .body {
+                    margin: 0 auto;
+                    gap: 5rem;
+                    width: 75%;
+
+                    .col-left {
+                        position: relative;
+                        width: 50%;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2rem;
+
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            width: 2px;
+                            background-color: $color-main !important;
+                            height: 100%;
+                            right: -2.5rem;
+                        }
+
+                        .vue-action {
+                            &:after {
+                                right: -20px;
+                                transform: rotate(90deg);
+                            }
+                        }
+                    }
+
+                    .col-right {
+                        padding-top: 50px;
+                        width: 50%;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2rem;
+
+                        .vue-action {
+                            &:after {
+                                left: -20px;
+                                transform: rotate(270deg);
+                            }
+                        }
+                    }
+
+                    .col-left, .col-right {
+                        .vue-action {
+                            position: relative;
+
+                            &:after {
+                                content: '';
+                                position: absolute;
+                                width: 0;
+                                height: 0;
+                                bottom: 15px;
+                                border-left: 10px solid transparent;
+                                border-right: 10px solid transparent;
+                                border-bottom: 20px solid $color-main;
+                            }
+
+                            .description {
+                                margin-bottom: 0.5rem;
+                            }
+                        
+                            .action-date {
+                                text-align: right;
+                                color: $color-secondary;
+                                font-size: 0.9rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

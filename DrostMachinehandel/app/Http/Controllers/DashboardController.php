@@ -71,4 +71,9 @@ class DashboardController extends Controller
         auth()->logout();
         return redirect('/dashboard');
     }
+
+    public function maintenance()
+    {
+        return view("dashboard/maintenance");
+    }
 }
