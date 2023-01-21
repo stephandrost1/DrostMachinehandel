@@ -9,8 +9,12 @@ export default {
     },
 
     computed: {
+        getActions() {
+            return [...this.vehicle.actions, {activity: "", vehicle_id: this.vehicle.id, created_at: new Date(), new: true}] 
+        },
+
         sortedObjects() {
-            return this.vehicle.actions.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+            return this.getActions.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
         },
         getActionsObject() {
             let left = [];

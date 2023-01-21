@@ -64,7 +64,7 @@
                     }
 
                     .col-right {
-                        padding-top: 50px;
+                        padding-top: 55px;
                         width: 50%;
                         display: flex;
                         flex-direction: column;
@@ -95,12 +95,44 @@
 
                             .description {
                                 margin-bottom: 0.5rem;
+                                height: 48px !important;
+                            }
+
+                            .action-new-activity {
+                                width: 100%;
+                                border: none;
+                                margin-bottom: 0.5rem;
                             }
                         
                             .action-date {
-                                text-align: right;
-                                color: $color-secondary;
-                                font-size: 0.9rem;
+                                display: flex;
+                                flex-direction: row-reverse;
+                                align-items: center;
+                                justify-content: space-between;
+
+                                .date {
+                                    color: $color-secondary;
+                                    font-size: 0.9rem;
+                                }
+                            }
+
+                            .footer {
+                                .add-activity {
+                                    display: flex;
+
+                                    .circle {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        width: 25px;
+                                        height: 25px;
+                                        border-radius: 100%;
+
+                                        .fa-check, .fa-pen {
+                                            font-size: 0.75rem !important;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
