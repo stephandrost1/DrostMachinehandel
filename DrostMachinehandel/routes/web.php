@@ -73,6 +73,12 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
 Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::prefix("/vehicles")->group(function () {
         Route::prefix("/maintenance")->group(function () {
+            Route::prefix("/action")->group(function () {
+                Route::patch("/{id}", [MaintenanceVehicleController::class, "updateAction"]);
+                Route::delete("/{id}", [MaintenanceVehicleController::class, "deleteAction"]);
+                Route::post("/", [MaintenanceVehicleController::class, "createAction"]);
+            });
+
             Route::get("/", [MaintenanceVehicleController::class, "index"]);
             Route::get("/{id}", [MaintenanceVehicleController::class, "show"]);
             Route::patch("/{id}", [MaintenanceVehicleController::class, "update"]);

@@ -46,7 +46,7 @@ export default {
         
             <div class="grow content">
                 <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                    <dm-vehicle v-if="hasSelectedVehicle" :vehicle="getSelectedVehicle"></dm-vehicle>
+                    <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>
                     <dm-no-vehicle-selected v-if="!hasSelectedVehicle"></dm-no-vehicle-selected>
                 </div>
             </div>

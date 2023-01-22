@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class MaintenanceAction extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        "vehicle_id",
+        "activity",
+    ];
 }

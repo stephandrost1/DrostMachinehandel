@@ -1,34 +1,24 @@
 <script>
+import { mapGetters } from 'vuex';
 import actionVue from './action.vue';
+import newActionVue from './newAction.vue';
 
 export default {
-    props: ["vehicle"],
-
     components: {
-        "dm-action": actionVue
+        "dm-action": actionVue,
+        "dm-new-action": newActionVue,
     },
 
     computed: {
-        getActions() {
-            return [...this.vehicle.actions, {activity: "", vehicle_id: this.vehicle.id, created_at: new Date(), new: true}] 
-        },
+        ...mapGetters(["getActionsObject"]),
 
-        sortedObjects() {
-            return this.getActions.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        vehicle() {
+            return this.$store.getters.getSelectedVehicle;
         },
-        getActionsObject() {
-            let left = [];
-            let right = [];
-            this.sortedObjects.forEach((object, index) => {
-                if (index % 2 === 0) {
-                    left.push(object);
-                } else {
-                    right.push(object);
-                }
-            });
-            return { left, right };
-        }
-    }
+    },
+
+    methods: {
+    },
 }
 
 </script>
@@ -66,6 +56,8 @@ export default {
                 <div class="column-right column bg-primary-200 border-2 border-primary rounded-lg shadow-xl p-5">
                     <div class="body flex">
                         <div class="col-left">
+                            <dm-new-action></dm-new-action>
+
                             <dm-action v-for="action in getActionsObject.left" :key="action.id" :action="action"></dm-action>
                         </div>
                         <div class="col-right">

@@ -11,24 +11,23 @@ export default {
     },
 
     computed: {
-        actionIsNew() {
-            return this.action.new;
-        },
-
         actionEdit() {
             return this.edit;
         },
 
         getDate() {
-            const date = this.actionIsNew ? moment() : moment(this.action.created_at);
+            const date = moment(this.action.created_at);
             let days = ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"];
-            let day = date.weekday();
-            let dutchDay = days[day];
+            let dutchDay = days[date.weekday()];
             return dutchDay + " | " + date.format("DD-MM-YYYY | HH:mm");
         },
 
         truncatedActivity() {
-            return this.action.activity.length > 75 ? this.action.activity.slice(0, 72) + "..." : this.action.activity;
+            if (this.action && this.action.activity) {
+                return this.action.activity.length > 75 ? this.action.activity.slice(0, 72) + "..." : this.action.activity;
+            }
+
+            return "";
         }
     },
 
@@ -39,28 +38,31 @@ export default {
 
         _handleSave() {
             this.edit = false;
+        },
 
-            if (this.action.new) {
-                this.action.new = false;
-            }
+        _handleDelete() {
+            
         }
-    }
+    },
 }
 
 </script>
 
 <template>
     <div class="bg-primary-200 border-2 border-primary rounded-lg shadow-xl p-5 pb-2 vue-action">
-        <p v-if="!actionIsNew && !actionEdit" class="description">{{ truncatedActivity }}</p>
-        <textarea class="action-new-activity" type="text" v-if="actionIsNew || actionEdit" v-model="action.activity" placeholder="Vul hier uw actie in..."/>
+        <p v-if="!actionEdit" class="description">{{ truncatedActivity }}</p>
+        <textarea class="action-new-activity" type="text" v-if="actionEdit" v-model="action.activity" placeholder="Vul hier uw actie in..."/>
         <div class="action-date footer">
             <p class="date" v-text="getDate"></p>
             <div class="add-activity">
-                <div v-if="actionIsNew || actionEdit" @click="_handleSave" class="circle save bg-green-200 border-2 border-green-500">
+                <div v-if="actionEdit" @click="_handleSave" class="circle save bg-green-200 border-2 border-green-500">
                     <i class="fas fa-check text-green-500 text-sm"></i>
                 </div>
-                <div v-if="!actionIsNew && !actionEdit" @click="_handleEdit" class="circle edit bg-orange-200 border-2 border-orange-500">
+                <div v-if="!actionEdit" @click="_handleEdit" class="circle edit bg-orange-200 border-2 border-orange-500">
                     <i class="fas fa-pen text-orange-500 text-sm"></i>
+                </div>
+                <div v-if="!actionEdit" @click="_handleDelete" class="circle edit bg-red-200 border-2 border-red-500">
+                    <i class="fas fa-trash text-red-500 text-sm"></i>
                 </div>
             </div>
         </div>

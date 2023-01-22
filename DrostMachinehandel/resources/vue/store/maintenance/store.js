@@ -12,6 +12,20 @@ export default createStore({
             return state.vehicles;
         },
 
+        getActionsObject(state) {
+            let left = [];
+            let right = [];
+            const sortedObjects = state.selectedVehicle.actions.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+            sortedObjects.forEach((object, index) => {
+                if (index % 2 === 0) {
+                    right.push(object);
+                } else {
+                    left.push(object);
+                }
+            });
+            return { left, right };
+        },
+
         getSelectedVehicle(state) {
             return state.selectedVehicle;
         }
@@ -25,6 +39,10 @@ export default createStore({
         SET_SELECTED_VEHICLE(state, vehicle) {
             state.selectedVehicle = vehicle;
         },
+
+        ADD_SELECTED_VEHICLE_ACTION(state, action) {
+            state.selectedVehicle.actions.push(action);
+        }
     },
 
     actions: {
@@ -41,6 +59,10 @@ export default createStore({
                     commit("SET_SELECTED_VEHICLE", vehicle);
                 }
             });
+        },
+
+        addNewAction({ commit }, action) {
+            commit("ADD_SELECTED_VEHICLE_ACTION", action);
         }
     }
 })
