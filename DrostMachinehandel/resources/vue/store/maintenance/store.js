@@ -15,7 +15,8 @@ export default createStore({
         getActionsObject(state) {
             let left = [];
             let right = [];
-            const sortedObjects = state.selectedVehicle.actions.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+            const vehicleActions = state.selectedVehicle.actions ?? [];
+            const sortedObjects = vehicleActions.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
             sortedObjects.forEach((object, index) => {
                 if (index % 2 === 0) {
                     right.push(object);
@@ -42,6 +43,40 @@ export default createStore({
 
         ADD_SELECTED_VEHICLE_ACTION(state, action) {
             state.selectedVehicle.actions.push(action);
+        },
+
+        ADD_VEHICLE(state, vehicle) {
+            state.vehicles.push(vehicle);
+        },
+
+        REMOVE_SELECTED_VEHICLE_ACTION(state, actionId) {
+            state.selectedVehicle.actions = state.selectedVehicle.actions.filter((action) => action.id !== actionId);
+        },
+
+        REMOVE_VEHICLE(state, vehicleId) {
+            state.vehicles = state.vehicles.filter((v) => v.id !== vehicleId);
+        },
+
+        EDIT_SELECTED_VEHICLE_ACTION(state, action) {
+            state.selectedVehicle.actions = state.selectedVehicle.actions.map((a) => {
+                if (a.id === action.id) {
+                    return action;
+                }
+
+                return a;
+            })
+        },
+
+        UPDATE_VEHICLE_NAME(state, vehicle) {
+            console.log("vehicleee")
+            console.log(vehicle)
+            state.vehicles = state.vehicles.map(v => {
+                if (v.id == vehicle.id) {
+                    return vehicle;
+                }
+
+                return v;
+            })
         }
     },
 
@@ -63,6 +98,48 @@ export default createStore({
 
         addNewAction({ commit }, action) {
             commit("ADD_SELECTED_VEHICLE_ACTION", action);
+        },
+
+        removeAction({ commit }, actionId) {
+            commit("REMOVE_SELECTED_VEHICLE_ACTION", actionId);
+        },
+
+        editAction({ commit }, action) {
+            commit("EDIT_SELECTED_VEHICLE_ACTION", action);
+        },
+
+        addNewVehicle({ commit }, vehicle) {
+            if (this.state.selectedVehicle !== []) {
+                axios.patch(`/api/v1/vehicles/maintenance/${this.state.selectedVehicle.id}`, vehicle)
+                    .then((response) => {
+                        commit("UPDATE_VEHICLE_NAME", { ...vehicle, actions: this.state.selectedVehicle.actions, id: this.state.selectedVehicle.id });
+                        commit("SET_SELECTED_VEHICLE", { ...vehicle, actions: this.state.selectedVehicle.actions });
+                        this.$toast.success(response.data.message);
+                    }).catch((error) => {
+                        this.$toast.error(error.response.data.message);
+                    })
+            } else {
+                axios.post("/api/v1/vehicles/maintenance", vehicle)
+                    .then((response) => {
+                        commit("ADD_VEHICLE", { ...vehicle, id: response.data.vehicle_id, actions: [] });
+                        commit("SET_SELECTED_VEHICLE", { ...vehicle, id: response.data.vehicle_id, actions: [] });
+                        this.$toast.success(response.data.message);
+                    }).catch((error) => {
+                        this.$toast.error(error.response.data.message);
+                    })
+            }
+        },
+
+        deleteVehicle({ commit }, vehicleId) {
+            axios.delete(`/api/v1/vehicles/maintenance/${vehicleId}`)
+                .then((response) => {
+                    this.$toast.success(response.data.message);
+                }).catch((error) => {
+                    this.$toast.error(error.response.data.message);
+                })
+
+            commit("REMOVE_VEHICLE", vehicleId);
+            commit("SET_SELECTED_VEHICLE", []);
         }
     }
 })

@@ -155,7 +155,7 @@ export default {
                 class="col-left max-w-[300px] min-[1150px]:max-w-[350px] h-fit w-full p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5">
                 <div id="vehicle-data-thumbnail" class="row-1 h-4/5 relative">
                     <div class="no-image-available" v-if="!hasVehicleImages">
-                        <img src="/img/errors/no_image_placeholder.png">
+                        <img src="../../../../public/img/errors/no_image_placeholder.png">
                     </div>
                     <div class="vehicle-thumb" v-if="hasVehicleImages">
                         <dm-vehicle-image-item :image="getVehicleThumbnail"></dm-vehicle-image-item>

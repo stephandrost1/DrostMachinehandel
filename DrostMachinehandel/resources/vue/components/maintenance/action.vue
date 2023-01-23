@@ -1,5 +1,6 @@
 <script>
 import moment from 'moment';
+import { mapActions } from 'vuex';
 
 export default {
     props: ["action"],
@@ -32,16 +33,34 @@ export default {
     },
 
     methods: {
+        ...mapActions(["removeAction"]),
+
         _handleEdit() {
             this.edit = true;
         },
 
         _handleSave() {
             this.edit = false;
+
+            this.$store.dispatch("editAction", this.action);
+
+            axios.patch(`/api/v1/vehicles/maintenance/action/${this.action.id}`, { activity: this.action.activity })
+                .then((response) => {
+                    this.$toast.success(response.data.message);
+                }).catch((error) => {
+                    this.$toast.error(error.response.data.message);
+                })
         },
 
         _handleDelete() {
-            
+            this.removeAction(this.action.id);
+
+            axios.delete(`/api/v1/vehicles/maintenance/action/${this.action.id}`)
+                .then((response) => {
+                    this.$toast.success(response.data.message);
+                }).catch((error) => {
+                    this.$toast.error(error.response.data.message);
+                })
         }
     },
 }

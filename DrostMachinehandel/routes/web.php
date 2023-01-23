@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleImagesController;
 use App\Http\Controllers\VerhuurController;
+use App\Models\MaintenanceVehicle;
 use Illuminate\Support\Facades\App;
 
 /*
@@ -74,13 +75,15 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
     Route::prefix("/vehicles")->group(function () {
         Route::prefix("/maintenance")->group(function () {
             Route::prefix("/action")->group(function () {
-                Route::patch("/{id}", [MaintenanceVehicleController::class, "updateAction"]);
+                Route::patch("/{id}", [MaintenanceVehicleController::class, "editAction"]);
                 Route::delete("/{id}", [MaintenanceVehicleController::class, "deleteAction"]);
                 Route::post("/", [MaintenanceVehicleController::class, "createAction"]);
             });
 
             Route::get("/", [MaintenanceVehicleController::class, "index"]);
+            Route::post("/", [MaintenanceVehicleController::class, "create"]);
             Route::get("/{id}", [MaintenanceVehicleController::class, "show"]);
+            Route::delete("/{id}", [MaintenanceVehicleController::class, "destroy"]);
             Route::patch("/{id}", [MaintenanceVehicleController::class, "update"]);
         });
         Route::post("/images/upload", [VehicleImagesController::class, "create"]);

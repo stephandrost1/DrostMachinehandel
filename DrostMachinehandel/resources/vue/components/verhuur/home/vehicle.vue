@@ -17,7 +17,7 @@ export default {
         },
 
         getThumbnail() {
-            return this.vehicle.images[0] ? `${this.vehicle.images[0].image_location}${this.vehicle.images[0].image_name}.${this.vehicle.images[0].image_type}` : '/img/errors/no_image_placeholder.png'
+            return this.vehicle.images[0] ? `${this.vehicle.images[0].image_location}${this.vehicle.images[0].image_name}.${this.vehicle.images[0].image_type}` : '../../../../../public/img/errors/no_image_placeholder.png'
         }
     },
 

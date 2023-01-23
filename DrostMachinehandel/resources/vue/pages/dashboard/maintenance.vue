@@ -14,6 +14,12 @@ export default {
         "dm-dialog": dialog
     },
 
+    data() {
+        return {
+            addNew: false,
+        }
+    },
+
     computed: {
         getVehicles() {
             return this.$store.getters.getVehicles;
@@ -24,13 +30,23 @@ export default {
         },
 
         hasSelectedVehicle() {
-            return !_.isEmpty(this.getSelectedVehicle);
-        }
+            return !_.isEmpty(this.getSelectedVehicle) || this.addNew;
+        },
     },
 
     methods: {
         _handleSelectVehicle(id) {
             this.$store.dispatch("fetchVehicleById", id);
+            this.addNew = false;
+        },
+
+        _handleAddNewVehicle() {
+            this.addNew = true;
+            this.$store.commit("SET_SELECTED_VEHICLE", []);
+        },
+
+        _toggleAddVehicleProp(status) {
+            this.addNew = status;
         }
     }
 }    
@@ -41,12 +57,12 @@ export default {
         <div class="flex flex-col lg:flex-row p-6 gap-5 bg-gray-100 w-full h-full vue-maintenance">
             <div class="sidebar">
                 <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle" extraButtonText="Toevoegen"
-                    @extraButtonCallback="_handleFetchVehicles" :hasCallback="true"></dm-sidebar>
+                    @extraButtonCallback="_handleAddNewVehicle" :hasCallback="true"></dm-sidebar>
             </div>
         
             <div class="grow content">
                 <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                    <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>
+                    <dm-vehicle @_toggleAddVehicleProp="_toggleAddVehicleProp" v-if="hasSelectedVehicle" :add-vehicle="addNew"></dm-vehicle>
                     <dm-no-vehicle-selected v-if="!hasSelectedVehicle"></dm-no-vehicle-selected>
                 </div>
             </div>
