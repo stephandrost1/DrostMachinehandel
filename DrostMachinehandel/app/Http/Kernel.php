@@ -56,6 +56,11 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        'telescope' => [
+            \Laravel\Telescope\Http\Middleware\Authorize::class,
+            \App\Http\Middleware\Authenticate::class,
+        ],
     ];
 
     /**

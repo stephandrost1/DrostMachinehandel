@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('user_companies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
+            $table->string("user_id");
             $table->string("name");
             $table->string("kvknumber");
             $table->string("btwnumber");
