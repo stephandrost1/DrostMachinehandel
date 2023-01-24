@@ -1,0 +1,151 @@
+.desktop-fontsize {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+
+    @media(min-width: 1425px)
+    {
+        font-size: 1.5rem;
+        line-height: 2rem
+    }
+}
+
+.desktop-gap {
+    gap: 2.5rem;
+
+    @media(min-width: 1450px)
+    {
+        gap: 5rem;
+    }
+}
+
+.occasions-dropdown-mobile {
+    left: 85px;
+}
+
+.occasions-dropdown-mobile-active-voorraad {
+    left: 70px;
+}
+
+.occasions-dropdown-mobile-active-dealer {
+    left: 80px;
+}
+
+.desktop-visibility {
+    display: none;
+
+    @media(min-width: 1070px)
+    {
+        display: block;
+    }
+}
+
+.mobile-visibility {
+    display: block;
+
+    @media(min-width: 1070px)
+    {
+        display: none;
+    }
+}
+
+nav .lang-dropdown li:first-child a {
+    border-top-left-radius: 0.25rem/* 4px */;
+    border-top-right-radius: 0.25rem/* 4px */;
+}
+
+nav .lang-dropdown li:last-child a {
+    border-bottom-left-radius: 0.25rem/* 4px */;
+    border-bottom-right-radius: 0.25rem/* 4px */;
+}
+
+#navbar {
+    position: relative;
+    z-index: 9999;
+
+    
+
+    div.hamburger-icon-wrapper,
+    a.nav-logo {
+        z-index: 100;
+
+        .navbar-logo {
+            @media screen and (max-width: 380px) {
+                height: 36px !important;
+            }
+        }
+    }
+
+    .hamburger-icon-wrapper {
+        &.open {
+            .hamburger-wrapper {
+                .line {
+                    &.line-1 {
+                        transform: rotate(135deg);
+                        margin-bottom: -4px;
+                    }
+
+                    &.line-2 {
+                        opacity: 0;
+                    }
+
+                    &.line-3 {
+                        transform: rotate(-135deg);
+                        margin-top: -4px;
+                    }
+                }
+            }
+        }
+
+        .hamburger-wrapper {
+            .line  {
+                width: 40px;
+                height: 4px;
+                border-radius: 5px;
+                background-color: white;
+                transition: 0.3s ease-in-out;
+
+                &.line-1 {
+                    margin-bottom: 10px;
+                }
+                &.line-3 {
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+
+    #navbar-expanded-mobile {
+        position: absolute;
+        width: 100vw;
+        height: calc(100vh - -100px);
+        top: 88px !important;
+        left: 0;
+        background: black;
+        padding: 0 1.25rem !important;
+        transform: translateY(-125%);
+        transition: 0.6s ease-in-out;
+
+        &.open {
+            transform: translateY(0);
+        }
+
+        .menu-list {
+            .navbar-item {
+                font-size: 2rem;
+                margin-top: 2rem;
+                margin-left: 1rem;
+                font-weight: bold;
+                border-bottom: 2px solid $color-gray;
+
+                &.active {
+                    border-bottom: 2px solid $color-main;
+                }
+            }
+
+            .lanuage-ul {
+                margin-top: 2rem;
+                margin-left: 1rem;
+            }
+        }
+    }
+}

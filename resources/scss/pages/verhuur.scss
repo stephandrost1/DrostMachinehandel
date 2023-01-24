@@ -1,0 +1,183 @@
+.verhuur-wrapper {
+
+    .verhuur-content {
+        padding: 20px;
+        margin: 20px 0;
+
+        @media (min-width: 929px) {
+            padding: 0;
+            display: flex;
+            max-width: 1500px !important;
+            margin: auto;
+        }
+
+        @media (min-width: 949px) {
+            gap: 2rem;
+        }
+
+        .total-filter-wrapper{
+            flex-basis: 25%;
+            
+            @media (min-width: 929px) {
+                margin-top: 2rem;
+            }
+        }
+
+        .result-amount {
+            font-size: 22px;
+            line-height: 50px;
+            font-weight: bold;
+        }
+
+        .result-amount-mobile {
+            display: block;
+
+            @media (min-width: 929px) {
+                display: none !important;
+            }
+        }
+
+        .close-filters-button {
+            display: none;
+            font-weight: bold;
+            border-bottom: 3px solid $color-white;
+            margin-bottom: 1.25rem;
+            
+            .hide-filter-text {
+                font-size: 20px;
+            }
+        }
+
+        .result-amount-desktop {
+            display: none !important;
+
+            @media (min-width: 929px) {
+                display: block !important;
+            }
+        }
+
+        .filters {
+            display: none;
+            
+            
+            @media (min-width: 929px) {
+                display: block !important;
+            }
+
+            .filter-wrapper {
+                padding-top: 6px;
+                padding-bottom: 20px;
+                padding-left: 2px;
+
+                .filter-name {
+                    display: inline-block;
+                    width: 100%;
+                    border-bottom: 3px solid $color-secondary;
+                    line-height: 28px;
+                    cursor: pointer;
+                    font-weight: 700;
+                    font-size: 18px;
+                }
+
+                .filter-arrow {
+                    margin-left: 0.5rem !important;
+                    color: $color-main !important;
+                }
+
+                .filter-items-wrapper {
+                    margin: 6px 0 8px;
+
+                    [type=checkbox] {
+                        color: $color-main;
+                    }
+
+                    .filter-item {
+                        line-height: 27px;
+                        --tw-ring-offset-shadow: 0;
+                    }
+                }
+            }
+        }
+
+        .filter-button {
+            background-color: $color-white;
+            color: $color-black;
+            text-align: center;
+            height: 56px;
+            padding: 17px 69px;
+            font-size: 14px;
+            margin: 10px 0 20px;
+
+            @media (min-width: 929px) {
+                display: none !important;
+            }
+        }
+
+        .active-filters {
+            display: none;
+
+            @media (min-width: 929px) {
+                display: block !important;
+            }
+
+            .active-filter {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-bottom: 5px;
+
+                .delete-filter-button {
+                    color: $color-main;
+                    margin-right: 5px;
+                    font-size: 0.9rem;
+                }
+
+                .delete-filter-name {
+                    font-weight: bold;
+                    font-size: 15px;
+                }
+            }
+
+            .delete-active-filters {
+                padding: 10px 0 15px;
+                font-weight: bold;
+                font-size: 15px;
+                text-decoration: underline;
+                text-decoration-color: #E56D01;
+                text-underline-offset: 4px;
+                -moz-text-decoration-color: #E56D01;
+}
+        }
+
+        .results-content {
+            padding: 0px;
+            flex-grow: 1;
+            margin-top: 38px;
+            flex-basis: 75%;
+
+            @media (min-width: 929px) {
+                padding: 20px;
+                margin-top: 0;
+            }
+
+            @media (min-width: 949px) {
+                padding: 0;
+                margin: 0 0 0 20px;
+            }
+        }
+
+        .machines-wrapper {
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-gap: 2rem;
+
+            @media (min-width: 929px) {
+                margin-top: 38px;
+            }
+
+            @media screen and (max-width: 1400px) {
+                grid-template-columns: auto;                                
+            }
+        }
+    }
+}

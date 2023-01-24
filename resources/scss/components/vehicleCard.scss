@@ -1,0 +1,143 @@
+.vehicle-card {
+    background-color: white !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    cursor: pointer !important;
+
+    @media screen and (max-width: 578px) {
+        flex-direction: column !important;
+    }
+
+    &:hover {
+        .thumbnail-wrapper {
+            .vehicle-thumbnail {
+                transform: scale(1.1) !important;
+            }
+        }
+
+        .card-body {
+            .vehicle-title {
+                background-size:100% 2px !important;
+            }
+        }
+    }
+
+    .thumbnail-wrapper {
+        overflow: hidden !important;
+        width: 50%;
+
+        @media screen and (max-width: 578px) {
+            width: 100%;
+        }
+
+        img {
+            height: 100%;
+            width: 100% !important;
+            object-fit: cover !important;
+            transition: $transition-sm !important;
+        }
+    }
+    
+    .card-body {
+        width: 50%;
+        padding: 1rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        flex-grow: 1 !important;
+
+        @media screen and (max-width: 578px) {
+            width: 100%;
+        } 
+
+        .vehicle-title {
+            font-weight: bolder !important;
+            font-size: 1.25rem !important;
+            line-height: 1.5rem !important;
+            color: black !important;
+            position: relative !important;
+            text-decoration: none !important;
+            background:linear-gradient(#000,#000) left bottom no-repeat !important;
+            background-size:0% 2px !important;
+            transition: $transition-sm !important;
+        }
+        
+        .card-links {
+            display: none !important;
+            justify-content: space-around !important;
+            padding: 1rem 0 1.5rem 0 !important;
+
+            .contact-link, .details-link {
+                border: 2px solid $color-main !important;
+                color: $color-black !important;
+                padding: 0.5rem 1rem !important;
+                text-decoration: none !important;
+                transition: $transition-sm !important;
+                font-weight: bold !important;
+                border-radius: 5px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                -ms-border-radius: 5px;
+                -o-border-radius: 5px;
+
+                &:hover {
+                    background-color: $color-main !important;
+                    color: white !important;
+                }
+            }
+        }
+
+        
+
+        .vehicle-description {
+            text-align: center !important;
+            padding-bottom: 1.5rem !important;
+
+            .description-list {
+                padding: 1rem;
+
+                .description-item {
+                    font-size: large;
+                    font-weight: bold;
+                    padding-bottom: 0.125rem;
+                    text-align: left;
+                    color: $color-black;
+
+                    &:before {
+                        content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+                        color: $color-main; /* Change the color */
+                        font-weight: bold; /* If you want it to be bold */
+                        display: inline-block; /* Needed to add space between the bullet and the text */
+                        width: 1em; /* Also needed for space (tweak if needed) */
+                        margin-left: -1em; /* Also needed for space (tweak if needed) */
+                    }
+                }
+            }
+        }
+
+        .vehicle-price-wrapper {
+            text-align: end !important;
+            display: flex !important;
+            flex-direction: column !important;
+
+            .vehicle-price {
+                font-weight: 600;
+                font-size: 1.5rem !important;
+                margin-bottom: 0.25rem !important;
+                color: $color-black !important;
+            }
+
+            .vehicle-price-time {
+                color: $color-black !important;
+                opacity: 0.6 !important;
+                font-size: 14px;
+            }
+
+            .vehicle-price-sub-text {
+                color: $color-black !important;
+                opacity: 0.6 !important;
+            }
+        }
+    }
+}

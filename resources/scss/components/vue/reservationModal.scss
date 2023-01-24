@@ -1,0 +1,401 @@
+.vue-reservation-modal {
+    &.hidden {
+        display: none !important;
+    }
+
+    &.visible {
+        display: block !important;
+    }
+
+    .parent {
+        @media screen and (min-width: 1200px) {
+            height: 100% !important;
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .modal-wrapper {
+            position: relative;
+            background: $color-white;
+            box-shadow: 12px 12px 8px rgba(0, 0, 0, 0.25);
+            border-radius: 25px;
+            padding: 18px 32px;
+            margin: 20px !important;
+
+            @media screen and (min-width: 1200px) and (min-height: 500px) {
+                margin: 0px !important;
+                padding: 39px 69px;
+                width: 70%;
+            }
+
+            .error-message {
+                padding: 0.25rem 1rem;
+                width: 90%;
+                font-weight: bold;
+                border-radius: 5px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                -ms-border-radius: 5px;
+                -o-border-radius: 5px;
+            }
+
+            .header-wrapper {
+                .header {
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: space-between !important;
+
+                    .title {
+                        font-size: 24px !important;
+                        font-weight: 600 !important;
+                        color: $color-black !important;
+                    }
+
+                    .close-modal {
+                        font-size: 21px;
+                        font-weight: bold;
+                        color: $color-main !important;
+                    }
+                }
+            }
+
+            .body {
+                margin-top: 10px;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2rem !important;
+
+                @media screen and (min-width: 900px) {
+                    flex-direction: row !important;
+                }
+
+                .col-left {
+                        width: 100% !important;
+
+                        @media screen and (min-width: 1200px) {
+                            width: 60% !important;
+                        }
+
+                        .basket {
+                            border: 2px solid $color-main;
+                            border-radius: 25px !important;
+                            padding: 1rem !important;
+                            display: block !important;
+
+                            @media screen and (min-width: 900px) {
+                                display: none !important;
+                            }
+    
+                            .basket-header {
+                                padding-bottom: 0.75rem;
+    
+                                h1 {
+                                    color: $color-main !important;
+                                    font-size: 1.25rem !important;
+                                }
+                            }
+    
+                            .basket-item {
+                                display: flex !important;
+                                flex-direction: column !important;
+                                gap: 1rem;
+                                padding: 8px 10px;
+
+                                @media screen and (min-width: 560px) {
+                                    flex-direction: row !important;
+                                }
+    
+                                .item-col {
+                                    width: 100% !important;
+    
+                                    .item-logo {
+                                        height: 100%;
+                                        object-fit: cover;
+                                        
+                                        img {
+                                            border-radius: 10px;
+                                            -webkit-border-radius: 10px;
+                                            -moz-border-radius: 10px;
+                                            -ms-border-radius: 10px;
+                                            -o-border-radius: 10px;
+                                        }
+                                    }
+    
+                                    .item-name {
+                                        margin-bottom: 0.25rem;
+    
+                                        p {
+                                            color: $color-black !important;
+                                            font-size: 1.25rem;
+                                            text-align: center;
+                                        }
+                                    } 
+    
+                                    .item-border {
+                                        height: 2px;
+                                        border-radius: 25px !important;
+                                        background-color: $color-main !important;
+                                        margin-bottom: 0.25rem;
+                                    }
+    
+                                    .item-prices {
+                                        display: flex !important;
+                                        flex-direction: column !important;
+                                        gap: 1rem;
+    
+                                        .price {
+                                            display: flex !important;
+                                            justify-content: space-between !important;
+    
+                                            .name, .value {
+                                                 .title {
+                                                    font-size: 1rem !important;
+                                                    color: $color-black !important;
+                                                 }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .row {
+                            &:not(:last-child) {
+                                padding: 0.75rem 0;
+                            }
+
+                            .row-header {
+                                padding-bottom: 0.75rem;
+                                h1 {
+                                    color: $color-black !important;
+                                    font-size: 20px !important;
+                                }
+                            }
+
+                            .column {
+                                display: flex !important;
+                                flex-direction: column !important;
+                                gap: 1rem !important;
+                                width: 100%;
+
+                                @media screen and (min-width: 560px) {
+                                    flex-direction: row !important;
+                                }
+
+                                .amount {
+                                    flex-basis: 30%;
+
+                                    // .amount {
+                                    //     @media screen and (min-width: 560px) {
+                                    //         padding-bottom: 18px;
+                                    //         padding-top: 18px;
+                                    //     }
+                                    // }
+                                }
+
+                                .item {
+                                    position: relative;
+                                    width: 100%;
+
+                                    .label {
+                                        position: absolute;
+                                        top: -10px;
+                                        left: 20px;
+                                        background-color: $color-white !important;
+                                        padding: 0 0.25rem;
+
+                                        p.label-text {
+                                            color: $color-main !important;
+                                        }
+                                    }
+
+                                    .form-input {
+                                        border: 2px solid $color-main !important;
+                                        border-radius: 25px !important;
+                                        width: 100%;
+                                        color: $color-black !important;
+                                    }
+
+                                    &.date {
+                                        width: 100%;
+                                        border: 2px solid $color-main !important;
+                                        border-radius: 25px;
+                                        display: flex !important;
+                                        align-items: center !important;
+
+                                        .date-input-wrapper {
+                                            display: flex !important;
+                                            flex-direction: column !important;
+                                            align-items: center !important;
+                                            justify-content: space-around !important;
+                                            width: 100% !important;
+
+                                            @media screen and (min-width: 470px) {
+                                                flex-direction: row !important;
+                                            }
+
+                                            .date-start, .date-end {
+                                                display: flex !important;
+                                                gap: 15px !important;
+                                                align-items: center !important;
+                                            }
+
+                                            .label-input {
+                                                .label-text {
+                                                    color: $color-main !important;
+                                                }
+                                            }
+
+                                            .date-input {
+                                                width: 100px !important;
+                                                height: 30px !important;
+                                                border: none !important;
+                                                background-color: #F1F1F1 !important;
+                                                color: $color-black !important;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                .col-right {
+                    width: 100%;
+                    padding-top: 0.75rem !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    justify-content: space-between !important;
+
+                    @media screen and (min-width: 1200px) {
+                        width: 40% !important;
+                    }
+
+                    .basket {
+                        border: 2px solid $color-main;
+                        border-radius: 25px !important;
+                        padding: 1.5rem !important;
+                        display: none !important;
+
+                        @media screen and (min-width: 900px) {
+                            display: block !important;
+                        }
+
+                        .basket-header {
+                            padding-bottom: 0.75rem;
+
+                            h1 {
+                                color: $color-main !important;
+                                font-size: 1.25rem !important;
+                            }
+                        }
+
+                        .basket-item {
+                            display: flex !important;
+                            align-items: center;
+                            flex-direction: column !important;
+                            gap: 1rem;
+                            padding: 8px 10px;
+
+                            @media screen and (min-width: 1630px) {
+                                flex-direction: row !important;
+                            }
+
+                            .item-col {
+                                width: 100% !important;
+
+                                @media screen and (min-width: 1630px) {
+                                    width: 50% !important;
+                                }
+
+                                .item-logo {
+                                    height: 100%;
+                                    object-fit: cover;
+
+                                    img {
+                                        border-radius: 10px;
+                                        -webkit-border-radius: 10px;
+                                        -moz-border-radius: 10px;
+                                        -ms-border-radius: 10px;
+                                        -o-border-radius: 10px;
+                                    }
+                                }
+
+                                .item-name {
+                                    margin-bottom: 0.25rem;
+
+                                    p {
+                                        color: $color-black !important;
+                                        font-size: 1.25rem;
+                                        text-align: center;
+                                    }
+                                } 
+
+                                .item-border {
+                                    height: 2px;
+                                    border-radius: 25px !important;
+                                    background-color: $color-main !important;
+                                    margin-bottom: 0.25rem;
+                                }
+
+                                .item-prices {
+                                    display: flex !important;
+                                    flex-direction: column !important;
+                                    gap: 1rem;
+
+                                    .price {
+                                        display: flex !important;
+                                        justify-content: space-between !important;
+
+                                        .name, .value {
+                                             .title {
+                                                font-size: 1rem !important;
+                                                color: $color-black !important;
+                                             }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .alerts {
+                        padding: 0.25rem 0.5rem;
+                    }
+
+                    .footer {
+                        .alert {
+                            margin-bottom: 1.5rem !important;
+                            width: 100% !important;
+
+                            @media screen and (min-width: 560px) {
+                                width: 90% !important;
+                            }
+
+                            p {
+                                color: $color-black !important;
+                            }
+                        }
+
+                        .submit-form {
+                            width: 100%;
+                            height: 55px;
+                            background-color: $color-main !important;
+                            border-radius: 25px !important;
+                            display: flex !important;
+                            align-items: center !important;
+                            justify-content: center !important;
+
+                            .title {
+                                font-size: 1.25rem !important;
+                                color: $color-white !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
