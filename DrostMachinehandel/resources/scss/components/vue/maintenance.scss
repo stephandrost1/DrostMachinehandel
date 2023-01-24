@@ -1,11 +1,4 @@
 .vue-maintenance {
-    .sidebar {
-        width: 25% !important;
-    }
-
-    .content {
-        width: 75% !important;
-    }
 
     .vue-maintenance-vehicle {
         .wrapper {
@@ -13,12 +6,9 @@
             gap: 2rem;
 
             .column-left {
-                width: 30%;
                 position: relative;
 
                 .vehicle-item {
-                    display: flex;
-
                     .name  {
                         font-size: 1.05rem;
                         font-weight: bold;
@@ -32,12 +22,10 @@
             }
 
             .column-right {
-                width: 70%;
 
                 .body {
                     margin: 0 auto;
                     gap: 5rem;
-                    width: 75%;
 
                     .col-left {
                         position: relative;

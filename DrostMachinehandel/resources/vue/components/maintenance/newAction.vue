@@ -7,7 +7,7 @@ export default {
             activity: "",
         }
     },
-    
+
     computed: {
         getDate() {
             let days = ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"];
@@ -36,7 +36,7 @@ export default {
 
                 this.activity = "",
 
-                this.$toast.success(response.data.message);
+                    this.$toast.success(response.data.message);
             }).catch((error) => {
                 console.log(error);
                 this.$toast.error(error.response.data.message);
@@ -49,13 +49,12 @@ export default {
 
 <template>
     <div class="bg-primary-200 border-2 border-primary rounded-lg shadow-xl p-5 pb-2 vue-action">
-        <textarea class="action-new-activity" type="text" v-model="activity"
-            placeholder="Vul hier uw actie in..." />
+        <textarea class="action-new-activity" type="text" v-model="activity" placeholder="Vul hier uw actie in..." />
         <div class="action-date footer">
             <p class="date" v-text="getDate"></p>
-            <div class="add-activity">
-                <div  @click="_handleSave"
-                    class="circle save bg-green-200 border-2 border-green-500">
+            <div class="add-activity flex gap-2">
+                <div @click="_handleSave"
+                    class="circle save cursor-pointer bg-green-200 border-2 border-green-500 px-2 py-[2px] md:p-0 rounded-full">
                     <i class="fas fa-check text-green-500 text-sm"></i>
                 </div>
             </div>

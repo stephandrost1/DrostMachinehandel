@@ -12,6 +12,11 @@ export default createStore({
             return state.vehicles;
         },
 
+        getActions(state) {
+            const vehicleActions = state.selectedVehicle.actions ?? [];
+            return vehicleActions.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        },
+
         getActionsObject(state) {
             let left = [];
             let right = [];

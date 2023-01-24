@@ -45,9 +45,9 @@ export default {
 
 
 <template>
-    <div class="basis-4/12 min-[1150px]:basis-3/12 h-fit flex">
+    <div class="h-fit flex">
         <div
-            class="bg-gradient-to-b w-full from-primary flex flex-col xl:flex-row items-start gap-5 justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
+            class="bg-gradient-to-b w-full from-primary flex flex-col 2xl:flex-row items-start gap-5 justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
             <div id="select-rent-vehicle-wrapper"
                 class="flex flex-col rounded-lg shadow-xl w-full p-5 gap-5 border-2 border-primary-500 bg-primary-200">
                 <div class="options-wrapper">

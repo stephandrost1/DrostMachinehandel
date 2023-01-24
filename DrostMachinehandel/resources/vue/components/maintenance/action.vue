@@ -69,18 +69,22 @@ export default {
 
 <template>
     <div class="bg-primary-200 border-2 border-primary rounded-lg shadow-xl p-5 pb-2 vue-action">
-        <p v-if="!actionEdit" class="description">{{ truncatedActivity }}</p>
-        <textarea class="action-new-activity" type="text" v-if="actionEdit" v-model="action.activity" placeholder="Vul hier uw actie in..."/>
+        <p v-if="!actionEdit">{{ truncatedActivity }}</p>
+        <textarea class="action-new-activity" type="text" v-if="actionEdit" v-model="action.activity"
+            placeholder="Vul hier uw actie in..." />
         <div class="action-date footer">
             <p class="date" v-text="getDate"></p>
-            <div class="add-activity">
-                <div v-if="actionEdit" @click="_handleSave" class="circle save bg-green-200 border-2 border-green-500">
+            <div class="add-activity flex gap-2 md:block">
+                <div v-if="actionEdit" @click="_handleSave"
+                    class="circle save cursor-pointer bg-green-200 border-2 border-green-500 px-2 py-[2px] md:p-0 rounded-full">
                     <i class="fas fa-check text-green-500 text-sm"></i>
                 </div>
-                <div v-if="!actionEdit" @click="_handleEdit" class="circle edit bg-orange-200 border-2 border-orange-500">
+                <div v-if="!actionEdit" @click="_handleEdit"
+                    class="circle edit cursor-pointer bg-orange-200 border-2 border-orange-500 px-2 py-[2px] md:p-0 rounded-full">
                     <i class="fas fa-pen text-orange-500 text-sm"></i>
                 </div>
-                <div v-if="!actionEdit" @click="_handleDelete" class="circle edit bg-red-200 border-2 border-red-500">
+                <div v-if="!actionEdit" @click="_handleDelete"
+                    class="circle edit cursor-pointer bg-red-200 border-2 border-red-500 px-2 py-[2px] md:p-0 rounded-full">
                     <i class="fas fa-trash text-red-500 text-sm"></i>
                 </div>
             </div>

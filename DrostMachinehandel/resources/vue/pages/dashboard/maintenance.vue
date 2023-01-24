@@ -49,22 +49,24 @@ export default {
             this.addNew = status;
         }
     }
-}    
+}
 
 </script>
 
 <template>
-        <div class="flex flex-col lg:flex-row p-6 gap-5 bg-gray-100 w-full h-full vue-maintenance">
-            <div class="sidebar">
-                <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle" extraButtonText="Toevoegen"
-                    @extraButtonCallback="_handleAddNewVehicle" :hasCallback="true"></dm-sidebar>
-            </div>
-        
-            <div class="grow content">
-                <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                    <dm-vehicle @_toggleAddVehicleProp="_toggleAddVehicleProp" v-if="hasSelectedVehicle" :add-vehicle="addNew"></dm-vehicle>
-                    <dm-no-vehicle-selected v-if="!hasSelectedVehicle"></dm-no-vehicle-selected>
-                </div>
+    <div class="flex flex-col lg:flex-row p-6 gap-5 bg-gray-100 w-full h-full vue-maintenance">
+        <div class="sidebar lg:basis-4/12">
+            <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle" extraButtonText="Toevoegen"
+                @extraButtonCallback="_handleAddNewVehicle" :hasCallback="true"></dm-sidebar>
+        </div>
+
+        <div class="content lg:basis-8/12">
+            <div
+                class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
+                <dm-vehicle @_toggleAddVehicleProp="_toggleAddVehicleProp" v-if="hasSelectedVehicle"
+                    :add-vehicle="addNew"></dm-vehicle>
+                <dm-no-vehicle-selected v-if="!hasSelectedVehicle"></dm-no-vehicle-selected>
             </div>
         </div>
+    </div>
 </template>
