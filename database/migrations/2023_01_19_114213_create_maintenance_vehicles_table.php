@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('maintenance_vehicles', function (Blueprint $table) {
             $table->id();
+            $table->string("vehicle_name");
             $table->string("mark");
             $table->string("type");
             $table->string("serial_number");
