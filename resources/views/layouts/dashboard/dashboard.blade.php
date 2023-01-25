@@ -18,9 +18,9 @@
         {{-- Flowbite --}}
         <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
         <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
-    
         {{-- Required custom scss and js --}}
         @vite(['resources/scss/dashboard.scss', 'resources/vue/dashboard.js'])
+
     </head>
 
     <body class="bg-gray-100 font-sans leading-normal tracking-normal page-{{ Route::currentRouteName() }}">

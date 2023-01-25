@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import vue from '@vitejs/plugin-vue'
+import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
     plugins: [
@@ -10,8 +10,8 @@ export default defineConfig({
                 'resources/scss/main.scss',
                 'resources/scss/dashboard.scss',
                 'resources/js/app.js',
-                'resources/vue/dashboard.js',
-                'resources/vue/app.js',
+                // 'resources/vue/dashboard.js',
+                // 'resources/vue/app.js',
             ],
             refresh: true,
         }),
