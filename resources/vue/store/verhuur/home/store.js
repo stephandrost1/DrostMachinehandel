@@ -39,6 +39,10 @@ export default createStore({
             state.filters = filters;
         },
 
+        SET_ACTIVE_FILTERS(state, filters) {
+            state.activeFilters = filters;
+        },
+
         ADD_ACTIVE_FILTER(state, filter) {
             if (!state.activeFilters.some((f) => f.id === filter.id)) {
                 state.activeFilters.push(filter);
@@ -47,7 +51,7 @@ export default createStore({
 
         REMOVE_ACTIVE_FILTER(state, filter) {
             state.activeFilters = state.activeFilters.filter(f => f.id !== filter.id);
-        }
+        },
     },
 
     actions: {
@@ -63,6 +67,10 @@ export default createStore({
                 .then((response) => {
                     commit("SET_FILTERS", response.data.filters);
                 });
+        },
+
+        async removeAllFilters({ commit }) {
+            commit("SET_ACTIVE_FILTERS", []);
         }
     }
 })

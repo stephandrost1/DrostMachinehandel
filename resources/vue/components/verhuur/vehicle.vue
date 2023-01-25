@@ -9,16 +9,16 @@ import FiltersBlock from '../global/vehicle/filters/filtersBlock.vue';
 import StockBlock from "../global/vehicle/stock/stockBlock.vue";
 
 export default {
+    props: ["addVehicle"],
+
     components: {
         "dm-dropzone": dropzone,
-
         "dm-vehicle-specs-block": specsBlock,
         "dm-vehicle-name-block": nameBlock,
         "dm-vehicle-description-block": descriptionBlock,
         "dm-vehicle-price-block": priceBlock,
         "dm-vehicle-filters-block": FiltersBlock,
         "dm-vehicle-stock-block": StockBlock,
-
         "dm-vehicle-image-item": vehicleImage,
     },
 
@@ -40,31 +40,31 @@ export default {
         },
 
         getVehicleName() {
-            return this.getVehicle.vehicle_name ?? "";
+            return this.getVehicle ? this.getVehicle.vehicle_name : "";
         },
 
         getVehicleStock() {
-            return this.getVehicle.stock ?? 1;
+            return this.getVehicle ? this.getVehicle.stock : 1;
         },
 
         getVehicleDescription() {
-            return this.getVehicle.vehicle_description ?? "";
+            return this.getVehicle ? this.getVehicle.vehicle_description : "";
         },
 
         getVehiclePricePerDay() {
-            return this.getVehicle.price_per_day ?? "";
+            return this.getVehicle ? this.getVehicle.price_per_day : "";
         },
 
         getVehiclePricePerWeek() {
-            return this.getVehicle.price_per_week ?? "";
+            return this.getVehicle ? this.getVehicle.price_per_week : "";
         },
 
         getVehicleSpecs() {
-            return this.getVehicle.details ?? [];
+            return this.getVehicle ? this.getVehicle.details : [];
         },
 
         getVehicleImages() {
-            return this.getVehicle.images ?? [];
+            return this.getVehicle ? this.getVehicle.images : [];
         },
 
         hasVehicleImages() {

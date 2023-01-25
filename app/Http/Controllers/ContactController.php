@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
-use Symfony\Component\HttpFoundation\UrlHelper;
-use ZipArchive;
+use App\Http\Controllers\SettingsController;
+use Laravel\Telescope\IncomingEntry;
 
 class ContactController extends Controller
 {
@@ -51,11 +52,20 @@ class ContactController extends Controller
         ];
 
         try {
-            Mail::to('henrikH2004@hotmail.com')->send(new \App\Mail\ContactMail($details));
+            Mail::to(SettingsController::fetchSetting("contact_email"))->send(new \App\Mail\ContactMail($details));
             return view('contact', ['statusCode' => 200]);
         } catch (Exception $e) {
+            new IncomingEntry([
+                "action" => "submitRequest",
+                "error" => $e->getMessage(),
+                "settingsController:contact_email" => SettingsController::fetchSetting("contact_email"),
+            ]);
+            Log::emergency("ContactController", [
+                "action" => "submitRequest",
+                "error" => $e->getMessage(),
+                "settingsController:contact_email" => SettingsController::fetchSetting("contact_email"),
+            ]);
             return view('contact', ['statusCode' => 400]);
         }
-        return view('contact', ['statusCode' => 200]);
     }
 }

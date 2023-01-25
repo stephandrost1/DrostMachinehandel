@@ -71,12 +71,13 @@
           <div class="hours">
             <h1 class="text-2xl font-bold">{{ __('content/contact.opening-hours') }}</h1>
             <hr class="w-full h-[4px] bg-primary border-none">
-            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.monday') }}</span><span>09:00-17:00</span></div>
-            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.tuesday') }}</span><span>09:00-17:00</span></div>
-            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.wednesday') }}</span><span>09:00-17:00</span></div>
-            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.thursday') }}</span><span>09:00-17:00</span></div>
-            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.friday') }}</span><span>09:00-17:00</span></div>
-            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.saturday-sunday') }}</span><span>{{ __('content/contact.closed') }}</span></div>
+            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.monday') }}</span><span>08:00-17:00</span></div>
+            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.tuesday') }}</span><span>08:00-17:00</span></div>
+            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.wednesday') }}</span><span>08:00-17:00</span></div>
+            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.thursday') }}</span><span>08:00-17:00</span></div>
+            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.friday') }}</span><span>08:00-17:00</span></div>
+            <div class="flex justify-between py-1 px-3 bg-secondary"><span>{{ __('content/contact.saturday') }}</span><span>09:00-12:00</span></div>
+            <div class="flex justify-between py-1 px-3"><span>{{ __('content/contact.sunday') }}</span><span>{{ __('content/contact.closed') }}</span></div>
           </div>
         </div>
       </div>

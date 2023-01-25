@@ -18,6 +18,7 @@ export default {
         return {
             currentAction: null,
             isFetchingData: false,
+            addNew: false,
             // deleteMachineModal: {
             //     isOpen: false,
             // }
@@ -30,7 +31,7 @@ export default {
 
     computed: {
         hasSelectedVehicle() {
-            return this.getSelectedVehicle;
+            return !_.isEmpty(this.getSelectedVehicle) || this.addNew;
         },
 
         isFetchingVehicle() {
@@ -49,6 +50,10 @@ export default {
             await this.$store.dispatch("fetchVehicleById", vehicleId);
             this.isFetchingData = false;
         },
+
+        _handleAddNewVehicle() {
+            this.addNew = true;
+        }
     }
 }
 </script>
@@ -56,11 +61,12 @@ export default {
 
 <template>
     <div class="flex flex-col lg:flex-row p-6 gap-5 bg-gray-100 w-full h-full">
-        <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"></dm-sidebar>
+        <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle" extraButtonText="Toevoegen"
+                    @extraButtonCallback="_handleAddNewVehicle" :hasCallback="true"></dm-sidebar>
 
         <div class="grow">
             <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>
+                <dm-vehicle v-if="hasSelectedVehicle" :add-vehicle="addNew"></dm-vehicle>
                 <dm-vehicle-loader v-if="isFetchingVehicle"></dm-vehicle-loader>
                 <dm-no-vehicle-selected v-if="!hasSelectedVehicle && !isFetchingVehicle"></dm-no-vehicle-selected>
             </div>

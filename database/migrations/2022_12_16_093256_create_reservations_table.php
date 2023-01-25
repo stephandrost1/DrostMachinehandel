@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string("dealer_id");
             $table->string("vehicle_id");
             $table->string("distance");
+            $table->timestamp("status")->nullable();
             $table->integer("amount");
+            $table->string('duration');
+            $table->string("auth_type");
             $table->softDeletes();
             $table->timestamps();
         });

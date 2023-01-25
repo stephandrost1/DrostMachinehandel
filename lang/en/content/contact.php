@@ -22,6 +22,7 @@ return [
     'wednesday' => 'Wednesday',
     'thursday' => 'Thursday',
     'friday' => 'Friday',
-    'saturday-sunday' => 'Saturday & sunday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
     'closed' => 'Closed',
 ];
