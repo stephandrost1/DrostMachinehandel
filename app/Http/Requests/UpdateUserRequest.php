@@ -70,7 +70,7 @@ class UpdateUserRequest extends FormRequest
                 "email.unique" => "Het opgegeven E-mailadres is al in gebruik!",
                 "password.min" => "Het opgegeven wachtwoord is te kort, minimaal 8 karakters",
                 "passwordRepeat.same" => "De opgegeven wachtwoorden komen niet overeen!",
-                "passwordCurrent.required" => "Het opgegeven huidige wachtwoord is niet correct!",
+                "currentPassword.required" => "Het huidige wachtwoord max niet leeg zijn!",
             ];
         }
 
