@@ -55,11 +55,13 @@ class UserController extends Controller
 
             $users = User::with('address', 'company')
                 ->where("role_id", "1")
-                ->where('name', 'like', $searchQuery)
-                ->orWhere('email', 'like', $searchQuery)
-                ->orWhereHas('company', function ($query) use ($searchQuery) {
+                ->where(function ($query) use ($searchQuery) {
                     $query->where('name', 'like', $searchQuery)
-                        ->orWhere('kvknumber', 'like', $searchQuery);
+                        ->orWhere('email', 'like', $searchQuery)
+                        ->orWhereHas('company', function ($query) use ($searchQuery) {
+                            $query->where('name', 'like', $searchQuery)
+                                ->orWhere('kvknumber', 'like', $searchQuery);
+                        });
                 })
                 ->orderBy("deleted_at")
                 ->orderBy('email_verified_at')
