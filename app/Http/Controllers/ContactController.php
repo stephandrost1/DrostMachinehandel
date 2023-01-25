@@ -51,7 +51,7 @@ class ContactController extends Controller
         ];
 
         try {
-            Mail::to('henrikH2004@hotmail.com')->send(new \App\Mail\ContactMail($details));
+            Mail::to(SettingsController::fetchSetting("contact_email"))->send(new \App\Mail\ContactMail($details));
             return view('contact', ['statusCode' => 200]);
         } catch (Exception $e) {
             return view('contact', ['statusCode' => 400]);

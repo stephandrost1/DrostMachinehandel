@@ -35,7 +35,6 @@ export default {
 
         _handleExtraButton() {
             if (this.hasCallback) {
-                console.log("emit");
                 this.$emit("extraButtonCallback");
             }
         }

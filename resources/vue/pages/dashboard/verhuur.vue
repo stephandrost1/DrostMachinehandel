@@ -49,6 +49,10 @@ export default {
             await this.$store.dispatch("fetchVehicleById", vehicleId);
             this.isFetchingData = false;
         },
+
+        _handleAddNewVehicle() {
+            
+        }
     }
 }
 </script>
@@ -56,7 +60,8 @@ export default {
 
 <template>
     <div class="flex flex-col lg:flex-row p-6 gap-5 bg-gray-100 w-full h-full">
-        <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"></dm-sidebar>
+        <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle" extraButtonText="Toevoegen"
+                    @extraButtonCallback="_handleAddNewVehicle" :hasCallback="true"></dm-sidebar>
 
         <div class="grow">
             <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
