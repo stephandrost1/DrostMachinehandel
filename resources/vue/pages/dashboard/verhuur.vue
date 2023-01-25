@@ -18,6 +18,7 @@ export default {
         return {
             currentAction: null,
             isFetchingData: false,
+            addNew: false,
             // deleteMachineModal: {
             //     isOpen: false,
             // }
@@ -30,7 +31,7 @@ export default {
 
     computed: {
         hasSelectedVehicle() {
-            return this.getSelectedVehicle;
+            return !_.isEmpty(this.getSelectedVehicle) || this.addNew;
         },
 
         isFetchingVehicle() {
@@ -51,7 +52,7 @@ export default {
         },
 
         _handleAddNewVehicle() {
-            
+            this.addNew = true;
         }
     }
 }
@@ -65,7 +66,7 @@ export default {
 
         <div class="grow">
             <div class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
-                <dm-vehicle v-if="hasSelectedVehicle"></dm-vehicle>
+                <dm-vehicle v-if="hasSelectedVehicle" :add-vehicle="addNew"></dm-vehicle>
                 <dm-vehicle-loader v-if="isFetchingVehicle"></dm-vehicle-loader>
                 <dm-no-vehicle-selected v-if="!hasSelectedVehicle && !isFetchingVehicle"></dm-no-vehicle-selected>
             </div>
