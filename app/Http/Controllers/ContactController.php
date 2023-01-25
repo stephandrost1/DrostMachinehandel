@@ -57,7 +57,8 @@ class ContactController extends Controller
         } catch (Exception $e) {
             Log::emergency("ContactController", [
                 "action" => "submitRequest",
-                "error" => $e->getMessage()
+                "error" => $e->getMessage(),
+                "settingsController:contact_email" => SettingsController::fetchSetting("contact_email"),
             ]);
             return view('contact', ['statusCode' => 400]);
         }
