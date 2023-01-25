@@ -234,7 +234,7 @@ class UserController extends Controller
 
             $user = User::find($id);
 
-            if (!Hash::check($request->password, $user->password)) {
+            if (!Hash::check($request->currentPassword, $user->password)) {
                 throw new Exception("Opgegeven huidige wachtwoord is niet correct!");
             }
 
