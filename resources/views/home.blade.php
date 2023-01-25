@@ -44,7 +44,7 @@
   </div>
 
   <div class="my-10 recent-items flex flex-col gap-5">
-    <div class="text-center font-bold text-3xl">{{ __('content/homepage.recently-added-title') }}</div>
+    <div class="text-center font-bold text-3xl px-2">{{ __('content/homepage.recently-added-title') }}</div>
     <div id="recently-added-machines" class="swiper swiper-recent-items w-full">
       <div class="swiper-wrapper" id="recently-added-items">
       </div>

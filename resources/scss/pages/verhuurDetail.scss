@@ -36,9 +36,19 @@
 
         .images-wrapper {
             position: relative;
+
+            .main-image {
+                margin-bottom: 15px;
+            }
+
              .slider-wrapper {
                 .swiper {
                     position: unset !important;
+
+                    .image-class {
+                        object-fit: cover;
+                        width: 100%;
+                    }
 
                     .swiper-button-prev, .swiper-button-next {
                         top: 35% !important;
@@ -48,7 +58,7 @@
              }  
             
             @media (min-width: 1121px) {
-                width: 65%;
+                width: 75%;
             }
 
             .main-image {
@@ -85,8 +95,8 @@
                 .spec {
                     display: flex;
                     align-items: center;
+                    justify-content: space-between;
                     margin-bottom: 0.5rem;
-                    height: 30px;
                     padding: 5px 0;
                     font-size: 1.25rem;
                     font-weight: 700;

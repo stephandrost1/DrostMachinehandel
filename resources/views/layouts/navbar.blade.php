@@ -206,7 +206,7 @@
                   <button
                     class="inline-flex items-center text-xl xl:text-2xl font-bold"
                   >
-                    <span class="mr-1 text-[2rem]">{{ __('content/navbar.occasions') }}</span>
+                    <span class="mr-1 text-[1.5rem]">{{ __('content/navbar.occasions') }}</span>
                     <i class="fas fa-chevron-down"></i>
                   </button>
                   <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
@@ -248,7 +248,7 @@
                     <button
                       class="inline-flex items-center text-xl xl:text-2xl font-bold "
                     >
-                      <span class="mr-1 text-[2rem]">{{  __('content/navbar.account') }}</span>
+                      <span class="mr-1 text-[1.5rem]">{{  __('content/navbar.account') }}</span>
                       <i class="fas fa-chevron-down"></i>
                     </button>
                     <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
@@ -276,7 +276,7 @@
                     <button
                       class="inline-flex items-center text-xl xl:text-2xl font-bold "
                     >
-                      <span class="mr-1 text-[2rem]">{{ __('content/navbar.login') }}</span>
+                      <span class="mr-1 text-[1.5rem]">{{ __('content/navbar.login') }}</span>
                       <i class="fas fa-chevron-down"></i>
                     </button>
                     <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">

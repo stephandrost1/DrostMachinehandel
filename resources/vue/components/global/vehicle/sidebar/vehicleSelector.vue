@@ -1,5 +1,4 @@
 <script>
-
 import vehicleItemVue from './vehicleItem.vue'
 
 export default {
@@ -13,26 +12,21 @@ export default {
             "default": false
         },
     },
-
     components: {
         "dm-sidebar-vehicle-item": vehicleItemVue
     },
-
     computed: {
         getVehicles() {
             return this.$store.getters.getVehicles;
         }
     },
-
     mounted() {
         this.$store.dispatch("fetchVehicles")
     },
-
     methods: {
         _handleSelectVehicle(vehicle) {
             this.$emit("_handleSelectVehicle", vehicle.id);
         },
-
         _handleExtraButton() {
             if (this.hasCallback) {
                 console.log("emit");
@@ -43,11 +37,10 @@ export default {
 }
 </script>
 
-
 <template>
-    <div class="basis-4/12 min-[1150px]:basis-3/12 h-fit flex">
+    <div class="h-fit flex">
         <div
-            class="bg-gradient-to-b w-full from-primary flex flex-col xl:flex-row items-start gap-5 justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
+            class="bg-gradient-to-b w-full from-primary flex flex-col 2xl:flex-row items-start gap-5 justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
             <div id="select-rent-vehicle-wrapper"
                 class="flex flex-col rounded-lg shadow-xl w-full p-5 gap-5 border-2 border-primary-500 bg-primary-200">
                 <div class="options-wrapper">

@@ -4,7 +4,7 @@
         <div class="content-wrapper">
             <div class="col-1">
                 <div class="col-header">
-                    <h4>Adres gegevens</h4>
+                    <h4>{{ __('content/footer.address-info') }}</h4>
                 </div>
                 <div class="col-body">
                     <div class="footer-item flex items-center gap-2"><span>Boslandweg 148</span></div>
@@ -15,7 +15,7 @@
             </div>
             <div class="col-2">
                 <div class="col-header">
-                    <h4>Contact gegevens</h4>
+                    <h4>{{ __('content/footer.contact-info') }}</h4>
                 </div>
                 <div class="col-body">
                     <div class="footer-item flex items-center gap-2"><span>info@drostmachinehandel.com</span></div>
