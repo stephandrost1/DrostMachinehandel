@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\UrlHelper;
+use App\Http\Controllers\SettingsController;
 use ZipArchive;
 
 class ContactController extends Controller
