@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\SettingsController;
+use Laravel\Telescope\IncomingEntry;
 
 class ContactController extends Controller
 {
@@ -54,6 +55,11 @@ class ContactController extends Controller
             Mail::to(SettingsController::fetchSetting("contact_email"))->send(new \App\Mail\ContactMail($details));
             return view('contact', ['statusCode' => 200]);
         } catch (Exception $e) {
+            new IncomingEntry([
+                "action" => "submitRequest",
+                "error" => $e->getMessage(),
+                "settingsController:contact_email" => SettingsController::fetchSetting("contact_email"),
+            ]);
             Log::emergency("ContactController", [
                 "action" => "submitRequest",
                 "error" => $e->getMessage(),
