@@ -11,7 +11,7 @@ class VehicleImagesController extends Controller
 {
     public function create(Request $request)
     {
-        if (is_null($request->file) || is_null($request->vehicleId)) {
+        if (is_null($request->file)) {
             return response()->json(["message" => "missing file"], 400);
         }
 

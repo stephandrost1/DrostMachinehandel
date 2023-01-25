@@ -100,9 +100,21 @@ th:not(:last-child) {
         <div class="w-full">
             <table
                 class="w-full flex flex-row flex-no-wrap min-[1225px]:bg-white rounded-lg overflow-auto min-[1225px]:overflow-hidden min-[1225px]:shadow-lg my-5">
-                <thead class="text-white">
+                <thead class="text-white" v-if="reservations.length > 0">
                     <tr v-for="reservation in reservations" :key="reservation.id"
                         class="bg-primary flex flex-col flex-no wrap min-[1225px]:table-row rounded-l-lg min-[1225px]:rounded-none mb-2 min-[1225px]:mb-0">
+                        <th class="p-2 min-[1225px]:p-3 text-left">Naam</th>
+                        <th class="p-2 min-[1225px]:p-3 text-left">E-mailadres</th>
+                        <th class="p-2 min-[1225px]:p-3 text-left">Leverprijs</th>
+                        <th class="p-2 min-[1225px]:p-3 text-left">Machine</th>
+                        <th class="p-2 min-[1225px]:p-3 text-left">Tijd</th>
+                        <th class="p-2 min-[1225px]:p-3 text-left">Datum</th>
+                        <th class="p-2 min-[1225px]:p-3 text-left">Status</th>
+                        <th class="p-2 min-[1225px]:p-3 text-left">Acties</th>
+                    </tr>
+                </thead>
+                <thead v-else class="text-white">
+                    <tr class="bg-primary flex flex-col flex-no wrap min-[1225px]:table-row rounded-l-lg min-[1225px]:rounded-none mb-2 min-[1225px]:mb-0">
                         <th class="p-2 min-[1225px]:p-3 text-left">Naam</th>
                         <th class="p-2 min-[1225px]:p-3 text-left">E-mailadres</th>
                         <th class="p-2 min-[1225px]:p-3 text-left">Leverprijs</th>

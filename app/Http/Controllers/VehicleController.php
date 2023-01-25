@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\createVehicleRequest;
 use App\Http\Requests\UpdateVehicleRequest;
 use App\Models\RentFilter;
 use App\Models\RentFiltersOption;
@@ -24,6 +25,25 @@ class VehicleController extends Controller
             return response()->json(['vehicles' => $vehicles, 'results' => count($vehicles) > 0]);
         } catch (Exception $e) {
             return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
+        }
+    }
+
+    public function create(createVehicleRequest $request)
+    {
+        try {
+            $validated = $request->validated();
+
+            $vehicle = Vehicle::create([
+                "vehicle_name" => $request->name,
+                "vehicle_description" => $request->description,
+                "stock" => $request->stock,
+                "price_per_day" => $request->pricePerDay,
+                "price_per_week" => $request->pricePerWeek,
+            ]);
+
+            return response()->json(["message" => "Machine succesvol toegevoegd, u kunt nu afbeeldingen etc toevoegen!", "vehicle_id" => $vehicle->id]);
+        } catch (Exception $e) {
+            return log_and_return_error(request(), $e->getMessage());
         }
     }
 

@@ -14,6 +14,7 @@ class Vehicle extends Model
         "vehicle_name",
         "vehicle_description",
         "price_per_day",
+        "stock",
         "price_per_week",
     ];
 

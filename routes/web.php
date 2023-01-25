@@ -89,6 +89,7 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
         Route::post("/images/upload", [VehicleImagesController::class, "create"]);
         Route::get("/views", [VehicleController::class, "vehicleViews"]);
         Route::get("/{id}", [VehicleController::class, "show"]);
+        Route::post('/', [VehicleController::class, "create"]);
         Route::delete("/{id}/delete", [VehicleController::class, "destroy"]);
         Route::patch('/{id}/update', [VehicleController::class, "update"]);
     });

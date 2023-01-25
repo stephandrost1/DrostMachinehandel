@@ -53,7 +53,8 @@ class UserController extends Controller
         try {
             $searchQuery = '%' . $request->s . '%';
 
-            $users = User::where("role_id", "1")->with('address', 'company')
+            $users = User::with('address', 'company')
+                ->where("role_id", "1")
                 ->where('name', 'like', $searchQuery)
                 ->orWhere('email', 'like', $searchQuery)
                 ->orWhereHas('company', function ($query) use ($searchQuery) {
