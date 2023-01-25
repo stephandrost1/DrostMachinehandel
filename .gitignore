@@ -1,5 +1,5 @@
 /node_modules
-!node_modules/@meforma/
+!node_modules/@meforma
 /public/build
 /public/hot
 /public/storage
