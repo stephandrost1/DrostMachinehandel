@@ -19,9 +19,6 @@ export default {
             currentAction: null,
             isFetchingData: false,
             addNew: false,
-            // deleteMachineModal: {
-            //     isOpen: false,
-            // }
         }
     },
 
@@ -53,6 +50,17 @@ export default {
 
         _handleAddNewVehicle() {
             this.addNew = true;
+            this.$store.commit("SET_SELECTED_VEHICLE", {
+                "id": null,
+                "vehicle_name": "",
+                "vehicle_description": "",
+                "stock": "1",
+                "price_per_day": "0",
+                "price_per_week": "0",
+                "images": [],
+                "details": [],  
+                "tags": []
+            });
         }
     }
 }

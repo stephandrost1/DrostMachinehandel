@@ -1,7 +1,7 @@
 <script>
 import loader from '../../components/global/loader.vue';
 import noVehicleSelected from '../../components/global/noVehicleSelected.vue'
-import vehicleSelector from '../../components/global/vehicle/sidebar/vehicleSelector.vue';
+import sidebar from '../../components/maintenance/sidebar/sidebar.vue';
 import dialog from '../../components/Dialog/dialog.vue';
 import vehicle from '../../components/maintenance/vehicle.vue';
 
@@ -10,7 +10,7 @@ export default {
         'dm-no-vehicle-selected': noVehicleSelected,
         'dm-vehicle-loader': loader,
         'dm-vehicle': vehicle,
-        'dm-sidebar': vehicleSelector,
+        'dm-sidebar': sidebar,
         "dm-dialog": dialog
     },
     data() {
@@ -47,12 +47,12 @@ export default {
 
 <template>
     <div class="flex flex-col lg:flex-row p-6 gap-5 bg-gray-100 w-full h-full vue-maintenance">
-        <div class="sidebar lg:basis-4/12">
-            <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle" extraButtonText="Toevoegen"
-                @extraButtonCallback="_handleAddNewVehicle" :hasCallback="true"></dm-sidebar>
+        <div class="sidebar">
+            <dm-sidebar @_handleSelectVehicle="_handleSelectVehicle"
+                @_handleAddButton="_handleAddNewVehicle"></dm-sidebar>
         </div>
 
-        <div class="content lg:basis-8/12">
+        <div class="grow content">
             <div
                 class="bg-gradient-to-b from-primary flex items-start justify-between to-primary-200 border-b-4 border-primary rounded-lg shadow-xl p-5">
                 <dm-vehicle @_toggleAddVehicleProp="_toggleAddVehicleProp" v-if="hasSelectedVehicle"

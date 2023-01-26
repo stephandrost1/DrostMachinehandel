@@ -12,6 +12,8 @@ class ContactMail extends Mailable
     use Queueable, SerializesModels;
 
     private $details;
+    public $subject;
+    public $title;
     /**
      * Create a new message instance.
      *
@@ -20,6 +22,8 @@ class ContactMail extends Mailable
     public function __construct($details)
     {
         $this->details = $details;
+        $this->subject = "Contact formulier";
+        $this->title = "Drostmachinehandel.com";
 
         $this->details['currentTime'] = date("F j, Y, g:i a");
     }

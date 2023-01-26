@@ -1,7 +1,7 @@
 <header>
     <!--Nav-->
     <nav aria-label="menu nav" class="bg-gray-800 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
-        <div class="flex flex-col sm:flex-row justify-between items-center md:pr-10">
+        <div class="flex flex-row justify-between items-center md:pr-10">
             <div>
                 <a href="{{ route("home") }}" aria-label="Home">
                     <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-14 sm:h-[5rem] md:h-12 pt-3 pb-3 pl-1" alt="logo" />

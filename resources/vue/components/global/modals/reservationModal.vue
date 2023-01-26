@@ -25,11 +25,13 @@ export default {
             errorMessage: "",
             succesMessage: "",
             submitButtonDisabled: false,
+            mainImageSrc: "",
         }
     },
 
     mounted() {
         this.fetchUser();
+        this.fetchMainImage();
     },
 
     computed: {
@@ -38,9 +40,7 @@ export default {
         },
 
         getVehicleImage() {
-            const imageElement = document.querySelector(".page-verhuurDetail .detail-wrapper .images-wrapper .main-image");
-
-            return imageElement.src;
+            return `${this.mainImageSrc.image_location}${this.mainImageSrc.image_name}.${this.mainImageSrc.image_type}`;
         },
 
         getDatePlaceHolder() {
@@ -78,6 +78,15 @@ export default {
     },
 
     methods: {
+        fetchMainImage() {
+            const vehicleId = document.querySelector("#get-vehicle-id").dataset.vehicleid
+
+            axios.get(`/api/v2/vehicle/${vehicleId}/images`)
+                .then((response) => {
+                    this.mainImageSrc = response.data.images[0];
+                })
+        },
+
         addSlashes(string) {
             var result = "";
             for (var i = 0; i < string.length; i++) {
@@ -92,20 +101,20 @@ export default {
             axios.get('/api/v1/user')
                 .then(response => {
                     const user = response.data.user;
-                    this.user.name = user.user.name;
-                    this.user.email = user.user.email;
-                    this.user.phonenumber = user.user.phonenumber;
-                    this.user.company.name = user.company.name;
-                    this.user.company.kvknumber = user.company.kvknumber;
-                    this.user.streetname = user.address.streetname;
-                    this.user.housenumber = user.address.housenumber;
-                    this.user.postalcode = user.address.postalcode;
-                    this.user.city = user.address.city;
-                    this.user.country = user.address.country;
+                    this.user.name = user.name;
+                    this.user.email = user.email;
+                    this.user.phonenumber = user.phonenumber;
+                    this.user.company.name = user.company ? user.company.name : '';
+                    this.user.company.kvknumber = user.company ? user.company.kvknumber : '';
+                    this.user.streetname = user.address ? user.address.streetname : '';
+                    this.user.housenumber = user.address ? user.address.housenumber : '';
+                    this.user.postalcode = user.address ? user.address.postalcode : '';
+                    this.user.city = user.address ? user.address.city : '';
+                    this.user.country = user.address ? user.address.country : '';
                     // this.user = response.data.dealer;
                 })
                 .catch((error) => {
-                    console.log(error.response.data.message)
+                    console.log(error)
                 })
         },
 

@@ -36,18 +36,21 @@
 
         .images-wrapper {
             position: relative;
-
-            .main-image {
-                margin-bottom: 15px;
-            }
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
 
              .slider-wrapper {
                 .swiper {
                     position: unset !important;
 
-                    .image-class {
-                        object-fit: cover;
-                        width: 100%;
+                    .swiper-wrapper {
+                        .swiper-slide {
+                            .image-class {
+                                aspect-ratio: 1/1;
+                                object-fit: cover;
+                            }
+                        }
                     }
 
                     .swiper-button-prev, .swiper-button-next {
@@ -63,6 +66,8 @@
 
             .main-image {
                 width: 100%;
+                aspect-ratio: 1/1;
+                object-fit: cover;
             }
         }
 

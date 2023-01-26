@@ -4,7 +4,7 @@
 
 return [
     'contact' => 'Get in touch',
-    'subtext' => "We would love to hear from you!",
+    'subtext' => "You can send us a message below, we will contact you as soon as possible!",
     'firstname' => 'Firstname',
     'firstname-placeholder' => 'John',
     'lastname' => 'Lastname',

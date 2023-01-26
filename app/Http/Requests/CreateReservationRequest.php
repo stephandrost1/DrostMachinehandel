@@ -34,7 +34,7 @@ class CreateReservationRequest extends FormRequest
             'user' => 'array',
             'user.name' => 'required',
             'user.email' => 'required|email',
-            'user.phonenumber' => 'required|regex:/^[0-9]{10}$/',
+            'user.phonenumber' => 'required',
             'user.streetname' => 'required',
             'user.housenumber' => 'required',
             'user.postalcode' => 'required|regex:/^[0-9]{4}[a-zA-Z]{2}$/',

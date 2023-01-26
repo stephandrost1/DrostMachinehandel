@@ -11,7 +11,7 @@ class VehicleImagesController extends Controller
 {
     public function create(Request $request)
     {
-        if (is_null($request->file) || is_null($request->vehicleId)) {
+        if (is_null($request->file)) {
             return response()->json(["message" => "missing file"], 400);
         }
 
@@ -45,7 +45,7 @@ class VehicleImagesController extends Controller
 
             return response()->json(["images" => $images], 200);
         } catch (Exception $e) {
-            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
+            return log_and_return_error(request(), $e->getMessage());
         }
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateReservationRequest;
+use App\Mail\ReservationMail;
 use App\Models\Dealer;
 use App\Models\DealerVehicle;
 use App\Models\GuestUser;
@@ -22,6 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class ReservationController extends Controller
 {
@@ -166,7 +168,7 @@ class ReservationController extends Controller
                 $user = GuestUser::find($this->getUsersAccountId($request));
             }
 
-            if (!$this->createReservation($user->id, $request, $duration)) {
+            if (!$this->createReservation($user->id, $request, $duration, $user)) {
                 throw new Exception("Er is iets fout gegaan bij het aanmaken van de reservering, probeer het later opnieuw!");
             }
 
@@ -181,7 +183,7 @@ class ReservationController extends Controller
         }
     }
 
-    private function createReservation(string $id, object $request, $duration)
+    private function createReservation(string $id, object $request, $duration, $user)
     {
         try {
             $distance = $this->fetchDistanceFromPostalCode(preg_replace('/\s/', '', $request->user["postalcode"]));
@@ -196,11 +198,18 @@ class ReservationController extends Controller
                 "duration" => $this->convertToYWD($duration),
             ]);
 
+            $startDate = Carbon::createFromFormat("d/m/Y", $request->startDate)->timezone("Europe/Amsterdam");
+            $endDate = Carbon::createFromFormat("d/m/Y", $request->endDate)->timezone("Europe/Amsterdam");
+
             $newReservationDate = ReservationDate::create([
                 "reservation_id" => $newReservation->id,
-                "startDate" => Carbon::createFromFormat("d/m/Y", $request->startDate)->timezone("Europe/Amsterdam"),
-                "endDate" => Carbon::createFromFormat("d/m/Y", $request->endDate)->timezone("Europe/Amsterdam"),
+                "startDate" => $startDate,
+                "endDate" => $endDate,
             ]);
+
+            $vehicleName = Vehicle::find($request->vehicleId)->first()->toArray()["vehicle_name"];
+
+            $this->sendReservationAcceptedMail($vehicleName, $startDate, $endDate, $user->email);
 
             return true;
         } catch (Exception $e) {
@@ -333,6 +342,26 @@ class ReservationController extends Controller
         $distance = $earth_radius * acos(cos($lat1) * cos($lat2) * cos($lng1 - $lng2) + sin($lat1) * sin($lat2));
 
         return $distance;
+    }
+
+    private function sendReservationAcceptedMail($vehicleName, $startDate, $endDate, $to)
+    {
+        $details = [
+            "vehicle" => $vehicleName,
+            "startDate" => $startDate,
+            "endDate" => $endDate,
+            "currentTime" => date("F j, Y, g:i a")
+        ];
+
+        try {
+            Mail::to($to)->send(new ReservationMail($details));
+        } catch (Exception $e) {
+            Log::emergency("ContactController", [
+                "action" => "submitRequest",
+                "error" => $e->getMessage(),
+                "to_email_address" => $to,
+            ]);
+        }
     }
 
     private function getUsersAccountId(object $request)
