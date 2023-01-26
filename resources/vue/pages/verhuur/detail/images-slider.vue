@@ -13,15 +13,15 @@
                 </div>
             </div>
             <div>
-                <img :src="images[currentImage]['image_location'] + images[currentImage]['image_name'] + '.' +
-                images[currentImage]['image_type']" class="image-class" alt="slider-item">
+                <img :src="currentMainImageSrc" class="image-class" alt="slider-item">
             </div>
 
         </div>
-        <div style="grid-template-columns: repeat(1fr, calc(50% - 40px));" class="grid gap-3 overflow-auto">
+        <div class="grid grid-cols-4 md:grid-cols-7 gap-2 overflow-auto">
             <div v-for="(image, index) in images" :key="image.id">
-                <img @click="selectImg(index)" class="w-56 cursor-pointer"
-                    :src="`${image.image_location}${image.image_name}.${image.image_type}`" alt="slider-item">
+                <img @click="selectImg(index)" :class="[currentImage == index ? 'border-primary border-2' : '']"
+                    class="cursor-pointer" :src="`${image.image_location}${image.image_name}.${image.image_type}`"
+                    alt="slider-item">
             </div>
         </div>
     </div>
@@ -35,6 +35,12 @@ export default {
         return {
             images: null,
             currentImage: 0,
+        }
+    },
+    computed: {
+        currentMainImageSrc() {
+            return this.images[this.currentImage]['image_location'] + this.images[this.currentImage]['image_name'] + '.' +
+                this.images[this.currentImage]['image_type']
         }
     },
     mounted() {

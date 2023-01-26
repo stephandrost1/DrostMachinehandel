@@ -24,7 +24,13 @@ export default {
     methods: {
         _handleVehicleClick() {
             window.location.href = `/verhuur/detail/${this.vehicle.id}/${encodeURIComponent(this.vehicle.vehicle_name)}`;
-        }
+        },
+        capitalized(name) {
+            const capitalizedFirst = name[0].toUpperCase();
+            const rest = name.slice(1);
+
+            return capitalizedFirst + rest;
+        },
     }
 }
 
@@ -37,7 +43,7 @@ export default {
         </div>
         <div class="card-body">
             <div class="vehicle-description-content">
-                <a class="vehicle-title">{{ vehicle.vehicle_name }}</a>
+                <a class="vehicle-title">{{ capitalized(vehicle.vehicle_name) }}</a>
 
                 <div class="vehicle-description">
                     <ul class="description-list">
