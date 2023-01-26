@@ -11,6 +11,8 @@ class ReservationMail extends Mailable
     use Queueable, SerializesModels;
 
     private $details;
+    public $subject;
+    public $title;
     /**
      * Create a new message instance.
      *
@@ -18,6 +20,8 @@ class ReservationMail extends Mailable
      */
     public function __construct($details)
     {
+        $this->subject = "U heeft een nieuwe reservering ontvangen!";
+        $this->title = "Nieuwe reservering";
         $this->details = $details;
     }
 
