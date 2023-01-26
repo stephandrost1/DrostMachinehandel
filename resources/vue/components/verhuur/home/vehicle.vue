@@ -41,6 +41,7 @@ export default {
 
                 <div class="vehicle-description">
                     <ul class="description-list">
+                        <li class="description-item">Aantal beschikbaar : {{ vehicle.stock }}</li>
                         <dm-detail v-for="detail in vehicle.details" :key="detail.id" :detail="detail"></dm-detail>
                     </ul>
                 </div>

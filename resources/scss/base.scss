@@ -1738,16 +1738,6 @@ select {
   background-color: rgb(191 219 254 / var(--tw-bg-opacity));
 }
 
-.bg-red-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
-}
-
-.bg-gray-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
-}
-
 .bg-opacity-75 {
   --tw-bg-opacity: 0.75;
 }
@@ -2148,17 +2138,13 @@ select {
   line-height: 1rem;
 }
 
-.text-\[2rem\] {
-  font-size: 2rem;
+.text-\[1\.5rem\] {
+  font-size: 1.5rem;
 }
 
 .text-5xl {
   font-size: 3rem;
   line-height: 1;
-}
-
-.text-\[1\.5rem\] {
-  font-size: 1.5rem;
 }
 
 .font-medium {

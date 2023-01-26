@@ -74,15 +74,17 @@ export default {
                     <dm-active-filter v-for="filter in getActiveFilters" :key="filter.id"
                         :filter="filter"></dm-active-filter>
                 </div>
-                <div v-if="hasActiveFilters" @click="deleteActiveFilters" class="delete-active-filters">Verwijder alle filters</div>
+                <div v-if="hasActiveFilters" @click="deleteActiveFilters" class="delete-active-filters">Verwijder alle
+                    filters</div>
             </div>
             <div id="filters" class="filters">
                 <dm-filter v-for="filter in getFilters" :key="filter.id" :filter="filter"></dm-filter>
             </div>
         </div>
         <div id="results_content" class="results-content">
-            <div class="result-amount result-amount-desktop">{{ getVehicleCount == 0 ? 'Geen': getVehicleCount }} Resultaten gevonden</div>
-            <div class="machines-wrapper">
+            <div class="result-amount result-amount-desktop">{{ getVehicleCount == 0 ? 'Geen' : getVehicleCount }}
+                Resultaten gevonden</div>
+            <div class="machines-wrapper grid grid-cols-2">
                 <dm-vehicle v-for="vehicle in getVehicles" :key="vehicle.id" :vehicle="vehicle"></dm-vehicle>
             </div>
         </div>
