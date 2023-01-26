@@ -17,7 +17,7 @@
                 <div id="vehicle-id" data-vehicleid="{{ $vehicle->id }}"></div>
             </div>
             <div class="specs-wrapper">
-                <div class="vehicle-title">{{ $vehicle->vehicle_name }}</div>
+                <div class="vehicle-title break-words">{{ $vehicle->vehicle_name }}</div>
                 <div class="specs">
                     <table class="w-full border-separate border-spacing-3">
                         <tbody>
