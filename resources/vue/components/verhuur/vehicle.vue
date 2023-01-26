@@ -131,17 +131,27 @@ export default {
                 images: this.getVehicleImages
             }
 
-            axios.patch(`/api/v1/vehicles/${this.getVehicle.id}/update`, vehicleData)
-                .then((response) => {
-                    this.$toast.success(response.data.message);
-                }).catch((error) => {
-                    this.$toast.error(error.response.data.message)
-                })
+            if (_.isNull(this.getVehicle.id)) {
+                axios.post(`/api/v1/vehicles`, vehicleData)
+                    .then((response) => {
+                        this.$store.dispatch("addNewVehicle", { ...vehicleData, vehicle_name: this.vehicle.name, vehicle_description: this.vehicle.description, id: response.data.vehicle_id });
+                        this.$toast.success(response.data.message);
+                    }).catch((error) => {
+                        this.$toast.error(error.response.data.message)
+                    })
+            } else {
+                axios.patch(`/api/v1/vehicles/${this.getVehicle.id}/update`, vehicleData)
+                    .then((response) => {
+                        this.$toast.success(response.data.message);
+                    }).catch((error) => {
+                        this.$toast.error(error.response.data.message)
+                    })
 
-            this.$store.commit("UPDATE_VEHICLE_NAME_BY_ID", {
-                vehicleId: this.getVehicle.id,
-                vehicleName: this.vehicle.name,
-            });
+                this.$store.commit("UPDATE_VEHICLE_NAME_BY_ID", {
+                    vehicleId: this.getVehicle.id,
+                    vehicleName: this.vehicle.name,
+                });
+            }
         }
     },
 }
@@ -162,9 +172,10 @@ export default {
                     </div>
                 </div>
                 <div class="row-2 flex gap-5 border-t-2 border-primary pt-5">
-                    <div class="image-uploader w-fit h-min border-2 rounded-lg border-primary">
+                    <div v-if="getVehicle.id !== ''" class="image-uploader w-fit h-min border-2 rounded-lg border-primary">
                         <dm-dropzone></dm-dropzone>
                     </div>
+                    <div v-else>U moet eerst de machine opslaan voordat u afbeeldingen kan toevoegen</div>
                     <div class="vehicle-swiper w-auto user-select-none">
                         <div class="vehicle-swiper-wrapper gap-2 h-full grid grid-cols-2 min-[1150px]:grid-cols-2">
                             <dm-vehicle-image-item v-for="image in getVehicleSwiperImages" :key="image.id"
@@ -188,9 +199,9 @@ export default {
                     <dm-vehicle-stock-block @_handleStockInput="_handleStockInput"
                         :value="vehicle.stock"></dm-vehicle-stock-block>
 
-                    <dm-vehicle-specs-block></dm-vehicle-specs-block>
+                    <dm-vehicle-specs-block v-if="getVehicle.id !== ''"></dm-vehicle-specs-block>
 
-                    <dm-vehicle-filters-block></dm-vehicle-filters-block>
+                    <dm-vehicle-filters-block v-if="getVehicle.id !== ''"></dm-vehicle-filters-block>
                 </div>
                 <div class="buttons mt-6 flex items-end justify-end gap-2 md:gap-5 ">
                     <div id="delete-selected-vehicle">

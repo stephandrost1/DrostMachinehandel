@@ -228,7 +228,8 @@ export default {
 
 <template>
     <section class="w-full flex vue-dealer-requests">
-        <div class="mt-2 flex gap-5 grow">
+        <h1>Deze pagina is momenteel in onderhoud!</h1>
+        <div v-if="false" class="mt-2 flex gap-5 grow">
             <div class="personal-items block w-full">
                 <div class="block items-center gap-5">
                     <div class="grow">

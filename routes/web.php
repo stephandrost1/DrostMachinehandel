@@ -86,9 +86,14 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
             Route::delete("/{id}", [MaintenanceVehicleController::class, "destroy"]);
             Route::patch("/{id}", [MaintenanceVehicleController::class, "update"]);
         });
-        Route::post("/images/upload", [VehicleImagesController::class, "create"]);
+
+        Route::prefix("/images")->group(function () {
+            Route::post("/upload", [VehicleImagesController::class, "create"]);
+            Route::get("/{id}", [VehicleImagesController::class, "show"]);
+        });
         Route::get("/views", [VehicleController::class, "vehicleViews"]);
         Route::get("/{id}", [VehicleController::class, "show"]);
+        Route::post('/', [VehicleController::class, "create"]);
         Route::delete("/{id}/delete", [VehicleController::class, "destroy"]);
         Route::patch('/{id}/update', [VehicleController::class, "update"]);
     });
@@ -112,6 +117,7 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
         Route::prefix("/vehicles")->group(function () {
             Route::get('/', [DealerVehicleController::class, "index"])->where("svm", '[a-zA-Z0-9/_-]+');
             Route::get('/fetch', [DealerVehicleController::class, "fetchVehicles"]);
+            Route::patch('/{id}/update', [DealerVehicleController::class, "update"]);
         });
         Route::get('/vehicle', [DealerVehicleController::class, "getById"])->where("svm", '[a-zA-Z0-9/_-]+');
     });

@@ -6,7 +6,7 @@
 <div class="px-5 md:px-20 py-7">
     <div class="page-back-button">
         <a class="back-button" href="{{ route("verhuur") }}"><i class="fas fa-chevron-left back-arrow text-white"></i><span>Terug naar overzicht</span></a>
-      </div>
+    </div>
 
     <div class="detail-wrapper">
         <div id="get-vehicle-id" class="hidden" data-vehicleid="{{$vehicle->id}}"></div>

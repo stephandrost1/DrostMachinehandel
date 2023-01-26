@@ -108,7 +108,8 @@ export default {
                 <div class="hidden md:block">
                     <div class="body flex">
                         <div class="col-left">
-                            <dm-new-action></dm-new-action>
+                            <dm-new-action v-if="!addVehicle"></dm-new-action>
+                            <div v-else>Sla eerst de nieuwe machine op voordat u acties kunt toevoegen!</div>
 
                             <dm-action v-for="action in getActionsObject.left" :key="action.id"
                                 :action="action"></dm-action>

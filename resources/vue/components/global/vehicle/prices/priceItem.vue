@@ -58,7 +58,7 @@ export default {
         },
 
         formatNumber(number) {
-            return number.replace(/[^0-9]/g, '');
+            return number.toString().replace(/[^0-9]/g, '');
         }
     },
 

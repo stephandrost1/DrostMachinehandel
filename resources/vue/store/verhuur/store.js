@@ -40,6 +40,10 @@ export default createStore({
             state.vehicles = vehicles;
         },
 
+        ADD_VEHICLE(state, vehicle) {
+            state.vehicles.push(vehicle);
+        },
+
         SET_SELECTED_VEHICLE(state, vehicle) {
             state.selectedVehicle = vehicle;
         },
@@ -181,6 +185,11 @@ export default createStore({
                 .then((response) => {
                     commit("SET_VEHICLES", response.data.vehicles);
                 })
+        },
+
+        async addNewVehicle({ commit }, vehicle) {
+            commit("ADD_VEHICLE", vehicle);
+            commit("SET_SELECTED_VEHICLE", vehicle);
         },
 
         async fetchVehicleById({ commit }, id) {

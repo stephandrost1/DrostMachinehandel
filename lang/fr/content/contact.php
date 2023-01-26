@@ -4,7 +4,7 @@
 
 return [
     'contact' => 'Contact',
-    'subtext' => 'Voici comment entrer en contact...',
+    'subtext' => 'Vous pouvez nous envoyer un message ci-dessous, nous vous contacterons dans les plus brefs délais!',
     'firstname' => 'Prénom',
     'firstname-placeholder' => 'John',
     'lastname' => 'Nom de famille',
