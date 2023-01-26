@@ -78,7 +78,7 @@ export default {
                     <!-- <p class="text-xs text-center text-primary">SVG, PNG, JPG or GIF</p> -->
                     <!-- <p class="text-xs text-center text-primary whitespace-nowrap">(MAX. 800x400px)</p> -->
                 </div>
-                <input @change="_handleDropzone" id="dropzone-file" multiple type="file" class="hidden">
+                <input @change="_handleDropzone" id="dropzone-file" type="file" class="hidden">
             </label>
         </div>
     </div>

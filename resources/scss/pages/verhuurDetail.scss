@@ -36,6 +36,10 @@
 
         .images-wrapper {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
              .slider-wrapper {
                 .swiper {
                     position: unset !important;
@@ -53,6 +57,8 @@
 
             .main-image {
                 width: 100%;
+                aspect-ratio: 1/1;
+                object-fit: cover;
             }
         }
 

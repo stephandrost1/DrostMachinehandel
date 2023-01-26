@@ -86,7 +86,11 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
             Route::delete("/{id}", [MaintenanceVehicleController::class, "destroy"]);
             Route::patch("/{id}", [MaintenanceVehicleController::class, "update"]);
         });
-        Route::post("/images/upload", [VehicleImagesController::class, "create"]);
+
+        Route::prefix("/images")->group(function () {
+            Route::post("/upload", [VehicleImagesController::class, "create"]);
+            Route::get("/{id}", [VehicleImagesController::class, "show"]);
+        });
         Route::get("/views", [VehicleController::class, "vehicleViews"]);
         Route::get("/{id}", [VehicleController::class, "show"]);
         Route::post('/', [VehicleController::class, "create"]);

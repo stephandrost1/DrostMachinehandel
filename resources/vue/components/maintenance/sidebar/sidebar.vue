@@ -56,9 +56,11 @@ export default {
                             <span class="font-bold text-primary text-lg">Machines:</span>
                         </div>
                         <div id="select-rent-vehicle-dropdown" class="possible-options flex flex-col gap-2 duration-300">
-                            <dm-sidebar-vehicle-item @click="_handleSelectVehicle(vehicle)" v-for="vehicle in getVehicles"
-                                :key="vehicle.id" :vehicle-name="vehicle.vehicle_name"
-                                :vehicle-id="vehicle.id"></dm-sidebar-vehicle-item>
+                            <template v-if="getVehicles.length > 0">
+                                <dm-sidebar-vehicle-item @click="_handleSelectVehicle(vehicle)" v-for="vehicle in getVehicles" :key="vehicle.id" :vehicle-name="vehicle.vehicle_name" :vehicle-id="vehicle.id"></dm-sidebar-vehicle-item>
+                            </template>
+                   
+                            <template v-else><p>Er zijn nog geen machines toegevoegd!</p></template>
                         </div>
                     </div>
                 </div>

@@ -1474,6 +1474,10 @@ select {
   overflow-y: auto;
 }
 
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -3125,6 +3129,11 @@ select {
 
   .md\:w-1\/2 {
     width: 50%;
+  }
+
+  .md\:w-fit {
+    width: -moz-fit-content;
+    width: fit-content;
   }
 
   .md\:flex-row {
