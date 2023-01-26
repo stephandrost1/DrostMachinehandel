@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const canvas = document.querySelector('#svm-canvas');
+var dealerVehicles = [];
 var initted = false;
 
 const fetchVehicles = async () => {
@@ -15,17 +16,84 @@ const getVehicleElements = async () => {
     const form = canvas.querySelector('form.whsearch-form');
     const stockResults = form.querySelector('div#resultsTable');
 
-    const dealerVehicles = await fetchVehicles();
+    if (dealerVehicles.length < 1) {
+        dealerVehicles = await fetchVehicles();
+    }
 
     let vehicles = stockResults.querySelectorAll('div.vehicle-card');
-
     [...vehicles].forEach((vehicle) => {
         const vehicleHref = vehicle.querySelector("div.card-links a.details-link").href;
-        const vehicleQuery = vehicleHref.replace(window.location.href + "/machine", "");
-
-        const dealerVehicle = dealerVehicles.filter((v) => v.vehicle_url == vehicleQuery);
-
+        const vehicleName = vehicle.querySelector("div.card-body .vehicle-full-title").innerHTML;
+        const vehicleQuery = vehicleHref.split("vehicles/")[1];
+        const dealerVehicle = dealerVehicles.filter((v) => {
+            const vQuery = v.vehicle_url.replace("?svm=/stock/", "");
+            console.log("-------------")
+            console.log("vehicles/" + vehicleQuery);
+            console.log(vQuery);
+            console.log("-------------")
+            return v.vehicle_name == vehicleName && vQuery == "vehicles/" + vehicleQuery
+        });
         setVehicleDealerPrice(vehicle, dealerVehicle)
+    })
+}
+
+const _handleFiltersListener = () => {
+    const filtersAdd = document.querySelectorAll(".refineAdd");
+    const filtersRemove = document.querySelectorAll(".refineRemove");
+
+    if (!filtersAdd && !filtersRemove) {
+        return;
+    }
+
+    _.forEach([...filtersAdd, ...filtersRemove], (filter) => {
+        filter.addEventListener("click", () => {
+            initted = false;
+        })
+    })
+}
+
+const _handleRemoveAllFiltersButtonListener = () => {
+    const filtersRemoveAll = document.querySelectorAll("#refineActiveFilters .refineActiveFilter");
+
+    if (_.isEmpty(filtersRemoveAll)) {
+        return;
+    }
+
+    _.forEach([...filtersRemoveAll], (filter) => {
+        filter.addEventListener("click", () => {
+            initted = false;
+        })
+    })
+}
+
+const _handleSortFiltersListener = () => {
+    const selectorOptions = document.querySelectorAll("#svm-canvas .navigation #sort_resultsSelectBoxItOptions li.selectboxit-option");
+
+    _.forEach([...selectorOptions], (option) => {
+        option.addEventListener("click", () => {
+            initted = false;
+        })
+    })
+}
+
+const _handlePagerListener = () => {
+    const pagers = document.querySelectorAll("#svm-canvas #pageContent #stock .navigation .pager a.page");
+
+    _.forEach([...pagers], (pager) => {
+        pager.addEventListener("click", () => {
+            initted = false;
+        })
+    });
+}
+
+const _handlePriceFilterListener = () => {
+    const priceMin = document.querySelectorAll("#svm-canvas #refine .svmRefineOption .field-min");
+    const priceMax = document.querySelectorAll("#svm-canvas #refine .svmRefineOption .field-max");
+
+    _.forEach([...priceMin, ...priceMax], (filter) => {
+        filter.addEventListener("click", (filter) => {
+            initted = false;
+        })
     })
 }
 
@@ -46,8 +114,12 @@ const _handleCanvasListener = (targetNode) => {
         for (let mutation of mutationsList) {
             if (mutation.type === 'childList') {
                 if (!initted) {
-                    fetchVehicles();
                     getVehicleElements();
+                    _handleFiltersListener();
+                    _handlePagerListener();
+                    _handleSortFiltersListener();
+                    _handleRemoveAllFiltersButtonListener();
+                    _handlePriceFilterListener();
                     initted = true;
                 }
             }
