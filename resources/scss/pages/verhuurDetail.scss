@@ -44,6 +44,15 @@
                 .swiper {
                     position: unset !important;
 
+                    .swiper-wrapper {
+                        .swiper-slide {
+                            .image-class {
+                                aspect-ratio: 1/1;
+                                object-fit: cover;
+                            }
+                        }
+                    }
+
                     .swiper-button-prev, .swiper-button-next {
                         top: 35% !important;
                         position: absolute;

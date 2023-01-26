@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Mail\DealerCreateAccountMail;
 use App\Models\User;
 use App\Models\UserAddress;
 use App\Models\UserCompany;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -135,10 +137,32 @@ class UserController extends Controller
                 "btwnumber" => $request->btwnumber,
             ]);
 
+            $this->sendReservationAcceptedMail($request->firstname, $request->lastname, $request->phonenumber, $request->email);
+
             session()->flash('success', 'Uw account is succesvol aangemaakt!');
             return redirect()->route("login");
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage())->withInput();
+        }
+    }
+
+    private function sendReservationAcceptedMail($firstname, $lastname, $phonenumber, $email)
+    {
+        $details = [
+            "firstname" => $firstname,
+            "lastname" => $lastname,
+            "phonenumber" => $phonenumber,
+            "email" => $email,
+        ];
+
+        try {
+            Mail::to(SettingsController::fetchSetting("contact_email"))->send(new DealerCreateAccountMail($details));
+        } catch (Exception $e) {
+            Log::emergency("ContactController", [
+                "action" => "submitRequest",
+                "error" => $e->getMessage(),
+                "to_email_address" => SettingsController::fetchSetting("contact_email"),
+            ]);
         }
     }
 
