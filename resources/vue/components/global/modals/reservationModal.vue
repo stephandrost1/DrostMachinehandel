@@ -81,9 +81,9 @@ export default {
         fetchMainImage() {
             const vehicleId = document.querySelector("#get-vehicle-id").dataset.vehicleid
 
-            axios.get(`/api/v1/vehicles/images/${vehicleId}`)
+            axios.get(`/api/v2/vehicle/${vehicleId}/images`)
                 .then((response) => {
-                    this.mainImageSrc = response.data.image;
+                    this.mainImageSrc = response.data.images[0];
                 })
         },
 

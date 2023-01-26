@@ -44,6 +44,8 @@
             
             @media (min-width: 1121px) {
                 width: 100%;
+                aspect-ratio: 1/1;
+                object-fit: cover;
             }
         }
 
