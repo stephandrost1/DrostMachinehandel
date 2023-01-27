@@ -783,6 +783,14 @@ select {
   bottom: 1.5rem;
 }
 
+.top-\[96px\] {
+  top: 96px;
+}
+
+.top-\[76px\] {
+  top: 76px;
+}
+
 .top-0 {
   top: 0px;
 }
@@ -811,6 +819,10 @@ select {
   left: 50%;
 }
 
+.top-\[85px\] {
+  top: 85px;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -833,6 +845,11 @@ select {
 
 .order-1 {
   order: 1;
+}
+
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
 }
 
 .my-2 {
@@ -868,16 +885,6 @@ select {
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
-}
-
-.mx-10 {
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
-}
-
-.mx-5 {
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
 }
 
 .ml-3 {
@@ -2824,7 +2831,22 @@ select {
   display: block;
 }
 
+@media (min-width: 380px) {
+  .min-\[380px\]\:top-\[96px\] {
+    top: 96px;
+  }
+
+  .min-\[380px\]\:top-\[104px\] {
+    top: 104px;
+  }
+}
+
 @media (min-width: 640px) {
+  .sm\:mx-0 {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
   .sm\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -2833,11 +2855,6 @@ select {
   .sm\:my-8 {
     margin-top: 2rem;
     margin-bottom: 2rem;
-  }
-
-  .sm\:mx-0 {
-    margin-left: 0px;
-    margin-right: 0px;
   }
 
   .sm\:ml-10 {
@@ -3202,6 +3219,14 @@ select {
   .md\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  .min-\[768px\]\:top-\[112px\] {
+    top: 112px;
+  }
+
+  .min-\[768px\]\:top-\[104px\] {
+    top: 104px;
   }
 }
 
