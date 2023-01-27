@@ -2,10 +2,8 @@ const arrowDown = document.getElementById("homepage-arrow-down");
 
 if (arrowDown) {
     arrowDown.addEventListener("click", function (event) {
+        var element = document.getElementById("check-our-vehicles");
 
-        window.scrollTo({
-            top: parseInt(window.innerHeight) - 50,
-            behavior: "smooth"
-        })
+        element.scrollIntoView({ behavior: "smooth" });
     });
 }

@@ -271,31 +271,10 @@
                   </div>
                 </li>
               @else
-                <li class="border-b-2 border-secondary ml-4 @if(Request::is('login') || Request::is('dealer/login')) !border-primary @endif">
-                  <div class="group inline-block relative w-full mt-8 font-bold pb-2">
-                    <button
-                      class="inline-flex items-center text-xl xl:text-2xl font-bold "
-                    >
-                      <span class="mr-1 text-[1.5rem]">{{ __('content/navbar.login') }}</span>
-                      <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <ul class="absolute w-full hidden text-gray-700 pt-1 group-hover:block">
-                      <li>
-                        <a
-                          class="rounded-t bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('login')) underline decoration-primary underline-offset-2 decoration-2 @endif"
-                          href="{{ route("login") }}"
-                          >{{ __('content/navbar.admin-login') }}</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          class="rounded-b bg-secondary font-bold hover:bg-gray-600 text-white py-2 px-4 block whitespace-no-wrap @if(Request::is('dealer/login')) underline decoration-primary underline-offset-2 decoration-2 @endif"
-                          href="{{ route("dealer-voorraad") }}"
-                          >{{ __('content/navbar.dealer-login') }}</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
+                <li>
+                  <a href={{ route("login") }}>
+                    <div class="navbar-item @if(Request::is('login')) active @endif">{{ __('content/navbar.login') }}</div>
+                  </a>
                 </li>
               @endif
             </ul>

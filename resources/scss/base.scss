@@ -870,6 +870,16 @@ select {
   margin-bottom: 1.25rem;
 }
 
+.mx-10 {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -1196,10 +1206,6 @@ select {
 
 .w-\[38px\] {
   width: 38px;
-}
-
-.w-56 {
-  width: 14rem;
 }
 
 .min-w-full {

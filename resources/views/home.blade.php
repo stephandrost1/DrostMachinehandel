@@ -34,7 +34,7 @@
 </div>
   
 
-  <div class="w-full h-fit md:h-40 bg-primary flex items-center justify-center" id="scroll-to-here">
+  <div id="check-our-vehicles" class="w-full h-fit md:h-40 bg-primary flex items-center justify-center" id="scroll-to-here">
     <div class="flex flex-col items-center justify-center gap-1 md:py-0 py-3">
       <div class="text-xl md:text-2xl lg:text-3xl  font-bold block text-center">{{ __('content/homepage.quote') }}</div>
       <a href={{ route("voorraad") }}>
