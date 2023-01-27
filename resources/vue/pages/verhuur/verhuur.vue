@@ -64,7 +64,7 @@ export default {
     <div class="verhuur-content">
         <div class="total-filter-wrapper">
             <div id="result_amount_mobile" class="result-amount result-amount-mobile">{{ getVehicleCount == 0 ? 'Geen' :
-            getVehicleCount }} {{ getVehicleCount > 1 ? "Resultaten" : "Resultaat" }} gevonden</div>
+            getVehicleCount }} {{ getVehicleCount == 1 ? "Resultaat" : "Resultaten" }} gevonden</div>
             <div id="hide_filters" class="close-filters-button">
                 <span class="hide-filter-text">Filters</span>
                 <span style="float: right;" onclick="hideFilters()"><i class="fas fa-times"></i></span>
@@ -84,7 +84,7 @@ export default {
         </div>
         <div id="results_content" class="results-content">
             <div class="result-amount result-amount-desktop">{{ getVehicleCount == 0 ? 'Geen' : getVehicleCount }}
-                Resultaten gevonden</div>
+                {{ getVehicleCount == 1 ? "Resultaat" : "Resultaten" }} gevonden</div>
             <div class="machines-wrapper grid grid-cols-2">
                 <dm-vehicle v-for="vehicle in getVehicles" :key="vehicle.id" :vehicle="vehicle"></dm-vehicle>
             </div>

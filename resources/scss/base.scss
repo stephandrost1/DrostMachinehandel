@@ -783,14 +783,6 @@ select {
   bottom: 1.5rem;
 }
 
-.top-\[96px\] {
-  top: 96px;
-}
-
-.top-\[76px\] {
-  top: 76px;
-}
-
 .top-0 {
   top: 0px;
 }
@@ -817,10 +809,6 @@ select {
 
 .left-1\/2 {
   left: 50%;
-}
-
-.top-\[85px\] {
-  top: 85px;
 }
 
 .z-0 {
@@ -2831,16 +2819,6 @@ select {
   display: block;
 }
 
-@media (min-width: 380px) {
-  .min-\[380px\]\:top-\[96px\] {
-    top: 96px;
-  }
-
-  .min-\[380px\]\:top-\[104px\] {
-    top: 104px;
-  }
-}
-
 @media (min-width: 640px) {
   .sm\:mx-0 {
     margin-left: 0px;
@@ -3219,14 +3197,6 @@ select {
   .md\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
-  }
-
-  .min-\[768px\]\:top-\[112px\] {
-    top: 112px;
-  }
-
-  .min-\[768px\]\:top-\[104px\] {
-    top: 104px;
   }
 }
 
