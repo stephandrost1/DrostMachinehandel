@@ -9,7 +9,7 @@
                     <h1 class="font-bold pl-2">Onderhoud</h1>
                 </div>
             </div>
-            <div class="w-full h-full flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5" id="page-dashboard-maintenance">
+            <div class="w-full h-full flex-1 bg-gray-100 md:mt-2 pb-24 md:pb-5" id="page-dashboard-maintenance">
             </div>
         </div>
     </section>

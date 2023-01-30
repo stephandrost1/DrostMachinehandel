@@ -117,13 +117,21 @@ nav .lang-dropdown li:last-child a {
     #navbar-expanded-mobile {
         position: absolute;
         width: 100vw;
-        height: calc(100vh - -100px);
-        top: 88px !important;
+        height: calc(100vh + 100px);
+        top: 76px !important;
         left: 0;
         background: black;
         padding: 0 1.25rem !important;
         transform: translateY(-125%);
         transition: 0.6s ease-in-out;
+
+        @media screen and (min-width: 380px) {
+            top: 88px !important;
+        }
+
+        @media screen and (min-width: 768px) {
+            top: 104px !important;
+        }
 
         &.open {
             transform: translateY(0);
@@ -131,7 +139,7 @@ nav .lang-dropdown li:last-child a {
 
         .menu-list {
             .navbar-item {
-                font-size: 2rem;
+                font-size: 1.5rem;
                 margin-top: 2rem;
                 margin-left: 1rem;
                 font-weight: bold;

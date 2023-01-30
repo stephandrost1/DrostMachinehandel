@@ -6,7 +6,7 @@
 <div class="px-5 md:px-20 py-7">
     <div class="page-back-button">
         <a class="back-button" href="{{ route("verhuur") }}"><i class="fas fa-chevron-left back-arrow text-white"></i><span>Terug naar overzicht</span></a>
-      </div>
+    </div>
 
     <div class="detail-wrapper">
         <div id="get-vehicle-id" class="hidden" data-vehicleid="{{$vehicle->id}}"></div>
@@ -17,24 +17,26 @@
                 <div id="vehicle-id" data-vehicleid="{{ $vehicle->id }}"></div>
             </div>
             <div class="specs-wrapper">
-                <div class="vehicle-title">{{ $vehicle->vehicle_name }}</div>
+                <div class="vehicle-title break-words">{{ $vehicle->vehicle_name }}</div>
                 <div class="specs">
-                    @foreach($vehicle->details as $key => $detail)
-                        <div class="spec">
-                            <div class="spec-type">
-                                <span class="type">{{ $detail["detail_name"] }}</span>
-                                <span class="colon">:</span>
-                            </div>
-                            <div class="spec-value">{{ $detail["detail_value"] }}</div>
-                        </div>
-                    @endforeach
-                    <div class="spec">
-                        <div class="spec-type">
-                            <span class="type">Aantal beschikbaar</span>
-                            <span class="colon">:</span>
-                        </div>
-                        <div class="spec-value">{{ $vehicle->stock }}</div>
-                    </div>
+                    <table class="w-full border-separate border-spacing-3">
+                        <tbody>
+                            <tr>
+                                <td class="w-5/12 text-white font-bold text-xl">Aantal beschikbaar</td>
+                                <td class="w-2/12 text-primary font-bold text-xl">:</td>
+                                <td class="w-5/12 opacity-50 font-bold text-xl">{{ $vehicle->stock }}</td>
+                            </tr>
+                            <tr></tr>
+                            @foreach($vehicle->details as $key => $detail)
+                            <tr>
+                                <td class="w-5/12 text-white font-bold text-xl">{{ $detail["detail_name"] }}</td>
+                                <td class="w-2/12 text-primary font-bold text-xl">:</td>
+                                <td class="w-5/12 opacity-50 font-bold text-xl">{{ $detail["detail_value"] }}</td>
+                            </tr>
+                            <tr></tr>
+                            @endforeach
+                        </tbody>
+                      </table>
                 </div>
                 <div class="price-block">
                     <div class="price-wrapper">
@@ -68,6 +70,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="max-w-2xl">
+            <div class="text-2xl font-bold my-2">Beschrijving</div>
+
+            <div>
+                {{ $vehicle->vehicle_description }}
+            </div>
+            
         </div>
     </div>
 

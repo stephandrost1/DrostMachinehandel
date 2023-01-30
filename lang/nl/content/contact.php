@@ -4,7 +4,7 @@
 
 return [
     'contact' => 'Contact',
-    'subtext' => 'Hier informatie over contact opnemen...',
+    'subtext' => 'Hieronder kunt u ons een berichtje sturen, wij nemen zo spoedig mogelijk contact met u op!',
     'firstname' => 'Voornaam',
     'firstname-placeholder' => 'John',
     'lastname' => 'Achternaam',

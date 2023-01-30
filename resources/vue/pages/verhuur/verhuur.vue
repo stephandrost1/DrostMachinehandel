@@ -63,7 +63,8 @@ export default {
 <template>
     <div class="verhuur-content">
         <div class="total-filter-wrapper">
-            <div id="result_amount_mobile" class="result-amount result-amount-mobile">2 Resultaten gevonden</div>
+            <div id="result_amount_mobile" class="result-amount result-amount-mobile">{{ getVehicleCount == 0 ? 'Geen' :
+            getVehicleCount }} {{ getVehicleCount == 1 ? "Resultaat" : "Resultaten" }} gevonden</div>
             <div id="hide_filters" class="close-filters-button">
                 <span class="hide-filter-text">Filters</span>
                 <span style="float: right;" onclick="hideFilters()"><i class="fas fa-times"></i></span>
@@ -74,15 +75,17 @@ export default {
                     <dm-active-filter v-for="filter in getActiveFilters" :key="filter.id"
                         :filter="filter"></dm-active-filter>
                 </div>
-                <div v-if="hasActiveFilters" @click="deleteActiveFilters" class="delete-active-filters">Verwijder alle filters</div>
+                <div v-if="hasActiveFilters" @click="deleteActiveFilters" class="delete-active-filters">Verwijder alle
+                    filters</div>
             </div>
             <div id="filters" class="filters">
                 <dm-filter v-for="filter in getFilters" :key="filter.id" :filter="filter"></dm-filter>
             </div>
         </div>
         <div id="results_content" class="results-content">
-            <div class="result-amount result-amount-desktop">{{ getVehicleCount == 0 ? 'Geen': getVehicleCount }} Resultaten gevonden</div>
-            <div class="machines-wrapper">
+            <div class="result-amount result-amount-desktop">{{ getVehicleCount == 0 ? 'Geen' : getVehicleCount }}
+                {{ getVehicleCount == 1 ? "Resultaat" : "Resultaten" }} gevonden</div>
+            <div class="machines-wrapper grid grid-cols-2">
                 <dm-vehicle v-for="vehicle in getVehicles" :key="vehicle.id" :vehicle="vehicle"></dm-vehicle>
             </div>
         </div>
