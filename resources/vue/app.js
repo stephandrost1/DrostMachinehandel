@@ -7,6 +7,7 @@ import { createApp } from 'vue'
 import PageVehuur from './pages/verhuur/verhuur.vue';
 import PageRentDetailReservationForm from "./pages/verhuur/detail/reservation-form.vue";
 import ImageSlider from "./pages/verhuur/detail/images-slider.vue";
+import PageLease from "./pages/lease/lease.vue";
 
 //External components
 import verhuurStore from "./store/verhuur/home/store.js"
@@ -17,6 +18,7 @@ window.axios = axios;
 const verhuurApp = createApp(PageVehuur);
 const RentDetailReservationFormApp = createApp(PageRentDetailReservationForm);
 const ImageSliderApp = createApp(ImageSlider);
+const leaseApp = createApp(PageLease);
 
 verhuurApp.use(verhuurStore);
 
@@ -26,6 +28,10 @@ if (document.querySelector("#page-verhuur-app")) {
 
 if (document.querySelector("#dm-images-slider-app")) {
     ImageSliderApp.mount("#dm-images-slider-app");
+}
+
+if (document.querySelector("#lease-app")) {
+    leaseApp.mount("#lease-app");
 }
 
 function mountRentDetailApp() {
