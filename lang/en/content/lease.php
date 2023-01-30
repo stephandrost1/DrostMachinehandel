@@ -4,7 +4,7 @@
 
 return [
     'lease' => 'Lease',
-    'calculator' => 'Calculator',
+    'calculator' => 'Lease calculator',
     'arrange-financing' => 'Arrange advantageous financing? Easily calculate your monthly costs below and arrange your personal financing plan immediately.',
     'information-leasing' => 'Here comes information about leasing...',
     'purchase-value' => 'Purchase value',

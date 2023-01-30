@@ -4,7 +4,7 @@
 
 return [
     'lease' => 'Leasen',
-    'calculator' => 'Calculator',
+    'calculator' => 'Lease calculator',
     'arrange-financing' => 'Voordelige financiering regelen? Bereken hieronder gemakkelijk je maandlasten en regel direct je persoonlijk financieringsplan.',
     'information-leasing' => 'Hier komt informatie over leasen...',
     'purchase-value' => 'Aanschafwaarde',

@@ -4,7 +4,7 @@
 
 return [
     'lease' => 'Mieten',
-    'calculator' => 'Taschenrechner',
+    'calculator' => 'Mietrechner',
     'arrange-financing' => 'Günstige Finanzierung vereinbaren? Berechnen Sie unten einfach Ihre monatlichen Kosten und stellen Sie gleich Ihren persönlichen Finanzierungsplan zusammen.',
     'information-leasing' => 'Hier kommen Informationen zum Leasing...',
     'purchase-value' => 'Einkaufswert',

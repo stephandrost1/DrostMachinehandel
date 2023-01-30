@@ -4,9 +4,9 @@
 //VARIABLES
 @import "./base/variables.scss";
 
-@import "./pages/home.scss", "./pages/voorraad.scss", "./pages/detail.scss", "./pages/verhuur.scss", "./pages/verhuurDetail.scss", "./pages/contact.scss", "./pages/login.scss", "./pages/dealerCreate.scss";
+@import "./pages/home.scss", "./pages/lease.scss", "./pages/voorraad.scss", "./pages/detail.scss", "./pages/verhuur.scss", "./pages/verhuurDetail.scss", "./pages/contact.scss", "./pages/login.scss", "./pages/dealerCreate.scss";
 
-@import "./components/navbar.scss", "./components/swiper.scss", "./components/footer.scss", "./components/vehicleCard.scss", "./components/vue/reservationModal.scss";
+@import "./components/navbar.scss", "./components/swiper.scss", "./components/footer.scss", "./components/vehicleCard.scss", "./components/vue/reservationModal.scss", "./components//vue/lease.scss";
 
 .langDropdownDesktop {
     margin-top: 5px !important;

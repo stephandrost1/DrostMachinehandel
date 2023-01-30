@@ -4,7 +4,7 @@
 
 return [
     'lease' => 'Louer',
-    'calculator' => 'Calculatrice',
+    'calculator' => 'Calculateur de bail',
     'arrange-financing' => 'Organiser un financement avantageux ? Calculez facilement vos coûts mensuels ci-dessous et organisez immédiatement votre plan de financement personnel.',
     'information-leasing' => 'Voici des informations sur la location...',
     'purchase-value' => "Valeur d'achat",

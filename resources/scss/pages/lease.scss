@@ -1,0 +1,16 @@
+.page-leasen {
+    .content-wrapper {
+        max-width: 1760px !important;
+        margin: 0 auto;
+
+        .calculator-wrapper {
+            @media screen and (max-width: 1050px) {
+                flex-direction: column-reverse;
+
+                  .item {
+                        width: 100%;
+                    }
+            }
+        }
+    }
+}
