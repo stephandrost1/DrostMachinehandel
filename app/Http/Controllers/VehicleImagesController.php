@@ -48,4 +48,15 @@ class VehicleImagesController extends Controller
             return log_and_return_error(request(), $e->getMessage());
         }
     }
+
+    public function show($id)
+    {
+        try {
+            $vehicleImage = RentVehicleImage::where("vehicle_id", $id)->first();
+
+            return response()->json(["image" => $vehicleImage], 200);
+        } catch (Exception $e) {
+            return log_and_return_error(request(), $e->getMessage());
+        }
+    }
 }

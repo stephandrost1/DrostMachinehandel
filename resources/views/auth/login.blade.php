@@ -7,7 +7,7 @@
   <form action="{{ route("login") }}" method="POST">
       @csrf
     <input type="hidden" name="from_login_form" value="{{ $login ?? '1' }}">  
-      <div class="flex flex-col md:flex-row md:gap-20 md:justify-center bg-white rounded-xl mt-12 px-5 py-20 md:px-10 md:py-24">
+      <div class="flex flex-col md:flex-row md:gap-20 md:justify-center bg-white rounded-xl mx-5 sm:mx-0 mt-12 px-5 py-20 md:px-10 md:py-24">
           <div class="hidden md:flex items-center">
               <img src="{{ asset('img/login-image.png') }}" alt="IMG">
           </div>
@@ -17,7 +17,7 @@
                    <span>
                         {{ __('content/login.logon') }}
                     </span>
-                   <span class="text-[#999999] text-base max-w-[250px]">
+                   <span class="text-[#999999] text-base">
                         {{ __('content/login.subtext') }}
                   </span>
               </span>

@@ -92,13 +92,14 @@
 
         .vehicle-description {
             text-align: center !important;
-            padding-bottom: 1.5rem !important;
 
             .description-list {
-                padding: 1rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                padding-top: 1rem;
 
                 .description-item {
-                    font-size: large;
+                    font-size: 16px;
                     font-weight: bold;
                     padding-bottom: 0.125rem;
                     text-align: left;

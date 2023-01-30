@@ -83,7 +83,7 @@ export default {
 
             axios.get(`/api/v2/vehicle/${vehicleId}/images`)
                 .then((response) => {
-                    this.mainImageSrc = response.data.image;
+                    this.mainImageSrc = response.data.images[0];
                 })
         },
 

@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import vehicleImage from '../global/vehicle/images/vehicleImage.vue';
+import vehicleImage from '../global/vehicle/images/vehicleImageWithoutOverlay.vue';
 import nameBlock from '../global/vehicle/name/nameBlock.vue';
 import priceItem from '../global/vehicle/prices/priceItem.vue';
 
