@@ -90,6 +90,9 @@ export default {
                 .catch((error) => {
                     this.$toast.error(error.response.data.message);
                 })
+        },
+        _handleView() {
+            this.$emit("_handleView", this.reservation);
         }
     }
 }
@@ -108,7 +111,7 @@ export default {
             <p>{{ getReservationDistance }}</p>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
-            <a :href="getReservationVehicleLink">{{ getReservationVehicleName }}</a>
+            <a class="border-b border-primary-500 w-fit flex items-center gap-2" target="_blank" :href="getReservationVehicleLink">{{ getReservationVehicleName }} <i class="fas text-xs fa-external-link-alt"></i></a>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
             <p>{{ getReservationDuration }}</p>
@@ -128,6 +131,9 @@ export default {
                 </div>
                 <div @click="_handleAccept" class="enable text-green-500 cursor-pointer">
                     <i class="fas fa-check"></i>
+                </div>
+                <div @click="_handleView" class="enable text-blue-500 cursor-pointer">
+                    <i class="fas fa-eye"></i>
                 </div>
             </div>
         </td>
