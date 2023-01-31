@@ -58,31 +58,6 @@ export default {
 
 </script>
 
-<style>
-html,
-body {
-    height: 100%;
-}
-
-@media (min-width: 1225px) {
-    table {
-        display: inline-table !important;
-    }
-
-    thead tr:not(:first-child) {
-        display: none;
-    }
-}
-
-td:not(:last-child) {
-    border-bottom: 0;
-}
-
-th:not(:last-child) {
-    border-bottom: 2px solid rgba(0, 0, 0, .1);
-}
-</style>
-
 <template>
     <div class="py-9 px-1 sm:px-10 min-[1225px]:px-32">
         <div class="flex justify-between">
@@ -114,7 +89,8 @@ th:not(:last-child) {
                     </tr>
                 </thead>
                 <thead v-else class="text-white">
-                    <tr class="bg-primary flex flex-col flex-no wrap min-[1225px]:table-row rounded-l-lg min-[1225px]:rounded-none mb-2 min-[1225px]:mb-0">
+                    <tr
+                        class="bg-primary flex flex-col flex-no wrap min-[1225px]:table-row rounded-l-lg min-[1225px]:rounded-none mb-2 min-[1225px]:mb-0">
                         <th class="p-2 min-[1225px]:p-3 text-left">Naam</th>
                         <th class="p-2 min-[1225px]:p-3 text-left">E-mailadres</th>
                         <th class="p-2 min-[1225px]:p-3 text-left">Leverprijs</th>
@@ -137,11 +113,10 @@ th:not(:last-child) {
                     <i class="fas fa-angle-double-left text-primary"></i>
                 </div>
                 <div class="flex font-bold justify-center items-center border-2 border-primary w-9 h-9 rounded-xl cursor-pointer"
-                    :key="index"
-                    v-for="page, index in getPager"
-                    :class="[this.currentPage == page ? 'bg-primary' : 'bg-transparent']"
-                >
-                    <div :class="[this.currentPage == page ? 'text-white' : 'text-primary']" @click="_handlePagerClick(page)">
+                    :key="index" v-for="page, index in getPager"
+                    :class="[this.currentPage == page ? 'bg-primary' : 'bg-transparent']">
+                    <div :class="[this.currentPage == page ? 'text-white' : 'text-primary']"
+                        @click="_handlePagerClick(page)">
                         {{ page }}</div>
                 </div>
                 <div @click="_handlePagerClick(getPages)" v-if="(this.currentPage != maxPages)"

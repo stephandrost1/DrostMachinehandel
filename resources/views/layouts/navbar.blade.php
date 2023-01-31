@@ -17,9 +17,7 @@
             <img src="{{ asset('/img/logo-verhuur.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
           @else
             <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
-          @endif
-            
-            
+          @endif            
         </a>
         <div class="flex desktop-gap items-center language-selector">
           <div class="group relative lang-dropdown">

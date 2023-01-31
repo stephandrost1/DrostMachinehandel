@@ -1,5 +1,5 @@
 .vehicle-card {
-    background-color: white !important;
+    background-color: #1f1f1f !important;
     height: auto !important;
     display: flex !important;
     flex-direction: row !important;
@@ -55,10 +55,10 @@
             font-weight: bolder !important;
             font-size: 1.25rem !important;
             line-height: 1.5rem !important;
-            color: black !important;
+            color: white !important;
             position: relative !important;
             text-decoration: none !important;
-            background:linear-gradient(#000,#000) left bottom no-repeat !important;
+            background:linear-gradient(#fff,#fff) left bottom no-repeat !important;
             background-size:0% 2px !important;
             transition: $transition-sm !important;
         }
@@ -70,7 +70,7 @@
 
             .contact-link, .details-link {
                 border: 2px solid $color-main !important;
-                color: $color-black !important;
+                color: white !important;
                 padding: 0.5rem 1rem !important;
                 text-decoration: none !important;
                 transition: $transition-sm !important;
@@ -103,7 +103,7 @@
                     font-weight: bold;
                     padding-bottom: 0.125rem;
                     text-align: left;
-                    color: $color-black;
+                    color: white;
 
                     &:before {
                         content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
@@ -126,17 +126,17 @@
                 font-weight: 600;
                 font-size: 1.5rem !important;
                 margin-bottom: 0.25rem !important;
-                color: $color-black !important;
+                color: white !important;
             }
 
             .vehicle-price-time {
-                color: $color-black !important;
+                color: white !important;
                 opacity: 0.6 !important;
                 font-size: 14px;
             }
 
             .vehicle-price-sub-text {
-                color: $color-black !important;
+                color: #a5a5a5 !important;
                 opacity: 0.6 !important;
             }
         }

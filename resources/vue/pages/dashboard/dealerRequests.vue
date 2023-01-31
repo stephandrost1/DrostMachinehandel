@@ -89,7 +89,8 @@ export default {
                     <table
                         class="w-full flex flex-row flex-no-wrap min-[1225px]:bg-white rounded-lg overflow-auto min-[1225px]:overflow-hidden min-[1225px]:shadow-lg my-5">
                         <thead class="text-white">
-                            <tr v-for="dealer in getDealers" :key="dealer.id" class="bg-primary flex flex-col flex-no-wrap min-[1225px]:table-row rounded-l-lg min-[1225px]:rounded-none mb-2 min-[1225px]:mb-0">
+                            <tr v-for="dealer in getDealers" :key="dealer.id"
+                                class="bg-primary flex flex-col flex-no-wrap min-[1225px]:table-row rounded-l-lg min-[1225px]:rounded-none mb-2 min-[1225px]:mb-0">
                                 <th class="p-2 min-[1225px]:p-3 text-left">Naam</th>
                                 <th class="p-2 min-[1225px]:p-3 text-left">E-mailadres</th>
                                 <th class="p-2 min-[1225px]:p-3 text-left">Telefoonnummer</th>
@@ -127,28 +128,3 @@ export default {
         </div>
     </section>
 </template>
-
-<style>
-html,
-body {
-    height: 100%;
-}
-
-@media (min-width: 1225px) {
-    table {
-        display: inline-table !important;
-    }
-
-    thead tr:not(:first-child) {
-        display: none;
-    }
-}
-
-td:not(:last-child) {
-    border-bottom: 0;
-}
-
-th:not(:last-child) {
-    border-bottom: 2px solid rgba(0, 0, 0, .1);
-}
-</style>
