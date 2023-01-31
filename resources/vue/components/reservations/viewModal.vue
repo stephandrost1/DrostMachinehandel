@@ -43,7 +43,7 @@ export default {
 
         getTotalPrice() {
             const totalDays = this.calculateDays(this.reservation.dates.startDate, this.reservation.dates.endDate);
-            const weeks = totalDays / 7;
+            const weeks = parseInt(totalDays / 7);
             const days = totalDays % 7;
 
             if (_.isEmpty(this.vehicle)) {
@@ -51,7 +51,7 @@ export default {
             } 
 
             const totalWeekPrice = parseFloat(weeks) * parseFloat(this.vehicle.price_per_week);
-            const totalDaysPrice = parseFloat(days) * parseFloat(this.vehicle.price_per_day);
+            const totalDaysPrice = parseFloat(days + 1) * parseFloat(this.vehicle.price_per_day);
             const totalPrice = totalWeekPrice + totalDaysPrice;
             
             return `€ ${Number(totalPrice.toFixed(2))}`;
