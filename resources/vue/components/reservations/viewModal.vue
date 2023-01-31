@@ -14,6 +14,7 @@ export default {
 
     mounted() {
         this.fetchLinkedVehicle();
+        console.log(this.reservation);
     },
 
     computed: {
