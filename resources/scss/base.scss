@@ -866,7 +866,6 @@ select {
   margin-right: 2rem;
 }
 
-<<<<<<< HEAD
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -882,16 +881,9 @@ select {
   margin-bottom: 2.5rem;
 }
 
-=======
->>>>>>> main
 .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .mx-12 {
@@ -981,17 +973,12 @@ select {
   margin-left: 1rem;
 }
 
-<<<<<<< HEAD
 .ml-12 {
   margin-left: 3rem;
 }
 
 .-mt-px {
   margin-top: -1px;
-=======
-.mb-3 {
-  margin-bottom: 0.75rem;
->>>>>>> main
 }
 
 .mt-0 {
@@ -1012,10 +999,6 @@ select {
 
 .mt-10 {
   margin-top: 2.5rem;
-}
-
-.mb-2 {
-  margin-bottom: 0.5rem;
 }
 
 .mb-2 {
@@ -1188,11 +1171,10 @@ select {
   width: 58.333333%;
 }
 
-.w-7\/12 {
-  width: 58.333333%;
+.w-5\/12 {
+  width: 41.666667%;
 }
 
-<<<<<<< HEAD
 .w-8 {
   width: 2rem;
 }
@@ -1207,10 +1189,6 @@ select {
 
 .w-32 {
   width: 8rem;
-=======
-.w-5\/12 {
-  width: 41.666667%;
->>>>>>> main
 }
 
 .w-screen {
@@ -1230,25 +1208,6 @@ select {
   width: 16.666667%;
 }
 
-<<<<<<< HEAD
-=======
-.w-8 {
-  width: 2rem;
-}
-
-.w-auto {
-  width: auto;
-}
-
-.w-11\/12 {
-  width: 91.666667%;
-}
-
-.w-32 {
-  width: 8rem;
-}
-
->>>>>>> main
 .w-20 {
   width: 5rem;
 }
@@ -1647,12 +1606,6 @@ select {
   border-width: 2px;
 }
 
-.border-b-2 {
-  border-bottom-width: 2px;
-}
-
-<<<<<<< HEAD
-=======
 .border-t {
   border-top-width: 1px;
 }
@@ -1661,7 +1614,10 @@ select {
   border-right-width: 1px;
 }
 
->>>>>>> main
+.border-b-2 {
+  border-bottom-width: 2px;
+}
+
 .border-l-4 {
   border-left-width: 4px;
 }
@@ -1806,13 +1762,13 @@ select {
   background-color: rgb(112 112 112 / var(--tw-bg-opacity));
 }
 
-.bg-secondary {
-  --tw-bg-opacity: 1;
-  background-color: rgb(112 112 112 / var(--tw-bg-opacity));
-}
-
 .bg-transparent {
   background-color: transparent;
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .bg-indigo-50 {
@@ -2052,10 +2008,6 @@ select {
   padding: 2.5rem;
 }
 
-.p-5 {
-  padding: 1.25rem;
-}
-
 .p-6 {
   padding: 1.5rem;
 }
@@ -2131,15 +2083,9 @@ select {
   padding-bottom: 1.5rem;
 }
 
-<<<<<<< HEAD
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-=======
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
->>>>>>> main
 }
 
 .px-1 {
@@ -2157,24 +2103,6 @@ select {
   padding-bottom: 0.75rem;
 }
 
-<<<<<<< HEAD
-=======
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
->>>>>>> main
 .px-12 {
   padding-left: 3rem;
   padding-right: 3rem;
@@ -2205,6 +2133,14 @@ select {
   padding-right: 15px;
 }
 
+.pb-8 {
+  padding-bottom: 2rem;
+}
+
+.pt-0 {
+  padding-top: 0px;
+}
+
 .pb-24 {
   padding-bottom: 6rem;
 }
@@ -2221,41 +2157,32 @@ select {
   padding-left: 1.25rem;
 }
 
-.pl-1 {
-  padding-left: 0.25rem;
+.pt-8 {
+  padding-top: 2rem;
 }
 
 .pb-1 {
   padding-bottom: 0.25rem;
 }
 
-.pl-0 {
-  padding-left: 0px;
+.pb-3 {
+  padding-bottom: 0.75rem;
 }
 
-.pb-8 {
-  padding-bottom: 2rem;
+.pl-1 {
+  padding-left: 0.25rem;
 }
 
 .pt-1 {
   padding-top: 0.25rem;
 }
 
-.pb-2 {
-  padding-bottom: 0.5rem;
+.pl-0 {
+  padding-left: 0px;
 }
 
-<<<<<<< HEAD
 .pb-2 {
   padding-bottom: 0.5rem;
-=======
-.pt-8 {
-  padding-top: 2rem;
-}
-
-.pt-0 {
-  padding-top: 0px;
->>>>>>> main
 }
 
 .pt-6 {
@@ -2325,7 +2252,6 @@ select {
   line-height: 2rem;
 }
 
-<<<<<<< HEAD
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -2336,8 +2262,6 @@ select {
   line-height: 1.5rem;
 }
 
-=======
->>>>>>> main
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -2362,23 +2286,6 @@ select {
   line-height: 1rem;
 }
 
-<<<<<<< HEAD
-=======
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.text-\[2rem\] {
-  font-size: 2rem;
-}
-
-.text-6xl {
-  font-size: 3.75rem;
-  line-height: 1;
-}
-
->>>>>>> main
 .font-medium {
   font-weight: 500;
 }
@@ -2387,13 +2294,10 @@ select {
   font-weight: 700;
 }
 
-<<<<<<< HEAD
 .font-semibold {
   font-weight: 600;
 }
 
-=======
->>>>>>> main
 .font-extrabold {
   font-weight: 800;
 }
@@ -2469,19 +2373,6 @@ select {
   color: rgb(153 153 153 / var(--tw-text-opacity));
 }
 
-<<<<<<< HEAD
-=======
-.text-primary {
-  --tw-text-opacity: 1;
-  color: rgb(229 109 1 / var(--tw-text-opacity));
-}
-
-.text-green-500 {
-  --tw-text-opacity: 1;
-  color: rgb(34 197 94 / var(--tw-text-opacity));
-}
-
->>>>>>> main
 .text-gray-200 {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
@@ -2507,7 +2398,6 @@ select {
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
-<<<<<<< HEAD
 .text-green-500 {
   --tw-text-opacity: 1;
   color: rgb(34 197 94 / var(--tw-text-opacity));
@@ -2518,8 +2408,6 @@ select {
   color: rgb(229 109 1 / var(--tw-text-opacity));
 }
 
-=======
->>>>>>> main
 .text-secondary {
   --tw-text-opacity: 1;
   color: rgb(112 112 112 / var(--tw-text-opacity));
@@ -3335,16 +3223,16 @@ select {
     padding-bottom: 1.25rem;
   }
 
+  .md\:pr-10 {
+    padding-right: 2.5rem;
+  }
+
   .md\:pb-0 {
     padding-bottom: 0px;
   }
 
   .md\:pl-1 {
     padding-left: 0.25rem;
-  }
-
-  .md\:pr-10 {
-    padding-right: 2.5rem;
   }
 
   .md\:text-left {
