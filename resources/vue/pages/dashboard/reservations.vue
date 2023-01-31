@@ -2,10 +2,12 @@
 import axios from 'axios'
 import reservation from '../../components/reservations/reservation.vue'
 import _ from "lodash";
+import viewModalVue from '../../components/reservations/viewModal.vue';
 
 export default {
     components: {
-        "dm-reservation": reservation
+        "dm-reservation": reservation,
+        "view-modal": viewModalVue,
     },
 
     data() {
@@ -15,6 +17,10 @@ export default {
             currentPage: 1,
             maxPages: [],
             searchQuery: "",
+            popup: {
+                open: false,
+                reservation: [],
+            }
         }
     },
 
@@ -45,6 +51,16 @@ export default {
         _handlePagerClick(page) {
             this.currentPage = page;
             this.fetchRequests(this.searchQuery);
+        },
+
+        _handleViewReseration(reservation) {
+            this.popup.open = true;
+            this.popup.reservation = reservation;
+        },
+
+        _handleClosePopup() {
+            this.popup.open = false;
+            this.popup.reservation = [];
         }
     },
 
@@ -58,33 +74,9 @@ export default {
 
 </script>
 
-<style>
-html,
-body {
-    height: 100%;
-}
-
-@media (min-width: 1225px) {
-    table {
-        display: inline-table !important;
-    }
-
-    thead tr:not(:first-child) {
-        display: none;
-    }
-}
-
-td:not(:last-child) {
-    border-bottom: 0;
-}
-
-th:not(:last-child) {
-    border-bottom: 2px solid rgba(0, 0, 0, .1);
-}
-</style>
-
 <template>
     <div class="py-9 px-1 sm:px-10 min-[1225px]:px-32">
+        <view-modal :reservation="popup.reservation" @closeModal="_handleClosePopup" v-if="popup.open"></view-modal>
         <div class="flex justify-between">
             <div>
                 <div class="filter-on-name w-fit">
@@ -126,7 +118,7 @@ th:not(:last-child) {
                     </tr>
                 </thead>
                 <tbody class="flex-1 min-[1225px]:flex-none">
-                    <dm-reservation v-for="reservation in reservations" :key="reservation.id"
+                    <dm-reservation @_handleView="_handleViewReseration" v-for="reservation in reservations" :key="reservation.id"
                         :reservation="reservation"></dm-reservation>
                 </tbody>
             </table>
@@ -152,3 +144,28 @@ th:not(:last-child) {
         </div>
     </div>
 </template>
+
+<style>
+html,
+body {
+    height: 100%;
+}
+
+@media (min-width: 1225px) {
+    table {
+        display: inline-table !important;
+    }
+
+    thead tr:not(:first-child) {
+        display: none;
+    }
+}
+
+td:not(:last-child) {
+    border-bottom: 0;
+}
+
+th:not(:last-child) {
+    border-bottom: 2px solid rgba(0, 0, 0, .1);
+}
+</style>

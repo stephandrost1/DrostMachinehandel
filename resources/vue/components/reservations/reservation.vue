@@ -23,7 +23,7 @@ export default {
         },
 
         getReservationDates() {
-            return `${moment(this.reservation.dates.startDate).format("DD-MM-YYYY")} - ${moment(this.reservation.dates.endDate).format("DD-MM-YYYY")}`
+            return `${moment(this.reservation.dates.startDate).format("DD MMM YYYY")} -- ${moment(this.reservation.dates.endDate).format("DD MMM YYYY")}`
         },
 
         getReservationClasses() {
@@ -63,7 +63,7 @@ export default {
         },
 
         getReservationDuration() {
-            return this.reservation.duration;
+            return this.reservation.duration.replace(/y/g, 'jaar').replace(/w/g, 'week').replace(/d/g, 'dagen');;
         }
     },
 
@@ -90,6 +90,9 @@ export default {
                 .catch((error) => {
                     this.$toast.error(error.response.data.message);
                 })
+        },
+        _handleView() {
+            this.$emit("_handleView", this.reservation);
         }
     }
 }
@@ -108,7 +111,7 @@ export default {
             <p>{{ getReservationDistance }}</p>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
-            <a :href="getReservationVehicleLink">{{ getReservationVehicleName }}</a>
+            <a class="border-b border-primary-500 w-fit flex items-center gap-2" target="_blank" :href="getReservationVehicleLink">{{ getReservationVehicleName }} <i class="fas text-xs fa-external-link-alt"></i></a>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
             <p>{{ getReservationDuration }}</p>
@@ -124,10 +127,13 @@ export default {
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
             <div class="h-full flex items-center gap-3">
                 <div @click="_handleDelete" class="delete text-red-500 cursor-pointer">
-                    <i class="fas fa-trash"></i>
+                    <i class="fas fa-ban"></i>
                 </div>
                 <div @click="_handleAccept" class="enable text-green-500 cursor-pointer">
                     <i class="fas fa-check"></i>
+                </div>
+                <div @click="_handleView" class="enable text-blue-500 cursor-pointer">
+                    <i class="fas fa-eye"></i>
                 </div>
             </div>
         </td>
