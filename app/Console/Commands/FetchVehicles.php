@@ -75,21 +75,39 @@ class FetchVehicles extends Command
         $crawler = new Crawler($content);
 
         $vehicles = $crawler->filter('.vehicleTile');
+        $vehicleData = $vehicles->each(function (Crawler $vehicleCrawler) {
+            return $this->fetchVehicleData($vehicleCrawler);
+        });
+
+        // Haal alle machines op die niet in $vehicles zijn gevonden
+        $machineIds = collect($vehicleData)->pluck('id');
+        $deletedVehicles = DealerVehicle::whereNotIn('id', $machineIds)->forceDelete();
 
         // Get all existing vehicles from the database
-        $existingVehicles = DealerVehicle::withTrashed()->get();
-        // Loop over the existing vehicles and delete all rows that have the same dealer price as the price
-        foreach ($existingVehicles as $vehicle) {
-            if (is_null($vehicle->deleted_at) && $vehicle->dealer_price == $vehicle->price) {
-                $vehicle->forceDelete();
+        collect($vehicleData)->each(function ($vehicle) {
+            Log::emergency("vehickle", [$vehicle]);
+            $exisitingVehicle = DealerVehicle::where('vehicle_url', $vehicle["uri"]);
+
+            if ($exisitingVehicle) {
+                $exisitingVehicle->update([
+                    "price" => array_reduce(array_map('intval', preg_split('/\D+/', $vehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
+                        return str($carry) . str($item);
+                    }),
+                    "image" => $vehicle["image"]
+                ]);
+            } else {
+                $newVehicle = DealerVehicle::create([
+                    'vehicle_name' => $vehicle['name'],
+                    'vehicle_url' => $vehicle['uri'],
+                    'dealer_price' => array_reduce(array_map('intval', preg_split('/\D+/', $vehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
+                        return str($carry) . str($item);
+                    }),
+                    'price' => array_reduce(array_map('intval', preg_split('/\D+/', $vehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
+                        return str($carry) . str($item);
+                    }),
+                    'image' => $vehicle['image']
+                ])->save();
             }
-        }
-
-        collect($vehicles)->each(function ($vehicle) {
-            $vehicleCrawler = new Crawler($vehicle);
-            $vehicleData = $this->fetchVehicleData($vehicleCrawler);
-
-            $this->uploadVehicle($vehicleData);
         });
     }
 
