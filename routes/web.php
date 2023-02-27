@@ -118,6 +118,7 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
             Route::get('/', [DealerVehicleController::class, "index"])->where("svm", '[a-zA-Z0-9/_-]+');
             Route::get('/fetch', [DealerVehicleController::class, "fetchVehicles"]);
             Route::patch('/{id}/update', [DealerVehicleController::class, "update"]);
+            Route::delete('/{id}', [DealerVehicleController::class, "delete"]);
         });
         Route::get('/vehicle', [DealerVehicleController::class, "getById"])->where("svm", '[a-zA-Z0-9/_-]+');
     });

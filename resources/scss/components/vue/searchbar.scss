@@ -1,0 +1,17 @@
+.vue-searchbar {
+    position: relative;
+
+    input {
+        width: 100%;
+        border-radius: 5px;
+        border: 2px solid $color-main;
+        margin-bottom: 1rem;
+    }
+
+    .search {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        color: $color-main;
+    }
+}

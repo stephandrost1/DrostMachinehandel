@@ -14,7 +14,7 @@
 
     <div class="flex flex-col items-center justify-center">
 
-        <img src="{{ asset('/img/errors/404.png') }}" class="lg:w-4/12" alt="logo" />
+        <img src="{{ asset('/img/errors/404.png') }}" class="lg:w-4/12" alt="404 error" loading="lazy"/>
   
         <h1 class="font-bold text-5xl text-center">De pagina die je probeert te bezoeken <br> bestaat niet!</h1>
 

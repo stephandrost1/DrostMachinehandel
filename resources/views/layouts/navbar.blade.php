@@ -14,9 +14,9 @@
       <div class="flex flex-wrap justify-between justify-content-end items-center mx-12 xl:mx-16">
         <a href="https://drostmachinehandel.com/" class="flex items-center">
           @if (Request::is('verhuur') || Request::is('verhuur/*'))
-            <img src="{{ asset('/img/logo-verhuur.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
+            <img src="{{ asset('/img/logo-verhuur.png') }}" class="mr-3 h-12 md:h-16" alt="logo" loading="lazy"/>
           @else
-            <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" />
+            <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16" alt="logo" loading="lazy"/>
           @endif
             
             
@@ -26,10 +26,10 @@
             <button
               class="inline-flex items-center text-xl xl:text-2xl font-bold"
             >
-            @if ($currentLang == 'nl')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> @endif
-            @if ($currentLang == 'en')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> @endif
-            @if ($currentLang == 'fr')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> @endif
-            @if ($currentLang == 'de')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> @endif
+            @if ($currentLang == 'nl')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag" loading="lazy"> @endif
+            @if ($currentLang == 'en')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag" loading="lazy"> @endif
+            @if ($currentLang == 'fr')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag" loading="lazy"> @endif
+            @if ($currentLang == 'de')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag" loading="lazy"> @endif
               <i class="fas fa-chevron-down"></i>
             </button>
             <ul class="lang-borders absolute w-full hidden text-gray-700 pt-1 group-hover:block">
@@ -38,7 +38,7 @@
                   <a
                     class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap"
                     href="{{ route('locale.setting', 'nl') }}"
-                    ><img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> NL</a
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag" loading="lazy"> NL</a
                   >
                 </li>
               @endif
@@ -47,7 +47,7 @@
                   <a
                     class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap"
                     href="{{ route('locale.setting', 'en') }}"
-                    ><img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> EN</a
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag" loading="lazy"> EN</a
                   >
                 </li>
               @endif
@@ -56,7 +56,7 @@
                   <a
                     class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap "
                     href="{{ route('locale.setting', 'fr') }}"
-                    ><img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> FR</a
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag" loading="lazy"> FR</a
                   >
                 </li>
               @endif
@@ -65,7 +65,7 @@
                   <a
                     class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap "
                     href="{{ route('locale.setting', 'de') }}"
-                    ><img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> DE</a
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag" loading="lazy"> DE</a
                   >
                 </li>
               @endif
@@ -127,9 +127,9 @@
         <a href="https://drostmachinehandel.com/" class="nav-logo 
          flex items-center">
           @if (Request::is('verhuur') || Request::is('verhuur/*'))
-            <img src="{{ asset('/img/logo-verhuur.png') }}" class="mr-3 h-12 md:h-16 navbar-logo" alt="logo-verhuur" />
+            <img src="{{ asset('/img/logo-verhuur.png') }}" class="mr-3 h-12 md:h-16 navbar-logo" alt="logo-verhuur" loading="lazy"/>
           @else
-            <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16 navbar-logo" alt="logo" />
+            <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-12 md:h-16 navbar-logo" alt="logo" loading="lazy"/>
           @endif
         </a>
 
@@ -138,10 +138,10 @@
             <button
               class="inline-flex items-center text-2xl font-bold"
             >
-            @if ($currentLang == 'nl')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> @endif
-            @if ($currentLang == 'en')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> @endif
-            @if ($currentLang == 'fr')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> @endif
-            @if ($currentLang == 'de')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> @endif
+            @if ($currentLang == 'nl')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag" loading="lazy"> @endif
+            @if ($currentLang == 'en')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag" loading="lazy"> @endif
+            @if ($currentLang == 'fr')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag" loading="lazy"> @endif
+            @if ($currentLang == 'de')<img class="h-5 w-7 mr-2" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag" loading="lazy"> @endif
               <i class="fas fa-chevron-down"></i>
             </button>
             <ul class="lang-borders absolute w-full hidden text-gray-700 pt-1 group-hover:block">
@@ -150,7 +150,7 @@
                   <a
                     class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap"
                     href="{{ route('locale.setting', 'nl') }}"
-                    ><img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag"> NL</a
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/NL-flag.png') }}" alt="NL-flag" loading="lazy"> NL</a
                   >
                 </li>
               @endif
@@ -159,7 +159,7 @@
                   <a
                     class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap"
                     href="{{ route('locale.setting', 'en') }}"
-                    ><img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag"> EN</a
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/EN-flag.png') }}" alt="EN-flag" loading="lazy"> EN</a
                   >
                 </li>
               @endif
@@ -168,7 +168,7 @@
                   <a
                     class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap "
                     href="{{ route('locale.setting', 'fr') }}"
-                    ><img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag"> FR</a
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/FR-flag.png') }}" alt="FR-flag" loading="lazy"> FR</a
                   >
                 </li>
               @endif
@@ -177,7 +177,7 @@
                   <a
                     class="bg-secondary flex flex-col items-center font-bold hover:bg-gray-600 text-white py-2 px-4 whitespace-no-wrap "
                     href="{{ route('locale.setting', 'de') }}"
-                    ><img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag"> DE</a
+                    ><img class="h-5 w-7" src="{{ asset('img/flags/DE-flag.png') }}" alt="DE-flag" loading="lazy"> DE</a
                   >
                 </li>
               @endif

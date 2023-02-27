@@ -185,7 +185,7 @@ export default {
                                             <p>{{ vehicle.vehicle_name }}</p>
                                         </div>
                                         <div class="thumbnail">
-                                            <img class="vehicle-image" :src="getVehicleThumbnail"/>
+                                            <img class="vehicle-image" :src="getVehicleThumbnail" loading="lazy"/>
                                         </div>
                                         <div class="vehicle-tile item">
                                             <p>Prijs per dag: {{ vehicle.price_per_day }}</p>

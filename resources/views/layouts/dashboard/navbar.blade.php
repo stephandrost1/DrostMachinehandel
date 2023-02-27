@@ -4,15 +4,13 @@
         <div class="flex flex-row justify-between items-center md:pr-10">
             <div>
                 <a href="{{ route("home") }}" aria-label="Home">
-                    <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-14 sm:h-[5rem] md:h-12 pt-3 pb-3 pl-1" alt="logo" />
+                    <img src="{{ asset('/img/logo.png') }}" class="mr-3 h-14 sm:h-[5rem] md:h-12 pt-3 pb-3 pl-1" alt="logo" loading="lazy"/>
                 </a>
             </div>
 
             <div>
                 <div class="group inline-block relative">
-                    <button
-                        class="inline-flex items-center font-bold"
-                    >
+                    <button class="inline-flex items-center font-bold">
                         <span class="mr-1 text-white">Hallo, {{ auth()->user()->email }}</span>
                         <i class="fas fa-chevron-down text-white"></i>
                     </button>

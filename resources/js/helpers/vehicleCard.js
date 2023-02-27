@@ -21,6 +21,8 @@ const generateVehicleCard = (vehicle, detail_page) => {
     thumbnailWrapper.classList = "thumbnail-wrapper"
     const thumbnail = document.createElement("img");
     thumbnail.src = getVehicleImage(vehicle.images).src;
+    thumbnail.alt = "vehicle-image"
+    thumbnail.loading = "lazy"
     thumbnail.classList = "vehicle-thumbnail";
     thumbnailWrapper.appendChild(thumbnail);
     card.appendChild(thumbnailWrapper);
@@ -31,7 +33,7 @@ const generateVehicleCard = (vehicle, detail_page) => {
     const cardBodyCol2 = document.createElement("div");
     cardBodyCol2.classList = "vehicle-price-content"
     cardBody.classList = "card-body"
-    const vehicleTitle = document.createElement("a");
+    const vehicleTitle = document.createElement("h3");
     const vehicleFullTitle = document.createElement("p");
     vehicleFullTitle.classList = "hidden vehicle-full-title";
     vehicleFullTitle.innerHTML = vehicle.title;

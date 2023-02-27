@@ -76,6 +76,15 @@ class FetchVehicles extends Command
 
         $vehicles = $crawler->filter('.vehicleTile');
 
+        // Get all existing vehicles from the database
+        $existingVehicles = DealerVehicle::withTrashed()->get();
+        // Loop over the existing vehicles and delete all rows that have the same dealer price as the price
+        foreach ($existingVehicles as $vehicle) {
+            if (is_null($vehicle->deleted_at) && $vehicle->dealer_price == $vehicle->price) {
+                $vehicle->forceDelete();
+            }
+        }
+
         collect($vehicles)->each(function ($vehicle) {
             $vehicleCrawler = new Crawler($vehicle);
             $vehicleData = $this->fetchVehicleData($vehicleCrawler);
@@ -84,32 +93,38 @@ class FetchVehicles extends Command
         });
     }
 
-    private function uploadVehicle($vehicle)
+    private function uploadVehicle($receivedVehicle)
     {
         try {
-            $vehicle = DealerVehicle::firstOrCreate(
-                [
-                    'vehicle_name'  => $vehicle["name"],
-                    'vehicle_url'   => $vehicle["uri"],
-                    'price'         => array_reduce(array_map('intval', preg_split('/\D+/', $vehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
-                        return str($carry) . str($item);
-                    }),
-                    'image'         => $vehicle["image"]
-                ],
-                [
-                    'vehicle_name'  => $vehicle["name"],
-                    'vehicle_url'   => $vehicle["uri"],
-                    'price'         => array_reduce(array_map('intval', preg_split('/\D+/', $vehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
-                        return str($carry) . str($item);
-                    }),
-                    'dealer_price'  => array_reduce(array_map('intval', preg_split('/\D+/', $vehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
-                        return str($carry) . str($item);
-                    }),
-                    'image'         => $vehicle["image"]
-                ]
-            );
+            $existingVehicle = DealerVehicle::withTrashed()->where('vehicle_url', $receivedVehicle['uri'])->first();
 
-            $vehicle->wasRecentlyCreated ? array_push($this->vehiclesCreated, $vehicle->vehicle_name) : array_push($this->vehiclesRead, $vehicle->vehicle_name);
+            if ($existingVehicle) {
+                // If the vehicle already exists and has a different dealer price, update the price and image fields
+                if ($existingVehicle->dealer_price != $receivedVehicle['price'] && is_null($existingVehicle->deleted_at)) {
+                    $existingVehicle->update([
+                        'price' => array_reduce(array_map('intval', preg_split('/\D+/', $receivedVehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
+                            return str($carry) . str($item);
+                        }),
+                        'image' => $receivedVehicle['image']
+                    ]);
+                }
+
+                array_push($this->vehiclesRead, $existingVehicle->vehicle_name);
+            } else {
+                // If the vehicle doesn't exist, create a new row in the database
+                $newVehicle = DealerVehicle::create([
+                    'vehicle_name' => $receivedVehicle['name'],
+                    'vehicle_url' => $receivedVehicle['uri'],
+                    'dealer_price' => array_reduce(array_map('intval', preg_split('/\D+/', $receivedVehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
+                        return str($carry) . str($item);
+                    }),
+                    'price' => array_reduce(array_map('intval', preg_split('/\D+/', $receivedVehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
+                        return str($carry) . str($item);
+                    }),
+                    'image' => $receivedVehicle['image']
+                ])->save();
+                array_push($this->vehiclesCreated, $receivedVehicle['name']);
+            }
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

@@ -25,6 +25,6 @@ export default {
 
 <template>
     <div class="image-swiper-item relative vue-vehicle-image">
-        <img :src="getImagePath" alt="Swiper item" class="image aspect-square object-cover w-full h-full">
+        <img :src="getImagePath" alt="Swiper item" class="image aspect-square object-cover w-full h-full" loading="lazy">
     </div>
 </template>

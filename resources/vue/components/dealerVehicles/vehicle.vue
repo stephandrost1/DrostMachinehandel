@@ -47,6 +47,16 @@ export default {
             this.$store.commit("SET_SELECTED_VEHICLE", []);
         },
 
+        _handleDeleteVehicleButton() {
+            axios.delete(`/api/v1/dealer/vehicles/${this.getVehicle.id}`)
+                .then((response) => {
+                    this.$toast.success(response.data.message);
+                    this.$store.dispatch("deleteSelectedVehicle", this.getVehicle.id);
+                }).catch((error) => {
+                    this.$toast.error(error.response.data.message);
+                })
+        },  
+
         _handleSaveVehicleButton() {
             this.$store.commit("UPDATE_VEHICLE_DEALER_PRICE", this.getVehicle);
 
@@ -68,7 +78,7 @@ export default {
                 class="col-left max-w-[350px] min-[1150px]:max-w-[450px] h-fit p-5 border-2 border-primary-500 bg-primary-200 rounded-lg flex flex-col gap-5">
                 <div id="vehicle-data-thumbnail" class="row-1 h-4/5 relative">
                     <div class="no-image-available" v-if="!hasThumbnail">
-                        <img src="../../../../public/img/errors/no_image_placeholder.png">
+                        <img src="../../../../public/img/errors/no_image_placeholder.png" loading="lazy">
                     </div>
                     <div class="vehicle-thumb" v-if="hasThumbnail">
                         <dm-image-item :image="getThumbnail"></dm-image-item>
@@ -87,8 +97,14 @@ export default {
                 <div class="buttons mt-6 flex flex-row justify-end gap-5 items-center">
                     <div id="delete-selected-vehicle">
                         <div id="delete-rent-vehicle-button" @click="_handleCancelVehicleButton"
+                            class="flex cursor-pointer rounded-lg shadow-xl py-2 px-5 border-2 border-orange-500 bg-orange-200">
+                            <div class="text-orange-500 font-bold">Annuleren</div>
+                        </div>
+                    </div>
+                    <div id="delete-selected-vehicle">
+                        <div id="delete-rent-vehicle-button" @click="_handleDeleteVehicleButton"
                             class="flex cursor-pointer rounded-lg shadow-xl py-2 px-5 border-2 border-red-500 bg-red-200">
-                            <div class="text-red-500 font-bold">Annuleren</div>
+                            <div class="text-red-500 font-bold">Verwijderen</div>
                         </div>
                     </div>
                     <div id="save-selected-vehicle" @click="_handleSaveVehicleButton">

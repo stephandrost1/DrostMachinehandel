@@ -39,7 +39,7 @@ export default {
 <template>
     <div @click="_handleVehicleClick" class="cursor-pointer vehicle-card swiper-slide">
         <div class="thumbnail-wrapper">
-            <img :src="getThumbnail" class="vehicle-thumbnail">
+            <img :src="getThumbnail" class="vehicle-thumbnail" loading="lazy">
         </div>
         <div class="card-body">
             <div class="vehicle-description-content">

@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div>
-                <img :src="currentMainImageSrc" class="image-class" alt="slider-item">
+                <img :src="currentMainImageSrc" class="image-class" alt="slider-item" loading="lazy">
             </div>
 
         </div>
@@ -21,7 +21,7 @@
             <div v-for="(image, index) in images" :key="image.id">
                 <img @click="selectImg(index)" :class="[currentImage == index ? 'border-primary border-2' : '']"
                     class="cursor-pointer" :src="`${image.image_location}${image.image_name}.${image.image_type}`"
-                    alt="slider-item">
+                    alt="slider-item" loading="lazy">
             </div>
         </div>
     </div>

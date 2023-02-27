@@ -9,7 +9,7 @@
     <input type="hidden" name="from_login_form" value="{{ $login ?? '1' }}">  
       <div class="flex flex-col md:flex-row md:gap-20 md:justify-center bg-white rounded-xl mx-5 sm:mx-0 mt-12 px-5 py-20 md:px-10 md:py-24">
           <div class="hidden md:flex items-center">
-              <img src="{{ asset('img/login-image.png') }}" alt="IMG">
+              <img src="{{ asset('img/login-image.png') }}" alt="logo" loading="lazy">
           </div>
 
           <div class="flex items-center flex-col relative">

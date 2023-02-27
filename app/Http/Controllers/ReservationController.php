@@ -213,6 +213,10 @@ class ReservationController extends Controller
 
             return true;
         } catch (Exception $e) {
+            Log::emergency("ReservationController", [
+                "action" => "createReservation",
+                "error" => $e->getMessage(),
+            ]);
             return false;
         }
     }

@@ -14,7 +14,7 @@
 
     <div class="flex flex-col items-center justify-center">
 
-        <img src="{{ asset('/img/errors/505.png') }}" class="lg:w-4/12" alt="logo" />
+        <img src="{{ asset('/img/errors/505.png') }}" class="lg:w-4/12" alt="505 error" loading="lazy"/>
   
         <h1 class="font-bold text-5xl text-center">Er is aan onze kant iets fout gegaan! <br> Probeer het later opnieuw.</h1>
 

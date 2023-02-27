@@ -216,7 +216,7 @@ export default {
                                 <div class="basket-item">
                                     <div class="item-col-left item-col">
                                         <div class="item-logo">
-                                            <img :src="getVehicleImage" alt="selected vehicle image" />
+                                            <img :src="getVehicleImage" alt="selected vehicle image" loading="lazy"/>
                                         </div>
                                     </div>
                                     <div class="item-col-right item-col">
@@ -374,7 +374,7 @@ export default {
                                 <div class="basket-item">
                                     <div class="item-col-left item-col">
                                         <div class="item-logo">
-                                            <img :src="getVehicleImage" alt="selected vehicle image" />
+                                            <img :src="getVehicleImage" alt="selected vehicle image" loading="lazy"/>
                                         </div>
                                     </div>
                                     <div class="item-col-right item-col">

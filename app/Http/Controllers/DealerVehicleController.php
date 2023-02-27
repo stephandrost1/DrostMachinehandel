@@ -104,4 +104,21 @@ class DealerVehicleController extends Controller
             return response()->json(["message" => "Er is iets fout gegaan, neem contact met de administrator"], 200);
         }
     }
+
+    public function delete($id)
+    {
+        try {
+            $vehicle = DealerVehicle::find($id);
+
+            if (!$vehicle) {
+                return response()->json(["message" => "Er is iets fout gegaan, probeer het later opnieuw"], 500);
+            }
+
+            $vehicle->delete();
+
+            return response()->json(["message" => "Machine succesvol verwijderd"]);
+        } catch (Exception $e) {
+            log_and_return_error(request(), $e->getMessage());
+        }
+    }
 }

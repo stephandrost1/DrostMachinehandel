@@ -6,10 +6,11 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <meta name="current-lang" content="{{ App::getLocale() }}">
+            <meta name="description" content="Uw specialist in gebruikt transportmaterieel! Wij verlenen services aan verkochte machines.">
     
             {{-- Page title tag --}}
             <title>Drost Machinehandel - {{ __('/content/app.'.ucfirst(Route::currentRouteName())) }}</title>
-    
+            @yield('metatags')
             {{-- Fontawesome --}}
             <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
     
