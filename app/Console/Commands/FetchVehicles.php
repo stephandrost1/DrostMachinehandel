@@ -80,8 +80,8 @@ class FetchVehicles extends Command
         });
 
         // Haal alle machines op die niet in $vehicles zijn gevonden
-        $machineIds = collect($vehicleData)->pluck('id');
-        $deletedVehicles = DealerVehicle::whereNotIn('id', $machineIds)->forceDelete();
+        $machineUris = collect($vehicleData)->pluck('uri');
+        $deletedVehicles = DealerVehicle::whereNotIn('vehicle_url', $machineUris)->forceDelete();
 
         // Get all existing vehicles from the database
         collect($vehicleData)->each(function ($vehicle) {
