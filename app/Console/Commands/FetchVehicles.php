@@ -100,7 +100,7 @@ class FetchVehicles extends Command
 
             if ($existingVehicle) {
                 // If the vehicle already exists and has a different dealer price, update the price and image fields
-                if ($existingVehicle->dealer_price != $receivedVehicle['price'] && is_null($existingVehicle->deleted_at)) {
+                if (is_null($existingVehicle->deleted_at)) {
                     $existingVehicle->update([
                         'price' => array_reduce(array_map('intval', preg_split('/\D+/', $receivedVehicle["price"], -1, PREG_SPLIT_NO_EMPTY)), function ($carry, $item) {
                             return str($carry) . str($item);
