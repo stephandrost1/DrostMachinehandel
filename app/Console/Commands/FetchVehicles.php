@@ -85,8 +85,7 @@ class FetchVehicles extends Command
 
         // Get all existing vehicles from the database
         collect($vehicleData)->each(function ($vehicle) {
-            Log::emergency("vehickle", [$vehicle]);
-            $exisitingVehicle = DealerVehicle::where('vehicle_url', $vehicle["uri"]);
+            $exisitingVehicle = DealerVehicle::where('vehicle_url', $vehicle["uri"])->first();
 
             if ($exisitingVehicle) {
                 $exisitingVehicle->update([
