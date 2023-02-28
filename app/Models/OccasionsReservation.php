@@ -5,20 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Log;
 
-class Reservation extends Model
+class OccasionsReservation extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         "dealer_id",
-        "auth_type",
-        "vehicle_id",
+        "vehicle_name",
+        "vehicle_image",
+        "vehicle_price",
         "distance",
-        "duration",
+        "status",
         "amount",
-        "status"
+        "duration",
+        "auth_type"
     ];
 
     protected $appends = ['user'];

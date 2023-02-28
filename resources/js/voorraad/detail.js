@@ -39,16 +39,16 @@ const _addContactButtons = () => {
     }
 
     const buttonsText = {
-        "buy": {
-            "en": "Buy",
-            "fr": "Acheter",
-            "de": "Kaufen",
-            "nl": "Kopen",
+        "reserve": {
+            "en": "Reserve",
+            "fr": "Réserver",
+            "de": "Buchen",
+            "nl": "Reserveren",
         },
         "rent": {
-            "en": "Rent",
-            "fr": "Location",
-            "de": "Miete",
+            "en": "Contact",
+            "fr": "Contact",
+            "de": "Kontakt",
             "nl": "Contact",
         }
     }
@@ -57,21 +57,27 @@ const _addContactButtons = () => {
     buttonsWrapper.classList = "contact-buttons-wrapper flex justify-end";
     //TODO
     // buttonsWrapper.classList = "contact-buttons-wrapper flex justify-between";
-    const buyButton = document.createElement("a");
+    const reserveButton = document.createElement("a");
     const rentButton = document.createElement("a");
     const language = document.querySelector('meta[name="current-lang"]').content
 
     const vehicleUrl = window.location.search.split("/");
     const vehicleId = vehicleUrl[vehicleUrl.indexOf("details") + 1]
 
-    buyButton.classList = "buy-button";
-    buyButton.innerHTML = buttonsText["buy"][language] ?? "Kopen";
-    buyButton.href = `javascript:showContactMePopin(${vehicleId})`;
+    reserveButton.classList = "buy-button";
+    reserveButton.innerHTML = buttonsText["reserve"][language] ?? "Reserveren";
+    reserveButton.addEventListener('click', () => {
+        const popup = document.querySelector('#reservation-popup-rent-detail')
+
+        if (popup) {
+            popup.classList.remove('hidden');
+        }
+    })
     rentButton.classList = "rent-button"
     rentButton.innerHTML = buttonsText["rent"][language] ?? "Huren";
     rentButton.href = `javascript:showContactMePopin(${vehicleId})`;
 
-    // buttonsWrapper.appendChild(buyButton);
+    buttonsWrapper.appendChild(reserveButton);
     buttonsWrapper.appendChild(rentButton);
     wrapper.appendChild(buttonsWrapper);
 }
@@ -134,11 +140,22 @@ const _addShareButtons = () => {
     wrapper.append(shareButtonsWrapper);
 }
 
+const _addReservePopupElement = () => {
+    const wrapper = document.querySelector('#svm-canvas');
+
+    const popupEl = document.createElement('div');
+    popupEl.id = 'reservation-popup-rent-detail';
+    popupEl.classList = 'reservation-popup hidden';
+
+    wrapper.parentElement.append(popupEl);
+}
+
 const _handleDetailPageFormatter = () => {
     _formatMachineTitle();
     _reformatSpecs();
     _addContactButtons();
     _addShareButtons();
+    _addReservePopupElement();
 }
 
 const _handleCanvasListener = (targetNode) => {

@@ -36,11 +36,27 @@ export default {
 
     computed: {
         getVehicleName() {
-            return document.querySelector(".page-verhuurDetail .detail-wrapper .specs-wrapper .vehicle-title").innerHTML ?? "Niet gevonden...";
+            let title = document.querySelector(".page-verhuurDetail .detail-wrapper .specs-wrapper .vehicle-title");
+
+            if (title) {
+                return title.innerHTML
+            }
+
+            title = document.querySelector(".page-voorraad-detail #pageContent .mainSpecsBlock .vehicleTitle");
+
+            if (title) {
+                return title.innerHTML
+            }
+
+            return 'Niet gevonden...'
         },
 
         getVehicleImage() {
-            return `${this.mainImageSrc.image_location}${this.mainImageSrc.image_name}.${this.mainImageSrc.image_type}`;
+            if (typeof this.mainImageSrc === 'object') {
+                return `${this.mainImageSrc.image_location}${this.mainImageSrc.image_name}.${this.mainImageSrc.image_type}`;
+            }else {
+                return this.mainImageSrc;
+            }
         },
 
         getDatePlaceHolder() {
@@ -66,22 +82,32 @@ export default {
 
         getPricePerDay() {
             const price = document.querySelector(".page-verhuurDetail .price-block .price-wrapper .price-per-day");
-
-            return price.innerHTML ?? 'Niet gevonden!';
+            return price ? price.innerHTML : "";
         },
 
         getPricePerWeek() {
             const price = document.querySelector(".page-verhuurDetail .price-block .price-wrapper .price-per-week");
-
-            return price.innerHTML ?? 'Niet gevonden!';
+            return price ? price.innerHTML : "";
         },
+
+        getBuyPrice() {
+            const price = document.querySelector('.page-voorraad-detail #pageContent #hprice .price_with_currency')
+            return price ? price.innerHTML : "";
+        }
     },
 
     methods: {
         fetchMainImage() {
-            const vehicleId = document.querySelector("#get-vehicle-id").dataset.vehicleid
+            const vehicle = document.querySelector("#get-vehicle-id")
 
-            axios.get(`/api/v2/vehicle/${vehicleId}/images`)
+            if (!vehicle) {
+                const image = document.querySelector('.page-voorraad-detail #pageContent #photoHolder .slick-list .slick-track .slick-slide img').src;
+
+                this.mainImageSrc = image;
+                return;
+            }
+
+            axios.get(`/api/v2/vehicle/${vehicle.dataset.vehicleid}/images`)
                 .then((response) => {
                     this.mainImageSrc = response.data.images[0];
                 })
@@ -121,19 +147,36 @@ export default {
         _handleSave() {
             this.submitButtonDisabled = true;
 
-            const vehicleId = document.querySelector("#get-vehicle-id").dataset.vehicleid ?? null;
-
-            axios.post('/api/v2/vehicle/reservation', {
-                "vehicleId": vehicleId,
-                "startDate": this.startDate,
-                "endDate": this.endDate,
-                "amount": this.amount,
-                "user": this.user,
-            }).then((response) => {
-                this.succesMessage = response.data.message
-            }).catch((error) => {
-                this.errorMessage = error.response.data.message
-            })
+            if(document.querySelector('.page-voorraad-detail') || document.querySelector('.page-dealer-voorraad-detail')) {
+                axios.post('/api/v2/vehicle/reservation/occasions', {
+                    "vehicle": {
+                        "name": this.getVehicleName,
+                        "image": this.getVehicleImage,
+                        "price": this.getBuyPrice,
+                    },
+                    "startDate": this.startDate,
+                    "endDate": this.endDate,
+                    "amount": this.amount,
+                    "user": this.user,
+                }).then((response) => {
+                    this.succesMessage = response.data.message
+                }).catch((error) => {
+                    this.errorMessage = error.response.data.message
+                })
+            }else {
+                const vehicleId = document.querySelector("#get-vehicle-id").dataset.vehicleid ?? null;
+                axios.post('/api/v2/vehicle/reservation', {
+                    "vehicleId": vehicleId,
+                    "startDate": this.startDate,
+                    "endDate": this.endDate,
+                    "amount": this.amount,
+                    "user": this.user,
+                }).then((response) => {
+                    this.succesMessage = response.data.message
+                }).catch((error) => {
+                    this.errorMessage = error.response.data.message
+                })
+            }
 
             setTimeout(() => {
                 if (this.succesMessage != "") {
@@ -202,7 +245,7 @@ export default {
                     <div class="header-wrapper">
                         <div class="header">
                             <div class="title">
-                                <h1>Machine reserveren</h1>
+                                <h1 style="color: #E56D01 !important">Machine reserveren</h1>
                             </div>
                             <div class="cursor-pointer close-modal" @click="_handleCloseModal">X</div>
                         </div>
@@ -239,6 +282,14 @@ export default {
                                                 </div>
                                                 <div class="value">
                                                     <p class="title">{{ getPricePerWeek }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="price">
+                                                <div class="name">
+                                                    <p class="title">Prijs:</p>
+                                                </div>
+                                                <div class="value">
+                                                    <p class="title">1</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -383,7 +434,7 @@ export default {
                                         </div>
                                         <div class="item-border"></div>
                                         <div class="item-prices">
-                                            <div class="price">
+                                            <div class="price" v-if="getPricePerDay">
                                                 <div class="name">
                                                     <p class="title">Prijs per dag:</p>
                                                 </div>
@@ -391,12 +442,20 @@ export default {
                                                     <p class="title">{{ getPricePerDay }}</p>
                                                 </div>
                                             </div>
-                                            <div class="price">
+                                            <div class="price" v-if="getPricePerWeek">
                                                 <div class="name">
                                                     <p class="title">Prijs per week:</p>
                                                 </div>
                                                 <div class="value">
                                                     <p class="title">{{ getPricePerWeek }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="price" v-if="getBuyPrice">
+                                                <div class="name">
+                                                    <p class="title">Prijs:</p>
+                                                </div>
+                                                <div class="value">
+                                                    <p class="title" v-html="getBuyPrice"></p>
                                                 </div>
                                             </div>
                                         </div>

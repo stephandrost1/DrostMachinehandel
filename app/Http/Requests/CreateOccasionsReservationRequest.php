@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class CreateReservationRequest extends FormRequest
+class CreateOccasionsReservationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,10 @@ class CreateReservationRequest extends FormRequest
     public function rules()
     {
         return [
-            'vehicleId' => 'required',
+            'vehicle' => 'array',
+            'vehicle.name' => 'required',
+            'vehicle.image' => 'required',
+            'vehicle.price' => 'required',
             'amount' => 'required|numeric',
             'startDate' => 'required',
             'endDate' => 'required',
@@ -44,11 +47,12 @@ class CreateReservationRequest extends FormRequest
             'user.company.kvknumber' => 'nullable',
         ];
     }
-
     public function messages()
     {
         return [
-            'vehicleId.required' => 'Machine indentificator niet gevonden!',
+            'vehicle.name.required' => 'Machine naam indentificator niet gevonden!',
+            'vehicle.image.required' => 'Machine afbeelding indentificator niet gevonden!',
+            'vehicle.price.required' => 'Machine prijs indentificator niet gevonden!',
             'amount.required' => 'Er is geen geldig aantal machines gevonden!',
             'amount.numeric' => 'Het aantal machines moet een cijfer zijn!',
             'startDate.required' => 'Er is geen start datum ingevuld!',

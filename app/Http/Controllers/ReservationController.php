@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateOccasionsReservationRequest;
 use App\Http\Requests\CreateReservationRequest;
 use App\Mail\ReservationMail;
 use App\Models\Dealer;
@@ -181,6 +182,11 @@ class ReservationController extends Controller
 
             return response()->json(["message" => $e->getMessage()], 500);
         }
+    }
+
+    public function storeOccasions(CreateOccasionsReservationRequest $request)
+    {
+        # code...
     }
 
     private function createReservation(string $id, object $request, $duration, $user)

@@ -140,6 +140,7 @@ Route::prefix('/api/v2')->group(function () {
     Route::get('/vehicles', [VehicleController::class, "index"]);
     Route::get('/filters', [FilterController::class, "index"]);
     Route::get("/vehicle/{id}/images", [VehicleImagesController::class, "getByVehicleId"]);
+    Route::post('/vehicle/reservation/occasions', [ReservationController::class, "storeOccasions"]);
     Route::post('/vehicle/reservation', [ReservationController::class, "store"]);
 });
 
