@@ -64,7 +64,7 @@ const _addContactButtons = () => {
     const vehicleUrl = window.location.search.split("/");
     const vehicleId = vehicleUrl[vehicleUrl.indexOf("details") + 1]
 
-    reserveButton.classList = "buy-button";
+    reserveButton.classList = "buy-button cursor-pointer";
     reserveButton.innerHTML = buttonsText["reserve"][language] ?? "Reserveren";
     reserveButton.addEventListener('click', () => {
         const popup = document.querySelector('#reservation-popup-rent-detail')

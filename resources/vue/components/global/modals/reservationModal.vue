@@ -42,7 +42,7 @@ export default {
                 return title.innerHTML
             }
 
-            title = document.querySelector(".page-voorraad-detail #pageContent .mainSpecsBlock .vehicleTitle");
+            title = document.querySelector("#pageContent .mainSpecsBlock .vehicleTitle");
 
             if (title) {
                 return title.innerHTML
@@ -91,9 +91,13 @@ export default {
         },
 
         getBuyPrice() {
-            const price = document.querySelector('.page-voorraad-detail #pageContent #hprice .price_with_currency')
+            const price = document.querySelector('#pageContent #hprice .price_with_currency')
             return price ? price.innerHTML : "";
-        }
+        },
+
+        isOccasions() {
+            return document.querySelector('.page-voorraad-detail') !== null || document.querySelector('.page-dealer-voorraad-detail') !== null;
+        },
     },
 
     methods: {
@@ -101,8 +105,8 @@ export default {
             const vehicle = document.querySelector("#get-vehicle-id")
 
             if (!vehicle) {
-                const image = document.querySelector('.page-voorraad-detail #pageContent #photoHolder .slick-list .slick-track .slick-slide img').src;
-
+                const image = document.querySelector('#pageContent #photoHolder .slick-list .slick-track .slick-slide img').src;
+                console.log(image);
                 this.mainImageSrc = image;
                 return;
             }
@@ -147,16 +151,14 @@ export default {
         _handleSave() {
             this.submitButtonDisabled = true;
 
-            if(document.querySelector('.page-voorraad-detail') || document.querySelector('.page-dealer-voorraad-detail')) {
+            if(this.isOccasions) {
                 axios.post('/api/v2/vehicle/reservation/occasions', {
                     "vehicle": {
                         "name": this.getVehicleName,
                         "image": this.getVehicleImage,
                         "price": this.getBuyPrice,
+                        "url": window.location.pathname + window.location.search,
                     },
-                    "startDate": this.startDate,
-                    "endDate": this.endDate,
-                    "amount": this.amount,
                     "user": this.user,
                 }).then((response) => {
                     this.succesMessage = response.data.message
@@ -296,7 +298,7 @@ export default {
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" v-if="!isOccasions">
                                 <div class="column">
                                     <div class="item amount">
                                         <div class="label">
@@ -327,14 +329,14 @@ export default {
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" :style="{ paddingTop: isOccasions ?? 0 }">
                                 <div class="row-header column">
                                     <h1>Uw gegevens:</h1>
                                 </div>
                                 <div class="column name">
                                     <div class="item">
                                         <div class="label">
-                                            <p class="label-text">Voornaam:</p>
+                                            <p class="label-text">Naam:</p>
                                         </div>
                                         <input type="text" v-model="user.name" placeholder="John Doe"
                                             class="form-input firstname">
@@ -462,7 +464,7 @@ export default {
                                     </div>
                                 </div>
                             </div>
-                            <div class="alerts" v-if="errorMessage !== '' || succesMessage !== ''"
+                            <div class="alerts my-3" v-if="errorMessage !== '' || succesMessage !== ''"
                                 :class="{ 'bg-red-500': errorMessage !== '', 'bg-green-500': succesMessage !== '' }">
                                 <p class="alert-text">{{ errorMessage? errorMessage: succesMessage }}</p>
                             </div>

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateOccasionsReservationRequest;
 use App\Http\Requests\CreateReservationRequest;
+use App\Mail\OccasionsReservationMail;
 use App\Mail\ReservationMail;
 use App\Models\Dealer;
 use App\Models\DealerVehicle;
 use App\Models\GuestUser;
 use App\Models\GuestUserAddress;
 use App\Models\GuestUserCompany;
+use App\Models\OccasionsReservation;
 use App\Models\PostalcodeCoord;
 use App\Models\PostalcodeDistance;
 use App\Models\Reservation;
@@ -19,6 +21,7 @@ use App\Models\Vehicle;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use DateTime;
+use DateTimeZone;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,10 +79,28 @@ class ReservationController extends Controller
                 });
             })->with(['guestUser.address', 'guestUser.company', 'vehicle', 'dates'])->withTrashed()->get();
 
-            $reservations = $authReservations->concat($guestReservations)->toArray();
+            $occasionsReservations = OccasionsReservation::where(function ($query) use ($searchQuery) {
+                $query->whereHas("guestUser", function ($query) use ($searchQuery) {
+                    $query->where(function ($query) use ($searchQuery) {
+                        $query->where(DB::raw("CONCAT(firstname, ' ', lastname)"), 'like', "%$searchQuery%")
+                            ->orWhere('email', 'like', "%$searchQuery%")
+                            ->orWhere('phonenumber', 'like', "%$searchQuery%")
+                            ->orWhereHas('address', function ($query) use ($searchQuery) {
+                                $query->where('streetname', 'like', "%$searchQuery%")
+                                    ->orWhere('housenumber', 'like', "%$searchQuery%")
+                                    ->orWhere('postalcode', 'like', "%$searchQuery%");
+                            })->orWhereHas('company', function ($query) use ($searchQuery) {
+                                $query->where('companyname', 'like', "%$searchQuery%")
+                                    ->orWhere('kvknumber', 'like', "%$searchQuery%");
+                            });
+                    });
+                });
+            })->with(['guestUser.address', 'guestUser.company'])->withTrashed()->get();
+
+            $reservations = $authReservations->concat($guestReservations)->concat($occasionsReservations)->toArray();
 
             $sortedReservations = collect($reservations)->sortBy(function ($reservation) {
-                $startDate = new DateTime($reservation["dates"]["startDate"]);
+                $startDate = isset($reservation["dates"]["startDate"]) ? new DateTime($reservation["dates"]["startDate"]) : new DateTime($reservation["created_at"]);
                 return ($startDate >= new DateTime()) ? 0 : $startDate->diff(new DateTime())->days;
             })->toArray();
 
@@ -163,11 +184,7 @@ class ReservationController extends Controller
                 throw new Exception("Er zijn nog maximaal: " . $vehicle->stock - $amount . " machines beschikbaar!");
             }
 
-            if (Auth::check()) {
-                $user = User::find($this->getUsersAccountId($request));
-            } else {
-                $user = GuestUser::find($this->getUsersAccountId($request));
-            }
+            $user = GuestUser::find($this->getUsersAccountId($request));
 
             if (!$this->createReservation($user->id, $request, $duration, $user)) {
                 throw new Exception("Er is iets fout gegaan bij het aanmaken van de reservering, probeer het later opnieuw!");
@@ -186,7 +203,91 @@ class ReservationController extends Controller
 
     public function storeOccasions(CreateOccasionsReservationRequest $request)
     {
-        # code...
+        try {
+            $validation = $request->validated();
+
+            $user = $this->createGuestUser($request->user);
+
+            if (!$user) {
+                return log_and_return_error(request(), 'Probeer het later opnieuw!');
+            }
+
+            if (!$this->createOccasionsReservation($request, $user)) {
+                throw new Exception("Er is iets fout gegaan bij het aanmaken van de reservering, probeer het later opnieuw!");
+            }
+
+            return response()->json(["message" => "Reservering is succesvol aangemaakt!"], 200);
+        } catch (Exception $e) {
+            Log::emergency("ReservationController", [
+                "error" => $e->getMessage(),
+                "action" => "StoreOccasions",
+                "request" => $request->toArray(),
+            ]);
+
+            return response()->json(["message" => $e->getMessage()], 500);
+        }
+    }
+
+    private function createOccasionsReservation($reservation, $user)
+    {
+        try {
+            $distance = $this->fetchDistanceFromPostalCode(preg_replace('/\s/', '', $reservation["user"]["postalcode"]));
+
+            $newReservation = OccasionsReservation::create([
+                "dealer_id" => $user->id,
+                "auth_type" => "Guest",
+                "vehicle_name" => $reservation["vehicle"]["name"],
+                "vehicle_image" => $reservation["vehicle"]["image"],
+                "vehicle_price" => preg_replace('/[^0-9]/', '', $reservation["vehicle"]["price"]),
+                "vehicle_url" => $reservation["vehicle"]["url"],
+                "distance" => round($distance),
+            ]);
+
+            $this->sendOccasionsReservationAcceptedMail($reservation["vehicle"]["name"], $user["email"]);
+
+            return true;
+        } catch (Exception $e) {
+            Log::emergency("ReservationController", [
+                "action" => "createReservation",
+                "error" => $e->getMessage(),
+            ]);
+            return false;
+        }
+    }
+
+    private function createGuestUser($data)
+    {
+        try {
+            $explodedName = explode(' ', $data["name"]);
+            $firstname = array_shift($explodedName);
+            $lastname = implode(' ', $explodedName);
+
+            $user = GuestUser::create([
+                'firstname' => $firstname,
+                'lastname' => $lastname ?? '.',
+                'email' => $data["email"],
+                'phonenumber' => $data["phonenumber"],
+            ]);
+
+            $userAddress = GuestUserAddress::create([
+                'country' => $data["country"],
+                'city' => $data["city"],
+                'streetname' => $data["streetname"],
+                'housenumber' => $data["housenumber"],
+                'postalcode' => $data["postalcode"],
+                'guest_user_id' => $user->id,
+            ]);
+
+            $userCompany = GuestUserCompany::create([
+                'companyname' => $data["company"]["name"],
+                'kvknumber' => $data["company"]["kvknumber"],
+                'guest_user_id' => $user->id,
+            ]);
+
+            return $user;
+        } catch (Exception $e) {
+            return log_and_return_error(request(), $e->getMessage());
+        }
     }
 
     private function createReservation(string $id, object $request, $duration, $user)
@@ -196,7 +297,7 @@ class ReservationController extends Controller
 
             $newReservation = Reservation::create([
                 "dealer_id" => $id,
-                "auth_type" => $this->getAuthType(),
+                "auth_type" => "Guest",
                 "vehicle_id" => $request->vehicleId,
                 // "distance" => $this->categorizeDistance(round($distance)),
                 "distance" => round($distance),
@@ -249,22 +350,6 @@ class ReservationController extends Controller
 
         // Return the number of years, weeks, and days
         return "$years y $weeks w $days d";
-    }
-
-    private function categorizeDistance($distance)
-    {
-        // Extract the distance value from the string
-        $distance = intval(preg_replace('/\D/', '', $distance));
-
-        if ($distance <= 10) {
-            return 0;
-        } elseif ($distance <= 25) {
-            return 50;
-        } elseif ($distance < 70) {
-            return 90;
-        } else {
-            return "request";
-        }
     }
 
     private function fetchDistanceFromPostalCode(string $postalCode)
@@ -354,13 +439,35 @@ class ReservationController extends Controller
         return $distance;
     }
 
+    private function sendOccasionsReservationAcceptedMail($vehicleName, $to)
+    {
+        $time = new DateTime('now', new DateTimeZone('Europe/Amsterdam'));
+
+        $details = [
+            "vehicle" => $vehicleName,
+            "currentTime" => $time->format("F j, Y, g:i a"),
+        ];
+
+        try {
+            Mail::to($to)->send(new OccasionsReservationMail($details));
+        } catch (Exception $e) {
+            Log::emergency("ContactController", [
+                "action" => "submitRequest",
+                "error" => $e->getMessage(),
+                "to_email_address" => $to,
+            ]);
+        }
+    }
+
     private function sendReservationAcceptedMail($vehicleName, $startDate, $endDate, $to)
     {
+        $time = new DateTime('now', new DateTimeZone('Europe/Amsterdam'));
+
         $details = [
             "vehicle" => $vehicleName,
             "startDate" => $startDate,
             "endDate" => $endDate,
-            "currentTime" => date("F j, Y, g:i a")
+            "currentTime" => $time->format("F j, Y, g:i a"),
         ];
 
         try {
@@ -376,41 +483,44 @@ class ReservationController extends Controller
 
     private function getUsersAccountId(object $request)
     {
-        if (Auth::check()) {
-            return Auth::id();
-        }
+        try {
+            if (isset($request->user["name"])) {
+                $explodedName = explode(' ', $request->user["name"]);
+                $firstname = array_shift($explodedName);
+                $lastname = implode(' ', $explodedName);
+            } else {
+                $firstname = $request->user["firstname"];
+                $lastname = $request->user["lastname"];
+            }
 
-        $users = GuestUser::where("email", $request->user["email"])->get()->toArray();
+            $newGuestUser = GuestUser::create([
+                "firstname" => $firstname,
+                "lastname" => $lastname,
+                "email" => $request->user["email"],
+                "phonenumber" => $request->user["phonenumber"],
+            ]);
 
-        if (!empty($users)) {
-            return $users[0]["id"];
-        }
-
-        $newGuestUser = GuestUser::create([
-            "firstname" => $request->user["firstname"],
-            "lastname" => $request->user["insertion"] . " " . $request->user["lastname"],
-            "email" => $request->user["email"],
-            "phonenumber" => $request->user["phonenumber"],
-        ]);
-
-        $newGuestUserAddress = GuestUserAddress::create([
-            "country" => $request->user["country"],
-            "city" => $request->user["city"],
-            "streetname" => $request->user["streetname"],
-            "housenumber" => $request->user["housenumber"],
-            "postalcode" => $request->user["postalcode"],
-            "guest_user_id" => $newGuestUser->id,
-        ]);
-
-        if (!empty($request->user["company"]["name"]) && !empty($request->user["company"]["kvknumber"])) {
-            $newGuestUserCompany = GuestUserCompany::create([
-                "companyname" => $request->user["company"]["name"],
-                "kvknumber" => $request->user["company"]["kvknumber"],
+            $newGuestUserAddress = GuestUserAddress::create([
+                "country" => $request->user["country"],
+                "city" => $request->user["city"],
+                "streetname" => $request->user["streetname"],
+                "housenumber" => $request->user["housenumber"],
+                "postalcode" => $request->user["postalcode"],
                 "guest_user_id" => $newGuestUser->id,
             ]);
-        }
 
-        return $newGuestUser->id;
+            if (!empty($request->user["company"]["name"]) && !empty($request->user["company"]["kvknumber"])) {
+                $newGuestUserCompany = GuestUserCompany::create([
+                    "companyname" => $request->user["company"]["name"],
+                    "kvknumber" => $request->user["company"]["kvknumber"],
+                    "guest_user_id" => $newGuestUser->id,
+                ]);
+            }
+
+            return $newGuestUser->id;
+        } catch (Exception $e) {
+            return log_and_return_error(request(), $e->getMessage());
+        }
     }
 
     private function fetchReservationsVehicleCounts(array $items)
@@ -420,10 +530,10 @@ class ReservationController extends Controller
         })->filter()->sum("amount");
     }
 
-    public function accept($id)
+    public function acceptOccasions($id)
     {
         try {
-            $reservation = Reservation::find($id);
+            $reservation = OccasionsReservation::withTrashed()->find($id);
 
             $reservation->fill([
                 "status" => Carbon::now(),
@@ -432,13 +542,34 @@ class ReservationController extends Controller
 
             return response()->json(["message" => "Reservering succesvol geaccepteerd"], 200);
         } catch (Exception $e) {
-            Log::alert("ReservationController", [
-                "action" => "delete",
-                "id" => $id,
-                "error" => $e->getMessage()
-            ]);
+            return log_and_return_error(request(), $e->getMessage());
+        }
+    }
 
-            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
+    public function accept($id)
+    {
+        try {
+            $reservation = Reservation::withTrashed()->find($id);
+
+            $reservation->fill([
+                "status" => Carbon::now(),
+                "deleted_at" => null
+            ])->save();
+
+            return response()->json(["message" => "Reservering succesvol geaccepteerd"], 200);
+        } catch (Exception $e) {
+            return log_and_return_error(request(), $e->getMessage());
+        }
+    }
+
+    public function deleteOccasions($id)
+    {
+        try {
+            OccasionsReservation::find($id)->delete();
+
+            return response()->json(["message" => "Reservering succesvol afgewezen"], 200);
+        } catch (Exception $e) {
+            return log_and_return_error(request(), $e->getMessage());
         }
     }
 
@@ -449,13 +580,7 @@ class ReservationController extends Controller
 
             return response()->json(["message" => "Reservering succesvol afgewezen"], 200);
         } catch (Exception $e) {
-            Log::alert("ReservationController", [
-                "action" => "delete",
-                "id" => $id,
-                "error" => $e->getMessage()
-            ]);
-
-            return response()->json(["message" => "Er is iets fout gegaan: " . $e->getMessage()], 500);
+            return log_and_return_error(request(), $e->getMessage());
         }
     }
 }

@@ -28,6 +28,11 @@ class Reservation extends Model
         return $this->guestUser;
     }
 
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'dealer_id');
+    }
+
     public function guestUser()
     {
         return $this->hasOne(GuestUser::class, 'id', 'dealer_id');

@@ -10,31 +10,59 @@ export default {
             return this.reservation.user.name ?? `${this.reservation.user.firstname} ${this.reservation.user.lastname}`;
         },
 
+        isOccasionReservation() {
+            return this.reservation.vehicle == null && this.reservation.vehicle_name != null;
+        },
+
         getReservationStatus() {
-            if (this.reservation.deleted_at != null) {
-                return 'Geweigerd'
-            } else if (moment(this.reservation.dates.endDate).isBefore(moment().add(1, 'days').startOf('day'))) {
-                return 'Verlopen'
-            } else if (this.reservation.status == null) {
-                return 'Niet geaccepteerd'
+            if (this.isOccasionReservation) {
+                if (this.reservation.deleted_at != null) {
+                    return 'Geweigerd'
+                } else if (this.reservation.status == null) {
+                    return 'Niet geaccepteerd'
+                } else {
+                    return 'Geaccepteerd'
+                }
             } else {
-                return 'Geaccepteerd'
+                if (this.reservation.deleted_at != null) {
+                    return 'Geweigerd'
+                } else if (moment(this.reservation.dates.endDate).isBefore(moment().add(1, 'days').startOf('day'))) {
+                    return 'Verlopen'
+                } else if (this.reservation.status == null) {
+                    return 'Niet geaccepteerd'
+                } else {
+                    return 'Geaccepteerd'
+                }
             }
         },
 
         getReservationDates() {
+            if (this.isOccasionReservation) {
+                return moment(this.reservation.created_at).format("DD MMM YYYY");
+            }
+
             return `${moment(this.reservation.dates.startDate).format("DD MMM YYYY")} -- ${moment(this.reservation.dates.endDate).format("DD MMM YYYY")}`
         },
 
         getReservationClasses() {
-            if (this.reservation.deleted_at != null) {
-                return 'bg-red-500'
-            } else if (moment(this.reservation.dates.endDate).isBefore(moment().add(1, 'days').startOf('day'))) {
-                return 'bg-orange-500'
-            } else if (this.reservation.status == null) {
-                return 'bg-yellow-500'
-            } else {
-                return 'bg-green-500'
+            if (this.isOccasionReservation) {
+                if (this.reservation.deleted_at != null) {
+                    return 'bg-red-500'
+                } else if (this.reservation.status == null) {
+                    return 'bg-yellow-500'
+                } else {
+                    return 'bg-green-500'
+                }
+            }else {
+                if (this.reservation.deleted_at != null) {
+                    return 'bg-red-500'
+                } else if (moment(this.reservation.dates.endDate).isBefore(moment().add(1, 'days').startOf('day'))) {
+                    return 'bg-orange-500'
+                } else if (this.reservation.status == null) {
+                    return 'bg-yellow-500'
+                } else {
+                    return 'bg-green-500'
+                }
             }
         },
 
@@ -55,10 +83,18 @@ export default {
         },
 
         getReservationVehicleLink() {
+            if (this.isOccasionReservation) {
+                return this.reservation.vehicle_url;
+            }
+            //TODO check if auth_type == "auth" then /dealer/voorrraad otherwise /voorraad;
             return window.location.origin + '/dealer/voorraad/vehicle/' + this.reservation.vehicle.id + '/' + this.reservation.vehicle.vehicle_name;
         },
 
         getReservationVehicleName() {
+            if (this.isOccasionReservation) {
+                return this.reservation.vehicle_name;
+            }
+
             return this.reservation.vehicle.vehicle_name;
         },
 
@@ -71,25 +107,48 @@ export default {
         _handleDelete() {
             this.reservation.deleted_at = new Date();
 
-            axios.delete(`/api/v1/reservations/${this.reservation.id}/delete`)
-                .then((response) => {
-                    this.$toast.success(response.data.message);
-                })
-                .catch((error) => {
-                    this.$toast.error(error.response.data.message);
-                })
+            if (this.isOccasionReservation) {
+                axios.delete(`/api/v1/reservations/occasions/${this.reservation.id}/delete`)
+                    .then((response) => {
+                        this.$toast.success(response.data.message);
+                    })
+                    .catch((error) => {
+                        this.$toast.error(error.response.data.message);
+                    })
+            } else {
+                axios.delete(`/api/v1/reservations/${this.reservation.id}/delete`)
+                    .then((response) => {
+                        this.$toast.success(response.data.message);
+                    })
+                    .catch((error) => {
+                        this.$toast.error(error.response.data.message);
+                    })
+            }         
         },
+
         _handleAccept() {
             this.reservation.deleted_at = null;
             this.reservation.status = new Date();
 
-            axios.patch(`/api/v1/reservations/${this.reservation.id}/accept`)
-                .then((response) => {
-                    this.$toast.success(response.data.message);
-                })
-                .catch((error) => {
-                    this.$toast.error(error.response.data.message);
-                })
+            if (this.isOccasionReservation) {
+                axios.patch(`/api/v1/reservations/occasions/${this.reservation.id}/accept`)
+                    .then((response) => {
+                        this.$toast.success(response.data.message);
+                    })
+                    .catch((error) => {
+                        this.$toast.error(error.response.data.message);
+                    })
+            } else {
+                axios.patch(`/api/v1/reservations/${this.reservation.id}/accept`)
+                    .then((response) => {
+                        this.$toast.success(response.data.message);
+                    })
+                    .catch((error) => {
+                        this.$toast.error(error.response.data.message);
+                    })
+            }
+
+            
         },
         _handleView() {
             this.$emit("_handleView", this.reservation);
@@ -114,7 +173,8 @@ export default {
             <a class="border-b border-primary-500 w-fit flex items-center gap-2" target="_blank" :href="getReservationVehicleLink">{{ getReservationVehicleName }} <i class="fas text-xs fa-external-link-alt"></i></a>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
-            <p>{{ getReservationDuration }}</p>
+            <p v-if="!isOccasionReservation">{{ getReservationDuration }}</p>
+            <p v-else>N.V.T.</p>
         </td>
         <td class="border-grey-light border hover:bg-gray-100 p-2 min-[1225px]:p-3">
             <p>{{ getReservationDates }}</p>

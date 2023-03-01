@@ -17,6 +17,10 @@ export default {
     },
 
     computed: {
+        isOccasionReservation() {
+            return this.reservation.vehicle == null && this.reservation.vehicle_name != null;
+        },
+
         getAdres() {
             return `${this.reservation.user.address.streetname} ${this.reservation.user.address.housenumber}`
         },
@@ -42,6 +46,10 @@ export default {
         },
 
         getTotalPrice() {
+            if (this.isOccasionReservation) {
+                return `€ ${Number(this.reservation.vehicle_price)}`;
+            }
+
             const totalDays = this.calculateDays(this.reservation.dates.startDate, this.reservation.dates.endDate);
             const weeks = parseInt(totalDays / 7);
             const days = totalDays % 7;
@@ -120,7 +128,7 @@ export default {
                                         <div class="field">
                                             <label class="name" for="name">Naam:</label>
                                             <div class="value">
-                                                <p>{{ reservation.user.name }}</p>
+                                                <p>{{ reservation.user.firstname }} {{ reservation.user.lastname }}</p>
                                             </div>
                                         </div>
                                         <div class="field">
@@ -165,13 +173,13 @@ export default {
                                                 <p>{{ getCreationDate }}</p>
                                             </div>
                                         </div>
-                                        <div class="field">
+                                        <div class="field" v-if="!isOccasionReservation">
                                             <label class="name" for="name">Looptijd:</label>
                                             <div class="value">
                                                 <p>{{ getFormattedDuration }}</p>
                                             </div>
                                         </div>
-                                        <div class="field">
+                                        <div class="field" v-if="!isOccasionReservation">
                                             <label class="name" for="name">Datum:</label>
                                             <div class="value">
                                                 <p>{{ getFromattedStartDate }}</p><b> Tot </b><p>{{ getFromattedEndDate }}</p>
@@ -182,17 +190,22 @@ export default {
 
                                     <div class="vehicle-teaser">
                                         <div class="vehicle-title">
-                                            <p>{{ vehicle.vehicle_name }}</p>
+                                            <p v-if="!isOccasionReservation">{{ vehicle.vehicle_name }}</p>
+                                            <p v-else>{{ reservation.vehicle_name }}</p>
                                         </div>
                                         <div class="thumbnail">
-                                            <img class="vehicle-image" :src="getVehicleThumbnail" loading="lazy"/>
+                                            <img class="vehicle-image" v-if="!isOccasionReservation" :src="getVehicleThumbnail" loading="lazy"/>
+                                            <img class="vehicle-image" v-else :src="reservation.vehicle_image" loading="lazy"/>
                                         </div>
-                                        <div class="vehicle-tile item">
+                                        <div class="vehicle-tile item" v-if="!isOccasionReservation">
                                             <p>Prijs per dag: {{ vehicle.price_per_day }}</p>
                                         </div>
-                                        <div class="vehicle-tile item-last">
+                                        <div class="vehicle-tile item-last" v-if="!isOccasionReservation">
                                             <p>Prijs per week: {{ vehicle.price_per_week }}</p>
                                         </div>
+                                        <div v-if="isOccasionReservation" class="vehicle-tile item-last">
+                                                <p>Prijs: {{ reservation.vehicle_price }}</p>
+                                            </div>
                                     </div>
                                 </div>
 

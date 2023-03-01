@@ -15,11 +15,13 @@ class OccasionsReservation extends Model
         "vehicle_name",
         "vehicle_image",
         "vehicle_price",
+        "vehicle_url",
         "distance",
         "status",
-        "amount",
-        "duration",
-        "auth_type"
+        "auth_type",
+        "deleted_at",
+        "created_at",
+        "updated_at"
     ];
 
     protected $appends = ['user'];
@@ -32,15 +34,5 @@ class OccasionsReservation extends Model
     public function guestUser()
     {
         return $this->hasOne(GuestUser::class, 'id', 'dealer_id');
-    }
-
-    public function vehicle()
-    {
-        return $this->hasOne(Vehicle::class, 'id', 'vehicle_id');
-    }
-
-    public function dates()
-    {
-        return $this->hasOne(ReservationDate::class, 'reservation_id', 'id');
     }
 }

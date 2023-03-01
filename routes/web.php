@@ -125,6 +125,8 @@ Route::prefix('/api/v1')->middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix("/reservations")->group(function () {
         Route::get('/{page}', [ReservationController::class, "index"])->where("s", "[a-zA-Z0-9]+")->defaults('s', '');
+        Route::patch("/occasions/{id}/accept", [ReservationController::class, "acceptOccasions"]);
+        Route::delete("/occasions/{id}/delete", [ReservationController::class, "deleteOccasions"]);
         Route::patch("/{id}/accept", [ReservationController::class, "accept"]);
         Route::delete("/{id}/delete", [ReservationController::class, "delete"]);
     });

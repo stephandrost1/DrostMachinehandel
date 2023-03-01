@@ -21,8 +21,6 @@ return new class extends Migration
             $table->string("vehicle_price");
             $table->string("distance");
             $table->timestamp("status")->nullable();
-            $table->integer("amount");
-            $table->string('duration');
             $table->string("auth_type");
             $table->softDeletes();
             $table->timestamps();

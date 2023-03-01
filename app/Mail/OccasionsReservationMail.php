@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ReservationMail extends Mailable
+class OccasionsReservationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -20,7 +20,7 @@ class ReservationMail extends Mailable
      */
     public function __construct($details)
     {
-        $this->subject = "U heeft een nieuwe reservering ontvangen!";
+        $this->subject = "Reservering bevestigingsmail: " . $details["vehicle"];
         $this->title = "Reservering bevestiging";
         $this->details = $details;
     }
@@ -32,6 +32,6 @@ class ReservationMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.reservation', ['details' => $this->details]);
+        return $this->view('mail.occasionsReservation', ['details' => $this->details]);
     }
 }

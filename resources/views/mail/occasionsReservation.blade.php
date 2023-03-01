@@ -9,7 +9,6 @@
     <h1>Reserveringsbevestiging drostmachinehandel.com</h1>
     <br><br>
     <p><b>Machine:</b> {{ $details["vehicle"] }}</p>
-    <p><b>Datum:</b> {{ $details["startDate"] }} Tot {{ $details["endDate"] }}</p>
     <p><b>Reserving aangemaakt op:</b> {{ $details["currentTime"] }}</p>
 </body>
 </html>
