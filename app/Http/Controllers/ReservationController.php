@@ -278,11 +278,13 @@ class ReservationController extends Controller
                 'guest_user_id' => $user->id,
             ]);
 
-            $userCompany = GuestUserCompany::create([
-                'companyname' => $data["company"]["name"],
-                'kvknumber' => $data["company"]["kvknumber"],
-                'guest_user_id' => $user->id,
-            ]);
+            if (!is_null($data["company"]["name"]) && !is_null($data["company"]["kvknumber"])) {
+                $userCompany = GuestUserCompany::create([
+                    'companyname' => $data["company"]["name"],
+                    'kvknumber' => $data["company"]["kvknumber"],
+                    'guest_user_id' => $user->id,
+                ]);
+            }
 
             return $user;
         } catch (Exception $e) {
@@ -328,15 +330,6 @@ class ReservationController extends Controller
         }
     }
 
-    private function getAuthType()
-    {
-        if (Auth::check()) {
-            return 'Auth';
-        }
-
-        return "Guest";
-    }
-
     private function convertToYWD($days)
     {
         // Calculate the number of years
@@ -367,7 +360,10 @@ class ReservationController extends Controller
 
 
         if (!empty($postalCodeCoords)) {
-            return $this->calculateDistanceByLatLng($homePostalCode, $postalCodeCoords);
+            return $this->calculateDistanceByLatLng($homePostalCode, [
+                "lat" => $postalCodeCoords->lat,
+                "long" => $postalCodeCoords->lon,
+            ]);
         }
 
         $response = $this->crawlOpenStreetMap("https://nominatim.openstreetmap.org/search.php?q=" . $postalCode . "&format=jsonv2");
@@ -429,8 +425,8 @@ class ReservationController extends Controller
     {
         $lat1 = deg2rad($homePostalCode->lat);
         $lng1 = deg2rad($homePostalCode->long);
-        $lat2 = deg2rad($postalCodeCoords->lat);
-        $lng2 = deg2rad($postalCodeCoords->long);
+        $lat2 = deg2rad($postalCodeCoords["lat"]);
+        $lng2 = deg2rad($postalCodeCoords["long"]);
 
         // Calculate the distance using the Haversine formula
         $earth_radius = 6371;

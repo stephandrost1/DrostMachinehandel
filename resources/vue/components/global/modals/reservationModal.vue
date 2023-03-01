@@ -271,14 +271,14 @@ export default {
                                         <div class="item-border"></div>
                                         <div class="item-prices">
                                             <div class="price">
-                                                <div class="name">
+                                                <div class="name" v-if="getPricePerDay">
                                                     <p class="title">Prijs per dag:</p>
                                                 </div>
                                                 <div class="value">
                                                     <p class="title">{{ getPricePerDay }}</p>
                                                 </div>
                                             </div>
-                                            <div class="price">
+                                            <div class="price" v-if="getPricePerWeek">
                                                 <div class="name">
                                                     <p class="title">Prijs per week:</p>
                                                 </div>
@@ -286,12 +286,12 @@ export default {
                                                     <p class="title">{{ getPricePerWeek }}</p>
                                                 </div>
                                             </div>
-                                            <div class="price">
+                                            <div class="price" v-if="getBuyPrice">
                                                 <div class="name">
                                                     <p class="title">Prijs:</p>
                                                 </div>
                                                 <div class="value">
-                                                    <p class="title">1</p>
+                                                    <p class="title" v-html="getBuyPrice"></p>
                                                 </div>
                                             </div>
                                         </div>
