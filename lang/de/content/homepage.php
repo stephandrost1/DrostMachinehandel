@@ -4,9 +4,8 @@
 
 return [
     'title' => 'Drost Machinehandel Ihr Spezialist für gebrauchte Transportgeräte!',
-    'subtitle' => 'Wir bieten auch Service für verkaufte Maschinen.
-                   Die Maschinen werden vor dem Verkauf gründlich geprüft und fahrbereit gemacht!
-                   Auf Wunsch Inzahlungnahme Ihrer Gebrauchtmaschine, aber auch Transport zum Wunschort.',
+    'subtitle' => 'Die Maschinen werden vor dem Verkauf gründlich geprüft und verkaufsfertig gemacht!
+                    Auf Wunsch Inzahlungnahme Ihrer Gebrauchtmaschine, aber auch Transport zum Wunschort.',
     'stock' => 'Lager',
     'lease' => 'Mieten',
     'quote' => 'Gabelstapler, Hubwagen, Stapler und andere Transportgeräte!',

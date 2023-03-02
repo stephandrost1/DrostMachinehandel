@@ -4,9 +4,8 @@
 
 return [
     'title' => 'Drost Machinehandel your specialist in used transport equipment!',
-    'subtitle' => 'We also provide service to sold machines.
-                   The machines are thoroughly checked before sale and made roadworthy!
-                   If desired, trade-in of your used machine, but also transport to the desired location.',
+    'subtitle' => 'The machines are thoroughly checked and made ready for sale before sale!
+                    If desired, trade in your used machine, but also transport to the desired location.',
     'stock' => 'Stock',
     'lease' => 'Lease',
     'quote' => 'Forklifts, pallet trucks, stackers and other transport equipment!',
