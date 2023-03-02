@@ -107,22 +107,17 @@ export default {
 
     methods: {
         async fetchBuyPrice() {
-            const price = document.querySelector('.price_with_currency');
+            let price = document.querySelector('.price_vehicle_updated');
+            let index = 0;
 
-            // Select the elements with the class name "price_with_currency"
-            const observer = new MutationObserver(function (mutations) {
-                // Iterate over the mutations
-                mutations.forEach(function (mutation) {
-                    // Check if the mutation affected the "innerHTML" property
-                    if (mutation.type === 'childList' && mutation.target.classList.contains('price_with_currency')) {
-                        const buyPriceElement = document.querySelector('.price_with_currency');
-                        this.buyPrice = new Intl.NumberFormat('nl-NL', {
-                            style: 'currency',
-                            currency: 'EUR',
-                        }).format(buyPriceElement.innerHTML);
-                    }
+            while (!price && index < 10) {
+                setTimeout(() => {
+                    index++
+                    price = document.querySelector('.price_vehicle_updated');
                 });
-            });
+            }
+
+            this.buyPrice = price.innerHTML;
         },
 
         fetchMainImage() {

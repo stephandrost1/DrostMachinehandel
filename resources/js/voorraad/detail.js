@@ -171,12 +171,14 @@ const fetchDealerPrice = async () => {
 }
 
 const _handlePriceOverwritter = async () => {
+    let price = canvas.querySelector("#hcontact-block #hprice .price .price_with_currency");
     const dealerVehicle = await fetchDealerPrice();
     const vehicleIdElement = document.createElement("div");
     vehicleIdElement.classList = "hidden";
     vehicleIdElement.id = "get-vehicle-id";
     vehicleIdElement.dataset.vehicleid = dealerVehicle.id;
     canvas.appendChild(vehicleIdElement);
+    price.classList = 'price_with_currency price_vehicle_updated';
 }
 
 const _handleCanvasListener = (targetNode) => {
