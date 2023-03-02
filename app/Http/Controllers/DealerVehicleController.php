@@ -105,6 +105,21 @@ class DealerVehicleController extends Controller
         }
     }
 
+    public function getVehicleById($id)
+    {
+        try {
+            if (!empty($id)) {
+                $vehicle = DealerVehicle::find($id);
+            } else {
+                throw new Exception("No vehicle identifier found");
+            }
+
+            return response()->json(["vehicle" => $vehicle], 200);
+        } catch (Exception $e) {
+            return log_and_return_error(request(), $e->getMessage());
+        }
+    }
+
     public function delete($id)
     {
         try {

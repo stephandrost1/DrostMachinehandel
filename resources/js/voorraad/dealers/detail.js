@@ -177,7 +177,6 @@ const fetchDealerPrice = async () => {
 const _handlePriceOverwritter = async () => {
     let price = canvas.querySelector("#hcontact-block #hprice .price .price_with_currency");
     const dealerVehicle = await fetchDealerPrice();
-    console.log(dealerVehicle);
     const vehicleIdElement = document.createElement("div");
     vehicleIdElement.classList = "hidden";
     vehicleIdElement.id = "get-vehicle-id";
@@ -188,6 +187,7 @@ const _handlePriceOverwritter = async () => {
         style: 'currency',
         currency: 'EUR',
     }).format(dealerVehicle.dealer_price);
+    price.classList = 'price_with_currency price_vehicle_updated';
 }
 
 const _handleCanvasListener = (targetNode) => {

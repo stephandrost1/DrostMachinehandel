@@ -5,6 +5,7 @@ export default {
     data() {
         return {
             startDate: "",
+            buyPrice: 0,
             endDate: "",
             amount: "1",
             user: {
@@ -32,6 +33,7 @@ export default {
     mounted() {
         this.fetchUser();
         this.fetchMainImage();
+        this.fetchBuyPrice();
     },
 
     computed: {
@@ -91,8 +93,11 @@ export default {
         },
 
         getBuyPrice() {
-            const price = document.querySelector('#pageContent #hprice .price_with_currency')
-            return price ? price.innerHTML : "";
+            const priceElement = document.querySelector('#pageContent #hprice .price_vehicle_updated');
+            
+            if (!priceElement) return 0;
+            
+            return priceElement.innerHTML;
         },
 
         isOccasions() {
@@ -101,12 +106,39 @@ export default {
     },
 
     methods: {
-        fetchMainImage() {
-            const vehicle = document.querySelector("#get-vehicle-id")
+        async fetchBuyPrice() {
+            let vehicle = document.querySelector("#get-vehicle-id");
+            let index = 0;
+            while (!vehicle && index > 10) {
+                index++;
+                setTimeout(() => {
+                    vehicle = document.querySelector("#get-vehicle-id");
+                }, 100);
+            }
 
-            if (!vehicle) {
+            axios.get(`/api/v2/dealer/vehicle/${vehicle.dataset.vehicleid}`)
+                .then((response) => {
+                    if (!this.mainImageSrc) {
+                        this.mainImageSrc = response.data.vehicle["image"]
+                    }
+                    this.buyPrice = new Intl.NumberFormat('nl-NL', {
+                        style: 'currency',
+                        currency: 'EUR',
+                    }).format(response.data.vehicle["dealer_price"]);
+                })
+
+            if (!this.buyPrice) {
+                const priceElement = document.querySelector('#pageContent #hprice .price_vehicle_updated');
+                if (!priceElement) return;
+                this.buyPrice = priceElement.innerHTML;
+            }
+        },
+
+        fetchMainImage() {
+            let vehicle = document.querySelector("#get-vehicle-id");
+
+            if (!vehicle || document.querySelector('.page-voorraad-detail') && !this.mainImageSrc) {
                 const image = document.querySelector('#pageContent #photoHolder .slick-list .slick-track .slick-slide img').src;
-                console.log(image);
                 this.mainImageSrc = image;
                 return;
             }
@@ -287,12 +319,12 @@ export default {
                                                     <p class="title">{{ getPricePerWeek }}</p>
                                                 </div>
                                             </div>
-                                            <div class="price" v-if="getBuyPrice">
+                                            <div class="price" v-if="buyPrice">
                                                 <div class="name">
                                                     <p class="title">Prijs:</p>
                                                 </div>
                                                 <div class="value">
-                                                    <p class="title" v-html="getBuyPrice"></p>
+                                                    <p class="title" v-html="buyPrice"></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -453,12 +485,12 @@ export default {
                                                     <p class="title">{{ getPricePerWeek }}</p>
                                                 </div>
                                             </div>
-                                            <div class="price" v-if="getBuyPrice">
+                                            <div class="price" v-if="isOccasions">
                                                 <div class="name">
                                                     <p class="title">Prijs:</p>
                                                 </div>
                                                 <div class="value">
-                                                    <p class="title" v-html="getBuyPrice"></p>
+                                                    <p class="title" v-html="buyPrice"></p>
                                                 </div>
                                             </div>
                                         </div>

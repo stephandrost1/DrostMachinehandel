@@ -155,7 +155,28 @@ const _handleDetailPageFormatter = () => {
     _reformatSpecs();
     _addContactButtons();
     _addShareButtons();
+    _handlePriceOverwritter();
     _addReservePopupElement();
+}
+
+const fetchDealerPrice = async () => {
+    const vehicleUrl = window.location.search;
+    const regexPtrn = /\/\d{4}\//;
+    const vehicleUri = vehicleUrl.replace(regexPtrn, '/')
+
+    return await axios.get("/api/v1/dealer/vehicle" + vehicleUri)
+        .then((response) => {
+            return response.data.vehicle;
+        })
+}
+
+const _handlePriceOverwritter = async () => {
+    const dealerVehicle = await fetchDealerPrice();
+    const vehicleIdElement = document.createElement("div");
+    vehicleIdElement.classList = "hidden";
+    vehicleIdElement.id = "get-vehicle-id";
+    vehicleIdElement.dataset.vehicleid = dealerVehicle.id;
+    canvas.appendChild(vehicleIdElement);
 }
 
 const _handleCanvasListener = (targetNode) => {
