@@ -121,10 +121,18 @@ export default {
                     if (!this.mainImageSrc) {
                         this.mainImageSrc = response.data.vehicle["image"]
                     }
-                    this.buyPrice = new Intl.NumberFormat('nl-NL', {
-                        style: 'currency',
-                        currency: 'EUR',
-                    }).format(response.data.vehicle["dealer_price"]);
+                    if (document.querySelector('.page-voorraad-detail')) {
+                        this.buyPrice = new Intl.NumberFormat('nl-NL', {
+                            style: 'currency',
+                            currency: 'EUR',
+                        }).format(response.data.vehicle["price"]);
+                    } else if (document.querySelector('.page-voorraad-detail')) {
+                        this.buyPrice = new Intl.NumberFormat('nl-NL', {
+                            style: 'currency',
+                            currency: 'EUR',
+                        }).format(response.data.vehicle["dealer_price"]);
+                    }
+           
                 })
 
             if (!this.buyPrice) {
