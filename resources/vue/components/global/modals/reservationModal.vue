@@ -107,39 +107,22 @@ export default {
 
     methods: {
         async fetchBuyPrice() {
-            let vehicle = document.querySelector("#get-vehicle-id");
-            let index = 0;
-            while (!vehicle && index > 10) {
-                index++;
-                setTimeout(() => {
-                    vehicle = document.querySelector("#get-vehicle-id");
-                }, 100);
-            }
+            const price = document.querySelector('.price_with_currency');
 
-            axios.get(`/api/v2/dealer/vehicle/${vehicle.dataset.vehicleid}`)
-                .then((response) => {
-                    if (!this.mainImageSrc) {
-                        this.mainImageSrc = response.data.vehicle["image"]
-                    }
-                    if (document.querySelector('.page-voorraad-detail')) {
+            // Select the elements with the class name "price_with_currency"
+            const observer = new MutationObserver(function (mutations) {
+                // Iterate over the mutations
+                mutations.forEach(function (mutation) {
+                    // Check if the mutation affected the "innerHTML" property
+                    if (mutation.type === 'childList' && mutation.target.classList.contains('price_with_currency')) {
+                        const buyPriceElement = document.querySelector('.price_with_currency');
                         this.buyPrice = new Intl.NumberFormat('nl-NL', {
                             style: 'currency',
                             currency: 'EUR',
-                        }).format(response.data.vehicle["price"]);
-                    } else if (document.querySelector('.page-voorraad-detail')) {
-                        this.buyPrice = new Intl.NumberFormat('nl-NL', {
-                            style: 'currency',
-                            currency: 'EUR',
-                        }).format(response.data.vehicle["dealer_price"]);
+                        }).format(buyPriceElement.innerHTML);
                     }
-           
-                })
-
-            if (!this.buyPrice) {
-                const priceElement = document.querySelector('#pageContent #hprice .price_vehicle_updated');
-                if (!priceElement) return;
-                this.buyPrice = priceElement.innerHTML;
-            }
+                });
+            });
         },
 
         fetchMainImage() {
