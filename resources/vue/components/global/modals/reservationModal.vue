@@ -143,18 +143,9 @@ export default {
         },
 
         fetchMainImage() {
-            let vehicle = document.querySelector("#get-vehicle-id");
-
-            if (!vehicle || document.querySelector('.page-voorraad-detail') && !this.mainImageSrc) {
-                const image = document.querySelector('#pageContent #photoHolder .slick-list .slick-track .slick-slide img').src;
-                this.mainImageSrc = image;
-                return;
-            }
-
-            axios.get(`/api/v2/vehicle/${vehicle.dataset.vehicleid}/images`)
-                .then((response) => {
-                    this.mainImageSrc = response.data.images[0];
-                })
+            const image = document.querySelector('#pageContent #photoHolder .slick-list .slick-track .slick-slide img').src;
+            this.mainImageSrc = image;
+            return;
         },
 
         addSlashes(string) {
