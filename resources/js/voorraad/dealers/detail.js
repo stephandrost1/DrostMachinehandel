@@ -170,7 +170,6 @@ const fetchDealerPrice = async () => {
 
     return await axios.get("/api/v1/dealer/vehicle" + vehicleUri)
         .then((response) => {
-            console.log(response);
             return response.data.vehicle;
         })
 }
