@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
-    <h1>Reserveringsbevestiging drostmachinehandel.com</h1>
+    <h1>Aankoopbevestiging drostmachinehandel.com</h1>
     <br><br>
     <p><b>Machine:</b> {{ $details["vehicle"] }}</p>
-    <p><b>Reserving aangemaakt op:</b> {{ $details["currentTime"] }}</p>
+    <p><b>Aankoop gedaan op:</b> {{ $details["currentTime"] }}</p>
 </body>
 </html>

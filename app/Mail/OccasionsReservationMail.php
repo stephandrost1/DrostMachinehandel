@@ -20,8 +20,8 @@ class OccasionsReservationMail extends Mailable
      */
     public function __construct($details)
     {
-        $this->subject = "Reservering bevestigingsmail: " . $details["vehicle"];
-        $this->title = "Reservering bevestiging";
+        $this->subject = "Aankoop bevestigingsmail: " . $details["vehicle"];
+        $this->title = "Aankoop bevestiging";
         $this->details = $details;
     }
 
