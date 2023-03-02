@@ -471,11 +471,14 @@ export default {
                             </div>
                             <div class="footer">
                                 <div class="alert">
-                                    <p>Wanneer u op reserveren klikt zal u een bevestigingsmail krijgen met daarin de
+                                    <p v-if="!isOccasions">Wanneer u op reserveren klikt zal u een bevestigingsmail krijgen met daarin de
                                         gegevens van de reservering!</p>
+                                    <p v-else>Wanneer u op kopen klikt zal u een bevestigingsmail krijgen met daarin de
+                                        gegevens van uw aankoop!</p>
                                 </div>
                                 <div @click="_handleSave" class="submit-form cursor-pointer">
-                                    <p class="title">Machine reserveren</p>
+                                    <p v-if="!isOccasions" class="title">Machine reserveren</p>
+                                    <p v-else class="title">Machine kopen</p>
                                 </div>
                             </div>
                         </div>
