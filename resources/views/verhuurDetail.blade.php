@@ -64,7 +64,7 @@
                             <span><i class="fab fa-whatsapp icon"></i></span>
                             <span>Whatsapp</span>
                         </a>
-                        <a href="mailto:?subject={{ urlencode('Bekijk deze machine op drostmachinehandel.nl') }}&body={{ urlencode('Link: ' .request()->url()) }}" class="link">
+                        <a href="mailto:?subject={{ urlencode('Bekijk deze machine op drostmachinehandel.com') }}&body={{ urlencode('Link: ' .request()->url()) }}" class="link">
                             <span><i class="far fa-envelope-open icon"></i></span>
                             <span>E-mail</span>
                         </a>

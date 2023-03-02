@@ -43,7 +43,7 @@ class ContactController extends Controller
     public function submitRequest(Request $request)
     {
         $details = [
-            'title' => 'Nieuw bericht op Drostmachinehandel.nl',
+            'title' => 'Nieuw bericht op Drostmachinehandel.com',
             'firstname' => $request->firstname ?? 'Voornaam is niet beschikbaar',
             'lastname' => $request->lastname ?? 'Achternaam is niet beschikbaar',
             'phonenumber' => $request->phonenumber ?? 'Niet ingevuld',

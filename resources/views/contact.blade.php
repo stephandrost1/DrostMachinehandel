@@ -48,7 +48,7 @@
       
       @else
         <p>Er is iets fout gegaan bij het versturen van uw bericht! <a href="/contact">Probeer het opnieuw!</a></p>
-        <p>Of mail naar <b>info@drostmachinehandel.nl</b></p>
+        <p>Of mail naar <b>info@drostmachinehandel.com</b></p>
       @endif
     </div>
   </div>

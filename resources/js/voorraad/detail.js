@@ -40,10 +40,10 @@ const _addContactButtons = () => {
 
     const buttonsText = {
         "reserve": {
-            "en": "Reserve",
+            "en": "Purchase",
             "fr": "Réserver",
-            "de": "Buchen",
-            "nl": "Reserveren",
+            "de": "Achat",
+            "nl": "Kopen",
         },
         "rent": {
             "en": "Contact",
@@ -127,7 +127,7 @@ const _addShareButtons = () => {
     mailLinkWrapper.classList = "mail-link-wrapper"
     const mailLink = document.createElement("a");
     mailLink.classList = "mail-link"
-    mailLink.href = "mailto:?subject=Bekijk deze machine op DrostMachinehandel.nl&body=Bekijk deze machine van Drostmachinehandel: " + window.location.href
+    mailLink.href = "mailto:?subject=Bekijk deze machine op DrostMachinehandel.com&body=Bekijk deze machine van Drostmachinehandel: " + window.location.href
     const mailLinkIcon = document.createElement("i");
     mailLinkIcon.classList = "far fa-envelope-open"
 

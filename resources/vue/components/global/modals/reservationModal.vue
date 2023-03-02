@@ -247,7 +247,8 @@ export default {
                     <div class="header-wrapper">
                         <div class="header">
                             <div class="title">
-                                <h1 style="color: #E56D01 !important">Machine reserveren</h1>
+                                <h1 v-if="!isOccasions" style="color: #E56D01 !important">Machine reserveren</h1>
+                                <h1 v-else style="color: #E56D01 !important">Machine kopen</h1>
                             </div>
                             <div class="cursor-pointer close-modal" @click="_handleCloseModal">X</div>
                         </div>

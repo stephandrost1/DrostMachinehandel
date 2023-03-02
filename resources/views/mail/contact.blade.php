@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
-    <h1>Nieuw bericht op Drostmachinehandel.nl</h1>
+    <h1>Nieuw bericht op Drostmachinehandel.com</h1>
     <br><br>
     <p><b>Naam:</b> {{ $details['firstname'] }} {{ $details['lastname'] }}</p>
     <p><b>Telefoonnummer:</b> {{ $details["phonenumber"] }}</p>
