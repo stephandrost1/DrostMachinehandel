@@ -165,9 +165,12 @@ const _handleDetailPageFormatter = () => {
 
 const fetchDealerPrice = async () => {
     const vehicleUrl = window.location.search;
+    const regexPtrn = /\/\d{4}\//;
+    const vehicleUri = vehicleUrl.replace(regexPtrn, '/')
 
-    return await axios.get("/api/v1/dealer/vehicle/" + vehicleUrl)
+    return await axios.get("/api/v1/dealer/vehicle" + vehicleUri)
         .then((response) => {
+            console.log(response);
             return response.data.vehicle;
         })
 }
@@ -175,7 +178,7 @@ const fetchDealerPrice = async () => {
 const _handlePriceOverwritter = async () => {
     let price = canvas.querySelector("#hcontact-block #hprice .price .price_with_currency");
     const dealerVehicle = await fetchDealerPrice();
-
+    console.log(dealerVehicle);
     const vehicleIdElement = document.createElement("div");
     vehicleIdElement.classList = "hidden";
     vehicleIdElement.id = "get-vehicle-id";

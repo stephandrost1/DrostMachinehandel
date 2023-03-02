@@ -48,10 +48,10 @@ class CreateOccasionsReservationRequest extends FormRequest
     public function messages()
     {
         return [
-            'vehicle.name.required' => 'Machine naam indentificator niet gevonden!',
-            'vehicle.image.required' => 'Machine afbeelding indentificator niet gevonden!',
-            'vehicle.price.required' => 'Machine prijs indentificator niet gevonden!',
-            'vehicle.url.required' => 'Machine indentificator niet gevonden!',
+            'vehicle.name.required' => 'Er is iets fout gegaan, probeer het later opnieuw!',
+            'vehicle.image.required' => 'Er is iets fout gegaan, probeer het later opnieuw!',
+            'vehicle.price.required' => 'Er is iets fout gegaan, probeer het later opnieuw!',
+            'vehicle.url.required' => 'Er is iets fout gegaan, probeer het later opnieuw!',
             'amount.required' => 'Er is geen geldig aantal machines gevonden!',
             'amount.numeric' => 'Het aantal machines moet een cijfer zijn!',
             'startDate.required' => 'Er is geen start datum ingevuld!',

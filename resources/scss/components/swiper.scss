@@ -5,10 +5,6 @@
         }
 
         .swiper-slide {
-            @media screen and (min-width: 1280px) {
-                width: 25% !important;
-            }
-
             .swiper-content {
                 height: 2.5rem !important;
             }

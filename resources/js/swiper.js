@@ -13,6 +13,7 @@ const swiperOptions = {
     loop: false,
     speed: 1000,
     effect: 'fade',
+    slidesPerView: 1,
     fadeEffect: {
         crossFade: true
     },
@@ -25,7 +26,7 @@ const swiperOptions = {
         },
         976: {
             slidesPerView: 3,
-        }
+        },
     }
 }
 

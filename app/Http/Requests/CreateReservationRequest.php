@@ -48,7 +48,7 @@ class CreateReservationRequest extends FormRequest
     public function messages()
     {
         return [
-            'vehicleId.required' => 'Machine indentificator niet gevonden!',
+            'vehicleId.required' => 'Er is iets fout gegaan, probeer het later opnieuw!',
             'amount.required' => 'Er is geen geldig aantal machines gevonden!',
             'amount.numeric' => 'Het aantal machines moet een cijfer zijn!',
             'startDate.required' => 'Er is geen start datum ingevuld!',

@@ -27,10 +27,6 @@ const getVehicleElements = async () => {
         const vehicleQuery = vehicleHref.split("vehicles/")[1];
         const dealerVehicle = dealerVehicles.filter((v) => {
             const vQuery = v.vehicle_url.replace("?svm=/stock/", "");
-            console.log("-------------")
-            console.log("vehicles/" + vehicleQuery);
-            console.log(vQuery);
-            console.log("-------------")
             return v.vehicle_name == vehicleName && vQuery == "vehicles/" + vehicleQuery
         });
         setVehicleDealerPrice(vehicle, dealerVehicle)

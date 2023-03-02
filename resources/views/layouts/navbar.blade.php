@@ -2,7 +2,6 @@
     {{-- Orange header --}}
     <div class="swiper h-fit swiper-container-element">
       <div class="swiper-wrapper h-10 w-full text-white font-extrabold text-xl">
-        <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-concierge-bell"></i> {{ __('content/navbar.machine-service') }}</div></div>
         <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-sort-amount-up"></i> {{ __('content/navbar.available-stock') }}</div></div>
         <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-dolly"></i> {{ __('content/navbar.transport') }}</div></div>
         <div class="swiper-slide bg-primary"><div class="swiper-content mx-auto w-fit py-3 flex items-center gap-2"><i class="fas fa-exchange-alt"></i> {{ __('content/navbar.trade-in') }}</div></div>
