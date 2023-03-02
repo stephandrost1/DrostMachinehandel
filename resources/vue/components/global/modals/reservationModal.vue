@@ -33,7 +33,6 @@ export default {
     mounted() {
         this.fetchUser();
         this.fetchMainImage();
-        this.fetchBuyPrice();
     },
 
     computed: {
@@ -106,20 +105,6 @@ export default {
     },
 
     methods: {
-        async fetchBuyPrice() {
-            let price = document.querySelector('.price_vehicle_updated');
-            let index = 0;
-
-            while (!price && index < 10) {
-                setTimeout(() => {
-                    index++
-                    price = document.querySelector('.price_vehicle_updated');
-                });
-            }
-
-            this.buyPrice = price.innerHTML;
-        },
-
         fetchMainImage() {
             const image = document.querySelector('#pageContent #photoHolder .slick-list .slick-track .slick-slide img').src;
             this.mainImageSrc = image;
@@ -460,14 +445,6 @@ export default {
                                                 </div>
                                                 <div class="value">
                                                     <p class="title">{{ getPricePerWeek }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="price" v-if="isOccasions">
-                                                <div class="name">
-                                                    <p class="title">Prijs:</p>
-                                                </div>
-                                                <div class="value">
-                                                    <p class="title" v-html="buyPrice"></p>
                                                 </div>
                                             </div>
                                         </div>
